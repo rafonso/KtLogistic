@@ -34,6 +34,7 @@ class MainView : View("Logistic Equation") {
     private  val spnIteractions     : Spinner<Int>              by fxid()
     private  val logisticChart      : LineChart<Double, Double> by fxid()
     private  val iteractionsChart   : LineChart<Int   , Double> by fxid()
+    private  val iteractionsXAxis   : NumberAxis                by fxid()
     // @formatter:on
 
     // @formatter:off
@@ -58,13 +59,13 @@ class MainView : View("Logistic Equation") {
         spnIteractions.valueFactory = iteractionsValueFactory
         initScrollSpinner(spnIteractions)
         spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-//        spnIteractions.valueProperty().addListener { observable, oldValue, newValue ->
-//            println(newValue)
-//            (iteractionsChart.xAxis as NumberAxis).upperBound = newValue.toDouble()
-//        }
+        spnIteractions.valueProperty().addListener { observable, oldValue, newValue ->
+            println(newValue)
+            iteractionsXAxis.upperBound = newValue.toDouble()
+            iteractionsXAxis.tickUnit = newValue.toDouble() / 10
+        }
 
         (logisticChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-//        (iteractionsChart.xAxis as NumberAxis).upperBoundProperty().bind(iteractionsValueFactory.valueProperty())
     }
 
     private fun initScrollSpinner(spinner: Spinner<*>) {
@@ -78,7 +79,7 @@ class MainView : View("Logistic Equation") {
 
     private fun initCtrlMouseSpinner(spinner: Spinner<Double>, stepProperty: IntegerProperty) {
         // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
-        spinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
+        spinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
         spinner.addEventFilter(MouseEvent.MOUSE_CLICKED, EventHandler { event ->
             if (!event.isControlDown) {
                 return@EventHandler

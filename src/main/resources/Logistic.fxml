@@ -62,7 +62,7 @@
     <bottom>
         <LineChart fx:id="iteractionsChart" prefHeight="100.0" BorderPane.alignment="CENTER">
             <xAxis>
-                <NumberAxis side="BOTTOM" upperBound="95.0" />
+                <NumberAxis fx:id="iteractionsXAxis" autoRanging="false" side="BOTTOM" tickUnit="10.0" />
             </xAxis>
             <yAxis>
                 <NumberAxis side="LEFT" upperBound="0.95" />
