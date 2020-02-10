@@ -7,6 +7,7 @@ import javafx.event.EventHandler
 import javafx.geometry.Pos
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import javafx.scene.chart.XYChart
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.ContextMenuEvent
@@ -24,6 +25,7 @@ import kotlin.math.pow
 private const val MAX_DELTA = 0.1
 private const val MIN_STEP = 1
 private const val MAX_STEP = 7
+private const val X_STEPS = 100
 
 class MainView : View("Logistic Equation") {
 
@@ -45,12 +47,14 @@ class MainView : View("Logistic Equation") {
     private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, MAX_DELTA)
 
     private val iteractionsValueFactory =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
+
     // @formatter:on
 
     init {
         spnR.valueFactory = rValueFactory
         initScrollSpinner(spnR)
         initCtrlMouseSpinner(spnR, deltaRProperty)
+        spnR.valueProperty().onChange { loadData() }
 
         spnX0.valueFactory = x0ValueFactory
         initScrollSpinner(spnX0)
@@ -59,13 +63,31 @@ class MainView : View("Logistic Equation") {
         spnIteractions.valueFactory = iteractionsValueFactory
         initScrollSpinner(spnIteractions)
         spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-        spnIteractions.valueProperty().addListener { observable, oldValue, newValue ->
-            println(newValue)
+        spnIteractions.valueProperty().addListener { _, _, newValue ->
             iteractionsXAxis.upperBound = newValue.toDouble()
             iteractionsXAxis.tickUnit = newValue.toDouble() / 10
         }
 
+
+
+        (logisticChart.xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
         (logisticChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+
+        (iteractionsChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+
+        loadData()
+    }
+
+    private fun loadData() {
+        logisticChart.data.clear()
+        logisticChart.series("xy") {
+            cssclass("line1")
+            data = listOf(data(0.0, 0.0), data(1.0, 1.0)).observable()
+        }
+        logisticChart.series("parable") {
+            data = (0..X_STEPS).map { it.toDouble() / X_STEPS }
+                    .map { XYChart.Data(it, it * spnR.value * (1.0 - it)) }.observable()
+        }
     }
 
     private fun initScrollSpinner(spinner: Spinner<*>) {
@@ -108,6 +130,7 @@ class MainView : View("Logistic Equation") {
             }
         }
     }
+
 
 }
 
