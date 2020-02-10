@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
@@ -17,36 +18,45 @@
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <Label fx:id="lblR" text="R =" textAlignment="RIGHT">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </Label>
-            <Spinner fx:id="spnR" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-            <Label fx:id="lblx0" text="x0 =" GridPane.columnIndex="2">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <Spinner fx:id="spnX0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
-            <Label fx:id="lblIteractions" text="Iteractions = " GridPane.columnIndex="4">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </Label>
-            <Spinner fx:id="spnIteractions" GridPane.columnIndex="5" GridPane.halignment="RIGHT" />
+            <FlowPane alignment="TOP_CENTER" GridPane.halignment="RIGHT">
+               <children>
+                  <Label fx:id="lblR" text="R =" textAlignment="RIGHT">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <Spinner fx:id="spnR" />
+               </children>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
+               <children>
+                  <Label fx:id="lblx0" text="x0 =" textAlignment="RIGHT">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Spinner fx:id="spnX0" />
+               </children>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+               <children>
+                  <Label fx:id="lblIteractions" text="Iteractions =" textAlignment="RIGHT">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <Spinner fx:id="spnIteractions" />
+               </children>
+            </FlowPane>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </GridPane>
    </top>
     <center>

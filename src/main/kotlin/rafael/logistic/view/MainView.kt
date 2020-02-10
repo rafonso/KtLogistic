@@ -3,16 +3,13 @@ package rafael.logistic.view
 import javafx.beans.property.IntegerProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.event.Event
-import javafx.event.EventHandler
 import javafx.geometry.Pos
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.chart.XYChart
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.scene.input.ContextMenuEvent
-import javafx.scene.input.MouseButton
-import javafx.scene.input.MouseEvent
+import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
 import javafx.util.StringConverter
 import tornadofx.*
@@ -70,8 +67,8 @@ class MainView : View("Logistic Equation") {
 
 
 
-        (logisticChart.xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        (logisticChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        (logisticChart.xAxis    as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        (logisticChart.yAxis    as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
 
         (iteractionsChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
 
@@ -97,21 +94,38 @@ class MainView : View("Logistic Equation") {
             if (event.deltaY > 0) spinner.increment(delta)
             if (event.deltaY < 0) spinner.decrement(delta)
         }
+        spinner.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
+            if (event.isControlDown) {
+                if (event.code == KeyCode.UP) {
+                    spinner.increment(10)
+                } else if (event.code == KeyCode.DOWN) {
+                    spinner.increment(-10)
+                }
+            }
+        }
     }
 
     private fun initCtrlMouseSpinner(spinner: Spinner<Double>, stepProperty: IntegerProperty) {
         // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
         spinner.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
-        spinner.addEventFilter(MouseEvent.MOUSE_CLICKED, EventHandler { event ->
-            if (!event.isControlDown) {
-                return@EventHandler
+        spinner.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
+            if (event.isControlDown) {
+                if (event.button == MouseButton.PRIMARY) {
+                    stepProperty.value = max(MIN_STEP, stepProperty.value - 1)
+                } else if (event.button == MouseButton.SECONDARY) {
+                    stepProperty.value = min(MAX_STEP, stepProperty.value + 1)
+                }
             }
-            if (event.button == MouseButton.PRIMARY) {
-                stepProperty.value = max(MIN_STEP, stepProperty.value - 1)
-            } else if (event.button == MouseButton.SECONDARY) {
-                stepProperty.value = min(MAX_STEP, stepProperty.value + 1)
+        }
+        spinner.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
+            if (event.isControlDown) {
+                if (event.code == KeyCode.RIGHT) {
+                    stepProperty.value = min(MAX_STEP, stepProperty.value + 1)
+                } else if (event.code == KeyCode.LEFT) {
+                    stepProperty.value = min(MAX_STEP, stepProperty.value - 1)
+                }
             }
-        })
+        }
 
         stepProperty.addListener(ChangeListener { _, _, newStep -> stepChanged(spinner, newStep.toInt()) })
         stepChanged(spinner, stepProperty.value)
