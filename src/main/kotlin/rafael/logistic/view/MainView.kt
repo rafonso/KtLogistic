@@ -12,6 +12,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
+import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 import javafx.scene.shape.Line
 import javafx.scene.shape.Shape
@@ -201,7 +202,7 @@ class MainView : View("Logistic Equation") {
             is EndingEvent -> {
                 val t1 = Instant.now()
                 val deltaT = Duration.between(t0, t1)
-                println(deltaT)
+//                println(deltaT)
             }
         }
     }
@@ -209,6 +210,8 @@ class MainView : View("Logistic Equation") {
     private fun loadData() {
         this.logisticData.value = generator.generate(spnX0.value, spnR.value, spnIteractions.value)
     }
+
+//    fun
 
 
     private fun reloadPlots() {
@@ -238,9 +241,13 @@ class MainView : View("Logistic Equation") {
                     .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
             (1 until coords.size)
                     .map { i -> Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                        l.stroke = if(i % 2 == 0) c("green") else c("blue")
+                        l.style {
+                            val h = (1.0 - i.toDouble() / coords.size) * 240
+                            stroke = Color.hsb(h, 1.0, 0.5, 0.5 * i / coords.size + 0.5)
+                        }
                     } }
                     .forEach { l -> logisticChartBackgound.add(l) }
+            println()
         }
     }
 
