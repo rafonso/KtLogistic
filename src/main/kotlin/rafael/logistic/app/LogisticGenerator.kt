@@ -2,11 +2,11 @@ package rafael.logistic.app
 
 import java.time.Instant
 
-sealed class LogisticEvent() {
+sealed class LogisticEvent {
     abstract val interaction: Int
     abstract val priorX: Double
     abstract val x: Double
-    val instant = Instant.now()
+    val instant = Instant.now()!!
 }
 
 data class StartingEvent(override val x: Double) : LogisticEvent() {
@@ -20,7 +20,7 @@ data class EndingEvent(override val interaction: Int, override val priorX: Doubl
 
 typealias LogisticEventListener = (LogisticEvent) -> Unit
 
-class LogisticGenerator() {
+class LogisticGenerator {
 
     private val listeners = mutableListOf<LogisticEventListener>()
 
@@ -46,10 +46,6 @@ class LogisticGenerator() {
 
     fun addStatusListener(listener: LogisticEventListener) {
         listeners.add(listener)
-    }
-
-    fun removeStatusListener(listener: LogisticEventListener) {
-        listeners.remove(listener)
     }
 
 }
