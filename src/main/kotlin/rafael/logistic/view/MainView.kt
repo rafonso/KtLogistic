@@ -1,20 +1,13 @@
 package rafael.logistic.view
 
 import javafx.beans.property.IntegerProperty
-import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.event.Event
 import javafx.geometry.Pos
-import javafx.scene.chart.LineChart
-import javafx.scene.chart.NumberAxis
-import javafx.scene.chart.XYChart
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
-import javafx.scene.paint.Color
-import javafx.scene.shape.Line
-import javafx.util.StringConverter
 import rafael.logistic.app.*
 import tornadofx.*
 import java.math.RoundingMode
@@ -28,20 +21,17 @@ import kotlin.math.pow
 private const val MAX_DELTA = 0.1
 private const val MIN_STEP = 1
 private const val MAX_STEP = 7
-private const val X_STEPS = 100
-
-typealias Coord = Pair<Double, Double>
+const val X_STEPS = 100
 
 class MainView : View("Logistic Equation") {
 
     // @formatter:off
-    override val root               : BorderPane                by fxml("/Logistic.fxml")
-    private  val spnR               : Spinner<Double>           by fxid()
-    private  val spnX0              : Spinner<Double>           by fxid()
-    private  val spnIteractions     : Spinner<Int>              by fxid()
-    private  val logisticChart      : LineChart<Double, Double> by fxid()
-    private  val iteractionsChart   : LineChart<Int   , Double> by fxid()
-    private  val iteractionsXAxis   : NumberAxis                by fxid()
+    override val root               : BorderPane        by fxml("/Logistic.fxml")
+    private  val spnR               : Spinner<Double>   by fxid()
+    private  val spnX0              : Spinner<Double>   by fxid()
+    private  val spnIteractions     : Spinner<Int>      by fxid()
+    private  val logisticChart      : LogisticChart     by fxid()
+    private  val iteractionsChart   : IteractionChart   by fxid()
     // @formatter:on
 
     // @formatter:off
@@ -55,13 +45,7 @@ class MainView : View("Logistic Equation") {
 
     private val generator                   =   LogisticGenerator()
 
-    private val runningProperty             =   SimpleBooleanProperty(this, "running"   , false )
-
     private var t0: Instant?                =   null
-
-    private val logisticChartBackgound      =   logisticChart   .lookup(".chart-plot-background")
-
-    private val iteractionsChartBackground  =   iteractionsChart.lookup(".chart-plot-background")
 
     private val logisticData                =   emptyList<Double>().toProperty()
 
@@ -69,7 +53,7 @@ class MainView : View("Logistic Equation") {
 
     init {
         generator.addStatusListener(this::dataGenerated)
-
+//        val x: KProperty<Boolean> = generator::calculating
         spnR.valueFactory = rValueFactory
         initScrollSpinner(spnR)
         initCtrlMouseSpinner(spnR, deltaRProperty)
@@ -83,29 +67,16 @@ class MainView : View("Logistic Equation") {
         spnIteractions.valueFactory = iteractionsValueFactory
         initScrollSpinner(spnIteractions)
         spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-        spnIteractions.valueProperty().addListener { _, _, newValue ->
-            iteractionsXAxis.upperBound = newValue.toDouble()
-            iteractionsXAxis.tickUnit = newValue.toDouble() / 10
-            loadData()
-        }
+        spnIteractions.valueProperty().onChange { loadData() }
 
-        (logisticChart.xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        (logisticChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        (iteractionsChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        logisticChart.rProperty.bind(spnR.valueProperty())
+        logisticChart.observableData.bind(logisticData)
 
-        logisticChart.boundsInParentProperty().onChange { refreshPlots() }
+        iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
+        iteractionsChart.observableData.bind(logisticData)
 
-        logisticData.onChange { reloadPlots() }
         loadData()
     }
-
-    private fun Double.toLogisticXPos() = logisticChart.xAxis.getDisplayPosition(this)
-
-    private fun Double.toLogisticYPos() = logisticChart.yAxis.getDisplayPosition(this)
-
-    private fun Int    .toIteractionsXPos() = iteractionsChart.xAxis.getDisplayPosition(this)
-
-    private fun Double.toIteractionsYPos() = iteractionsChart.yAxis.getDisplayPosition(this)
 
     private fun initScrollSpinner(spinner: Spinner<*>) {
         spinner.setOnScroll { event ->
@@ -181,62 +152,5 @@ class MainView : View("Logistic Equation") {
     private fun loadData() {
         this.logisticData.value = generator.generate(spnX0.value, spnR.value, spnIteractions.value)
     }
-
-    private fun reloadPlots() {
-        logisticChart.data.clear()
-        logisticChart.series("xy") {
-            cssclass("line1")
-            data = listOf(data(0.0, 0.0), data(1.0, 1.0)).observable()
-        }
-        logisticChart.series("parable") {
-            data = (0..X_STEPS).map { it.toDouble() / X_STEPS }
-                    .map { XYChart.Data(it, it * spnR.value * (1.0 - it)) }.observable()
-        }
-
-        refreshPlots()
-    }
-
-    private fun refreshPlots() {
-        runLater {
-            logisticChartBackgound.getChildList()?.clear()
-            val data = logisticData.value
-            val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-                    .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                    .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
-            (1 until coords.size)
-                    .map { i -> Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                        l.style {
-                            val h = (1.0 - i.toDouble() / coords.size) * 240
-                            stroke = Color.hsb(h, 1.0, 0.5, 0.5 * i / coords.size + 0.5)
-                        }
-                    } }
-                    .forEach { l -> logisticChartBackgound.add(l) }
-        }
-
-        runLater {
-            iteractionsChartBackground.getChildList()?.clear()
-            val coords = logisticData.value.mapIndexed { i, d -> Pair(i.toIteractionsXPos(), d.toIteractionsYPos()) }
-            (1 until coords.size)
-                    .map { i -> Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                        l.style {
-                            val h = (1.0 - i.toDouble() / coords.size) * 240
-                            stroke = Color.hsb(h, 1.0, 0.5, 0.5 * i / coords.size + 0.5)
-                        }
-                    } }
-                    .forEach { l -> iteractionsChartBackground.add(l) }
-
-        }
-    }
-
-}
-
-
-class SpinnerConverter(size: Int) : StringConverter<Double>() {
-
-    private val format = "%.${size}f"
-
-    override fun toString(value: Double?): String = if (value != null) format.format(value) else ""
-
-    override fun fromString(string: String?): Double? = string?.toDoubleOrNull()
 
 }
