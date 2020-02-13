@@ -13,9 +13,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
-import javafx.scene.shape.Circle
 import javafx.scene.shape.Line
-import javafx.scene.shape.Shape
 import javafx.util.StringConverter
 import rafael.logistic.app.*
 import tornadofx.*
@@ -47,23 +45,25 @@ class MainView : View("Logistic Equation") {
     // @formatter:on
 
     // @formatter:off
-    private val deltaRProperty          =   SimpleIntegerProperty(this, "deltaR"    , 1     )
-    private val rValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4.0, 1.0, MAX_DELTA)
+    private val deltaRProperty              =   SimpleIntegerProperty(this, "deltaR"    , 1     )
+    private val rValueFactory               =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4.0, 1.0, MAX_DELTA)
 
-    private val deltaX0Property         =   SimpleIntegerProperty(this, "deltaX0"   , 1     )
-    private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, MAX_DELTA)
+    private val deltaX0Property             =   SimpleIntegerProperty(this, "deltaX0"   , 1     )
+    private val x0ValueFactory              =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, MAX_DELTA)
 
-    private val iteractionsValueFactory =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
+    private val iteractionsValueFactory     =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
 
-    private val generator               =   LogisticGenerator()
+    private val generator                   =   LogisticGenerator()
 
-    private val runningProperty         =   SimpleBooleanProperty(this, "running"   , false )
+    private val runningProperty             =   SimpleBooleanProperty(this, "running"   , false )
 
-    private var t0: Instant?            =   null
+    private var t0: Instant?                =   null
 
-    private val logisticChartBackgound  =   logisticChart.lookup(".chart-plot-background")
+    private val logisticChartBackgound      =   logisticChart   .lookup(".chart-plot-background")
 
-    private val logisticData            =   emptyList<Double>().toProperty()
+    private val iteractionsChartBackground  =   iteractionsChart.lookup(".chart-plot-background")
+
+    private val logisticData                =   emptyList<Double>().toProperty()
 
     // @formatter:on
 
@@ -93,9 +93,9 @@ class MainView : View("Logistic Equation") {
         (logisticChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
         (iteractionsChart.yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
 
-        logisticChart.boundsInParentProperty().onChange { refreshLogisticPlot() }
+        logisticChart.boundsInParentProperty().onChange { refreshPlots() }
 
-        logisticData.also { it.onChange { reloadPlots() } }
+        logisticData.onChange { reloadPlots() }
         loadData()
     }
 
@@ -103,37 +103,9 @@ class MainView : View("Logistic Equation") {
 
     private fun Double.toLogisticYPos() = logisticChart.yAxis.getDisplayPosition(this)
 
-    private tailrec fun generateLogisticData(itValues: Iterator<Double>, pt1: Pair<Double, Double>, shapes: List<Shape>): List<Shape> =
-            if (!itValues.hasNext()) shapes // .also { println(it) }
-            else {
-                val pt2 = Pair(pt1.second, itValues.next())
+    private fun Int    .toIteractionsXPos() = iteractionsChart.xAxis.getDisplayPosition(this)
 
-                val c1 = Circle(pt1.first.toLogisticXPos(), pt1.second.toLogisticYPos(), 2.0).also {
-                    it.fill = c("green")
-                }
-                val c2 = Circle(pt2.first.toLogisticXPos(), pt2.first.toLogisticYPos(), 2.0).also {
-                    it.fill = c("blue")
-                }
-                generateLogisticData(itValues, pt2, shapes + c1 + c2)
-            }
-
-    private tailrec fun coordToShape(itCoord: ListIterator<Coord>, priorCoord: Coord, shapes: List<Shape>): List<Shape> =
-            if (!itCoord.hasNext()) shapes
-            else {
-                val strColor = if (itCoord.nextIndex() % 2 == 0) "green" else "blue"
-                val coord = itCoord.next()
-                val c2 = Circle(coord.first.toLogisticXPos(), coord.first.toLogisticYPos(), 2.0).also {
-                    it.fill = c(strColor)
-                }
-                coordToShape(itCoord, coord, shapes + c2)
-            }
-
-    private tailrec fun dataToCoord(itData: Iterator<Double>, priorX: Double, pairs: List<Coord>): List<Coord> =
-            if (!itData.hasNext()) pairs
-            else {
-                val x = itData.next()
-                dataToCoord(itData, x, pairs + Pair(priorX, x) + Pair(x, x))
-            }
+    private fun Double.toIteractionsYPos() = iteractionsChart.yAxis.getDisplayPosition(this)
 
     private fun initScrollSpinner(spinner: Spinner<*>) {
         spinner.setOnScroll { event ->
@@ -202,7 +174,6 @@ class MainView : View("Logistic Equation") {
             is EndingEvent -> {
                 val t1 = Instant.now()
                 val deltaT = Duration.between(t0, t1)
-//                println(deltaT)
             }
         }
     }
@@ -210,9 +181,6 @@ class MainView : View("Logistic Equation") {
     private fun loadData() {
         this.logisticData.value = generator.generate(spnX0.value, spnR.value, spnIteractions.value)
     }
-
-//    fun
-
 
     private fun reloadPlots() {
         logisticChart.data.clear()
@@ -224,17 +192,13 @@ class MainView : View("Logistic Equation") {
             data = (0..X_STEPS).map { it.toDouble() / X_STEPS }
                     .map { XYChart.Data(it, it * spnR.value * (1.0 - it)) }.observable()
         }
-        refreshLogisticPlot()
 
-        iteractionsChart.data.clear()
-        iteractionsChart.series("iteractions") {
-            data = logisticData.value.mapIndexed { index, d -> XYChart.Data(index, d) }.observable()
-        }
+        refreshPlots()
     }
 
-    private fun refreshLogisticPlot() {
-        logisticChartBackgound.replaceChildren()
+    private fun refreshPlots() {
         runLater {
+            logisticChartBackgound.getChildList()?.clear()
             val data = logisticData.value
             val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                     .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
@@ -247,7 +211,20 @@ class MainView : View("Logistic Equation") {
                         }
                     } }
                     .forEach { l -> logisticChartBackgound.add(l) }
-            println()
+        }
+
+        runLater {
+            iteractionsChartBackground.getChildList()?.clear()
+            val coords = logisticData.value.mapIndexed { i, d -> Pair(i.toIteractionsXPos(), d.toIteractionsYPos()) }
+            (1 until coords.size)
+                    .map { i -> Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
+                        l.style {
+                            val h = (1.0 - i.toDouble() / coords.size) * 240
+                            stroke = Color.hsb(h, 1.0, 0.5, 0.5 * i / coords.size + 0.5)
+                        }
+                    } }
+                    .forEach { l -> iteractionsChartBackground.add(l) }
+
         }
     }
 
