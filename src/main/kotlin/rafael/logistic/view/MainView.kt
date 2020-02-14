@@ -21,7 +21,7 @@ import kotlin.math.pow
 private const val MAX_DELTA = 0.1
 private const val MIN_STEP = 1
 private const val MAX_STEP = 7
-const val X_STEPS = 100
+//const val X_STEPS = 100
 
 class MainView : View("Logistic Equation") {
 
@@ -53,7 +53,7 @@ class MainView : View("Logistic Equation") {
 
     init {
         generator.addStatusListener(this::dataGenerated)
-//        val x: KProperty<Boolean> = generator::calculating
+
         spnR.valueFactory = rValueFactory
         initScrollSpinner(spnR)
         initCtrlMouseSpinner(spnR, deltaRProperty)

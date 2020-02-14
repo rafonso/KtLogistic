@@ -14,9 +14,12 @@ class SpinnerConverter(size: Int) : StringConverter<Double>() {
 
 }
 
+const val MIN_OPACITY = 0.2
+const val MAX_H = 240.0
+
 fun getStroke(x: Double): Color {
-    val h = (1.0 - x) * 240
-    val o = 0.4 + 0.6 * x
+    val h = (1.0 - x) * MAX_H
+    val o = MIN_OPACITY + (1.0 - MIN_OPACITY) * x
 
     return Color.hsb(h, 1.0, 0.5, o)
 }

@@ -19,42 +19,44 @@ class LogisticChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-    private val logisticChartBackgound: Node = super.lookup(".chart-plot-background")
+    private val background: Node = super.lookup(".chart-plot-background")
 
     val observableData = emptyList<Double>().toProperty()
 
     val rProperty = (0.0).toProperty()
 
-    private val xyLine = Line((0.0).toLogisticXPos(), (0.0).toLogisticYPos(), (1.0).toLogisticXPos(), (1.0).toLogisticYPos()).also {
-        it.stroke = c("blue")
-    }
-
     init {
         (xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
         (yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        logisticChartBackgound.style {
+        background.style {
             backgroundColor += c("white")
         }
-
+        observableData.onChange {
+            layoutPlotChildren()
+        }
     }
 
     private fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
 
     private fun Double.toLogisticYPos() = yAxis.getDisplayPosition(this)
 
-
     private fun reloadData() {
-        logisticChartBackgound.add(
-                Line((0.0).toLogisticXPos(), (0.0).toLogisticYPos(), (1.0).toLogisticXPos(), (1.0).toLogisticYPos()
-                ).also {
-                    it.stroke = c("blue")
-                })
-        logisticChartBackgound.add(
-                QuadCurve((0.0).toLogisticXPos(), (0.0).toLogisticYPos(), (0.5).toLogisticXPos(), (rProperty.value / 2).toLogisticYPos(), (1.0).toLogisticXPos(), (0.0).toLogisticYPos()
-                ).also {
+        val zeroX = (0.0).toLogisticXPos()
+        val zeroY = (0.0).toLogisticYPos()
+        val halfX = (0.5).toLogisticXPos()
+        val topY = (rProperty.value / 2).toLogisticYPos()
+        val oneX = (1.0).toLogisticXPos()
+        val oneY = (1.0).toLogisticYPos()
+
+        background.add(Line(zeroX, zeroY, oneX, oneY)
+                .also { it.stroke = c("blue") }
+        )
+        background.add(QuadCurve(zeroX, zeroY, halfX, topY, oneX, zeroY)
+                .also {
                     it.stroke = c("green")
                     it.fill = c("transparent")
-                })
+                }
+        )
     }
 
     private fun refreshData() {
@@ -62,23 +64,23 @@ class LogisticChart(
         if (data.isEmpty()) {
             return
         }
+
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
                 .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
         (1 until coords.size)
                 .map { i ->
-                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                        l.style {
-                            stroke = getStroke(i.toDouble() / coords.size)
-                            strokeWidth = (1.6 * i / coords.size + 0.4).px
-                        }
-                    }
+                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second)
+                            .apply {
+                                stroke = getStroke(i.toDouble() / coords.size)
+                                strokeWidth = (1.6 * i / coords.size + 0.4)
+                            }
                 }
-                .forEach { l -> logisticChartBackgound.add(l) }
+                .forEach { l -> background.add(l) }
     }
 
     override fun layoutPlotChildren() {
-        logisticChartBackgound.getChildList()?.clear()
+        background.getChildList()?.clear()
         reloadData()
         refreshData()
     }

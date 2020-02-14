@@ -18,28 +18,30 @@ class IteractionChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().observable())
 
-    private val iteractionsChartBackground: Node = super.lookup(".chart-plot-background")
+    private val background: Node = super.lookup(".chart-plot-background")
 
     val observableData = emptyList<Double>().toProperty()
 
     val iteractionsProperty = 0.toProperty()
 
     init {
-        (xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        (yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(0) as StringConverter<Number>
-        iteractionsChartBackground.style {
+        (xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(0) as StringConverter<Number>
+        (yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        background.style {
             backgroundColor += c("white")
         }
         iteractionsProperty.onChange {
             xAxis.upperBound = it.toDouble()
         }
         xAxis.tickUnitProperty().bind(xAxis.upperBoundProperty().divide(10))
+        observableData.onChange {
+            layoutPlotChildren()
+        }
     }
 
     private fun Int.toIteractionsXPos() = xAxis.getDisplayPosition(this)
 
     private fun Double.toIteractionsYPos() = yAxis.getDisplayPosition(this)
-
 
     private fun refreshData() {
         val data = observableData.value
@@ -56,11 +58,11 @@ class IteractionChart(
                         }
                     }
                 }
-                .forEach { l -> iteractionsChartBackground.add(l) }
+                .forEach { l -> background.add(l) }
     }
 
     override fun layoutPlotChildren() {
-        iteractionsChartBackground.getChildList()?.clear()
+        background.getChildList()?.clear()
         refreshData()
     }
 

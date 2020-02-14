@@ -10,7 +10,6 @@ class Styles : Stylesheet() {
     companion object {
         val heading by cssclass()
         val parable by cssclass()
-        val xyLine  by cssclass()
         val series0 by cssclass()
     }
 
