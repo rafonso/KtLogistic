@@ -26,8 +26,8 @@ class LogisticChart(
     val rProperty = (0.0).toProperty()
 
     init {
-        (xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
-        (yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
+        (yAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
         background.style {
             backgroundColor += c("white")
         }

@@ -7,7 +7,6 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.shape.Line
-import javafx.util.StringConverter
 import tornadofx.*
 
 class IteractionChart(
@@ -25,8 +24,8 @@ class IteractionChart(
     val iteractionsProperty = 0.toProperty()
 
     init {
-        (xAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(0) as StringConverter<Number>
-        (yAxis as NumberAxis).tickLabelFormatter = SpinnerConverter(2) as StringConverter<Number>
+        (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_0
+        (yAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
         background.style {
             backgroundColor += c("white")
         }

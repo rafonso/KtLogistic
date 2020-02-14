@@ -14,7 +14,10 @@ class SpinnerConverter(size: Int) : StringConverter<Double>() {
 
 }
 
-const val MIN_OPACITY = 0.2
+val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>
+val CONVERTER_0 = SpinnerConverter(0) as StringConverter<Number>
+
+const val MIN_OPACITY = 0.3
 const val MAX_H = 240.0
 
 fun getStroke(x: Double): Color {
