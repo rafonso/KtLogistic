@@ -2,45 +2,23 @@ package rafael.logistic.view.logistic
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
-import javafx.scene.Node
 import javafx.scene.chart.Axis
-import javafx.scene.chart.LineChart
-import javafx.scene.chart.NumberAxis
 import javafx.scene.shape.Line
 import javafx.scene.shape.QuadCurve
-import rafael.logistic.view.CONVERTER_2
+import rafael.logistic.view.MapChart
 import tornadofx.*
 
 class LogisticChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data) {
+        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChart(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-    private val background: Node = super.lookup(".chart-plot-background")
-
-    val observableData = emptyList<Double>().toProperty()
-
     val rProperty = (0.0).toProperty()
 
-    init {
-        (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
-        (yAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
-        background.style {
-            backgroundColor += c("white")
-        }
-        observableData.onChange {
-            layoutPlotChildren()
-        }
-    }
-
-    private fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
-
-    private fun Double.toLogisticYPos() = yAxis.getDisplayPosition(this)
-
-    private fun reloadData() {
+    override fun reloadData() {
         val zeroX = (0.0).toLogisticXPos()
         val zeroY = (0.0).toLogisticYPos()
         val halfX = (0.5).toLogisticXPos()
@@ -59,12 +37,7 @@ class LogisticChart(
         )
     }
 
-    private fun refreshData() {
-        val data = observableData.value
-        if (data.isEmpty()) {
-            return
-        }
-
+    override fun refreshData() {
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
                 .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
@@ -77,12 +50,6 @@ class LogisticChart(
                             }
                 }
                 .forEach { l -> background.add(l) }
-    }
-
-    override fun layoutPlotChildren() {
-        background.getChildList()?.clear()
-        reloadData()
-        refreshData()
     }
 
 }

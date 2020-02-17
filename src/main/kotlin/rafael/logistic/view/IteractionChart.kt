@@ -1,4 +1,4 @@
-package rafael.logistic.view.logistic
+package rafael.logistic.view
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
@@ -7,9 +7,6 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.shape.Line
-import rafael.logistic.view.CONVERTER_0
-import rafael.logistic.view.CONVERTER_2
-import rafael.logistic.view.getStroke
 import tornadofx.*
 
 class IteractionChart(

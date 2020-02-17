@@ -9,6 +9,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.*
+import rafael.logistic.view.IteractionChart
 import rafael.logistic.view.SpinnerConverter
 import tornadofx.*
 import java.math.RoundingMode
@@ -81,7 +82,7 @@ class GaussianView : View("Gaussian Equation") {
 
         gaussianChart.alphaProperty.bind(spnAlpha.valueProperty())
         gaussianChart.betaProperty.bind(spnBeta.valueProperty())
-        gaussianChart.observableDataProperty.bind(logisticData)
+        gaussianChart.dataProperty.bind(logisticData)
 
         iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
         iteractionsChart.observableData.bind(logisticData)

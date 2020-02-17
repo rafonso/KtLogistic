@@ -9,6 +9,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.*
+import rafael.logistic.view.IteractionChart
 import rafael.logistic.view.SpinnerConverter
 import tornadofx.*
 import java.math.RoundingMode
@@ -71,7 +72,7 @@ class LogisticView : View("Logistic Equation") {
         spnIteractions.valueProperty().onChange { loadData() }
 
         logisticChart.rProperty.bind(spnR.valueProperty())
-        logisticChart.observableData.bind(logisticData)
+        logisticChart.dataProperty.bind(logisticData)
 
         iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
         iteractionsChart.observableData.bind(logisticData)
