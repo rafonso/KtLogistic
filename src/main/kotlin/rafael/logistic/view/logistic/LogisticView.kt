@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.logistic
 
 import javafx.beans.property.IntegerProperty
 import javafx.beans.property.SimpleIntegerProperty
@@ -9,6 +9,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.*
+import rafael.logistic.view.SpinnerConverter
 import tornadofx.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -23,7 +24,7 @@ private const val MIN_STEP = 1
 private const val MAX_STEP = 7
 //const val X_STEPS = 100
 
-class MainView : View("Logistic Equation") {
+class LogisticView : View("Logistic Equation") {
 
     // @formatter:off
     override val root               : BorderPane        by fxml("/Logistic.fxml")

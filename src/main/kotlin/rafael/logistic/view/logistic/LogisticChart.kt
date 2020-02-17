@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.logistic
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
@@ -8,7 +8,7 @@ import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.shape.Line
 import javafx.scene.shape.QuadCurve
-import javafx.util.StringConverter
+import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
 class LogisticChart(
@@ -72,7 +72,7 @@ class LogisticChart(
                 .map { i ->
                     Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second)
                             .apply {
-                                stroke = getStroke(i.toDouble() / coords.size)
+                                stroke = rafael.logistic.view.getStroke(i.toDouble() / coords.size)
                                 strokeWidth = (1.6 * i / coords.size + 0.4)
                             }
                 }
