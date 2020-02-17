@@ -8,7 +8,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
 import javafx.scene.layout.BorderPane
-import rafael.logistic.app.*
+import rafael.logistic.generator.*
 import tornadofx.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -136,7 +136,7 @@ class MainView : View("Logistic Equation") {
         }
     }
 
-    private fun dataGenerated(event: LogisticEvent) {
+    private fun dataGenerated(event: IteractionEvent) {
         when (event) {
             is StartingEvent -> t0 = event.instant
             is RunningEvent -> {
