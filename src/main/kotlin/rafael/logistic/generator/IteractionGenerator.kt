@@ -11,11 +11,11 @@ abstract class IteractionGenerator<P : IteractionParameter> {
 
     private val calculatingListeners = mutableListOf<(Boolean, Instant) -> Unit>()
 
-    protected fun notify(event: IteractionEvent) {
+    private fun notify(event: IteractionEvent) {
         eventListeners.forEach { it(event) }
     }
 
-    protected var _calculating: Boolean by Delegates.observable(false) { _, _, newValue ->
+    private var _calculating: Boolean by Delegates.observable(false) { _, _, newValue ->
         val t0 = Instant.now()
         calculatingListeners.forEach { it(newValue, t0) }
     }
@@ -39,7 +39,7 @@ abstract class IteractionGenerator<P : IteractionParameter> {
         else iterate(parameter, interactions, interaction + 1, x, values + x)
     }
 
-    protected abstract fun calculate(parameter: P, xPrior: Double): Double
+    abstract fun calculate(parameter: P, x: Double): Double
 
     fun generate(x0: Double, parameter: P, interactions: Int): List<Double> {
         notify(StartingEvent(x0))
