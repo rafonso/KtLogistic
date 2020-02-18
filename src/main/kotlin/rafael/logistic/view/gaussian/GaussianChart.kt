@@ -25,42 +25,35 @@ class GaussianChart(
 
     private val deltaX = ((xAxis as NumberAxis).upperBound - (xAxis as NumberAxis).lowerBound) / X_INTERVALS
 
-    override fun reloadData() {
-        val oneNegativeX = (-1.0).toLogisticXPos()
-        val oneNegativeY = (-1.0).toLogisticYPos()
-        val onePositiveX = (1.0).toLogisticXPos()
-        val onePositiveY = (1.0).toLogisticYPos()
+    private var oneNegativeX = -1.0
+    private var oneNegativeY = -1.0
+    private var onePositiveX = 1.0
+    private var onePositiveY = 1.0
 
+    override fun recalculateBounds() {
+        oneNegativeX = (-1.0).toLogisticXPos()
+        oneNegativeY = (-1.0).toLogisticYPos()
+        onePositiveX = (1.0).toLogisticXPos()
+        onePositiveY = (1.0).toLogisticYPos()
+    }
+
+    override fun refreshXY() {
         background.add(Line(oneNegativeX, oneNegativeY, onePositiveX, onePositiveY)
                 .also { it.stroke = c("blue") }
         )
+    }
 
+    override fun refreshAsymptote() {
         val positions = (0..X_INTERVALS)
                 .map { it * deltaX + (xAxis as NumberAxis).lowerBound }
                 .map { x -> Pair(x, GaussianGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
                 .map { Pair(it.first.toLogisticXPos(), it.second.toLogisticYPos()) }
         (1 until positions.size)
                 .map { i ->
-                    Line(positions[i - 1].first, positions[i - 1].second, positions[i].first, positions[i].second).also {
-                        it.stroke = c("green")
-                    }
+                    Line(positions[i - 1].first, positions[i - 1].second, positions[i].first, positions[i].second)
+                            .also { it.stroke = c("green") }
                 }
                 .forEach { background.add(it) }
-    }
-
-    override fun refreshData() {
-        val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-                .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
-        (1 until coords.size)
-                .map { i ->
-                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second)
-                            .apply {
-                                stroke = rafael.logistic.view.getStroke(i.toDouble() / coords.size)
-                                strokeWidth = (1.6 * i / coords.size + 0.4)
-                            }
-                }
-                .forEach { l -> background.add(l) }
     }
 
 }

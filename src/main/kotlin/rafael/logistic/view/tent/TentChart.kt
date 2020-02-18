@@ -20,35 +20,32 @@ class TentChart(
 
     val miProperty = (0.0).toProperty()
 
-    override fun reloadData() {
-        val zeroX = (0.0).toLogisticXPos()
-        val zeroY = (0.0).toLogisticYPos()
-        val halfX = (0.5).toLogisticXPos()
-        val topY = (miProperty.value / 2).toLogisticYPos()
-        val oneX = (1.0).toLogisticXPos()
-        val oneY = (1.0).toLogisticYPos()
+    private var zeroY = 0.0
+    private var zeroX = 0.0
+    private var halfX = 0.0
+    private var topY = 0.0
+    private var oneX = 0.0
+    private var oneY = 0.0
 
+    override fun recalculateBounds() {
+        zeroY = (0.0).toLogisticYPos()
+        zeroX = (0.0).toLogisticXPos()
+        halfX = (0.5).toLogisticXPos()
+        topY = (miProperty.value / 2).toLogisticYPos()
+        oneX = (1.0).toLogisticXPos()
+        oneY = (1.0).toLogisticYPos()
+    }
+
+    override fun refreshXY() {
         background.add(Line(zeroX, zeroY, oneX, oneY)
                 .also { it.stroke = c("blue") }
         )
+    }
+
+    override fun refreshAsymptote() {
         background.add(Path(MoveTo(zeroX, zeroY), LineTo(halfX, topY), LineTo(oneX, zeroY))
                 .also { it.stroke = c("green") }
         )
-    }
-
-    override fun refreshData() {
-        val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-                .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
-        (1 until coords.size)
-                .map { i ->
-                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second)
-                            .apply {
-                                stroke = rafael.logistic.view.getStroke(i.toDouble() / coords.size)
-                                strokeWidth = (1.6 * i / coords.size + 0.4)
-                            }
-                }
-                .forEach { l -> background.add(l) }
     }
 
 }
