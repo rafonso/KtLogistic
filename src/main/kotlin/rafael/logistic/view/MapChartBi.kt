@@ -7,7 +7,6 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.paint.Color
-import javafx.scene.shape.Line
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path

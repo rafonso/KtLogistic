@@ -2,7 +2,7 @@ package rafael.logistic.generatorbi
 
 import java.time.Instant
 
-sealed class IteractionEventBi() {
+sealed class IteractionEventBi {
     abstract val interaction: Int
     abstract val priorPoint: BiPoint
     abstract val point: BiPoint

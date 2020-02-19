@@ -1,7 +1,10 @@
 package rafael.logistic.view
 
+import javafx.scene.Node
 import javafx.scene.paint.Color
+import javafx.scene.shape.Line
 import javafx.util.StringConverter
+import tornadofx.*
 
 
 class SpinnerConverter(size: Int) : StringConverter<Double>() {
@@ -27,3 +30,14 @@ fun getStroke(x: Double): Color {
     return Color.hsb(h, 1.0, 0.5, o)
 }
 
+fun plotLines(coords: List<Pair<Double, Double>>, chartBackground: Node) {
+    (1 until coords.size)
+            .map { i ->
+                Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
+                    l.style {
+                        stroke = getStroke(i.toDouble() / coords.size)
+                    }
+                }
+            }
+            .forEach { l -> chartBackground.add(l) }
+}

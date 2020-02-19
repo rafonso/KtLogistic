@@ -22,9 +22,11 @@ abstract class IteractionChartBase<T>(
 
     val iteractionsProperty = 0.toProperty()
 
+    protected val valueYAxis= (yAxis as NumberAxis)
+
     init {
         (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_0
-        (yAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
+        valueYAxis.tickLabelFormatter = CONVERTER_2
         background.style {
             backgroundColor += c("white")
         }
@@ -39,7 +41,7 @@ abstract class IteractionChartBase<T>(
 
     protected fun Int.toIteractionsXPos() = xAxis.getDisplayPosition(this)
 
-    protected fun Double.toIteractionsYPos() = yAxis.getDisplayPosition(this)
+    protected fun Double.toIteractionsYPos() = valueYAxis.getDisplayPosition(this)
 
     protected abstract fun refreshData()
 

@@ -7,10 +7,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generatorbi.BiPoint
 import rafael.logistic.generatorbi.HenonGenerator
-import rafael.logistic.view.IteractionChart
-import rafael.logistic.view.MapChartBi
-import rafael.logistic.view.configureSpinnerIncrement
-import rafael.logistic.view.configureSpinnerStep
+import rafael.logistic.view.*
 import tornadofx.*
 import java.time.Instant
 
@@ -28,7 +25,8 @@ class HenonView : View("Henon") {
     private  val spnY0              : Spinner<Double>   by fxid()
     private  val spnIteractions     : Spinner<Int>      by fxid()
     private  val chart              : MapChartBi        by fxid()
-    private  val iteractionsChart   : IteractionChart   by fxid()
+    private  val xIterationsChart   : IteractionChartBi by fxid()
+    private  val yIterationsChart   : IteractionChartBi by fxid()
     // @formatter:on
 
     // @formatter:off
@@ -47,8 +45,6 @@ class HenonView : View("Henon") {
     private val iteractionsValueFactory =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
 
     private val generator               =   HenonGenerator()
-
-    private var t0: Instant?            =   null
 
     private val logisticData            =   emptyList<BiPoint>().toProperty()
 
@@ -82,7 +78,13 @@ class HenonView : View("Henon") {
 
         chart.dataProperty.bind(logisticData)
 
-        iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
+        xIterationsChart.extractor = IteractionChartBi.extractorX
+        xIterationsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
+        xIterationsChart.iteractionDataProperty.bind(logisticData)
+
+        yIterationsChart.extractor = IteractionChartBi.extractorY
+        yIterationsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
+        yIterationsChart.iteractionDataProperty.bind(logisticData)
 
         loadData()
     }
