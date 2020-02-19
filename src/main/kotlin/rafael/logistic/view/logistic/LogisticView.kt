@@ -65,7 +65,7 @@ class LogisticView : View("Logistic Equation") {
         logisticChart.dataProperty.bind(logisticData)
 
         iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
-        iteractionsChart.observableData.bind(logisticData)
+        iteractionsChart.iteractionDataProperty.bind(logisticData)
 
         loadData()
     }

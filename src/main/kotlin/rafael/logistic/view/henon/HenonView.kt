@@ -7,6 +7,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generatorbi.BiPoint
 import rafael.logistic.generatorbi.HenonGenerator
+import rafael.logistic.view.IteractionChart
 import rafael.logistic.view.MapChartBi
 import rafael.logistic.view.configureSpinnerIncrement
 import rafael.logistic.view.configureSpinnerStep
@@ -27,7 +28,7 @@ class HenonView : View("Henon") {
     private  val spnY0              : Spinner<Double>   by fxid()
     private  val spnIteractions     : Spinner<Int>      by fxid()
     private  val chart              : MapChartBi        by fxid()
-//    private  val iteractionsChart   : IteractionChart   by fxid()
+    private  val iteractionsChart   : IteractionChart   by fxid()
     // @formatter:on
 
     // @formatter:off
@@ -80,6 +81,8 @@ class HenonView : View("Henon") {
         spnIteractions.valueProperty().onChange { loadData() }
 
         chart.dataProperty.bind(logisticData)
+
+        iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
 
         loadData()
     }

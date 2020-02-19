@@ -65,7 +65,7 @@ class TentView : View("Logistic Equation") {
         chart.dataProperty.bind(logisticData)
 
         iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
-        iteractionsChart.observableData.bind(logisticData)
+        iteractionsChart.iteractionDataProperty.bind(logisticData)
 
         loadData()
     }

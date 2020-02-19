@@ -75,7 +75,7 @@ class GaussianView : View("Gaussian Equation") {
         gaussianChart.dataProperty.bind(logisticData)
 
         iteractionsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
-        iteractionsChart.observableData.bind(logisticData)
+        iteractionsChart.iteractionDataProperty.bind(logisticData)
 
         loadData()
     }
