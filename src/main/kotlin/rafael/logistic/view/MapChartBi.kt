@@ -2,10 +2,7 @@ package rafael.logistic.view
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
-import javafx.scene.Node
 import javafx.scene.chart.Axis
-import javafx.scene.chart.LineChart
-import javafx.scene.chart.NumberAxis
 import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
@@ -18,34 +15,11 @@ const val P0_SIDE = 10.0
 class MapChartBi(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data) {
+        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<BiPoint>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-    private val background: Node = super.lookup(".chart-plot-background")
-
-    val dataProperty = emptyList<BiPoint>().toProperty()
-    private var data: List<BiPoint> by dataProperty
-
-    private val myXAxis = (xAxis as NumberAxis)
-
-    private val myYAxis = (yAxis as NumberAxis)
-
-    init {
-        myXAxis.tickLabelFormatter = CONVERTER_2
-        myYAxis.tickLabelFormatter = CONVERTER_2
-        background.style {
-            backgroundColor += c("white")
-        }
-        dataProperty.onChange {
-            layoutPlotChildren()
-        }
-    }
-
-    private fun Double.toLogisticXPos() = myXAxis.getDisplayPosition(this)
-
-    private fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
 
     private fun highlightP0(p0: BiPoint) {
         val cornerX = p0.x.toLogisticXPos() - P0_SIDE / 2
@@ -85,13 +59,10 @@ class MapChartBi(
                 .forEach { l -> background.add(l) }
     }
 
-    override fun layoutPlotChildren() {
-        background.getChildList()?.clear()
-
+    override fun plotData() {
         if (data.isNotEmpty()) {
             // Destaca o x0 e y0
             highlightP0(data.first())
-
             refreshData()
         }
     }
