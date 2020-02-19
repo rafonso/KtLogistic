@@ -20,6 +20,7 @@ class IteractionChart(
     private val background: Node = super.lookup(".chart-plot-background")
 
     val observableData = emptyList<Double>().toProperty()
+    private var data by observableData
 
     val iteractionsProperty = 0.toProperty()
 
@@ -43,11 +44,6 @@ class IteractionChart(
     private fun Double.toIteractionsYPos() = yAxis.getDisplayPosition(this)
 
     private fun refreshData() {
-        val data = observableData.value
-        if (data.isEmpty()) {
-            return
-        }
-
         val coords = data.mapIndexed { i, d -> Pair(i.toIteractionsXPos(), d.toIteractionsYPos()) }
         (1 until coords.size)
                 .map { i ->
@@ -62,7 +58,10 @@ class IteractionChart(
 
     override fun layoutPlotChildren() {
         background.getChildList()?.clear()
-        refreshData()
+
+        if (data.isNotEmpty()) {
+            refreshData()
+        }
     }
 
 }
