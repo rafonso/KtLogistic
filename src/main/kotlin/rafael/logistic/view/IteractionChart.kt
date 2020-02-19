@@ -3,7 +3,6 @@ package rafael.logistic.view
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import javafx.scene.shape.Line
 import tornadofx.*
 
 class IteractionChart(
@@ -16,15 +15,11 @@ class IteractionChart(
 
     override fun refreshData() {
         val coords = super.iteractionData.mapIndexed { i, d -> Pair(i.toIteractionsXPos(), d.toIteractionsYPos()) }
-        (1 until coords.size)
-                .map { i ->
-                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                        l.style {
-                            stroke = getStroke(i.toDouble() / coords.size)
-                        }
-                    }
-                }
-                .forEach { l -> background.add(l) }
+        plotLines(coords, background) { l, i ->
+            l.style {
+                stroke = getStroke(i.toDouble() / coords.size)
+            }
+        }
     }
 
 }

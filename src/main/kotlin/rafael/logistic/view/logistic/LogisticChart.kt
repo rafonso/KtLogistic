@@ -3,7 +3,6 @@ package rafael.logistic.view.logistic
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import javafx.scene.shape.Line
 import javafx.scene.shape.QuadCurve
 import rafael.logistic.view.MapChart
 import tornadofx.*
@@ -34,11 +33,7 @@ class LogisticChart(
         oneY = (1.0).toLogisticYPos()
     }
 
-    override fun refreshXY() {
-        background.add(Line(zeroX, zeroY, oneX, oneY)
-                .also { it.stroke = c("blue") }
-        )
-    }
+    override fun getBounds(): List<Pair<Double, Double>> = listOf(Pair(zeroX, zeroY), Pair(oneX, oneY))
 
     override fun refreshAsymptote() {
         background.add(QuadCurve(zeroX, zeroY, halfX, topY, oneX, zeroY)

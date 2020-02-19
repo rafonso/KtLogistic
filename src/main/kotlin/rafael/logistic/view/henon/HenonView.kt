@@ -7,9 +7,11 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generatorbi.BiPoint
 import rafael.logistic.generatorbi.HenonGenerator
-import rafael.logistic.view.*
+import rafael.logistic.view.IteractionChartBi
+import rafael.logistic.view.MapChartBi
+import rafael.logistic.view.configureSpinnerIncrement
+import rafael.logistic.view.configureSpinnerStep
 import tornadofx.*
-import java.time.Instant
 
 private const val MAX_DELTA = 0.1
 

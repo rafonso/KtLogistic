@@ -3,7 +3,6 @@ package rafael.logistic.view.tent
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import javafx.scene.shape.Line
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
@@ -36,11 +35,7 @@ class TentChart(
         oneY = (1.0).toLogisticYPos()
     }
 
-    override fun refreshXY() {
-        background.add(Line(zeroX, zeroY, oneX, oneY)
-                .also { it.stroke = c("blue") }
-        )
-    }
+    override fun getBounds(): List<Pair<Double, Double>> = listOf(Pair(zeroX, zeroY), Pair(oneX, oneY))
 
     override fun refreshAsymptote() {
         background.add(Path(MoveTo(zeroX, zeroY), LineTo(halfX, topY), LineTo(oneX, zeroY))

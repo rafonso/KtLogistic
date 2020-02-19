@@ -6,7 +6,6 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
-import javafx.scene.shape.Line
 import tornadofx.*
 
 abstract class MapChart(
@@ -37,15 +36,11 @@ abstract class MapChart(
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
                 .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
-        (1 until coords.size)
-                .map { i ->
-                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second)
-                            .apply {
-                                stroke = getStroke(i.toDouble() / coords.size)
-                                strokeWidth = (1.6 * i / coords.size + 0.4)
-                            }
-                }
-                .forEach { l -> background.add(l) }
+
+        plotLines(coords, background) { l, i ->
+            l.stroke = getStroke(i.toDouble() / coords.size)
+            l.strokeWidth = (1.6 * i / coords.size + 0.4)
+        }
     }
 
     protected fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
@@ -54,7 +49,11 @@ abstract class MapChart(
 
     protected abstract fun recalculateBounds()
 
-    protected abstract fun refreshXY()
+    abstract fun getBounds(): List<Pair<Double, Double>>
+
+    private fun refreshXY() {
+        plotLines(getBounds(), background) { l, _ -> l.stroke = c("blue") }
+    }
 
     protected abstract fun refreshAsymptote()
 
@@ -64,7 +63,7 @@ abstract class MapChart(
         recalculateBounds()
         refreshXY()
         refreshAsymptote()
-        if(data.isNotEmpty()) {
+        if (data.isNotEmpty()) {
             refreshData()
         }
     }

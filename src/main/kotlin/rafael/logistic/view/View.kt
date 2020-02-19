@@ -30,13 +30,11 @@ fun getStroke(x: Double): Color {
     return Color.hsb(h, 1.0, 0.5, o)
 }
 
-fun plotLines(coords: List<Pair<Double, Double>>, chartBackground: Node) {
+fun plotLines(coords: List<Pair<Double, Double>>, chartBackground: Node, handler: (Line, Int) -> Unit = { _, _ -> }) {
     (1 until coords.size)
             .map { i ->
                 Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                    l.style {
-                        stroke = getStroke(i.toDouble() / coords.size)
-                    }
+                    handler(l, i)
                 }
             }
             .forEach { l -> chartBackground.add(l) }
