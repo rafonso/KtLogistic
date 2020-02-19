@@ -6,9 +6,14 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
-import javafx.scene.shape.Line
+import javafx.scene.paint.Color
+import javafx.scene.shape.LineTo
+import javafx.scene.shape.MoveTo
+import javafx.scene.shape.Path
 import rafael.logistic.generatorbi.BiPoint
 import tornadofx.*
+
+const val P0_SIDE = 10.0
 
 class MapChartBi(
         @NamedArg("xAxis") xAxis: Axis<Double>,
@@ -34,6 +39,32 @@ class MapChartBi(
         }
     }
 
+    private fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
+
+    private fun Double.toLogisticYPos() = yAxis.getDisplayPosition(this)
+
+    private fun highlightP0(p0: BiPoint) {
+        val cornerX = p0.x.toLogisticXPos() - P0_SIDE / 2
+        val cornerY = p0.y.toLogisticYPos() - P0_SIDE / 2
+        background.add(
+                Path(
+                        // @formatter:off
+                        MoveTo(cornerX              , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
+                        LineTo(cornerX              , cornerY + P0_SIDE ),
+                        LineTo(cornerX              , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
+                        MoveTo(cornerX              , cornerY + P0_SIDE ),
+                        LineTo(cornerX + P0_SIDE    , cornerY           )
+                        // @formatter:on
+                ).apply {
+                    fill = Color.TRANSPARENT
+                    stroke = Color.DARKGRAY
+                }
+        )
+    }
+
     private fun refreshData() {
         data
                 .map { p -> Pair(p.x.toLogisticXPos(), p.y.toLogisticYPos()) }
@@ -46,14 +77,13 @@ class MapChartBi(
                 .forEach { l -> background.add(l) }
     }
 
-    protected fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
-
-    protected fun Double.toLogisticYPos() = yAxis.getDisplayPosition(this)
-
     override fun layoutPlotChildren() {
         background.getChildList()?.clear()
 
         if (data.isNotEmpty()) {
+            // Destaca o x0 e y0
+            highlightP0(data.first())
+
             refreshData()
         }
     }

@@ -6,7 +6,6 @@ import kotlin.properties.Delegates
 data class BiPoint(val x: Double, val y: Double) {
 
     companion object {
-        val ZERO = BiPoint(0.0, 0.0)
         val NAN = BiPoint(Double.NaN, Double.NaN)
     }
 
@@ -42,9 +41,9 @@ abstract class IteractionGeneratorBi<P : IteractionParameterBi> {
         calculatingListeners.add(listener)
     }
 
-    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorPont: BiPoint, values: List<BiPoint>): List<BiPoint> {
-        val point = calculate(parameter, priorPont)
-        notify(RunningEventBi(interaction, priorPont, point))
+    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorPoint: BiPoint, values: List<BiPoint>): List<BiPoint> {
+        val point = calculate(parameter, priorPoint)
+        notify(RunningEventBi(interaction, priorPoint, point))
 
         return if (interaction == interactions) values + point
         else iterate(parameter, interactions, interaction + 1, point, values + point)
