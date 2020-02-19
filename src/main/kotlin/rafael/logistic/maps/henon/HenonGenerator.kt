@@ -1,4 +1,8 @@
-package rafael.logistic.generatorbi
+package rafael.logistic.maps.henon
+
+import rafael.logistic.generator.BiPoint
+import rafael.logistic.generator.IteractionGeneratorBi
+import rafael.logistic.generator.IteractionParameterBi
 
 data class HenonParameter(val alpha: Double, val beta: Double) : IteractionParameterBi
 

@@ -1,4 +1,4 @@
-package rafael.logistic.generatorbi
+package rafael.logistic.generator
 
 import java.time.Instant
 import kotlin.properties.Delegates

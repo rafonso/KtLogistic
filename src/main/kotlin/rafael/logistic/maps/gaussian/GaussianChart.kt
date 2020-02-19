@@ -1,10 +1,9 @@
-package rafael.logistic.view.gaussian
+package rafael.logistic.maps.gaussian
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.chart.NumberAxis
-import rafael.logistic.generator.GaussianGenerator
 import rafael.logistic.view.MapChart
 import rafael.logistic.view.plotLines
 import tornadofx.*

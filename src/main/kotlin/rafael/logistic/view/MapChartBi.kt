@@ -10,7 +10,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
-import rafael.logistic.generatorbi.BiPoint
+import rafael.logistic.generator.BiPoint
 import tornadofx.*
 
 const val P0_SIDE = 10.0

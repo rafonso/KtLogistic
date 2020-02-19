@@ -1,4 +1,4 @@
-package rafael.logistic.view.logistic
+package rafael.logistic.maps.logistic
 
 import rafael.logistic.view.Styles
 import tornadofx.App

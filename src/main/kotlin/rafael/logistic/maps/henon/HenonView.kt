@@ -1,12 +1,11 @@
-package rafael.logistic.view.henon
+package rafael.logistic.maps.henon
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.generatorbi.BiPoint
-import rafael.logistic.generatorbi.HenonGenerator
+import rafael.logistic.generator.BiPoint
 import rafael.logistic.view.IteractionChartBi
 import rafael.logistic.view.MapChartBi
 import rafael.logistic.view.configureSpinnerIncrement

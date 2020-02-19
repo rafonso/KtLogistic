@@ -1,4 +1,4 @@
-package rafael.logistic.view.gaussian
+package rafael.logistic.maps.gaussian
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.geometry.Pos

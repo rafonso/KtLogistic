@@ -1,4 +1,4 @@
-package rafael.logistic.view.gaussian
+package rafael.logistic.maps.gaussian
 
 import rafael.logistic.view.Styles
 import tornadofx.App

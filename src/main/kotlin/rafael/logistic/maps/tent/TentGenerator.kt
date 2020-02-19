@@ -1,4 +1,7 @@
-package rafael.logistic.generator
+package rafael.logistic.maps.tent
+
+import rafael.logistic.generator.IteractionGenerator
+import rafael.logistic.generator.IteractionParameter
 
 data class TentParameter(val mi: Double) : IteractionParameter
 

@@ -1,4 +1,4 @@
-package rafael.logistic.view.tent
+package rafael.logistic.maps.tent
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.geometry.Pos

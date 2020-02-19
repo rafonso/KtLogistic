@@ -1,4 +1,4 @@
-package rafael.logistic.view.logistic
+package rafael.logistic.maps.logistic
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList

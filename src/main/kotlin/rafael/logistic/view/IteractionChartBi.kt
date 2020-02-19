@@ -4,7 +4,7 @@ import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
-import rafael.logistic.generatorbi.BiPoint
+import rafael.logistic.generator.BiPoint
 import tornadofx.*
 
 class IteractionChartBi(
