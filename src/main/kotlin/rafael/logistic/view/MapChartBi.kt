@@ -7,6 +7,7 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.paint.Color
+import javafx.scene.shape.Line
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
@@ -28,9 +29,13 @@ class MapChartBi(
     val dataProperty = emptyList<BiPoint>().toProperty()
     private var data: List<BiPoint> by dataProperty
 
+    private val myXAxis = (xAxis as NumberAxis)
+
+    private val myYAxis = (yAxis as NumberAxis)
+
     init {
-        (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
-        (yAxis as NumberAxis).tickLabelFormatter = CONVERTER_2
+        myXAxis.tickLabelFormatter = CONVERTER_2
+        myYAxis.tickLabelFormatter = CONVERTER_2
         background.style {
             backgroundColor += c("white")
         }
@@ -39,9 +44,9 @@ class MapChartBi(
         }
     }
 
-    private fun Double.toLogisticXPos() = xAxis.getDisplayPosition(this)
+    private fun Double.toLogisticXPos() = myXAxis.getDisplayPosition(this)
 
-    private fun Double.toLogisticYPos() = yAxis.getDisplayPosition(this)
+    private fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
 
     private fun highlightP0(p0: BiPoint) {
         val cornerX = p0.x.toLogisticXPos() - P0_SIDE / 2
@@ -67,6 +72,10 @@ class MapChartBi(
 
     private fun refreshData() {
         data
+                .filter { p ->
+                    ((p.x >= myXAxis.lowerBound) || (p.x <= myXAxis.upperBound)) &&
+                            ((p.y >= myYAxis.lowerBound) || (p.y <= myYAxis.upperBound))
+                }
                 .map { p -> Pair(p.x.toLogisticXPos(), p.y.toLogisticYPos()) }
                 .mapIndexed { index, pair ->
                     circle(pair.first, pair.second, (1.6 * index / data.size + 0.4)).apply {
