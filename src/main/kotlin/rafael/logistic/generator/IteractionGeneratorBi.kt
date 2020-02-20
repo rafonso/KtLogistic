@@ -15,6 +15,8 @@ data class BiPoint(val x: Double, val y: Double) {
 
 interface IteractionParameterBi
 
+object NoParameterBi: IteractionParameterBi
+
 abstract class IteractionGeneratorBi<P : IteractionParameterBi> {
 
     private val eventListeners = mutableListOf<LogisticEventListenerBi>()
