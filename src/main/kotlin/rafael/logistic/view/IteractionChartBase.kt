@@ -1,5 +1,7 @@
 package rafael.logistic.view
 
+import javafx.beans.property.ObjectProperty
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.chart.Axis
@@ -17,12 +19,12 @@ abstract class IteractionChartBase<T>(
 
     protected val background: Node = super.lookup(".chart-plot-background")
 
-    val iteractionDataProperty = emptyList<T>().toProperty()
+    private val iteractionDataProperty = emptyList<T>().toProperty()
     protected var iteractionData: List<T> by iteractionDataProperty
 
-    val iteractionsProperty = 0.toProperty()
+    private val iteractionsProperty = 0.toProperty()
 
-    protected val valueYAxis= (yAxis as NumberAxis)
+    protected val valueYAxis = (yAxis as NumberAxis)
 
     init {
         (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_0
@@ -44,6 +46,11 @@ abstract class IteractionChartBase<T>(
     protected fun Double.toIteractionsYPos() = valueYAxis.getDisplayPosition(this)
 
     protected abstract fun refreshData()
+
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observablData: ObjectProperty<List<T>>) {
+        this.iteractionsProperty.bind(valueProperty)
+        this.iteractionDataProperty.bind(observablData)
+    }
 
     override fun layoutPlotChildren() {
         background.getChildList()?.clear()

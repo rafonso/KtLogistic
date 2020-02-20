@@ -1,6 +1,8 @@
 package rafael.logistic.view
 
 import javafx.beans.NamedArg
+import javafx.beans.property.ObjectProperty
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
@@ -20,7 +22,12 @@ class IteractionChartBi(
         val extractorY: (BiPoint) -> Double = BiPoint::y
     }
 
-    var extractor: (BiPoint) -> Double = { kotlin.error("") }
+    private var extractor: (BiPoint) -> Double = { kotlin.error("") }
+
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observablData: ObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
+        super.bind(valueProperty, observablData)
+        this.extractor = _extractor
+    }
 
     override fun refreshData() {
         super.iteractionData

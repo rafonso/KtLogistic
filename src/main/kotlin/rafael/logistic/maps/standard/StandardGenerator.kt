@@ -4,7 +4,6 @@ import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
 import rafael.logistic.generator.IteractionParameterBi
 import kotlin.math.PI
-import kotlin.math.cos
 import kotlin.math.sin
 
 data class StandardParameter(val k: Double) : IteractionParameterBi

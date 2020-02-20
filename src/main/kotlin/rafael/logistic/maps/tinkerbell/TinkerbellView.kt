@@ -67,14 +67,8 @@ class TinkerbellView : View("Tinkerbell") {
         spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
         chart.dataProperty.bind(logisticData)
-
-        xIterationsChart.extractor = IteractionChartBi.extractorX
-        xIterationsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
-        xIterationsChart.iteractionDataProperty.bind(logisticData)
-
-        yIterationsChart.extractor = IteractionChartBi.extractorY
-        yIterationsChart.iteractionsProperty.bind(spnIteractions.valueProperty())
-        yIterationsChart.iteractionDataProperty.bind(logisticData)
+        xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorX)
+        yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorY)
 
         loadData()
     }

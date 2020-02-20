@@ -75,7 +75,7 @@ private fun Spinner<Double>.stepChanged(step: Int) {
     }
 }
 
-private fun Spinner<*>.configure(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
+private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
     this.valueFactory = valueFactory
     this.configureSpinnerIncrement()
     this.valueProperty().onChange { action() }
@@ -83,11 +83,11 @@ private fun Spinner<*>.configure(valueFactory: SpinnerValueFactory<*>, action: (
 
 fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
                                      deltaProperty: SimpleIntegerProperty, action: () -> Unit) {
-    this.configure(valueFactory, action)
+    this.bind(valueFactory, action)
     this.configureSpinnerStep(deltaProperty)
 }
 
 fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory.IntegerSpinnerValueFactory, action: () -> Unit) {
-    this.configure(valueFactory, action)
+    this.bind(valueFactory, action)
     this.editor.alignment = Pos.CENTER_RIGHT
 }
