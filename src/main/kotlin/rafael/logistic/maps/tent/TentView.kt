@@ -1,14 +1,15 @@
 package rafael.logistic.maps.tent
 
 import javafx.beans.property.SimpleIntegerProperty
-import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.generator.*
+import rafael.logistic.generator.EndingEvent
+import rafael.logistic.generator.IteractionEvent
+import rafael.logistic.generator.RunningEvent
+import rafael.logistic.generator.StartingEvent
 import rafael.logistic.view.IteractionChart
-import rafael.logistic.view.configureSpinnerStep
-import rafael.logistic.view.configureSpinnerIncrement
+import rafael.logistic.view.configureActions
 import tornadofx.*
 import java.time.Duration
 import java.time.Instant
@@ -46,20 +47,9 @@ class TentView : View("Logistic Equation") {
     init {
         generator.addStatusListener(this::dataGenerated)
 
-        spnMi.valueFactory = miValueFactory
-        spnMi.configureSpinnerIncrement()
-        spnMi.configureSpinnerStep(deltaMiProperty)
-        spnMi.valueProperty().onChange { loadData() }
-
-        spnX0.valueFactory = x0ValueFactory
-        spnX0.configureSpinnerIncrement()
-        spnX0.configureSpinnerStep(deltaX0Property)
-        spnX0.valueProperty().onChange { loadData() }
-
-        spnIteractions.valueFactory = iteractionsValueFactory
-        spnIteractions.configureSpinnerIncrement()
-        spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-        spnIteractions.valueProperty().onChange { loadData() }
+        spnMi.configureActions(miValueFactory, deltaMiProperty, this::loadData)
+        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
         chart.miProperty.bind(spnMi.valueProperty())
         chart.dataProperty.bind(logisticData)

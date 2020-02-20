@@ -1,7 +1,9 @@
 package rafael.logistic.view
 
 import javafx.beans.property.IntegerProperty
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.event.Event
+import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.*
@@ -15,7 +17,7 @@ import kotlin.math.pow
 private const val MIN_STEP = 1
 private const val MAX_STEP = 9
 
-fun Spinner<*>.configureSpinnerIncrement() {
+private fun Spinner<*>.configureSpinnerIncrement() {
     this.setOnScroll { event ->
         val delta = if (event.isControlDown) 10 else 1
 
@@ -33,7 +35,7 @@ fun Spinner<*>.configureSpinnerIncrement() {
     }
 }
 
-fun Spinner<Double>.configureSpinnerStep(stepProperty: IntegerProperty) {
+private fun Spinner<Double>.configureSpinnerStep(stepProperty: IntegerProperty) {
     // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
     this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
     this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
@@ -73,3 +75,19 @@ private fun Spinner<Double>.stepChanged(step: Int) {
     }
 }
 
+private fun Spinner<*>.configure(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
+    this.valueFactory = valueFactory
+    this.configureSpinnerIncrement()
+    this.valueProperty().onChange { action() }
+}
+
+fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+                                     deltaProperty: SimpleIntegerProperty, action: () -> Unit) {
+    this.configure(valueFactory, action)
+    this.configureSpinnerStep(deltaProperty)
+}
+
+fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory.IntegerSpinnerValueFactory, action: () -> Unit) {
+    this.configure(valueFactory, action)
+    this.editor.alignment = Pos.CENTER_RIGHT
+}

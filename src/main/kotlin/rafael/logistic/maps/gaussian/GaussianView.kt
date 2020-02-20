@@ -1,14 +1,15 @@
 package rafael.logistic.maps.gaussian
 
 import javafx.beans.property.SimpleIntegerProperty
-import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.generator.*
+import rafael.logistic.generator.EndingEvent
+import rafael.logistic.generator.IteractionEvent
+import rafael.logistic.generator.RunningEvent
+import rafael.logistic.generator.StartingEvent
 import rafael.logistic.view.IteractionChart
-import rafael.logistic.view.configureSpinnerStep
-import rafael.logistic.view.configureSpinnerIncrement
+import rafael.logistic.view.configureActions
 import tornadofx.*
 import java.time.Duration
 import java.time.Instant
@@ -50,25 +51,10 @@ class GaussianView : View("Gaussian Equation") {
     init {
         generator.addStatusListener(this::dataGenerated)
 
-        spnAlpha.valueFactory = alphaValueFactory
-        spnAlpha.configureSpinnerIncrement()
-        spnAlpha.configureSpinnerStep(deltaAlphaProperty)
-        spnAlpha.valueProperty().onChange { loadData() }
-
-        spnBeta.valueFactory = betaValueFactory
-        spnBeta.configureSpinnerIncrement()
-        spnBeta.configureSpinnerStep(deltaBetaProperty)
-        spnBeta.valueProperty().onChange { loadData() }
-
-        spnX0.valueFactory = x0ValueFactory
-        spnX0.configureSpinnerIncrement()
-        spnX0.configureSpinnerStep(deltaX0Property)
-        spnX0.valueProperty().onChange { loadData() }
-
-        spnIteractions.valueFactory = iteractionsValueFactory
-        spnIteractions.configureSpinnerIncrement()
-        spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-        spnIteractions.valueProperty().onChange { loadData() }
+        spnAlpha.configureActions(alphaValueFactory, deltaAlphaProperty, this::loadData)
+        spnBeta.configureActions(betaValueFactory, deltaBetaProperty, this::loadData)
+        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
         gaussianChart.alphaProperty.bind(spnAlpha.valueProperty())
         gaussianChart.betaProperty.bind(spnBeta.valueProperty())

@@ -1,15 +1,13 @@
 package rafael.logistic.maps.lozi
 
 import javafx.beans.property.SimpleIntegerProperty
-import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.view.IteractionChartBi
 import rafael.logistic.view.MapChartBi
-import rafael.logistic.view.configureSpinnerIncrement
-import rafael.logistic.view.configureSpinnerStep
+import rafael.logistic.view.configureActions
 import tornadofx.*
 
 private const val MAX_DELTA = 0.1
@@ -52,30 +50,11 @@ class LoziView : View("Lozi") {
     // @formatter:on
 
     init {
-        spnA.valueFactory = aValueFactory
-        spnA.configureSpinnerIncrement()
-        spnA.configureSpinnerStep(deltaAProperty)
-        spnA.valueProperty().onChange { loadData() }
-
-        spnB.valueFactory = bValueFactory
-        spnB.configureSpinnerIncrement()
-        spnB.configureSpinnerStep(deltaBProperty)
-        spnB.valueProperty().onChange { loadData() }
-
-        spnX0.valueFactory = x0ValueFactory
-        spnX0.configureSpinnerIncrement()
-        spnX0.configureSpinnerStep(deltaX0Property)
-        spnX0.valueProperty().onChange { loadData() }
-
-        spnY0.valueFactory = y0ValueFactory
-        spnY0.configureSpinnerIncrement()
-        spnY0.configureSpinnerStep(deltaY0Property)
-        spnY0.valueProperty().onChange { loadData() }
-
-        spnIteractions.valueFactory = iteractionsValueFactory
-        spnIteractions.configureSpinnerIncrement()
-        spnIteractions.editor.alignment = Pos.CENTER_RIGHT
-        spnIteractions.valueProperty().onChange { loadData() }
+        spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
+        spnB.configureActions(bValueFactory, deltaBProperty, this::loadData)
+        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
+        spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
         chart.dataProperty.bind(logisticData)
 
