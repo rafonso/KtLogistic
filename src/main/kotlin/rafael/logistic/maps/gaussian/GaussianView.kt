@@ -56,9 +56,14 @@ class GaussianView : View("Gaussian Equation") {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
-        gaussianChart.alphaProperty.bind(spnAlpha.valueProperty())
-        gaussianChart.betaProperty.bind(spnBeta.valueProperty())
-        gaussianChart.dataProperty.bind(logisticData)
+        gaussianChart.bind(logisticData) {
+            when(it) {
+                is GaussianChart -> {
+                    it.alphaProperty.bind(spnAlpha.valueProperty())
+                    it.betaProperty.bind(spnBeta.valueProperty())
+                }
+            }
+        }
         iteractionsChart.bind(spnIteractions.valueProperty(), logisticData)
 
         loadData()

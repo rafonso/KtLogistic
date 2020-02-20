@@ -51,7 +51,12 @@ class TentView : View("Logistic Equation") {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
-        chart.miProperty.bind(spnMi.valueProperty())
+
+        chart.bind(logisticData) {
+            when (it) {
+                is TentChart -> it.miProperty.bind(spnMi.valueProperty())
+            }
+        }
         chart.dataProperty.bind(logisticData)
         iteractionsChart.bind(spnIteractions.valueProperty(), logisticData)
 

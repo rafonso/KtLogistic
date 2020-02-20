@@ -51,8 +51,11 @@ class LogisticView : View("Logistic Equation") {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
 
-        logisticChart.rProperty.bind(spnR.valueProperty())
-        logisticChart.dataProperty.bind(logisticData)
+        logisticChart.bind(logisticData) {
+            when(it) {
+                is LogisticChart -> it.rProperty.bind(spnR.valueProperty())
+            }
+        }
         iteractionsChart.bind(spnIteractions.valueProperty(), logisticData)
 
         loadData()

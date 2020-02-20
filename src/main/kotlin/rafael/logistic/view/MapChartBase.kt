@@ -1,5 +1,6 @@
 package rafael.logistic.view
 
+import javafx.beans.property.ObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.chart.Axis
@@ -40,6 +41,11 @@ abstract class MapChartBase<T>(
     protected fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
 
     protected abstract fun plotData()
+
+    fun bind(dataProperty: ObjectProperty<List<T>>, handler: (MapChartBase<T>) -> Unit = {}) {
+        this.dataProperty.bind(dataProperty)
+        handler(this)
+    }
 
     override fun layoutPlotChildren() {
         background.getChildList()?.clear()
