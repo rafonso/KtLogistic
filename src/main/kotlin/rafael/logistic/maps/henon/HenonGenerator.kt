@@ -8,13 +8,8 @@ data class HenonParameter(val alpha: Double, val beta: Double) : IteractionParam
 
 class HenonGenerator : IteractionGeneratorBi<HenonParameter>() {
 
-    companion object {
-        fun calc(alpha: Double, beta: Double, p: BiPoint) =
-                BiPoint(1.0 - alpha * p.x * p.x + p.y, beta * p.x)
-    }
-
     override fun calculate(parameter: HenonParameter, point: BiPoint): BiPoint =
-            calc(parameter.alpha, parameter.beta, point)
+            BiPoint(1.0 - parameter.alpha * point.x * point.x + point.y, parameter.beta * point.x)
 
     fun generate(p0: BiPoint, alpha: Double, beta: Double, iteractions: Int) =
             super.generate(p0, HenonParameter(alpha, beta), iteractions)

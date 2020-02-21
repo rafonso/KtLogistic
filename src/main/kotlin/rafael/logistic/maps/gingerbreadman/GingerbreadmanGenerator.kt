@@ -7,11 +7,8 @@ import kotlin.math.absoluteValue
 
 class GingerbreadmanGenerator : IteractionGeneratorBi<NoParameterBi>() {
 
-    companion object {
-        fun calc(p: BiPoint) = BiPoint(1.0 - p.y + p.x.absoluteValue, p.x)
-    }
-
-    override fun calculate(parameter: NoParameterBi, point: BiPoint): BiPoint = calc(point)
+    override fun calculate(parameter: NoParameterBi, point: BiPoint): BiPoint =
+            BiPoint(1.0 - point.y + point.x.absoluteValue, point.x)
 
     fun generate(p0: BiPoint, iteractions: Int) = super.generate(p0, NoParameterBi, iteractions)
 

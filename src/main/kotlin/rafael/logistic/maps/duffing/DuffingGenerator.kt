@@ -9,13 +9,8 @@ data class DuffingParameter(val alpha: Double, val beta: Double) : IteractionPar
 
 class DuffingGenerator : IteractionGeneratorBi<DuffingParameter>() {
 
-    companion object {
-        fun calc(alpha: Double, beta: Double, p: BiPoint) =
-                BiPoint(p.y, - beta * p.x + alpha * p.y - p.y.pow(3))
-    }
-
     override fun calculate(parameter: DuffingParameter, point: BiPoint): BiPoint =
-            calc(parameter.alpha, parameter.beta, point)
+            BiPoint(point.y, -parameter.beta * point.x + parameter.alpha * point.y - point.y.pow(3))
 
     fun generate(p0: BiPoint, alpha: Double, beta: Double, iteractions: Int) =
             super.generate(p0, DuffingParameter(alpha, beta), iteractions)
