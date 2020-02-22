@@ -4,10 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.generator.EndingEvent
-import rafael.logistic.generator.IteractionEvent
-import rafael.logistic.generator.RunningEvent
-import rafael.logistic.generator.StartingEvent
+import rafael.logistic.generator.*
 import rafael.logistic.view.IteractionChart
 import rafael.logistic.view.configureActions
 import tornadofx.*
@@ -63,13 +60,13 @@ class TentView : View("Logistic Equation") {
         loadData()
     }
 
-    private fun dataGenerated(event: IteractionEvent) {
+    private fun dataGenerated(event: IteractionEvent<Double>) {
         when (event) {
             is StartingEvent -> t0 = event.instant
-            is RunningEvent -> {
+            is RunningEvent  -> {
 
             }
-            is EndingEvent -> {
+            is EndingEvent   -> {
                 val t1 = Instant.now()
                 val deltaT = Duration.between(t0, t1)
             }

@@ -1,11 +1,8 @@
 package rafael.logistic.view
 
 import javafx.beans.NamedArg
-import javafx.beans.property.ObjectProperty
-import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import rafael.logistic.generator.BiPoint
 import tornadofx.*
 
 class IteractionChart(

@@ -2,9 +2,9 @@ package rafael.logistic.maps.henon
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameterBi
+import rafael.logistic.generator.IteractionParameter
 
-data class HenonParameter(val alpha: Double, val beta: Double) : IteractionParameterBi
+data class HenonParameter(val alpha: Double, val beta: Double) : IteractionParameter
 
 class HenonGenerator : IteractionGeneratorBi<HenonParameter>() {
 

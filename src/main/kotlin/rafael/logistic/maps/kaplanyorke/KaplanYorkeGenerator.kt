@@ -2,11 +2,11 @@ package rafael.logistic.maps.kaplanyorke
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameterBi
+import rafael.logistic.generator.IteractionParameter
 import kotlin.math.PI
 import kotlin.math.cos
 
-data class KaplanYorkeParameter(val alpha: Double) : IteractionParameterBi
+data class KaplanYorkeParameter(val alpha: Double) : IteractionParameter
 
 // https://en.wikipedia.org/wiki/Kaplan%E2%80%93Yorke_map
 class KaplanYorkeGenerator : IteractionGeneratorBi<KaplanYorkeParameter>() {

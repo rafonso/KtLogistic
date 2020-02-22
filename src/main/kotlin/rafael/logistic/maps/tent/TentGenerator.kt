@@ -1,11 +1,11 @@
 package rafael.logistic.maps.tent
 
-import rafael.logistic.generator.IteractionGenerator
+import rafael.logistic.generator.IteractionGeneratorDouble
 import rafael.logistic.generator.IteractionParameter
 
 data class TentParameter(val mi: Double) : IteractionParameter
 
-class TentGenerator : IteractionGenerator<TentParameter>() {
+class TentGenerator : IteractionGeneratorDouble<TentParameter>() {
 
     companion object {
         fun calc(mi: Double, x: Double): Double = if (x <= 0.5) mi * x else mi * (1 - x)

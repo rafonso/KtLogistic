@@ -2,11 +2,11 @@ package rafael.logistic.maps.standard
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameterBi
+import rafael.logistic.generator.IteractionParameter
 import kotlin.math.PI
 import kotlin.math.sin
 
-data class StandardParameter(val k: Double) : IteractionParameterBi
+data class StandardParameter(val k: Double) : IteractionParameter
 
 // https://en.wikipedia.org/wiki/Standard_map
 // http://mathworld.wolfram.com/StandardMap.html
