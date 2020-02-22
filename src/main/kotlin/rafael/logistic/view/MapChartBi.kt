@@ -46,8 +46,8 @@ class MapChartBi(
     private fun refreshData() {
         data
                 .filter { p ->
-                    ((p.x >= myXAxis.lowerBound) || (p.x <= myXAxis.upperBound)) &&
-                            ((p.y >= myYAxis.lowerBound) || (p.y <= myYAxis.upperBound))
+                    (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&
+                            (p.y >= myYAxis.lowerBound) && (p.y <= myYAxis.upperBound)
                 }
                 .map { p -> Pair(p.x.toLogisticXPos(), p.y.toLogisticYPos()) }
                 .mapIndexed { index, pair ->
