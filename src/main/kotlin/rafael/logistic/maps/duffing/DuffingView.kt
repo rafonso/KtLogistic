@@ -29,14 +29,14 @@ class DuffingView : View("Duffing") {
     // @formatter:on
 
     // @formatter:off
-    private val deltaAProperty          =   SimpleIntegerProperty(this, "deltaAlpha"    , 1     )
-    private val aValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.7, MAX_DELTA)
+    private val deltaAProperty          =   SimpleIntegerProperty(this, "deltaAlpha"    , 2     )
+    private val aValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.75, MAX_DELTA)
 
     private val deltaBProperty          =   SimpleIntegerProperty(this, "deltaBeta"    , 2     )
-    private val bValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.3, 0.15, MAX_DELTA)
+    private val bValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, MAX_DELTA)
 
     private val deltaX0Property         =   SimpleIntegerProperty(this, "deltaX0"   , 1     )
-    private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 0.0, MAX_DELTA)
+    private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 1.0, MAX_DELTA)
 
     private val deltaY0Property         =   SimpleIntegerProperty(this, "deltaY0"   , 1     )
     private val y0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(- 2 * MAX_X / 3, 2 * MAX_X / 3 , 0.0, MAX_DELTA)
