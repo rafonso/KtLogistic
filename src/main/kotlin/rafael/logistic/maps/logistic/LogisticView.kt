@@ -58,7 +58,7 @@ class LogisticView : View("Logistic Equation") {
         loadData()
     }
 
-    private fun dataGenerated(event: IteractionEvent<Double>) {
+    private fun dataGenerated(event: IterationEvent<Double>) {
         when (event) {
             is StartingEvent -> t0 = event.instant
             is RunningEvent  -> {

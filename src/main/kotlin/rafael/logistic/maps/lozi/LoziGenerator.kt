@@ -2,10 +2,10 @@ package rafael.logistic.maps.lozi
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameter
+import rafael.logistic.generator.IterationParameter
 import kotlin.math.absoluteValue
 
-data class LoziParameter(val alpha: Double, val beta: Double) : IteractionParameter
+data class LoziParameter(val alpha: Double, val beta: Double) : IterationParameter
 
 class LoziGenerator : IteractionGeneratorBi<LoziParameter>() {
 

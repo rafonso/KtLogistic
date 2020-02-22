@@ -3,17 +3,17 @@ package rafael.logistic.generator
 import java.time.Instant
 import kotlin.properties.Delegates
 
-interface IteractionParameter
+interface IterationParameter
 
-object NoParameter: IteractionParameter
+object NoParameter: IterationParameter
 
-abstract class IteractionGenerator<T, P : IteractionParameter> {
+abstract class IterationGenerator<T, P : IterationParameter> {
 
     private val eventListeners = mutableListOf<LogisticEventListener<T>>()
 
     private val calculatingListeners = mutableListOf<(Boolean, Instant) -> Unit>()
 
-    private fun notify(event: IteractionEvent<T>) {
+    private fun notify(event: IterationEvent<T>) {
         eventListeners.forEach { it(event) }
     }
 
@@ -53,6 +53,6 @@ abstract class IteractionGenerator<T, P : IteractionParameter> {
     }
 }
 
-typealias IteractionGeneratorDouble<P> = IteractionGenerator<Double, P>
+typealias IteractionGeneratorDouble<P> = IterationGenerator<Double, P>
 
-typealias IteractionGeneratorBi<P> = IteractionGenerator<BiPoint, P>
+typealias IteractionGeneratorBi<P> = IterationGenerator<BiPoint, P>

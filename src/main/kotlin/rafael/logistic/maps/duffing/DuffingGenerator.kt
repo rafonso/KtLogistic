@@ -2,10 +2,10 @@ package rafael.logistic.maps.duffing
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameter
+import rafael.logistic.generator.IterationParameter
 import kotlin.math.pow
 
-data class DuffingParameter(val alpha: Double, val beta: Double) : IteractionParameter
+data class DuffingParameter(val alpha: Double, val beta: Double) : IterationParameter
 
 class DuffingGenerator : IteractionGeneratorBi<DuffingParameter>() {
 

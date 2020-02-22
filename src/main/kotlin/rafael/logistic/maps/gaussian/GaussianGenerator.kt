@@ -1,10 +1,10 @@
 package rafael.logistic.maps.gaussian
 
 import rafael.logistic.generator.IteractionGeneratorDouble
-import rafael.logistic.generator.IteractionParameter
+import rafael.logistic.generator.IterationParameter
 import kotlin.math.exp
 
-data class GaussianParameter(val alpha: Double, val beta: Double) : IteractionParameter
+data class GaussianParameter(val alpha: Double, val beta: Double) : IterationParameter
 
 class GaussianGenerator : IteractionGeneratorDouble<GaussianParameter>() {
 

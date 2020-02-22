@@ -2,10 +2,10 @@ package rafael.logistic.maps.tinkerbell
 
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IteractionGeneratorBi
-import rafael.logistic.generator.IteractionParameter
+import rafael.logistic.generator.IterationParameter
 import kotlin.math.pow
 
-data class TinkerbellParameter(val a: Double, val b: Double, val c: Double, val d: Double) : IteractionParameter
+data class TinkerbellParameter(val a: Double, val b: Double, val c: Double, val d: Double) : IterationParameter
 
 class TinkerbellGenerator : IteractionGeneratorBi<TinkerbellParameter>() {
 
