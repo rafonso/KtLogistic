@@ -5,7 +5,7 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import tornadofx.*
 
-abstract class MapChart(
+abstract class MapChartDouble(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<Double>(xAxis, yAxis, data) {

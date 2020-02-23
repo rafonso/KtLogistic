@@ -7,7 +7,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.IterationGenerator
 import tornadofx.*
 
-abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title: String, fxmlFile: String, generator: G) :
+abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
         ViewBase<Double, G, C>(title, fxmlFile, generator) {
 
     protected val maxDelta = 0.1
