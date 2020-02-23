@@ -33,9 +33,6 @@ abstract class MapChartBase<T>(
     init {
         myXAxis.tickLabelFormatter = CONVERTER_2
         myYAxis.tickLabelFormatter = CONVERTER_2
-        background.style {
-            backgroundColor += Color.WHITE
-        }
         dataProperty.onChange {
             layoutPlotChildren()
         }

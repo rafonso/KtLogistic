@@ -27,9 +27,6 @@ abstract class IterationChartBase<T>(
     init {
         (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_0
         valueYAxis.tickLabelFormatter = CONVERTER_2
-        background.style {
-            backgroundColor += c("white")
-        }
         iterationsProperty.onChange {
             xAxis.upperBound = it.toDouble()
         }

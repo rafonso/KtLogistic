@@ -5,6 +5,7 @@ import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
+//        val point0 by cssclass()
     }
 
     init {
@@ -12,6 +13,9 @@ class Styles : Stylesheet() {
             textInput {
                 backgroundColor += Color.KHAKI
             }
+        }
+        chartPlotBackground {
+            backgroundColor += Color.WHITE
         }
     }
 }
