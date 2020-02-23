@@ -6,14 +6,21 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.view.view.ViewBi
 import rafael.logistic.view.configureActions
+import tornadofx.*
 
 class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", TinkerbellGenerator()) {
+
+    override val iniX0Spinner: Double
+        get() = -0.72
 
     override val maxX0Spinner: Double
         get() = 1.5
 
     override val minX0Spinner: Double
         get() = -maxX0Spinner
+
+    override val iniY0Spinner: Double
+        get() = -0.64
 
     override val maxY0Spinner: Double
         get() = 1.0
@@ -23,19 +30,19 @@ class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", T
 
     // @formatter:off
     private val spnA            :   Spinner<Double>   by fxid()
-    private val deltaAProperty  =   SimpleIntegerProperty(this, "deltaAlpha"    , 1     )
-    private val aValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
+    private val deltaAProperty  =   1.toProperty()
+    private val aValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.9, maxDelta)
 
     private val spnB            :   Spinner<Double>   by fxid()
-    private val deltaBProperty  =   SimpleIntegerProperty(this, "deltaBeta"    , 1     )
-    private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 1.0, 0.6, maxDelta)
+    private val deltaBProperty  =   4.toProperty()
+    private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 1.0, -0.6013, maxDelta)
 
     private val spnC            :   Spinner<Double>   by fxid()
-    private val deltaCProperty  =   SimpleIntegerProperty(this, "deltaC"    , 1     )
+    private val deltaCProperty  =   1.toProperty()
     private val cValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-4.0, 4.0, 2.0, maxDelta)
 
     private val spnD            :   Spinner<Double>   by fxid()
-    private val deltaDProperty  =   SimpleIntegerProperty(this, "deltaD"    , 1     )
+    private val deltaDProperty  =   1.toProperty()
     private val dValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
     // @formatter:on
 
