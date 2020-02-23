@@ -1,6 +1,5 @@
 package rafael.logistic.view.iterationchart
 
-import javafx.beans.property.ObjectProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.Node
@@ -46,7 +45,7 @@ abstract class IterationChartBase<T>(
 
     protected abstract fun refreshData()
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ObjectProperty<List<T>>) {
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<T>>) {
         this.iterationsProperty.bind(valueProperty)
         this.iterationDataProperty.bind(observableData)
     }

@@ -1,6 +1,6 @@
 package rafael.logistic.view.mapchart
 
-import javafx.beans.property.ObjectProperty
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.chart.Axis
@@ -43,7 +43,7 @@ abstract class MapChartBase<T>(
 
     protected abstract fun plotData()
 
-    fun bind(dataProperty: ObjectProperty<List<T>>, handler: (MapChartBase<T>) -> Unit = {}) {
+    fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChartBase<T>) -> Unit = {}) {
         this.dataProperty.bind(dataProperty)
         handler(this)
     }

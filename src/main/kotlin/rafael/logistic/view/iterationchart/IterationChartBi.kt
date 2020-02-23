@@ -1,7 +1,6 @@
 package rafael.logistic.view.iterationchart
 
 import javafx.beans.NamedArg
-import javafx.beans.property.ObjectProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
@@ -25,7 +24,7 @@ class IterationChartBi(
 
     private var extractor: (BiPoint) -> Double = { kotlin.error("") }
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
         super.bind(valueProperty, observableData)
         this.extractor = _extractor
     }
