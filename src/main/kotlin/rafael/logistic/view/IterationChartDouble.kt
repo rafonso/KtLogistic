@@ -5,7 +5,7 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import tornadofx.*
 
-class IteractionChartDouble(
+class IterationChartDouble(
         @NamedArg("xAxis") xAxis: Axis<Int>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IteractionChartBase<Double>(xAxis, yAxis, data) {
