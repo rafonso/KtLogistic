@@ -1,8 +1,10 @@
-package rafael.logistic.view
+package rafael.logistic.view.iterationchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
+import rafael.logistic.view.getStroke
+import rafael.logistic.view.plotLines
 import tornadofx.*
 
 class IterationChartDouble(

@@ -1,7 +1,7 @@
 package rafael.logistic.maps.baker
 
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.ViewBi
+import rafael.logistic.view.view.ViewBi
 
 class BakerView : ViewBi<BakerGenerator>("Baker", "Baker", BakerGenerator()) {
 

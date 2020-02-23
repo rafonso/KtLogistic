@@ -2,7 +2,7 @@ package rafael.logistic.maps.gaussian
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.view.ViewDouble
+import rafael.logistic.view.view.ViewDouble
 import rafael.logistic.view.configureActions
 import tornadofx.*
 

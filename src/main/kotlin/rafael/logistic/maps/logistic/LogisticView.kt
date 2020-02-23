@@ -3,7 +3,7 @@ package rafael.logistic.maps.logistic
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.view.ViewDouble
+import rafael.logistic.view.view.ViewDouble
 import rafael.logistic.view.configureActions
 
 class LogisticView : ViewDouble<LogisticGenerator, LogisticChart>("Logistic Equation", "Logistic", LogisticGenerator()) {

@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.mapchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
@@ -52,7 +52,7 @@ class MapChartBi(
                 .map { p -> Pair(p.x.toLogisticXPos(), p.y.toLogisticYPos()) }
                 .mapIndexed { index, pair ->
                     circle(pair.first, pair.second, (1.6 * index / data.size + 0.4)).apply {
-                        stroke = getStroke(index.toDouble() / data.size)
+                        stroke = rafael.logistic.view.getStroke(index.toDouble() / data.size)
                         fill = stroke
                     }
                 }

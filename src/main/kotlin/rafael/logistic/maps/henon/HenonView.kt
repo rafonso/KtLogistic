@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.view.*
+import rafael.logistic.view.view.ViewBi
 
 class HenonView : ViewBi<HenonGenerator>("Henon", "Henon", HenonGenerator()) {
 

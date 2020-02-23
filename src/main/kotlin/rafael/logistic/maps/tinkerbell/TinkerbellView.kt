@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.ViewBi
+import rafael.logistic.view.view.ViewBi
 import rafael.logistic.view.configureActions
 
 class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", TinkerbellGenerator()) {

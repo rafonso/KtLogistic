@@ -4,7 +4,7 @@ import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.QuadCurve
-import rafael.logistic.view.MapChartDouble
+import rafael.logistic.view.mapchart.MapChartDouble
 import tornadofx.*
 
 class LogisticChart(

@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.iterationchart
 
 import javafx.beans.property.ObjectProperty
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -7,6 +7,8 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import rafael.logistic.view.CONVERTER_0
+import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
 abstract class IterationChartBase<T>(

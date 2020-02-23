@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.view
 
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
@@ -6,6 +6,9 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.view.configureActions
+import rafael.logistic.view.iterationchart.IterationChartBi
+import rafael.logistic.view.mapchart.MapChartBi
 import tornadofx.*
 
 abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFile: String, generator: G) :

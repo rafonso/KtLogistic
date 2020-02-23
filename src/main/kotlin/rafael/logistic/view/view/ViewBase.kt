@@ -1,9 +1,11 @@
-package rafael.logistic.view
+package rafael.logistic.view.view
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.view.configureActions
+import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*
 
 abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {

@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.iterationchart
 
 import javafx.beans.NamedArg
 import javafx.beans.property.ObjectProperty
@@ -7,6 +7,7 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
 import rafael.logistic.generator.BiPoint
+import rafael.logistic.view.getStroke
 import tornadofx.*
 
 class IterationChartBi(

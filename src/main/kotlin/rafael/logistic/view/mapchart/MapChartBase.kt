@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.view.mapchart
 
 import javafx.beans.property.ObjectProperty
 import javafx.collections.ObservableList
@@ -6,6 +6,7 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
 abstract class MapChartBase<T>(

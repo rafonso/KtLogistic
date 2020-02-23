@@ -1,7 +1,7 @@
 package rafael.logistic.maps.gingerbreadman
 
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.ViewBi
+import rafael.logistic.view.view.ViewBi
 
 class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
 
