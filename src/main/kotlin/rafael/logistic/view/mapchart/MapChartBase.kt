@@ -6,6 +6,10 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import javafx.scene.paint.Color
+import javafx.scene.shape.LineTo
+import javafx.scene.shape.MoveTo
+import javafx.scene.shape.Path
 import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
@@ -30,11 +34,33 @@ abstract class MapChartBase<T>(
         myXAxis.tickLabelFormatter = CONVERTER_2
         myYAxis.tickLabelFormatter = CONVERTER_2
         background.style {
-            backgroundColor += c("white")
+            backgroundColor += Color.WHITE
         }
         dataProperty.onChange {
             layoutPlotChildren()
         }
+    }
+
+    protected fun highlightP0(x0: Double, y0: Double) {
+        val cornerX = x0.toLogisticXPos() - P0_SIDE / 2
+        val cornerY = y0.toLogisticYPos() - P0_SIDE / 2
+        background.add(
+                Path(
+                        // @formatter:off
+                        MoveTo(cornerX              , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
+                        LineTo(cornerX              , cornerY + P0_SIDE ),
+                        LineTo(cornerX              , cornerY           ),
+                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
+                        MoveTo(cornerX              , cornerY + P0_SIDE ),
+                        LineTo(cornerX + P0_SIDE    , cornerY           )
+                        // @formatter:on
+                ).apply {
+                    fill = Color.TRANSPARENT
+                    stroke = Color.DARKGRAY
+                }
+        )
     }
 
     protected fun Double.toLogisticXPos() = myXAxis.getDisplayPosition(this)

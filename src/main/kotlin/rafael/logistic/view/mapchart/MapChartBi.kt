@@ -3,10 +3,6 @@ package rafael.logistic.view.mapchart
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import javafx.scene.paint.Color
-import javafx.scene.shape.LineTo
-import javafx.scene.shape.MoveTo
-import javafx.scene.shape.Path
 import rafael.logistic.generator.BiPoint
 import tornadofx.*
 
@@ -20,28 +16,6 @@ class MapChartBi(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-
-    private fun highlightP0(p0: BiPoint) {
-        val cornerX = p0.x.toLogisticXPos() - P0_SIDE / 2
-        val cornerY = p0.y.toLogisticYPos() - P0_SIDE / 2
-        background.add(
-                Path(
-                        // @formatter:off
-                        MoveTo(cornerX              , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
-                        LineTo(cornerX              , cornerY + P0_SIDE ),
-                        LineTo(cornerX              , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
-                        MoveTo(cornerX              , cornerY + P0_SIDE ),
-                        LineTo(cornerX + P0_SIDE    , cornerY           )
-                        // @formatter:on
-                ).apply {
-                    fill = Color.TRANSPARENT
-                    stroke = Color.DARKGRAY
-                }
-        )
-    }
 
     private fun refreshData() {
         data
@@ -62,7 +36,7 @@ class MapChartBi(
     override fun plotData() {
         if (data.isNotEmpty()) {
             // Destaca o x0 e y0
-            highlightP0(data.first())
+            highlightP0(data.first().x, data.first().y)
             refreshData()
         }
     }

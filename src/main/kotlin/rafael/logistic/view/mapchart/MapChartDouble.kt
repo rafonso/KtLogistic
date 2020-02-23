@@ -3,6 +3,7 @@ package rafael.logistic.view.mapchart
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
+import javafx.scene.paint.Color
 import rafael.logistic.view.getStroke
 import rafael.logistic.view.plotLines
 import tornadofx.*
@@ -27,7 +28,7 @@ abstract class MapChartDouble(
     }
 
     private fun refreshXY() {
-        plotLines(getBounds(), background) { l, _ -> l.stroke = c("blue") }
+        plotLines(getBounds(), background) { l, _ -> l.stroke = Color.BLUE }
     }
 
     protected abstract fun recalculateBounds()
@@ -41,6 +42,8 @@ abstract class MapChartDouble(
         refreshXY()
         refreshAsymptote()
         if (data.isNotEmpty()) {
+            // Destaca o x0 e y0
+            highlightP0(data.first(), 0.0)
             refreshData()
         }
     }
