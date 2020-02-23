@@ -18,7 +18,7 @@ abstract class MapChartBase<T>(
 
     protected val background: Node = super.lookup(".chart-plot-background")
 
-    val dataProperty = emptyList<T>().toProperty()
+    private val dataProperty = emptyList<T>().toProperty()
     protected var data: List<T> by dataProperty
 
     protected val myXAxis = (xAxis as NumberAxis)

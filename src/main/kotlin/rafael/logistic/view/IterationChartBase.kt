@@ -44,9 +44,9 @@ abstract class IterationChartBase<T>(
 
     protected abstract fun refreshData()
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observablData: ObjectProperty<List<T>>) {
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ObjectProperty<List<T>>) {
         this.iterationsProperty.bind(valueProperty)
-        this.iterationDataProperty.bind(observablData)
+        this.iterationDataProperty.bind(observableData)
     }
 
     override fun layoutPlotChildren() {

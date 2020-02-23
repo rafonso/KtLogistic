@@ -24,8 +24,8 @@ class IterationChartBi(
 
     private var extractor: (BiPoint) -> Double = { kotlin.error("") }
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observablData: ObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
-        super.bind(valueProperty, observablData)
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
+        super.bind(valueProperty, observableData)
         this.extractor = _extractor
     }
 
@@ -34,7 +34,7 @@ class IterationChartBi(
                 .mapIndexed { i, pt -> Pair(i, extractor(pt)) }
                 .filter { pair -> pair.second >= valueYAxis.lowerBound && pair.second <= valueYAxis.upperBound }
                 .map { pair -> Triple(pair.first.toIterationsXPos(), pair.second.toIterationsYPos(), pair.first.toDouble() / super.iterationData.size) }
-                .map { coord -> Circle(coord.first, coord.second, 2.0, getStroke(coord.third)) }
+                .map { coords -> Circle(coords.first, coords.second, 2.0, getStroke(coords.third)) }
                 .forEach { background.add(it) }
     }
 

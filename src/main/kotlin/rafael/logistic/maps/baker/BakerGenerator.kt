@@ -1,10 +1,10 @@
 package rafael.logistic.maps.baker
 
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.generator.IteractionGeneratorBi
+import rafael.logistic.generator.IterationGeneratorBi
 import rafael.logistic.generator.NoParameter
 
-class BakerGenerator : IteractionGeneratorBi<NoParameter>() {
+class BakerGenerator : IterationGeneratorBi<NoParameter>() {
 
     companion object {
         fun calc(p: BiPoint) =
@@ -18,7 +18,7 @@ class BakerGenerator : IteractionGeneratorBi<NoParameter>() {
     override fun calculate(parameter: NoParameter, point: BiPoint): BiPoint =
             calc(point)
 
-    fun generate(p0: BiPoint, iteractions: Int) =
-            super.generate(p0, NoParameter, iteractions)
+    fun generate(p0: BiPoint, iterations: Int) =
+            super.generate(p0, NoParameter, iterations)
 
 }

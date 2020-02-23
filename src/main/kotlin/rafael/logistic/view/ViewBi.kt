@@ -42,8 +42,8 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
     }
 
     override fun initializeCharts() {
-        xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IterationChartBi.extractorX)
-        yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IterationChartBi.extractorY)
+        xIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorX)
+        yIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorY)
     }
 
     protected open fun initializeControlsBi() {

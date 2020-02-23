@@ -1,13 +1,13 @@
 package rafael.logistic.maps.tinkerbell
 
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.generator.IteractionGeneratorBi
+import rafael.logistic.generator.IterationGeneratorBi
 import rafael.logistic.generator.IterationParameter
 import kotlin.math.pow
 
 data class TinkerbellParameter(val a: Double, val b: Double, val c: Double, val d: Double) : IterationParameter
 
-class TinkerbellGenerator : IteractionGeneratorBi<TinkerbellParameter>() {
+class TinkerbellGenerator : IterationGeneratorBi<TinkerbellParameter>() {
 
     override fun calculate(parameter: TinkerbellParameter, point: BiPoint): BiPoint =
             BiPoint(
@@ -15,7 +15,7 @@ class TinkerbellGenerator : IteractionGeneratorBi<TinkerbellParameter>() {
                     2 * point.x * point.y + parameter.c * point.x + parameter.c * point.y
             )
 
-    fun generate(p0: BiPoint, a: Double, b: Double, c: Double, d: Double, iteractions: Int) =
-            super.generate(p0, TinkerbellParameter(a, b, c, d), iteractions)
+    fun generate(p0: BiPoint, a: Double, b: Double, c: Double, d: Double, iterations: Int) =
+            super.generate(p0, TinkerbellParameter(a, b, c, d), iterations)
 
 }

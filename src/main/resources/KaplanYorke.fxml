@@ -32,7 +32,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblx0" alignment="CENTER_RIGHT" minWidth="75.0" text="x₀ =" textAlignment="RIGHT">
+                        <Label fx:id="lblX0" alignment="CENTER_RIGHT" minWidth="75.0" text="x₀ =" textAlignment="RIGHT">
                             <padding>
                                 <Insets left="5.0"/>
                             </padding>
@@ -52,13 +52,13 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                     <children>
-                        <Label fx:id="lblIteractions" alignment="TOP_RIGHT" minWidth="75.0" text="Iteractions ="
+                        <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
                                textAlignment="RIGHT">
                             <padding>
                                 <Insets right="5.0"/>
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnIteractions"/>
+                        <Spinner fx:id="spnIterations"/>
                     </children>
                 </FlowPane>
             </children>

@@ -30,7 +30,7 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title
     }
 
     override fun initializeCharts() {
-        iterationsChart.bind(spnIteractions.valueProperty(), logisticData)
+        iterationsChart.bind(spnIterations.valueProperty(), logisticData)
     }
 
     protected abstract fun initializeControlsDouble()

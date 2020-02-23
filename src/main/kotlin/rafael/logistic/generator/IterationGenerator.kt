@@ -53,6 +53,6 @@ abstract class IterationGenerator<T, P : IterationParameter> {
     }
 }
 
-typealias IteractionGeneratorDouble<P> = IterationGenerator<Double, P>
+typealias IterationGeneratorDouble<P> = IterationGenerator<Double, P>
 
-typealias IteractionGeneratorBi<P> = IterationGenerator<BiPoint, P>
+typealias IterationGeneratorBi<P> = IterationGenerator<BiPoint, P>

@@ -27,7 +27,7 @@
          <children>
              <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                  <children>
-                     <Label fx:id="lblAplha" alignment="CENTER_RIGHT" minWidth="75.0" text="Alpha =" textAlignment="RIGHT">
+                     <Label fx:id="lblAlpha" alignment="CENTER_RIGHT" minWidth="75.0" text="Alpha =" textAlignment="RIGHT">
                          <padding>
                              <Insets right="5.0" />
                          </padding>
@@ -47,7 +47,7 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                <children>
-                  <Label fx:id="lblx0" alignment="CENTER_RIGHT" minWidth="75.0" text="x0 =" textAlignment="RIGHT">
+                  <Label fx:id="lblX0" alignment="CENTER_RIGHT" minWidth="75.0" text="x₀ =" textAlignment="RIGHT">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -57,12 +57,12 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                <children>
-                  <Label fx:id="lblIteractions" alignment="TOP_RIGHT" minWidth="75.0" text="Iteractions =" textAlignment="RIGHT">
+                  <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations =" textAlignment="RIGHT">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <Spinner fx:id="spnIteractions" />
+                  <Spinner fx:id="spnIterations" />
                </children>
             </FlowPane>
          </children>
@@ -84,7 +84,7 @@
     <bottom>
         <IterationChartDouble fx:id="iterationsChart" animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0" BorderPane.alignment="CENTER">
             <xAxis>
-                <NumberAxis fx:id="iteractionsXAxis" autoRanging="false" side="BOTTOM" tickUnit="10.0" />
+                <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0" />
             </xAxis>
             <yAxis>
                 <NumberAxis autoRanging="false" lowerBound="-1.0" minorTickCount="2" side="LEFT" tickUnit="0.2" upperBound="1.0" />

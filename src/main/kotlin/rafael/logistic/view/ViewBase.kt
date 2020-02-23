@@ -11,7 +11,7 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
     // @formatter:off
     override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected   val spnIteractions          :   Spinner<Int>    by fxid()
+    protected   val spnIterations           :   Spinner<Int>    by fxid()
     private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
 
     protected   val chart                   :   C               by fxid()
@@ -20,7 +20,7 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
     // @formatter:on
 
     override fun onBeforeShow() {
-        spnIteractions.configureActions(iterationsValueFactory, ::loadData)
+        spnIterations.configureActions(iterationsValueFactory, ::loadData)
         initializeControls()
 
         chart.bind(logisticData)
@@ -41,7 +41,7 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
     }
 
     protected fun loadData() {
-        this.logisticData.value = refreshData(generator, spnIteractions.value)
+        this.logisticData.value = refreshData(generator, spnIterations.value)
     }
 
 }
