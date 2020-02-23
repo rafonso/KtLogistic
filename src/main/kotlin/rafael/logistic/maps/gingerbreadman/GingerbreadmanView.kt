@@ -1,48 +1,27 @@
 package rafael.logistic.maps.gingerbreadman
 
-import javafx.beans.property.SimpleIntegerProperty
-import javafx.scene.control.Spinner
-import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.IteractionChartBi
-import rafael.logistic.view.MapChartBi
-import rafael.logistic.view.ViewBase
-import rafael.logistic.view.configureActions
+import rafael.logistic.view.ViewBi
 
-private const val MAX_DELTA = 1.0
+class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
 
-private const val MAX_X = 10.0
+    override val maxDelta: Double
+        get() = 1.0
 
-class GingerbreadmanView : ViewBase<BiPoint, GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
+    override val maxX0Spinner: Double
+        get() = 10.0
 
-    // @formatter:off
-    private  val spnX0              : Spinner<Double>   by fxid()
-    private  val spnY0              : Spinner<Double>   by fxid()
-    private  val chart              : MapChartBi        by fxid()
-    private  val xIterationsChart   : IteractionChartBi by fxid()
-    private  val yIterationsChart   : IteractionChartBi by fxid()
-    // @formatter:on
+    override val minX0Spinner: Double
+        get() = -maxX0Spinner
 
-    // @formatter:off
-    private val deltaX0Property         =   SimpleIntegerProperty(this, "deltaX0"   , 0     )
-    private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 0.0, MAX_DELTA)
+    override val maxY0Spinner: Double
+        get() = maxX0Spinner
 
-    private val deltaY0Property         =   SimpleIntegerProperty(this, "deltaY0"   , 0     )
-    private val y0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 0.0, MAX_DELTA)
-    // @formatter:on
+    override val minY0Spinner: Double
+        get() = -maxY0Spinner
 
-    override fun initializeControls() {
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
-        spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
-    }
-
-    override fun initializeCharts() {
-        chart.bind(logisticData)
-        xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorX)
-        yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorY)
-    }
 
     override fun refreshData(generator: GingerbreadmanGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(spnX0.value, spnY0.value), iterations)
+            generator.generate(BiPoint(x0Property.value, y0Property.value), iterations)
 
 }
