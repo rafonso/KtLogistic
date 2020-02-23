@@ -8,14 +8,13 @@ import rafael.logistic.generator.IterationGenerator
 import tornadofx.*
 
 abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title: String, fxmlFile: String, generator: G) :
-        ViewBase<Double, G>(title, fxmlFile, generator) {
+        ViewBase<Double, G, C>(title, fxmlFile, generator) {
 
     protected val maxDelta = 0.1
 
     protected open val iniX0Spinner = 0.5
 
     // @formatter:off
-    protected   val chart               :   C               by fxid()
     private     val iteractionsChart    :   IteractionChart by fxid()
 
     private     val spnX0               :   Spinner<Double> by fxid()
@@ -31,7 +30,6 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title
     }
 
     override fun initializeCharts() {
-        chart.bind(logisticData)
         iteractionsChart.bind(spnIteractions.valueProperty(), logisticData)
     }
 

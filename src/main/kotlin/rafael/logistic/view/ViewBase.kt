@@ -6,22 +6,28 @@ import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.IterationGenerator
 import tornadofx.*
 
-abstract class ViewBase<T, G : IterationGenerator<T, *>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {
+abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {
 
     // @formatter:off
-    override val root                      :   BorderPane    by fxml("/$fxmlFile.fxml")
+    override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected val spnIteractions           :   Spinner<Int>  by fxid()
-    private   val iterationsValueFactory   =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
+    protected   val spnIteractions          :   Spinner<Int>    by fxid()
+    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
 
-    protected val logisticData             =   emptyList<T>().toProperty()
+    protected   val chart                   :   C               by fxid()
+
+    protected   val logisticData            =   emptyList<T>().toProperty()
     // @formatter:on
 
     override fun onBeforeShow() {
         spnIteractions.configureActions(iterationsValueFactory, ::loadData)
         initializeControls()
+
+        chart.bind(logisticData)
         initializeCharts()
+
         initializeAdditional()
+
         loadData()
     }
 

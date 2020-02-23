@@ -9,13 +9,12 @@ import rafael.logistic.generator.IterationGenerator
 import tornadofx.*
 
 abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFile: String, generator: G) :
-        ViewBase<BiPoint, G>(title, fxmlFile, generator) {
+        ViewBase<BiPoint, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
     private     val spnX0              :   Spinner<Double>      by fxid()
     private     val spnY0              :   Spinner<Double>      by fxid()
 
-    protected   val chart              :   MapChartBi           by fxid()
     private     val xIterationsChart   :   IteractionChartBi    by fxid()
     private     val yIterationsChart   :   IteractionChartBi    by fxid()
 
@@ -44,7 +43,6 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
     }
 
     override fun initializeCharts() {
-        chart.bind(logisticData)
         xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorX)
         yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorY)
     }
