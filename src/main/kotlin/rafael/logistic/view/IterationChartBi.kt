@@ -12,7 +12,7 @@ import tornadofx.*
 class IterationChartBi(
         @NamedArg("xAxis") xAxis: Axis<Int>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IteractionChartBase<BiPoint>(xAxis, yAxis, data) {
+        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<BiPoint>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().observable())
@@ -30,10 +30,10 @@ class IterationChartBi(
     }
 
     override fun refreshData() {
-        super.iteractionData
+        super.iterationData
                 .mapIndexed { i, pt -> Pair(i, extractor(pt)) }
                 .filter { pair -> pair.second >= valueYAxis.lowerBound && pair.second <= valueYAxis.upperBound }
-                .map { pair -> Triple(pair.first.toIteractionsXPos(), pair.second.toIteractionsYPos(), pair.first.toDouble() / super.iteractionData.size) }
+                .map { pair -> Triple(pair.first.toIterationsXPos(), pair.second.toIterationsYPos(), pair.first.toDouble() / super.iterationData.size) }
                 .map { coord -> Circle(coord.first, coord.second, 2.0, getStroke(coord.third)) }
                 .forEach { background.add(it) }
     }
