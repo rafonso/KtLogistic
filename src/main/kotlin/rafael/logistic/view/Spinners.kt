@@ -82,7 +82,7 @@ private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> 
 }
 
 fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-                                     deltaProperty: SimpleIntegerProperty, action: () -> Unit) {
+                                     deltaProperty: IntegerProperty, action: () -> Unit) {
     this.bind(valueFactory, action)
     this.configureSpinnerStep(deltaProperty)
 }

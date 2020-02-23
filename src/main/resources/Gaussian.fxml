@@ -72,7 +72,7 @@
       </GridPane>
    </top>
     <center>
-        <GaussianChart fx:id="gaussianChart" animated="false" createSymbols="false" legendVisible="false" BorderPane.alignment="CENTER">
+        <GaussianChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false" BorderPane.alignment="CENTER">
             <xAxis>
                 <NumberAxis autoRanging="false" lowerBound="-1.0" minorTickCount="10" side="BOTTOM" tickUnit="0.1" upperBound="1.0" />
             </xAxis>

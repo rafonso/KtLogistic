@@ -61,7 +61,7 @@
       </GridPane>
    </top>
     <center>
-        <LogisticChart fx:id="logisticChart" animated="false" createSymbols="false" legendVisible="false" BorderPane.alignment="CENTER">
+        <LogisticChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false" BorderPane.alignment="CENTER">
             <xAxis>
                 <NumberAxis autoRanging="false" minorTickCount="10" side="BOTTOM" tickUnit="0.1" upperBound="1.0" />
             </xAxis>
