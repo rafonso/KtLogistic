@@ -4,7 +4,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.view.IteractionChartBi?>
+<?import rafael.logistic.view.IterationChartBi?>
 <?import rafael.logistic.view.MapChartBi?>
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1">
@@ -116,24 +116,24 @@
     <bottom>
         <VBox>
             <children>
-                <IteractionChartBi fx:id="xIterationsChart" animated="false" createSymbols="false" legendVisible="false"
-                                   prefHeight="100.0" BorderPane.alignment="CENTER">
+                <IterationChartBi fx:id="xIterationsChart" animated="false" createSymbols="false" legendVisible="false"
+                                  prefHeight="100.0" BorderPane.alignment="CENTER">
                     <xAxis>
                         <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
                     </xAxis>
                     <yAxis>
                         <NumberAxis autoRanging="false" side="LEFT" lowerBound="-2.0" tickUnit="0.2" upperBound="2.0"/>
                     </yAxis>
-                </IteractionChartBi>
-                <IteractionChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
-                                   prefHeight="100.0" BorderPane.alignment="CENTER">
+                </IterationChartBi>
+                <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
+                                  prefHeight="100.0" BorderPane.alignment="CENTER">
                     <xAxis>
                         <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
                     </xAxis>
                     <yAxis>
                         <NumberAxis autoRanging="false" side="LEFT" lowerBound="-2.0" tickUnit="0.2" upperBound="2.0"/>
                     </yAxis>
-                </IteractionChartBi>
+                </IterationChartBi>
             </children>
         </VBox>
     </bottom>

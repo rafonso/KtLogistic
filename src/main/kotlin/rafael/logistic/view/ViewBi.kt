@@ -12,11 +12,11 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
         ViewBase<BiPoint, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
-    private     val spnX0              :   Spinner<Double>      by fxid()
-    private     val spnY0              :   Spinner<Double>      by fxid()
+    private     val spnX0              :   Spinner<Double>  by fxid()
+    private     val spnY0              :   Spinner<Double>  by fxid()
 
-    private     val xIterationsChart   :   IteractionChartBi    by fxid()
-    private     val yIterationsChart   :   IteractionChartBi    by fxid()
+    private     val xIterationsChart   :   IterationChartBi by fxid()
+    private     val yIterationsChart   :   IterationChartBi by fxid()
 
     protected open val maxDelta     = 0.1
     protected open val iniX0Spinner = 0.0
@@ -35,7 +35,6 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
     protected   val y0Property:ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
     // @formatter:on
 
-
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
@@ -43,14 +42,13 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
     }
 
     override fun initializeCharts() {
-        xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorX)
-        yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorY)
+        xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IterationChartBi.extractorX)
+        yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IterationChartBi.extractorY)
     }
 
     protected open fun initializeControlsBi() {
 
     }
-
 
 
 }

@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle
 import rafael.logistic.generator.BiPoint
 import tornadofx.*
 
-class IteractionChartBi(
+class IterationChartBi(
         @NamedArg("xAxis") xAxis: Axis<Int>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IteractionChartBase<BiPoint>(xAxis, yAxis, data) {
