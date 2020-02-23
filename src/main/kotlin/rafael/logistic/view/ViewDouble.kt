@@ -15,7 +15,7 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title
     protected open val iniX0Spinner = 0.5
 
     // @formatter:off
-    private     val iteractionsChart    :   IteractionChart by fxid()
+    private     val iterationsChart     :   IteractionChartDouble by fxid()
 
     private     val spnX0               :   Spinner<Double> by fxid()
     private     val deltaX0Property     =   1.toProperty()
@@ -30,7 +30,7 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChart>(title
     }
 
     override fun initializeCharts() {
-        iteractionsChart.bind(spnIteractions.valueProperty(), logisticData)
+        iterationsChart.bind(spnIteractions.valueProperty(), logisticData)
     }
 
     protected abstract fun initializeControlsDouble()

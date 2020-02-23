@@ -1,7 +1,6 @@
 package rafael.logistic.view
 
 import javafx.beans.property.IntegerProperty
-import javafx.beans.property.SimpleIntegerProperty
 import javafx.event.Event
 import javafx.geometry.Pos
 import javafx.scene.control.Spinner
