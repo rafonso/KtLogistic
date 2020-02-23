@@ -3,68 +3,55 @@ package rafael.logistic.maps.duffing
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.BiPoint
 import rafael.logistic.view.IteractionChartBi
 import rafael.logistic.view.MapChartBi
+import rafael.logistic.view.ViewBase
 import rafael.logistic.view.configureActions
-import tornadofx.*
 
 private const val MAX_DELTA = 0.1
 
 private const val MAX_X = 2.0
 
-class DuffingView : View("Duffing") {
+class DuffingView : ViewBase<BiPoint, DuffingGenerator>("Duffing", "Duffing", DuffingGenerator()) {
 
     // @formatter:off
-    override val root               : BorderPane        by fxml("/Duffing.fxml")
-    private  val spnA               : Spinner<Double>   by fxid()
-    private  val spnB               : Spinner<Double>   by fxid()
-    private  val spnX0              : Spinner<Double>   by fxid()
-    private  val spnY0              : Spinner<Double>   by fxid()
-    private  val spnIteractions     : Spinner<Int>      by fxid()
-    private  val chart              : MapChartBi        by fxid()
-    private  val xIterationsChart   : IteractionChartBi by fxid()
-    private  val yIterationsChart   : IteractionChartBi by fxid()
-    // @formatter:on
+    private  val spnA               :   Spinner<Double>   by fxid()
+    private  val spnB               :   Spinner<Double>   by fxid()
+    private  val spnX0              :   Spinner<Double>   by fxid()
+    private  val spnY0              :   Spinner<Double>   by fxid()
 
-    // @formatter:off
-    private val deltaAProperty          =   SimpleIntegerProperty(this, "deltaAlpha"    , 2     )
-    private val aValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.75, MAX_DELTA)
+    private  val chart              :   MapChartBi        by fxid()
+    private  val xIterationsChart   :   IteractionChartBi by fxid()
+    private  val yIterationsChart   :   IteractionChartBi by fxid()
 
-    private val deltaBProperty          =   SimpleIntegerProperty(this, "deltaBeta"    , 2     )
-    private val bValueFactory           =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, MAX_DELTA)
+    private val deltaAProperty      =   SimpleIntegerProperty(this, "deltaAlpha"    , 2     )
+    private val aValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.75, MAX_DELTA)
 
-    private val deltaX0Property         =   SimpleIntegerProperty(this, "deltaX0"   , 1     )
-    private val x0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 1.0, MAX_DELTA)
+    private val deltaBProperty      =   SimpleIntegerProperty(this, "deltaBeta"    , 2     )
+    private val bValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, MAX_DELTA)
+
+    private val deltaX0Property     =   SimpleIntegerProperty(this, "deltaX0"   , 1     )
+    private val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(-MAX_X, MAX_X, 1.0, MAX_DELTA)
 
     private val deltaY0Property         =   SimpleIntegerProperty(this, "deltaY0"   , 1     )
     private val y0ValueFactory          =   SpinnerValueFactory.DoubleSpinnerValueFactory(- 2 * MAX_X / 3, 2 * MAX_X / 3 , 0.0, MAX_DELTA)
-
-    private val iteractionsValueFactory =   SpinnerValueFactory.IntegerSpinnerValueFactory(50, 2000, 100, 50)
-
-    private val generator               =   DuffingGenerator()
-
-    private val logisticData            =   emptyList<BiPoint>().toProperty()
-
     // @formatter:on
 
-    init {
+    override fun initializeControls() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
         spnB.configureActions(bValueFactory, deltaBProperty, this::loadData)
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
-        spnIteractions.configureActions(iteractionsValueFactory, this::loadData)
+    }
 
+    override fun initializeCharts() {
         chart.bind(logisticData)
         xIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorX)
         yIterationsChart.bind(spnIteractions.valueProperty(), logisticData, IteractionChartBi.extractorY)
-
-        loadData()
     }
 
-    private fun loadData() {
-        this.logisticData.value = generator.generate(BiPoint(spnX0.value, spnY0.value), spnA.value, spnB.value, spnIteractions.value)
-    }
+    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<BiPoint> =
+            generator.generate(BiPoint(spnX0.value, spnY0.value), spnA.value, spnB.value, iterations)
 
 }

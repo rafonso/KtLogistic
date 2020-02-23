@@ -8,9 +8,11 @@ class BakerGenerator : IteractionGeneratorBi<NoParameter>() {
 
     companion object {
         fun calc(p: BiPoint) =
-                if (p.x in 0.0..0.5)      BiPoint(+ 2 * p.x    , + p.y / 2)
-                else if (p.x in 0.5..1.0) BiPoint(- 2 * p.x + 2, - p.y / 2 + 1.0)
-                else error("$p")
+                when (p.x) {
+                    in 0.0..0.5 -> BiPoint(+ 2 * p.x    , + p.y / 2)
+                    in 0.5..1.0 -> BiPoint(- 2 * p.x + 2, - p.y / 2 + 1.0)
+                    else        -> error("$p")
+                }
     }
 
     override fun calculate(parameter: NoParameter, point: BiPoint): BiPoint =
