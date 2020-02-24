@@ -6,6 +6,11 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import javafx.scene.paint.Color
+import javafx.scene.paint.CycleMethod
+import javafx.scene.paint.LinearGradient
+import javafx.scene.paint.Stop
+import javafx.scene.shape.PathElement
 import rafael.logistic.view.CONVERTER_0
 import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
@@ -15,22 +20,29 @@ abstract class IterationChartBase<T>(
         yAxis: Axis<Double>,
         data: ObservableList<Series<Int, Double>>) : LineChart<Int, Double>(xAxis, yAxis, data) {
 
-    protected val background: Node = super.lookup(".chart-plot-background")
+    private val background: Node = super.lookup(".chart-plot-background")
 
     private val iterationDataProperty = emptyList<T>().toProperty()
-    protected var iterationData: List<T> by iterationDataProperty
 
     private val iterationsProperty = 0.toProperty()
 
+    private val valueXAxis = (xAxis as NumberAxis)
+
     protected val valueYAxis = (yAxis as NumberAxis)
 
+    private val gradient = LinearGradient(0.0, 0.0, 1.0, 0.0, true, CycleMethod.NO_CYCLE,
+            Stop(0.0 / 6, Color.VIOLET), Stop(1.0 / 6, Color.INDIGO), Stop(2.0 / 6, Color.BLUE),
+            Stop(3.0 / 6, Color.GREEN), Stop(4.0 / 6, Color.YELLOW), Stop(5.0 / 6, Color.ORANGE),
+            Stop(6.0 / 6, Color.RED)
+    )
+
     init {
-        (xAxis as NumberAxis).tickLabelFormatter = CONVERTER_0
+        valueXAxis.tickLabelFormatter = CONVERTER_0
         valueYAxis.tickLabelFormatter = CONVERTER_2
         iterationsProperty.onChange {
-            xAxis.upperBound = it.toDouble()
+            valueXAxis.upperBound = it.toDouble()
         }
-        xAxis.tickUnitProperty().bind(xAxis.upperBoundProperty().divide(10))
+        valueXAxis.tickUnitProperty().bind(valueXAxis.upperBoundProperty().divide(10))
         iterationDataProperty.onChange {
             layoutPlotChildren()
         }
@@ -40,7 +52,7 @@ abstract class IterationChartBase<T>(
 
     protected fun Double.toIterationsYPos() = valueYAxis.getDisplayPosition(this)
 
-    protected abstract fun refreshData()
+    protected abstract fun loadPath(iterationData: List<T>): Array<PathElement>
 
     fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<T>>) {
         this.iterationsProperty.bind(valueProperty)
@@ -50,8 +62,11 @@ abstract class IterationChartBase<T>(
     override fun layoutPlotChildren() {
         background.getChildList()?.clear()
 
-        if (iterationData.isNotEmpty()) {
-            refreshData()
+        if (iterationDataProperty.value.isNotEmpty()) {
+            val elements = loadPath(iterationDataProperty.value)
+            background.add(path(*elements) {
+                this.stroke = gradient
+            })
         }
     }
 

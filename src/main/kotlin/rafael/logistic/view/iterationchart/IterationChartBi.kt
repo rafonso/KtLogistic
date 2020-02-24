@@ -4,9 +4,10 @@ import javafx.beans.NamedArg
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
-import javafx.scene.shape.Circle
+import javafx.scene.shape.LineTo
+import javafx.scene.shape.MoveTo
+import javafx.scene.shape.PathElement
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.getStroke
 import tornadofx.*
 
 class IterationChartBi(
@@ -29,13 +30,15 @@ class IterationChartBi(
         this.extractor = _extractor
     }
 
-    override fun refreshData() {
-        super.iterationData
+    override fun loadPath(iterationData: List<BiPoint>): Array<PathElement> {
+        val positions: List<Pair<Int, Double>> = iterationData
                 .mapIndexed { i, pt -> Pair(i, extractor(pt)) }
                 .filter { pair -> pair.second >= valueYAxis.lowerBound && pair.second <= valueYAxis.upperBound }
-                .map { pair -> Triple(pair.first.toIterationsXPos(), pair.second.toIterationsYPos(), pair.first.toDouble() / super.iterationData.size) }
-                .map { coords -> Circle(coords.first, coords.second, 2.0, getStroke(coords.third)) }
-                .forEach { background.add(it) }
+
+        return positions.indices
+                .map { index -> Triple(index == 0 || positions[index].first - positions[index - 1].first > 1, positions[index].first.toIterationsXPos(), positions[index].second.toIterationsYPos()) }
+                .map { t -> if (t.first) MoveTo(t.second, t.third) else LineTo(t.second, t.third) }
+                .toTypedArray()
     }
 
 }
