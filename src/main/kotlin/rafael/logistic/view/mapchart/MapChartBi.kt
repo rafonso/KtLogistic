@@ -9,6 +9,10 @@ import rafael.logistic.view.getStroke
 import tornadofx.*
 import java.util.stream.Collectors
 
+private const val MAX_RADIUS = 1.0
+private const val MIN_RADIUS = 0.4
+private const val DELTA_RADIUS = MAX_RADIUS - MIN_RADIUS
+
 class MapChartBi(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
@@ -27,7 +31,7 @@ class MapChartBi(
                 .mapIndexed { i, p -> Triple(p.x.toLogisticXPos(), p.y.toLogisticYPos(), i.toDouble() / data.size) }
                 .parallelStream()
                 .map { t ->
-                    Circle(t.first, t.second, (1.6 * t.third + 0.4)).apply {
+                    Circle(t.first, t.second, (DELTA_RADIUS * t.third + MIN_RADIUS)).apply {
                         stroke = getStroke(t.third)
                         fill = stroke
                     }

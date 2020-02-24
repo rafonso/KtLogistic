@@ -8,6 +8,10 @@ import rafael.logistic.view.getStroke
 import rafael.logistic.view.plotLines
 import tornadofx.*
 
+private const val MAX_WIDTH = 1.0
+private const val MIN_WIDTH = 0.4
+private const val DELTA_WIDTH = MAX_WIDTH - MIN_WIDTH
+
 abstract class MapChartDouble(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
@@ -23,7 +27,7 @@ abstract class MapChartDouble(
 
         plotLines(coords, background) { l, i ->
             l.stroke = getStroke(i.toDouble() / coords.size)
-            l.strokeWidth = (1.6 * i / coords.size + 0.4)
+            l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
             l.opacity = 0.5
         }
     }
