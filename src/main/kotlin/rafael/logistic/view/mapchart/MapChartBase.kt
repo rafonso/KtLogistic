@@ -13,6 +13,8 @@ import javafx.scene.shape.Path
 import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
+const val P0_SIDE = 10.0
+
 abstract class MapChartBase<T>(
         xAxis: Axis<Double>,
         yAxis: Axis<Double>,

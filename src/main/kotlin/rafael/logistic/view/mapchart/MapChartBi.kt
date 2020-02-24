@@ -3,10 +3,11 @@ package rafael.logistic.view.mapchart
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
+import javafx.scene.shape.Circle
 import rafael.logistic.generator.BiPoint
+import rafael.logistic.view.getStroke
 import tornadofx.*
-
-const val P0_SIDE = 10.0
+import java.util.stream.Collectors
 
 class MapChartBi(
         @NamedArg("xAxis") xAxis: Axis<Double>,
@@ -18,19 +19,22 @@ class MapChartBi(
 
 
     private fun refreshData() {
-        data
+        val elements = data
                 .filter { p ->
                     (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&
                             (p.y >= myYAxis.lowerBound) && (p.y <= myYAxis.upperBound)
                 }
-                .map { p -> Pair(p.x.toLogisticXPos(), p.y.toLogisticYPos()) }
-                .mapIndexed { index, pair ->
-                    circle(pair.first, pair.second, (1.6 * index / data.size + 0.4)).apply {
-                        stroke = rafael.logistic.view.getStroke(index.toDouble() / data.size)
+                .mapIndexed { i, p -> Triple(p.x.toLogisticXPos(), p.y.toLogisticYPos(), i.toDouble() / data.size) }
+                .parallelStream()
+                .map { t ->
+                    Circle(t.first, t.second, (1.6 * t.third + 0.4)).apply {
+                        stroke = getStroke(t.third)
                         fill = stroke
                     }
                 }
-                .forEach { l -> background.add(l) }
+                .collect(Collectors.toList())
+
+        background.getChildList()?.addAll(elements)
     }
 
     override fun plotData() {
