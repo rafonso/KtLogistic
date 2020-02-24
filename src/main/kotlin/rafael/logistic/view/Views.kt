@@ -5,6 +5,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Line
 import javafx.util.StringConverter
 import tornadofx.*
+import java.util.stream.Collectors
 
 
 class SpinnerConverter(size: Int) : StringConverter<Double>() {
@@ -31,11 +32,15 @@ fun getStroke(x: Double): Color {
 }
 
 fun plotLines(coords: List<Pair<Double, Double>>, chartBackground: Node, handler: (Line, Int) -> Unit = { _, _ -> }) {
-    (1 until coords.size)
+    val elements = (1 until coords.size)
+            .toList()
+            .parallelStream()
             .map { i ->
                 Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
                     handler(l, i)
                 }
             }
-            .forEach { l -> chartBackground.add(l) }
+            .collect(Collectors.toList())
+
+    chartBackground.getChildList()?.addAll(elements)
 }
