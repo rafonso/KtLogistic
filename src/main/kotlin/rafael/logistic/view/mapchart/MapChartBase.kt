@@ -36,6 +36,7 @@ abstract class MapChartBase<T>(
         dataProperty.onChange {
             layoutPlotChildren()
         }
+        initialize()
     }
 
     protected fun highlightP0(x0: Double, y0: Double) {
@@ -65,6 +66,10 @@ abstract class MapChartBase<T>(
     protected fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
 
     protected abstract fun plotData()
+
+    protected open fun initialize() {
+
+    }
 
     fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChartBase<T>) -> Unit = {}) {
         this.dataProperty.bind(dataProperty)
