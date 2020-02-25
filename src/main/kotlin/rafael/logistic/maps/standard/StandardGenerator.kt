@@ -12,16 +12,10 @@ data class StandardParameter(val k: Double) : IterationParameter
 // http://mathworld.wolfram.com/StandardMap.html
 class StandardGenerator : IterationGeneratorBi<StandardParameter>() {
 
-    companion object {
-
-        const val CICLE = 2 * PI
-
-        fun calc(k: Double, p: BiPoint) =
-                BiPoint((p.x + p.y) % CICLE, (p.y + k * sin(p.x)) % CICLE)
+    override fun calculate(parameter: StandardParameter, point: BiPoint): BiPoint {
+        val y = point.y + parameter.k * sin(point.x) / (2 * PI)
+        return BiPoint((point.x + y), y)
     }
-
-    override fun calculate(parameter: StandardParameter, point: BiPoint): BiPoint =
-            calc(parameter.k, point)
 
     fun generate(p0: BiPoint, k: Double, iterations: Int) =
             super.generate(p0, StandardParameter(k), iterations)
