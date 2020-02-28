@@ -6,14 +6,10 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
-import javafx.scene.paint.Color
-import javafx.scene.shape.LineTo
-import javafx.scene.shape.MoveTo
-import javafx.scene.shape.Path
 import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
-const val P0_SIDE = 10.0
+const val P0_SIDE = 20.0
 
 abstract class MapChartBase<T>(
         xAxis: Axis<Double>,
@@ -32,6 +28,8 @@ abstract class MapChartBase<T>(
 
     protected val myYAxis = (yAxis as NumberAxis)
 
+    private val square = Point0()
+
     init {
         myXAxis.tickLabelFormatter = CONVERTER_2
         myYAxis.tickLabelFormatter = CONVERTER_2
@@ -42,32 +40,31 @@ abstract class MapChartBase<T>(
     }
 
     protected fun highlightP0(x0: Double, y0: Double) {
-        val cornerX = x0.toLogisticXPos() - P0_SIDE / 2
-        val cornerY = y0.toLogisticYPos() - P0_SIDE / 2
-        background.add(
-                Path(
-                        // @formatter:off
-                        MoveTo(cornerX              , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
-                        LineTo(cornerX              , cornerY + P0_SIDE ),
-                        LineTo(cornerX              , cornerY           ),
-                        LineTo(cornerX + P0_SIDE    , cornerY + P0_SIDE ),
-                        MoveTo(cornerX              , cornerY + P0_SIDE ),
-                        LineTo(cornerX + P0_SIDE    , cornerY           )
-                        // @formatter:on
-                ).apply {
-                    fill = Color.TRANSPARENT
-                    stroke = Color.DARKGRAY
-                }
-        )
+        background.add(square.also { sq ->
+            sq.x = x0.toLogisticXPos()
+            sq.y = y0.toLogisticYPos()
+            sq.toFront()
+
+//            sq.addEventHandler(MouseEvent.MOUSE_DRAGGED) { event ->
+//                val pos = background.sceneToLocal(event.sceneX, event.sceneY)
+//                p0Moved(sq, pos)
+//                println("(${sq.x}, ${sq.y})\t ${pos}\t ")
+//            }
+        })
     }
 
     protected fun Double.toLogisticXPos() = myXAxis.getDisplayPosition(this)
 
     protected fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
 
+//    protected fun Point0.toBiPoint() = BiPoint(
+//            myXAxis.getValueForDisplay(this.x) as Double,
+//            myYAxis.getValueForDisplay(this.y) as Double
+//    )
+
     protected abstract fun plotData()
+
+//    protected abstract fun p0Moved(square: Point0, pos: Point2D)
 
     protected open fun initialize() {
 

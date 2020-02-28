@@ -21,6 +21,12 @@ class MapChartBi(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
+//    val x0Property = square.xProperty
+//    var x0 by x0Property
+//
+//    val y0Property = square.yProperty
+//    var y0 by x0Property
+
 
     private fun refreshData() {
         val elements = data
@@ -48,5 +54,14 @@ class MapChartBi(
             refreshData()
         }
     }
+
+//    override fun p0Moved(square: Point0, pos: Point2D) {
+//        if(pos.x >= 0 && pos.x <= background.layoutBounds.maxX) {
+//            square.x = pos.x
+//        }
+//        if(pos.y >= 0 && pos.y <= background.layoutBounds.maxY) {
+//            square.y = pos.y
+//        }
+//    }
 
 }

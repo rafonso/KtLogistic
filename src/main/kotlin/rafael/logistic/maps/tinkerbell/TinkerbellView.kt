@@ -1,11 +1,10 @@
 package rafael.logistic.maps.tinkerbell
 
-import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.view.ViewBi
 import rafael.logistic.view.configureActions
+import rafael.logistic.view.view.ViewBi
 import tornadofx.*
 
 class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", TinkerbellGenerator()) {

@@ -25,6 +25,8 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChartDouble>
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(
             (chart.xAxis as NumberAxis).lowerBound, (chart.xAxis as NumberAxis).upperBound, iniX0Spinner, maxDelta)
     protected   val x0Property:ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
+
+//    private     val p0XProperty          =
     // @formatter:on
 
     override fun initializeControls() {
@@ -34,6 +36,7 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChartDouble>
 
     override fun initializeCharts() {
         iterationsChart.bind(spnIterations.valueProperty(), logisticData)
+//        chart.square.xProperty.asObject().bindBidirectional(x0ValueFactory.valueProperty()) // as Property<Number>)
     }
 
     protected abstract fun initializeControlsDouble()

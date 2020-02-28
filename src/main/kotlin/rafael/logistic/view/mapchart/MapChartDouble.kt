@@ -20,6 +20,9 @@ abstract class MapChartDouble(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
+//    val x0Property = square.xProperty
+//    var x0 by x0Property
+
     private fun plotWithLines() {
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
@@ -52,6 +55,12 @@ abstract class MapChartDouble(
             plotWithLines()
         }
     }
+
+//    override fun p0Moved(square: Point0, pos: Point2D) {
+//        if(pos.x >= 0 && pos.x <= background.layoutBounds.maxX) {
+//            square.x = pos.x
+//        }
+//    }
 
 }
 
