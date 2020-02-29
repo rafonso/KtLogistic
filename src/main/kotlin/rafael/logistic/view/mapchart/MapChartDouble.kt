@@ -4,9 +4,10 @@ import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
+import javafx.scene.shape.Line
 import rafael.logistic.view.getRainbowColor
-import rafael.logistic.view.plotLines
 import tornadofx.*
+import java.util.stream.Collectors
 
 private const val MAX_WIDTH = 1.0
 private const val MIN_WIDTH = 0.4
@@ -28,7 +29,7 @@ abstract class MapChartDouble(
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
                 .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
 
-        plotLines(coords, background) { l, i ->
+        plotLines(coords) { l, i ->
             l.stroke = getRainbowColor(i.toDouble() / coords.size)
             l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
             l.opacity = 0.5
@@ -36,7 +37,21 @@ abstract class MapChartDouble(
     }
 
     private fun refreshXY() {
-        plotLines(getBounds(), background) { l, _ -> l.stroke = Color.BLUE }
+        plotLines(getBounds()) { l, _ -> l.stroke = Color.BLUE }
+    }
+
+    protected fun plotLines(coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit = { _, _ -> }) {
+        val elements = (1 until coords.size)
+                .toList()
+                .parallelStream()
+                .map { i ->
+                    Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
+                        handler(l, i)
+                    }
+                }
+                .collect(Collectors.toList())
+
+        background.getChildList()?.addAll(elements)
     }
 
     protected abstract fun recalculateBounds()

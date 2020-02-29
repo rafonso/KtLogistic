@@ -5,7 +5,6 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.chart.NumberAxis
 import rafael.logistic.view.mapchart.MapChartDouble
-import rafael.logistic.view.plotLines
 import tornadofx.*
 
 const val X_INTERVALS = 100
@@ -44,7 +43,7 @@ class GaussianChart(
                 .map { it * deltaX + (xAxis as NumberAxis).lowerBound }
                 .map { x -> Pair(x, GaussianGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
                 .map { Pair(it.first.toLogisticXPos(), it.second.toLogisticYPos()) }
-        plotLines(positions, background) { l, _ -> l.stroke = c("green") }
+        plotLines(positions) { l, _ -> l.stroke = c("green") }
     }
 
 }
