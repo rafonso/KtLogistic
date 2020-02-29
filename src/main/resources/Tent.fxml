@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.view.iterationchart.IterationChartDouble?>
-<?import rafael.logistic.maps.tent.TentChart?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<?import rafael.logistic.maps.tent.*?>
+<?import rafael.logistic.view.iterationchart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -55,14 +56,18 @@
       </GridPane>
    </top>
     <center>
-        <TentChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false" BorderPane.alignment="CENTER">
-            <xAxis>
-                <NumberAxis autoRanging="false" minorTickCount="10" side="BOTTOM" tickUnit="0.1" upperBound="1.0" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis autoRanging="false" minorTickCount="10" side="LEFT" tickUnit="0.1" upperBound="1.0" />
-            </yAxis>
-        </TentChart>
+      <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+              <TentChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
+                  <xAxis>
+                      <NumberAxis autoRanging="false" minorTickCount="10" side="BOTTOM" tickUnit="0.1" upperBound="1.0" />
+                  </xAxis>
+                  <yAxis>
+                      <NumberAxis autoRanging="false" minorTickCount="10" side="LEFT" tickUnit="0.1" upperBound="1.0" />
+                  </yAxis>
+              </TentChart>
+         </children>
+      </FlowPane>
     </center>
     <bottom>
         <IterationChartDouble fx:id="iterationsChart" animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0" BorderPane.alignment="CENTER">
