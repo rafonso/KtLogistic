@@ -14,6 +14,10 @@ import kotlin.math.min
 import kotlin.math.pow
 import kotlin.reflect.KFunction1
 
+/**
+ * Configuração dos [Spinner]s
+ */
+
 private const val MIN_STEP = 1
 private const val MAX_STEP = 9
 
@@ -55,7 +59,7 @@ private fun Spinner<*>.incrementValue(event: Event) {
     }
 }
 
-private fun Spinner<Double>.handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: IntegerProperty) {
+private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: IntegerProperty) {
     if (isControl) {
         incrementAction[enum]?.let { it(stepProperty) }
     }
@@ -75,6 +79,27 @@ private fun Spinner<Double>.stepChanged(step: Int) {
     }
 }
 
+/**
+ * Troca o sinal [Spinner] se tanto o valor positivo quanto o negativo estiverem na faixa permitida.
+ *
+ * @param valueFactory [SpinnerValueFactory.DoubleSpinnerValueFactory] do Spinner
+ */
+private fun Spinner<Double>.configureInvertSignal(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory) {
+    if (valueFactory.max > 0 && valueFactory.min < 0) {
+        this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
+            if (
+                    (event.button == MouseButton.SECONDARY) &&
+                    (event.clickCount == 2) && (
+                            ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
+                                    ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
+                            )
+            ) {
+                valueFactory.value = -valueFactory.value
+            }
+        }
+    }
+}
+
 private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
@@ -88,8 +113,9 @@ fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpi
 
     // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
     this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
-    this.addEventFilter(MouseEvent.MOUSE_CLICKED) { this.handleIncrement(it.isControlDown, it.button, deltaProperty) }
-    this.addEventHandler(KeyEvent.KEY_PRESSED) { this.handleIncrement(it.isControlDown, it.code, deltaProperty) }
+    this.addEventFilter(MouseEvent.MOUSE_CLICKED) { handleIncrement(it.isControlDown, it.button, deltaProperty) }
+    this.addEventHandler(KeyEvent.KEY_PRESSED) { handleIncrement(it.isControlDown, it.code, deltaProperty) }
+    this.configureInvertSignal(valueFactory)
     deltaProperty.addListener(ChangeListener { _, _, newStep -> this.stepChanged(newStep.toInt()) })
     this.stepChanged(deltaProperty.value)
 }
