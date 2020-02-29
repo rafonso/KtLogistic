@@ -4,7 +4,7 @@ import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
-import rafael.logistic.view.getStroke
+import rafael.logistic.view.getRainbowColor
 import rafael.logistic.view.plotLines
 import tornadofx.*
 
@@ -29,7 +29,7 @@ abstract class MapChartDouble(
                 .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
 
         plotLines(coords, background) { l, i ->
-            l.stroke = getStroke(i.toDouble() / coords.size)
+            l.stroke = getRainbowColor(i.toDouble() / coords.size)
             l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
             l.opacity = 0.5
         }

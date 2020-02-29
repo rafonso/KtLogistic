@@ -5,7 +5,7 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
 import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.getStroke
+import rafael.logistic.view.getRainbowColor
 import tornadofx.*
 import java.util.stream.Collectors
 
@@ -38,7 +38,7 @@ class MapChartBi(
                 .parallelStream()
                 .map { t ->
                     Circle(t.first, t.second, (DELTA_RADIUS * t.third + MIN_RADIUS)).apply {
-                        stroke = getStroke(t.third)
+                        stroke = getRainbowColor(t.third)
                         fill = stroke
                     }
                 }
