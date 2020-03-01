@@ -23,27 +23,27 @@
             <children>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                     <children>
-                        <Label fx:id="lblRe" alignment="CENTER_RIGHT" minWidth="75.0" text="Re =" textAlignment="RIGHT">
+                        <Label fx:id="lblRe" alignment="CENTER_RIGHT" minWidth="75.0" text="C.x =" textAlignment="RIGHT">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnRe" />
+                        <Spinner fx:id="spnCX" />
                     </children>
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblIm" alignment="CENTER_RIGHT" minWidth="75.0" text="Im =" textAlignment="RIGHT">
+                        <Label fx:id="lblCY" alignment="CENTER_RIGHT" minWidth="75.0" text="C.y =" textAlignment="RIGHT">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnIm" />
+                        <Spinner fx:id="spnCY" />
                     </children>
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                     <children>
-                        <Label fx:id="lblX0" alignment="CENTER_RIGHT" minWidth="75.0" text="x₀ =" textAlignment="RIGHT">
+                        <Label fx:id="lblX0" alignment="CENTER_RIGHT" minWidth="75.0" text="Z₀.x =" textAlignment="RIGHT">
                             <padding>
                                 <Insets left="5.0" />
                             </padding>
@@ -53,7 +53,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                     <children>
-                        <Label fx:id="lblY0" alignment="CENTER_RIGHT" minWidth="75.0" text="y₀ =" textAlignment="RIGHT">
+                        <Label fx:id="lblY0" alignment="CENTER_RIGHT" minWidth="75.0" text="Z₀.y =" textAlignment="RIGHT">
                             <padding>
                                 <Insets left="5.0" />
                             </padding>
@@ -82,10 +82,10 @@
          <children>
               <MapChartBi fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
                   <xAxis>
-                      <NumberAxis autoRanging="false" lowerBound="-2.5" minorTickCount="0" side="BOTTOM" tickUnit="0.1" upperBound="1.0" />
+                      <NumberAxis autoRanging="false" lowerBound="-2.0" minorTickCount="0" side="BOTTOM" tickUnit="0.1" upperBound="2.0" />
                   </xAxis>
                   <yAxis>
-                      <NumberAxis autoRanging="false" lowerBound="-1.0" minorTickCount="10" side="LEFT" tickUnit="0.1" upperBound="1.0" />
+                      <NumberAxis autoRanging="false" lowerBound="-2.0" minorTickCount="10" side="LEFT" tickUnit="0.1" upperBound="2.0" />
                   </yAxis>
               </MapChartBi>
          </children>
@@ -106,7 +106,7 @@
                         <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-2.0" minorTickCount="0" side="LEFT" tickUnit="0.25" upperBound="1.0" />
+                        <NumberAxis autoRanging="false" lowerBound="-2.0" minorTickCount="0" side="LEFT" tickUnit="0.5" upperBound="2.0" />
                     </yAxis>
                 </IterationChartBi>
                 <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0" GridPane.columnIndex="1">
@@ -114,7 +114,7 @@
                         <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-1.0" minorTickCount="0" side="LEFT" tickUnit="0.5" upperBound="1.0" />
+                        <NumberAxis autoRanging="false" lowerBound="-2.0" minorTickCount="0" side="LEFT" tickUnit="0.5" upperBound="2.0" />
                     </yAxis>
                 </IterationChartBi>
          </children>

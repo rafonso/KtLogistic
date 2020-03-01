@@ -9,25 +9,22 @@ import tornadofx.*
 
 class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", MandelbrotGenerator()) {
 
-    override val iniX0Spinner: Double
-        get() = 1.0
-
     // @formatter:off
-    private val spnRe            :   Spinner<Double>   by fxid()
-    private val deltaReProperty  =   1.toProperty()
-    private val reValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 1.0, 0.5, maxDelta)
+    private val spnCX            :   Spinner<Double>   by fxid()
+    private val deltaCXProperty  =   1.toProperty()
+    private val cXValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
 
-    private val spnIm            :   Spinner<Double>   by fxid()
-    private val deltaImProperty  =   1.toProperty()
-    private val imValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 1.0, 0.5, maxDelta)
+    private val spnCY            :   Spinner<Double>   by fxid()
+    private val deltaCYProperty  =   1.toProperty()
+    private val cYValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
     // @formatter:on
 
     override fun refreshData(generator: MandelbrotGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), spnRe.value, spnIm.value, iterations)
+            generator.generate(BiPoint(x0Property.value, y0Property.value), spnCX.value, spnCY.value, iterations)
 
     override fun initializeControlsBi() {
-        spnRe.configureActions(reValueFactory, deltaReProperty, this::loadData)
-        spnIm.configureActions(imValueFactory, deltaImProperty, this::loadData)
+        spnCX.configureActions(cXValueFactory, deltaCXProperty, this::loadData)
+        spnCY.configureActions(cYValueFactory, deltaCYProperty, this::loadData)
     }
 
 }
