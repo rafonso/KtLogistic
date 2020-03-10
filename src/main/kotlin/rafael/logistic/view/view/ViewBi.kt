@@ -41,6 +41,8 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
         spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
+//        x0ValueFactory.valueProperty().bind(super.point0.xRealProperty().asObject())
+//        super.point0.yRealProperty().onChange { y0ValueFactory.value = it }
         initializeControlsBi()
     }
 

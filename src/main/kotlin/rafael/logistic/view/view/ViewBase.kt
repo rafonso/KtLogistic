@@ -21,6 +21,8 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
     protected   val chart                   :   C               by fxid()
 
     protected   val logisticData            =   emptyList<T>().toProperty()
+
+    protected   val point0                  =   chart.square
     // @formatter:on
 
     override fun onBeforeShow() {

@@ -6,6 +6,7 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import javafx.scene.input.MouseEvent
 import rafael.logistic.view.CONVERTER_2
 import tornadofx.*
 
@@ -28,7 +29,10 @@ abstract class MapChartBase<T>(
 
     protected val myYAxis = (yAxis as NumberAxis)
 
-    private val square = Point0()
+    val square = Point0().apply {
+        xChartToReal = myXAxis::getValueForDisplay as (Double) -> Double
+        yChartToReal = myYAxis::getValueForDisplay as (Double) -> Double
+    }
 
     init {
         super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
@@ -38,19 +42,29 @@ abstract class MapChartBase<T>(
             layoutPlotChildren()
         }
         initialize()
+
+
+//        square.xRealProperty().onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty().value}, ${square.yRealProperty().value})") }
+//        square.yRealProperty().onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty().value}, ${square.yRealProperty().value})") }
+
     }
 
     protected fun highlightP0(x0: Double, y0: Double) {
         background.add(square.also { sq ->
-            sq.x = x0.realToChartX()
-            sq.y = y0.realToChartY()
+            sq.xChart = x0.realToChartX()
+            sq.yChart = y0.realToChartY()
             sq.toFront()
 
-//            sq.addEventHandler(MouseEvent.MOUSE_DRAGGED) { event ->
-//                val pos = background.sceneToLocal(event.sceneX, event.sceneY)
-//                p0Moved(sq, pos)
-//                println("(${sq.x}, ${sq.y})\t ${pos}\t ")
-//            }
+            sq.addEventHandler(MouseEvent.MOUSE_DRAGGED) { event ->
+                val pos = background.sceneToLocal(event.sceneX, event.sceneY)
+                sq.xChart = pos.x
+                sq.yChart = pos.y
+//
+//                val x = sq.xRealProperty().value
+//                val y = sq.yRealProperty().value
+////                p0Moved(sq, pos)
+//                println("(${sq.xChart}, ${sq.yChart})\t ($x, $y)\t ")
+            }
         })
     }
 
@@ -81,7 +95,6 @@ abstract class MapChartBase<T>(
      * @see Axis#getValueForDisplay()
      */
     protected fun Double.chartToRealY() = myYAxis.getValueForDisplay(this)
-
 
 
 //    protected fun Point0.toBiPoint() = BiPoint(
