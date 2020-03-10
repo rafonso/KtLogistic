@@ -34,7 +34,7 @@ class MapChartBi(
                     (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&
                             (p.y >= myYAxis.lowerBound) && (p.y <= myYAxis.upperBound)
                 }
-                .mapIndexed { i, p -> Triple(p.x.toLogisticXPos(), p.y.toLogisticYPos(), i.toDouble() / data.size) }
+                .mapIndexed { i, p -> Triple(p.x.realToChartX(), p.y.realToChartY(), i.toDouble() / data.size) }
                 .parallelStream()
                 .map { t ->
                     Circle(t.first, t.second, (DELTA_RADIUS * t.third + MIN_RADIUS)).apply {

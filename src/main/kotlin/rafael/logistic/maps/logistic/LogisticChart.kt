@@ -25,12 +25,12 @@ class LogisticChart(
     private var oneY = 0.0
 
     override fun recalculateBounds() {
-        zeroX = (0.0).toLogisticXPos()
-        zeroY = (0.0).toLogisticYPos()
-        halfX = (0.5).toLogisticXPos()
-        topY = (rProperty.value / 2).toLogisticYPos()
-        oneX = (1.0).toLogisticXPos()
-        oneY = (1.0).toLogisticYPos()
+        zeroX = (0.0).realToChartX()
+        zeroY = (0.0).realToChartY()
+        halfX = (0.5).realToChartX()
+        topY = (rProperty.value / 2).realToChartY()
+        oneX = (1.0).realToChartX()
+        oneY = (1.0).realToChartY()
     }
 
     override fun getBounds(): List<Pair<Double, Double>> = listOf(Pair(zeroX, zeroY), Pair(oneX, oneY))

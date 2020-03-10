@@ -27,12 +27,12 @@ class TentChart(
     private var oneY = 0.0
 
     override fun recalculateBounds() {
-        zeroY = (0.0).toLogisticYPos()
-        zeroX = (0.0).toLogisticXPos()
-        halfX = (0.5).toLogisticXPos()
-        topY = (miProperty.value / 2).toLogisticYPos()
-        oneX = (1.0).toLogisticXPos()
-        oneY = (1.0).toLogisticYPos()
+        zeroY = (0.0).realToChartY()
+        zeroX = (0.0).realToChartX()
+        halfX = (0.5).realToChartX()
+        topY = (miProperty.value / 2).realToChartY()
+        oneX = (1.0).realToChartX()
+        oneY = (1.0).realToChartY()
     }
 
     override fun getBounds(): List<Pair<Double, Double>> = listOf(Pair(zeroX, zeroY), Pair(oneX, oneY))

@@ -27,7 +27,7 @@ abstract class MapChartDouble(
     private fun plotWithLines() {
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
                 .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                .map { (x, y) -> Pair(x.toLogisticXPos(), y.toLogisticYPos()) }
+                .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
 
         plotLines(coords) { l, i ->
             l.stroke = getRainbowColor(i.toDouble() / coords.size)

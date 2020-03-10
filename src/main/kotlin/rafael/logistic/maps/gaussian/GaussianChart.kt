@@ -29,10 +29,10 @@ class GaussianChart(
     private var onePositiveY = 1.0
 
     override fun recalculateBounds() {
-        oneNegativeX = (-1.0).toLogisticXPos()
-        oneNegativeY = (-1.0).toLogisticYPos()
-        onePositiveX = (1.0).toLogisticXPos()
-        onePositiveY = (1.0).toLogisticYPos()
+        oneNegativeX = (-1.0).realToChartX()
+        oneNegativeY = (-1.0).realToChartY()
+        onePositiveX = (1.0).realToChartX()
+        onePositiveY = (1.0).realToChartY()
     }
 
     override fun getBounds(): List<Pair<Double, Double>> =
@@ -42,7 +42,7 @@ class GaussianChart(
         val positions = (0..X_INTERVALS)
                 .map { it * deltaX + (xAxis as NumberAxis).lowerBound }
                 .map { x -> Pair(x, GaussianGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
-                .map { Pair(it.first.toLogisticXPos(), it.second.toLogisticYPos()) }
+                .map { Pair(it.first.realToChartX(), it.second.realToChartY()) }
         plotLines(positions) { l, _ -> l.stroke = c("green") }
     }
 

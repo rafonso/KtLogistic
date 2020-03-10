@@ -42,8 +42,8 @@ abstract class MapChartBase<T>(
 
     protected fun highlightP0(x0: Double, y0: Double) {
         background.add(square.also { sq ->
-            sq.x = x0.toLogisticXPos()
-            sq.y = y0.toLogisticYPos()
+            sq.x = x0.realToChartX()
+            sq.y = y0.realToChartY()
             sq.toFront()
 
 //            sq.addEventHandler(MouseEvent.MOUSE_DRAGGED) { event ->
@@ -54,9 +54,35 @@ abstract class MapChartBase<T>(
         })
     }
 
-    protected fun Double.toLogisticXPos() = myXAxis.getDisplayPosition(this)
+    /**
+     * Converte um valor real para seu equivalente no eixo X do [LineChart].
+     *
+     * @see Axis#getDisplayPosition()
+     */
+    protected fun Double.realToChartX() = myXAxis.getDisplayPosition(this)
 
-    protected fun Double.toLogisticYPos() = myYAxis.getDisplayPosition(this)
+    /**
+     * Converte um valor no eixo X do [LineChart] para seu equivalente real.
+     *
+     * @see Axis#getValueForDisplay()
+     */
+    protected fun Double.chartToRealX() = myXAxis.getValueForDisplay(this)
+
+    /**
+     * Converte um valor real para seu equivalente no eixo Y do [LineChart].
+     *
+     * @see Axis#getDisplayPosition
+     */
+    protected fun Double.realToChartY() = myYAxis.getDisplayPosition(this)
+
+    /**
+     * Converte um valor no eixo Y do [LineChart] para seu equivalente real.
+     *
+     * @see Axis#getValueForDisplay()
+     */
+    protected fun Double.chartToRealY() = myYAxis.getValueForDisplay(this)
+
+
 
 //    protected fun Point0.toBiPoint() = BiPoint(
 //            myXAxis.getValueForDisplay(this.x) as Double,
