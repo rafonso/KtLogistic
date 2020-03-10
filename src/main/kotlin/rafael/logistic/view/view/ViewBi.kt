@@ -16,7 +16,7 @@ abstract class ViewBi<G : IterationGenerator<BiPoint, *>>(title: String, fxmlFil
 
     // @formatter:off
     private     val spnX0              :   Spinner<Double>  by fxid()
-    private     val spnY0              :   Spinner<Double>  by fxid()
+    protected   val spnY0              :   Spinner<Double>  by fxid()
 
     private     val xIterationsChart   :   IterationChartBi by fxid()
     private     val yIterationsChart   :   IterationChartBi by fxid()
