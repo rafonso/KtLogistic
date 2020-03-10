@@ -12,6 +12,7 @@ import java.text.DecimalFormat
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
+import kotlin.math.sign
 import kotlin.reflect.KFunction1
 
 /**
@@ -85,18 +86,29 @@ private fun Spinner<Double>.stepChanged(step: Int) {
  * @param valueFactory [SpinnerValueFactory.DoubleSpinnerValueFactory] do Spinner
  */
 private fun Spinner<Double>.configureInvertSignal(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory) {
-    if (valueFactory.max > 0 && valueFactory.min < 0) {
-        this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
-            if (
-                    (event.button == MouseButton.SECONDARY) &&
-                    (event.clickCount == 2) && (
-                            ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
-                                    ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
-                            )
-            ) {
-                valueFactory.value = -valueFactory.value
-            }
+    if (valueFactory.min.sign == valueFactory.max.sign) {
+        return
+    }
+
+    fun invertSignal(invert: Boolean) {
+        if (invert) {
+            valueFactory.value = -valueFactory.value
         }
+    }
+
+
+    this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
+        invertSignal((valueFactory.value.sign != 0.0) &&
+                (event.button == MouseButton.SECONDARY)
+                && (event.clickCount == 2)
+                && (
+                ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
+                        ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
+                )
+        )
+    }
+    this.addEventHandler(KeyEvent.KEY_TYPED) { event ->
+        invertSignal((valueFactory.value.sign != 0.0) && (event.character == "-"))
     }
 }
 
