@@ -24,11 +24,11 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
 
 
     // @formatter:off
-    private val chbFixateY  : CheckBox by fxid()
+    private val chbPinY :   CheckBox    by  fxid()
     // @formatter:on
 
     override fun initializeControlsBi() {
-        spnY0.disableWhen { chbFixateY.selectedProperty() }
+        spnY0.disableWhen { chbPinY.selectedProperty() }
         spnY0.disableProperty().onChange { disable ->
             if(disable) {
                 spnY0.valueFactory.value = 0.0

@@ -50,7 +50,7 @@
                         <Spinner fx:id="spnIterations" />
                     </children>
                 </FlowPane>
-            <CheckBox fx:id="chbFixateY" mnemonicParsing="false" prefWidth="200.0" text="Fixate Y" GridPane.columnIndex="3" />
+            <CheckBox fx:id="chbPinY" mnemonicParsing="false" prefWidth="200.0" text="Pin Y" GridPane.columnIndex="3" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
