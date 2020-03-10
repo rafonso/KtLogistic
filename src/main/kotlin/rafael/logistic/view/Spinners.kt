@@ -86,31 +86,32 @@ private fun Spinner<Double>.stepChanged(step: Int) {
  * @param valueFactory [SpinnerValueFactory.DoubleSpinnerValueFactory] do Spinner
  */
 private fun Spinner<Double>.configureInvertSignal(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory) {
-    if (valueFactory.min.sign == valueFactory.max.sign) {
-        return
-    }
 
-    fun invertSignal(invert: Boolean) {
-        if (invert) {
+    fun hasSign() = (valueFactory.value.sign != 0.0)
+
+    fun canSwap() = ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
+            ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
+
+
+    fun invertSignal(correctControls: Boolean) {
+        if (correctControls && hasSign() && canSwap()) {
             valueFactory.value = -valueFactory.value
         }
     }
 
 
+    if (valueFactory.min.sign == valueFactory.max.sign) {
+        return
+    }
+
     this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
-        invertSignal((valueFactory.value.sign != 0.0) &&
-                (event.button == MouseButton.SECONDARY)
-                && (event.clickCount == 2)
-                && (
-                ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
-                        ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
-                )
-        )
+        invertSignal((event.button == MouseButton.SECONDARY) && (event.clickCount == 2))
     }
     this.addEventHandler(KeyEvent.KEY_TYPED) { event ->
-        invertSignal((valueFactory.value.sign != 0.0) && (event.character == "-"))
+        invertSignal(event.character == "-")
     }
 }
+
 
 private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
     this.valueFactory = valueFactory
