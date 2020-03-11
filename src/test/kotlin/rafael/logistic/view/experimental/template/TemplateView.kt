@@ -7,24 +7,10 @@ import tornadofx.*
 
 class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateGenerator()) {
 
-//    override val maxDelta: Double
-//        get() = 1.0
-//
-//    override val maxX0Spinner: Double
-//        get() = 10.0
-//
-//    override val minX0Spinner: Double
-//        get() = -maxX0Spinner
-//
-//    override val maxY0Spinner: Double
-//        get() = maxX0Spinner
-//
-//    override val minY0Spinner: Double
-//        get() = -maxY0Spinner
-
-
     // @formatter:off
+
     private val chbPinY :   CheckBox    by  fxid()
+
     // @formatter:on
 
     override fun initializeControlsBi() {

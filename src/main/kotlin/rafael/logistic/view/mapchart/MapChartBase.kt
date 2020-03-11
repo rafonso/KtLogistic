@@ -29,10 +29,9 @@ abstract class MapChartBase<T>(
 
     protected val myYAxis = (yAxis as NumberAxis)
 
-    val square = Point0().apply {
-        xChartToReal = myXAxis::getValueForDisplay as (Double) -> Double
-        yChartToReal = myYAxis::getValueForDisplay as (Double) -> Double
-    }
+    val square = Point0(myXAxis::getValueForDisplay as DoubleConverter, myXAxis::getDisplayPosition,
+            myYAxis::getValueForDisplay as DoubleConverter, myYAxis::getDisplayPosition)
+
 
     init {
         super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
@@ -41,11 +40,13 @@ abstract class MapChartBase<T>(
         dataProperty.onChange {
             layoutPlotChildren()
         }
+        background.add(square)
+
         initialize()
 
 
-//        square.xRealProperty().onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty().value}, ${square.yRealProperty().value})") }
-//        square.yRealProperty().onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty().value}, ${square.yRealProperty().value})") }
+        square.xRealProperty.onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty.value}, ${square.yRealProperty.value})") }
+        square.yRealProperty.onChange { println("(${square.xChart}, ${square.yChart})\t(${square.xRealProperty.value}, ${square.yRealProperty.value})") }
 
     }
 
@@ -116,7 +117,7 @@ abstract class MapChartBase<T>(
     }
 
     override fun layoutPlotChildren() {
-        background.getChildList()?.clear()
+        background.getChildList()!!.removeIf { it !is Point0 }
         plotData()
     }
 

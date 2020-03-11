@@ -1,7 +1,13 @@
 package rafael.logistic.view.mapchart
 
+import javafx.beans.InvalidationListener
 import javafx.beans.binding.Bindings
-import javafx.beans.property.ReadOnlyDoubleProperty
+import javafx.beans.property.*
+import javafx.beans.property.adapter.JavaBeanDoubleProperty
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
+import javafx.beans.value.ObservableValueBase
+import javafx.beans.value.WritableDoubleValue
 import javafx.event.EventHandler
 import javafx.scene.Cursor
 import javafx.scene.input.MouseEvent
@@ -15,7 +21,10 @@ import java.util.concurrent.Callable
 
 private const val SIDE = 20.0
 
-class Point0 : Path(
+typealias DoubleConverter = (Double) -> Double
+
+class Point0(private val xChartToReal: DoubleConverter, private val xRealToChart: DoubleConverter,
+             private val yChartToReal: DoubleConverter, private val yRealToChart: DoubleConverter) : Path(
         // @formatter:off
         MoveTo(0.0  , 0.0   ),
         LineTo(SIDE , 0.0   ),
@@ -28,33 +37,30 @@ class Point0 : Path(
         // @formatter:on
 ) {
 
-    internal lateinit var xChartToReal: (Double) -> Double
-
-    internal lateinit var yChartToReal: (Double) -> Double
-
-    private val xChartProperty = (0.0).toProperty()
+    val xChartProperty = SimpleDoubleProperty(this, "xChart", 0.0)
     var xChart by xChartProperty
 
-    private val xRealProperty = (0.0).toProperty()
-    fun xRealProperty() = xRealProperty as ReadOnlyDoubleProperty
+    val xRealProperty = ChartToRealProperty("xReal", xChartProperty, xChartToReal, xRealToChart)
+    var xReal by xRealProperty
 
-    private val yChartProperty = (0.0).toProperty()
+    val yChartProperty = SimpleDoubleProperty(this, "yChart", 0.0)
     var yChart by yChartProperty
 
-    private val yRealProperty = (0.0).toProperty()
-    fun yRealProperty() = yRealProperty as ReadOnlyDoubleProperty
+    val yRealProperty = ChartToRealProperty("yReal", yChartProperty, yChartToReal, yRealToChart)//  (0.0).toProperty()
+    var yReal by yRealProperty
 
     init {
+
+
         this.xChartProperty.addListener { _, _, newX ->
-            translateX = newX.toDouble() - P0_SIDE / 2
-            xRealProperty.value = xChartToReal(newX.toDouble())
+            translateX = newX.toDouble() - SIDE / 2
+            xRealProperty.invalidated()
         }
 //        xRealProperty.bind(Bindings.createDoubleBinding(Callable { xChartToReal(xChartProperty.value) }, xChartProperty))
         this.yChartProperty.addListener { _, _, newY ->
-            translateY = newY.toDouble() - P0_SIDE / 2
-            yRealProperty.value = yChartToReal(newY.toDouble())
+            translateY = newY.toDouble() - SIDE / 2
+            yRealProperty.invalidated()
         }
-//        yRealProperty.bind(Bindings.createDoubleBinding(Callable { yChartToReal(yChartProperty.value) }, yChartProperty))
 
         fill = Color.TRANSPARENT
         stroke = Color.DARKGRAY
@@ -78,6 +84,29 @@ class Point0 : Path(
     }
 
 
+}
 
+
+class ChartToRealProperty(
+        private val name: String,
+        private val chartProperty: DoubleProperty,
+        private val chartToReal: DoubleConverter,
+        private val realToChart: DoubleConverter) : DoublePropertyBase(chartToReal(chartProperty.value)) {
+
+
+    override fun getName(): String = name
+
+    override fun getBean(): Any = chartProperty.bean
+
+    override fun get(): Double = chartToReal(chartProperty.get())
+
+    override fun set(newValue: Double) {
+        chartProperty.value = realToChart(newValue)
+        super.fireValueChangedEvent()
+    }
+
+    public override fun invalidated() {
+        super.fireValueChangedEvent()
+    }
 
 }

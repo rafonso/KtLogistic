@@ -69,13 +69,17 @@ private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: Int
 private fun Spinner<Double>.stepChanged(step: Int) {
     runLater {
         with(this.valueFactory as SpinnerValueFactory.DoubleSpinnerValueFactory) {
-            this.converter = SpinnerConverter(step)
-            this.amountToStepBy = (0.1).pow(step)
-            val strValue = DecimalFormat("#." + "#".repeat(step))
-                    .apply { roundingMode = RoundingMode.DOWN }
-                    .format(this.value).replace(",", ".")
-            this.value = this.converter.fromString(strValue)
-            this@stepChanged.editor.text = this.converter.toString(this.value)
+            if(this.value.isNaN()) {
+                this@stepChanged.editor.text = null
+            } else {
+                this.converter = SpinnerConverter(step)
+                this.amountToStepBy = (0.1).pow(step)
+                val strValue = DecimalFormat("#." + "#".repeat(step))
+                        .apply { roundingMode = RoundingMode.DOWN }
+                        .format(this.value).replace(",", ".")
+                this.value = this.converter.fromString(strValue)
+                this@stepChanged.editor.text = this.converter.toString(this.value)
+            }
         }
     }
 }

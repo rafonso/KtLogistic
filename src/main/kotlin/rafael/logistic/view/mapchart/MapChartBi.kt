@@ -21,13 +21,6 @@ class MapChartBi(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-//    val x0Property = square.xProperty
-//    var x0 by x0Property
-//
-//    val y0Property = square.yProperty
-//    var y0 by x0Property
-
-
     private fun refreshData() {
         val elements = data
                 .filter { p ->
@@ -50,7 +43,7 @@ class MapChartBi(
     override fun plotData() {
         if (data.isNotEmpty()) {
             // Destaca o x0 e y0
-            highlightP0(data.first().x, data.first().y)
+//            highlightP0(data.first().x, data.first().y)
             refreshData()
         }
     }
