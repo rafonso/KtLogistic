@@ -23,7 +23,7 @@
             <children>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                     <children>
-                        <Label fx:id="lblRe" alignment="CENTER_RIGHT" minWidth="75.0" text="C.x =" textAlignment="RIGHT">
+                        <Label fx:id="lblRe" styleClass="title" text="C.x =" >
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
@@ -33,7 +33,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblCY" alignment="CENTER_RIGHT" minWidth="75.0" text="C.y =" textAlignment="RIGHT">
+                        <Label fx:id="lblCY" styleClass="title" text="C.y =" >
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
@@ -43,7 +43,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                     <children>
-                        <Label fx:id="lblX0" alignment="CENTER_RIGHT" minWidth="75.0" text="Z₀.x =" textAlignment="RIGHT">
+                        <Label fx:id="lblX0" styleClass="title" text="Z₀.x =" >
                             <padding>
                                 <Insets left="5.0" />
                             </padding>
@@ -53,7 +53,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                     <children>
-                        <Label fx:id="lblY0" alignment="CENTER_RIGHT" minWidth="75.0" text="Z₀.y =" textAlignment="RIGHT">
+                        <Label fx:id="lblY0" styleClass="title" text="Z₀.y =" >
                             <padding>
                                 <Insets left="5.0" />
                             </padding>

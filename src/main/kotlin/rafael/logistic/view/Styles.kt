@@ -1,11 +1,12 @@
 package rafael.logistic.view
 
+import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
-//        val point0 by cssclass()
+        val title by cssclass()
     }
 
     init {
@@ -16,6 +17,10 @@ class Styles : Stylesheet() {
         }
         chartPlotBackground {
             backgroundColor += Color.WHITE
+        }
+        label and title {
+            alignment = Pos.CENTER_RIGHT
+            minWidth = 75.px
         }
     }
 }
