@@ -4,6 +4,7 @@ import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.chart.NumberAxis
+import javafx.scene.paint.Color
 import rafael.logistic.view.mapchart.MapChartDouble
 import tornadofx.*
 
@@ -43,7 +44,7 @@ class GaussianChart(
                 .map { it * deltaX + (xAxis as NumberAxis).lowerBound }
                 .map { x -> Pair(x, GaussianGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
                 .map { Pair(it.first.realToChartX(), it.second.realToChartY()) }
-        plotLines(positions) { l, _ -> l.stroke = c("green") }
+        plotLines(positions) { l, _ -> l.stroke = Color.GREEN }
     }
 
 }

@@ -3,6 +3,7 @@ package rafael.logistic.maps.tent
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
+import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
@@ -39,7 +40,7 @@ class TentChart(
 
     override fun refreshAsymptote() {
         background.add(Path(MoveTo(zeroX, zeroY), LineTo(halfX, topY), LineTo(oneX, zeroY))
-                .also { it.stroke = c("green") }
+                .also { it.stroke = Color.GREEN }
         )
     }
 

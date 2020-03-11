@@ -3,6 +3,7 @@ package rafael.logistic.maps.logistic
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
+import javafx.scene.paint.Color
 import javafx.scene.shape.QuadCurve
 import rafael.logistic.view.mapchart.MapChartDouble
 import tornadofx.*
@@ -38,8 +39,8 @@ class LogisticChart(
     override fun refreshAsymptote() {
         background.add(QuadCurve(zeroX, zeroY, halfX, topY, oneX, zeroY)
                 .also {
-                    it.stroke = c("green")
-                    it.fill = c("transparent")
+                    it.stroke = Color.GREEN
+                    it.fill = Color.TRANSPARENT
                 }
         )
     }
