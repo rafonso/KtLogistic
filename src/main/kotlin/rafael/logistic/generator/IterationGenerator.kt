@@ -1,5 +1,6 @@
 package rafael.logistic.generator
 
+import javafx.geometry.Point2D
 import java.time.Instant
 import kotlin.properties.Delegates
 
@@ -55,4 +56,4 @@ abstract class IterationGenerator<T, P : IterationParameter> {
 
 typealias IterationGeneratorDouble<P> = IterationGenerator<Double, P>
 
-typealias IterationGeneratorBi<P> = IterationGenerator<BiPoint, P>
+typealias IterationGeneratorBi<P> = IterationGenerator<Point2D, P>

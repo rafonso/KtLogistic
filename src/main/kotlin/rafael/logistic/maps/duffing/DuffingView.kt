@@ -1,10 +1,10 @@
 package rafael.logistic.maps.duffing
 
+import javafx.geometry.Point2D
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.generator.BiPoint
-import rafael.logistic.view.view.ViewBi
 import rafael.logistic.view.configureActions
+import rafael.logistic.view.view.ViewBi
 import tornadofx.*
 
 class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenerator()) {
@@ -22,8 +22,8 @@ class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenera
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
+    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<Point2D> =
+            generator.generate(Point2D(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

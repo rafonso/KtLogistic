@@ -1,6 +1,6 @@
 package rafael.logistic.maps.duffing
 
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.generator.IterationGeneratorBi
 import rafael.logistic.generator.IterationParameter
 import kotlin.math.pow
@@ -9,10 +9,10 @@ data class DuffingParameter(val alpha: Double, val beta: Double) : IterationPara
 
 class DuffingGenerator : IterationGeneratorBi<DuffingParameter>() {
 
-    override fun calculate(parameter: DuffingParameter, point: BiPoint): BiPoint =
-            BiPoint(point.y, -parameter.beta * point.x + parameter.alpha * point.y - point.y.pow(3))
+    override fun calculate(parameter: DuffingParameter, point: Point2D): Point2D =
+            Point2D(point.y, -parameter.beta * point.x + parameter.alpha * point.y - point.y.pow(3))
 
-    fun generate(p0: BiPoint, alpha: Double, beta: Double, iterations: Int) =
+    fun generate(p0: Point2D, alpha: Double, beta: Double, iterations: Int) =
             super.generate(p0, DuffingParameter(alpha, beta), iterations)
 
 }

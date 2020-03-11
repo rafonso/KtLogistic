@@ -7,30 +7,30 @@ import javafx.scene.chart.Axis
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.PathElement
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import tornadofx.*
 
 class IterationChartBi(
         @NamedArg("xAxis") xAxis: Axis<Int>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<BiPoint>(xAxis, yAxis, data) {
+        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<Point2D>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().observable())
 
     companion object {
-        val extractorX: (BiPoint) -> Double = BiPoint::x
-        val extractorY: (BiPoint) -> Double = BiPoint::y
+        val extractorX: (Point2D) -> Double = Point2D::getX
+        val extractorY: (Point2D) -> Double = Point2D::getY
     }
 
-    private var extractor: (BiPoint) -> Double = { kotlin.error("") }
+    private var extractor: (Point2D) -> Double = { kotlin.error("") }
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<BiPoint>>, _extractor: (BiPoint) -> Double) {
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<Point2D>>, _extractor: (Point2D) -> Double) {
         super.bind(valueProperty, observableData)
         this.extractor = _extractor
     }
 
-    override fun loadPath(iterationData: List<BiPoint>): Array<PathElement> {
+    override fun loadPath(iterationData: List<Point2D>): Array<PathElement> {
         val positions: List<Pair<Int, Double>> = iterationData
                 .mapIndexed { i, pt -> Pair(i, extractor(pt)) }
                 .filter { pair -> pair.second >= valueYAxis.lowerBound && pair.second <= valueYAxis.upperBound }

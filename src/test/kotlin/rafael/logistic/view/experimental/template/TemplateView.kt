@@ -1,7 +1,7 @@
 package rafael.logistic.view.experimental.template
 
 import javafx.scene.control.CheckBox
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.view.view.ViewBi
 import tornadofx.*
 
@@ -38,7 +38,7 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
         }
     }
 
-    override fun refreshData(generator: TemplateGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
+    override fun refreshData(generator: TemplateGenerator, iterations: Int): List<Point2D> =
+            generator.generate(Point2D(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
 
 }

@@ -1,6 +1,6 @@
 package rafael.logistic.view.experimental.template
 
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.generator.IterationGeneratorBi
 import rafael.logistic.generator.IterationParameter
 import java.util.*
@@ -11,15 +11,15 @@ class TemplateGenerator : IterationGeneratorBi<TemplateParameter>() {
 
     private val random = Random()
 
-    override fun calculate(parameter: TemplateParameter, point: BiPoint): BiPoint {
+    override fun calculate(parameter: TemplateParameter, point: Point2D): Point2D {
         val value = (parameter.max - parameter.min) * random.nextDouble() + parameter.min
         val signalX = if (random.nextBoolean()) +1 else -1
         val signalY = if (random.nextBoolean()) +1 else -1
 
-        return BiPoint(signalX * value, signalY * value)
+        return Point2D(signalX * value, signalY * value)
     }
 
-    fun generate(p0: BiPoint, min: Double, max: Double, iterations: Int) =
+    fun generate(p0: Point2D, min: Double, max: Double, iterations: Int) =
             super.generate(p0, TemplateParameter(min, max), iterations)
 
 }

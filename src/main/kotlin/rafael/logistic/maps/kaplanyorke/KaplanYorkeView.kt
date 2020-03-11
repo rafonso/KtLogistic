@@ -3,7 +3,7 @@ package rafael.logistic.maps.kaplanyorke
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.view.*
 import rafael.logistic.view.view.ViewBi
 
@@ -19,8 +19,8 @@ class KaplanYorkeView : ViewBi<KaplanYorkeGenerator>("Kaplan-Yorke", "KaplanYork
 
     // @formatter:on
 
-    override fun refreshData(generator: KaplanYorkeGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), spnA.value, iterations)
+    override fun refreshData(generator: KaplanYorkeGenerator, iterations: Int): List<Point2D> =
+            generator.generate(Point2D(x0Property.value, y0Property.value), spnA.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

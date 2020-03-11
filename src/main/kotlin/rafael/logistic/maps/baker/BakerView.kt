@@ -1,11 +1,11 @@
 package rafael.logistic.maps.baker
 
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.view.view.ViewBi
 
 class BakerView : ViewBi<BakerGenerator>("Baker", "Baker", BakerGenerator()) {
 
-    override fun refreshData(generator: BakerGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), iterations)
+    override fun refreshData(generator: BakerGenerator, iterations: Int): List<Point2D> =
+            generator.generate(Point2D(x0Property.value, y0Property.value), iterations)
 
 }

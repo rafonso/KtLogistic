@@ -2,7 +2,7 @@ package rafael.logistic.maps.mandelbrot
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.generator.BiPoint
+import javafx.geometry.Point2D
 import rafael.logistic.view.view.ViewBi
 import rafael.logistic.view.configureActions
 import tornadofx.*
@@ -19,8 +19,8 @@ class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", M
     private val cYValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: MandelbrotGenerator, iterations: Int): List<BiPoint> =
-            generator.generate(BiPoint(x0Property.value, y0Property.value), spnCX.value, spnCY.value, iterations)
+    override fun refreshData(generator: MandelbrotGenerator, iterations: Int): List<Point2D> =
+            generator.generate(Point2D(x0Property.value, y0Property.value), spnCX.value, spnCY.value, iterations)
 
     override fun initializeControlsBi() {
         spnCX.configureActions(cXValueFactory, deltaCXProperty, this::loadData)

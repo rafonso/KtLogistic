@@ -66,7 +66,7 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealX() = myXAxis.getValueForDisplay(this)
+    protected fun Double.chartToRealX(): Number = myXAxis.getValueForDisplay(this)!!
 
     /**
      * Converte um valor real para seu equivalente no eixo Y do [LineChart].
@@ -80,11 +80,11 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealY() = myYAxis.getValueForDisplay(this)
+    protected fun Double.chartToRealY(): Number = myYAxis.getValueForDisplay(this)!!
 
 
 
-//    protected fun Point0.toBiPoint() = BiPoint(
+//    protected fun Point0.toPoint2D() = Point2D(
 //            myXAxis.getValueForDisplay(this.x) as Double,
 //            myYAxis.getValueForDisplay(this.y) as Double
 //    )
