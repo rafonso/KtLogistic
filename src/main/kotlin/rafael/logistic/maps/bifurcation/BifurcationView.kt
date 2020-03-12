@@ -1,23 +1,19 @@
 package rafael.logistic.maps.bifurcation
 
-import javafx.beans.property.ReadOnlyObjectProperty
-import javafx.geometry.Point2D
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.view.ViewBase
-import rafael.logistic.view.view.ViewBi
 import tornadofx.*
 
-class BifurcationView : ViewBase<List<Point2D>, BifurcationGenerator, BifurcationChart>("Bifurcation", "Bifurcation", BifurcationGenerator()) {
+class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>("Bifurcation", "Bifurcation", BifurcationGenerator()) {
 
     // @formatter:off
     private     val spnX0              :   Spinner<Double>  by fxid()
 
     private     val deltaX0Property     =   1.toProperty()
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, 0.1)
-    private     val x0Property          =   spnX0.valueProperty()
     // @formatter:on
 
     override fun initializeControls() {
@@ -34,7 +30,7 @@ class BifurcationView : ViewBase<List<Point2D>, BifurcationGenerator, Bifurcatio
         }
     }
 
-    override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<List<Point2D>> {
+    override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> {
         val rAxis = (super.chart.xAxis as NumberAxis)
 
         return if (rAxis.widthProperty().value > 0)
