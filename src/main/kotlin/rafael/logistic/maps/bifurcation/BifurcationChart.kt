@@ -21,6 +21,8 @@ class BifurcationChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
+    val x0Property = (0.0).toProperty()
+
     private fun rSequenceToElements(rSequence: RData): MutableList<Circle> {
         val rChart = rSequence.r.realToChartX()
         return rSequence.values
@@ -36,7 +38,7 @@ class BifurcationChart(
     }
 
     override fun plotData() {
-        highlightP0(0.0, data[0].values[0])
+        highlightP0(0.0, x0Property.value)
         // TODO: Está sendo chamado 2 vezes ao redimensionar. Descobrir por quê.
 //        Throwable().printStackTrace()
         data.map(this::rSequenceToElements).forEach { elements -> background.getChildList()?.addAll(elements) }

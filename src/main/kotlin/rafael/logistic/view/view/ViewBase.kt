@@ -16,7 +16,7 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
     override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
     protected   val spnIterations           :   Spinner<Int>    by fxid()
-    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(10, 5000, 10, 100)
+    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 5000, 100, 100)
 
     protected   val chart                   :   C               by fxid()
 

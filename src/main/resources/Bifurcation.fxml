@@ -12,6 +12,7 @@
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
@@ -28,6 +29,16 @@
                     </children>
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
+                    <children>
+                        <Label fx:id="lblSkip" alignment="TOP_RIGHT" minWidth="75.0" text="Skip First =" textAlignment="RIGHT">
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <Spinner fx:id="spnSkip" prefWidth="60.0"/>
+                    </children>
+                </FlowPane>
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                     <children>
                         <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations / R =" textAlignment="RIGHT">
                             <padding>
