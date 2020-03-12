@@ -31,7 +31,6 @@ abstract class MapChartBase<T>(
     private val square = Point0()
 
     init {
-        super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
         myXAxis.tickLabelFormatter = CONVERTER_2
         myYAxis.tickLabelFormatter = CONVERTER_2
         dataProperty.onChange {

@@ -2,9 +2,9 @@ package rafael.logistic.view.mapchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
+import javafx.geometry.Point2D
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
-import javafx.geometry.Point2D
 import rafael.logistic.view.getRainbowColor
 import tornadofx.*
 import java.util.stream.Collectors
@@ -45,6 +45,10 @@ class MapChartBi(
                 .collect(Collectors.toList())
 
         background.getChildList()?.addAll(elements)
+    }
+
+    override fun initialize() {
+        super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
     }
 
     override fun plotData() {

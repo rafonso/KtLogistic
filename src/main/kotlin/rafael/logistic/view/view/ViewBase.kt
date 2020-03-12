@@ -1,10 +1,8 @@
 package rafael.logistic.view.view
 
-import javafx.beans.binding.Bindings
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import javafx.scene.layout.Region
 import rafael.logistic.generator.IterationGenerator
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.mapchart.MapChartBase
@@ -28,8 +26,6 @@ abstract class ViewBase<T, G : IterationGenerator<T, *>, C : MapChartBase<T>>(ti
         initializeControls()
 
         chart.bind(logisticData)
-        val chartParent = chart.parent as Region
-        chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
         initializeCharts()
 
         initializeAdditional()

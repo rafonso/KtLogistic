@@ -3,6 +3,7 @@ package rafael.logistic.maps.bifurcation
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import javafx.scene.layout.Region
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.view.ViewBase
 import tornadofx.*
@@ -15,18 +16,22 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, 0.1)
 
     private     val spnSkip             :   Spinner<Int>    by fxid()
-    private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0, 1)
+    private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
 
     // @formatter:on
 
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
-        chart.x0Property.bind(spnX0.valueProperty())
 
         spnSkip.configureActions(skipValueFactory, this::loadData)
     }
 
     override fun initializeCharts() {
+        val chartParent = chart.parent as Region
+        chart.prefWidthProperty().bind(chartParent.widthProperty())
+        chart.prefHeightProperty().bind(chartParent.heightProperty())
+
+        chart.x0Property.bind(spnX0.valueProperty())
         with(super.chart.xAxis as NumberAxis) {
             widthProperty().onChange { w ->
                 val rStep = (upperBound - lowerBound) / w
@@ -41,7 +46,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
         return if (rAxis.widthProperty().value > 0)
             return generator.generate(spnX0.value, rAxis.lowerBound, rAxis.upperBound,
-                    rAxis.widthProperty().value.toInt() / 10, spnSkip.value, iterations)
+                    rAxis.widthProperty().value.toInt() / 5, spnSkip.value, iterations)
         else
             emptyList()
     }

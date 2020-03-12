@@ -1,9 +1,11 @@
 package rafael.logistic.view.view
 
+import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import javafx.scene.layout.Region
 import rafael.logistic.generator.IterationGenerator
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.iterationchart.IterationChartDouble
@@ -35,6 +37,8 @@ abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChartDouble>
     }
 
     override fun initializeCharts() {
+        val chartParent = chart.parent as Region
+        chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
         iterationsChart.bind(spnIterations.valueProperty(), logisticData)
 //        chart.square.xProperty.asObject().bindBidirectional(x0ValueFactory.valueProperty()) // as Property<Number>)
     }

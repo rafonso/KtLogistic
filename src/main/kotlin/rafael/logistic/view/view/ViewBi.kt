@@ -1,10 +1,12 @@
 package rafael.logistic.view.view
 
+import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
+import javafx.geometry.Point2D
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.geometry.Point2D
+import javafx.scene.layout.Region
 import rafael.logistic.generator.IterationGenerator
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.iterationchart.IterationChartBi
@@ -45,6 +47,8 @@ abstract class ViewBi<G : IterationGenerator<Point2D, *>>(title: String, fxmlFil
     }
 
     override fun initializeCharts() {
+        val chartParent = chart.parent as Region
+        chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
         xIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorX)
         yIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorY)
     }

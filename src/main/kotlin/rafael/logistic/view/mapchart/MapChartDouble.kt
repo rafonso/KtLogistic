@@ -60,6 +60,10 @@ abstract class MapChartDouble(
 
     protected abstract fun refreshAsymptote()
 
+    override fun initialize() {
+        super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
+    }
+
     override fun plotData() {
         recalculateBounds()
         refreshXY()
