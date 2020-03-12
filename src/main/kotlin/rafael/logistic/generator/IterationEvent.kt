@@ -2,24 +2,25 @@ package rafael.logistic.generator
 
 import java.time.Instant
 
-sealed class IterationEvent<T> {
+sealed class IterationEvent<I, T> {
     abstract val interaction: Int
     abstract val priorValue: T?
     abstract val value: T?
     val instant = Instant.now()!!
 }
 
-data class StartingEvent<T>(override val value: T) : IterationEvent<T>() {
+data class StartingEvent<I, T>(val initialValue: I) : IterationEvent<I, T>() {
     override val interaction: Int = 0
+    override val value: T? = null
     override val priorValue: T? = null
 }
 
-data class RunningEvent<T>(override val interaction: Int, override val priorValue: T, override val value: T) :
-        IterationEvent<T>()
+data class RunningEvent<I, T>(override val interaction: Int, override val priorValue: T, override val value: T) :
+        IterationEvent<I, T>()
 
-data class EndingEvent<T>(override val interaction: Int) : IterationEvent<T>() {
+data class EndingEvent<I, T>(override val interaction: Int) : IterationEvent<I, T>() {
     override val priorValue: T? = null
     override val value: T? = null
 }
 
-typealias LogisticEventListener<T> = (IterationEvent<T>) -> Unit
+typealias LogisticEventListener<I, T> = (IterationEvent<I, T>) -> Unit

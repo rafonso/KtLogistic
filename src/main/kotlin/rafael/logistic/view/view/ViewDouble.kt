@@ -12,7 +12,7 @@ import rafael.logistic.view.iterationchart.IterationChartDouble
 import rafael.logistic.view.mapchart.MapChartDouble
 import tornadofx.*
 
-abstract class ViewDouble<G : IterationGenerator<Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
+abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
         ViewBase<Double, G, C>(title, fxmlFile, generator) {
 
     protected val maxDelta = 0.1

@@ -6,15 +6,15 @@ import kotlin.properties.Delegates
 
 interface IterationParameter
 
-object NoParameter: IterationParameter
+object NoParameter : IterationParameter
 
-abstract class IterationGenerator<T, P : IterationParameter> {
+abstract class IterationGenerator<I, T, P : IterationParameter> {
 
-    private val eventListeners = mutableListOf<LogisticEventListener<T>>()
+    private val eventListeners = mutableListOf<LogisticEventListener<I, T>>()
 
     private val calculatingListeners = mutableListOf<(Boolean, Instant) -> Unit>()
 
-    private fun notify(event: IterationEvent<T>) {
+    protected fun notify(event: IterationEvent<I, T>) {
         eventListeners.forEach { it(event) }
     }
 
@@ -26,7 +26,7 @@ abstract class IterationGenerator<T, P : IterationParameter> {
     val calculating: Boolean
         get() = _calculating
 
-    fun addStatusListener(listener: LogisticEventListener<T>) {
+    fun addStatusListener(listener: LogisticEventListener<I, T>) {
         eventListeners.add(listener)
     }
 
@@ -34,20 +34,9 @@ abstract class IterationGenerator<T, P : IterationParameter> {
         calculatingListeners.add(listener)
     }
 
-    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorValue: T, values: List<T>): List<T> {
-        val value = calculate(parameter, priorValue)
-        notify(RunningEvent(interaction, priorValue, value))
+    protected abstract fun run(parameter: P, interactions: Int, initialValue: I): List<T> // =
 
-        return if (interaction == interactions) values + value
-        else iterate(parameter, interactions, interaction + 1, value, values + value)
-    }
-
-    protected open fun run(parameter: P, interactions: Int, initialValue: T): List<T> =
-            iterate(parameter, interactions, 1, initialValue, listOf(initialValue))
-
-    abstract fun calculate(parameter: P, value: T): T
-
-    fun generate(initialValue: T, parameter: P, interactions: Int): List<T> {
+    fun generate(initialValue: I, parameter: P, interactions: Int): List<T> {
         notify(StartingEvent(initialValue))
         _calculating = true
         return run(parameter, interactions, initialValue).also {
@@ -57,6 +46,36 @@ abstract class IterationGenerator<T, P : IterationParameter> {
     }
 }
 
-typealias IterationGeneratorDouble<P> = IterationGenerator<Double, P>
+abstract class IterationGeneratorDouble<P : IterationParameter> : IterationGenerator<Double, Double, P>() {
 
-typealias IterationGeneratorBi<P> = IterationGenerator<Point2D, P>
+    abstract fun calculate(parameter: P, value: Double): Double
+
+    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorValue: Double, values: List<Double>): List<Double> {
+        val value = calculate(parameter, priorValue)
+        notify(RunningEvent(interaction, priorValue, value))
+
+        return if (interaction == interactions) values + value
+        else iterate(parameter, interactions, interaction + 1, value, values + value)
+    }
+
+    override fun run(parameter: P, interactions: Int, initialValue: Double): List<Double> =
+            iterate(parameter, interactions, 1, initialValue, listOf(initialValue))
+
+}
+
+abstract class IterationGeneratorBi<P : IterationParameter> : IterationGenerator<Point2D, Point2D, P>() {
+
+    abstract fun calculate(parameter: P, value: Point2D): Point2D
+
+    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorValue: Point2D, values: List<Point2D>): List<Point2D> {
+        val value = calculate(parameter, priorValue)
+        notify(RunningEvent(interaction, priorValue, value))
+
+        return if (interaction == interactions) values + value
+        else iterate(parameter, interactions, interaction + 1, value, values + value)
+    }
+
+    override fun run(parameter: P, interactions: Int, initialValue: Point2D): List<Point2D> =
+            iterate(parameter, interactions, 1, initialValue, listOf(initialValue))
+
+}

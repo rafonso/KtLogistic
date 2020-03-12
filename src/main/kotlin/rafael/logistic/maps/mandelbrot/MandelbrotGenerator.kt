@@ -1,13 +1,13 @@
 package rafael.logistic.maps.mandelbrot
 
 import javafx.geometry.Point2D
-import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.generator.IterationGeneratorBi
 import rafael.logistic.generator.IterationParameter
 import kotlin.math.pow
 
 data class MandelbrotParameter(val real: Double, val im: Double) : IterationParameter
 
-class MandelbrotGenerator : IterationGenerator<Point2D, MandelbrotParameter>() {
+class MandelbrotGenerator : IterationGeneratorBi<MandelbrotParameter>() {
 
     override fun calculate(parameter: MandelbrotParameter, value: Point2D): Point2D =
             Point2D(

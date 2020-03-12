@@ -13,7 +13,7 @@ import rafael.logistic.view.iterationchart.IterationChartBi
 import rafael.logistic.view.mapchart.MapChartBi
 import tornadofx.*
 
-abstract class ViewBi<G : IterationGenerator<Point2D, *>>(title: String, fxmlFile: String, generator: G) :
+abstract class ViewBi<G : IterationGenerator<*, Point2D, *>>(title: String, fxmlFile: String, generator: G) :
         ViewBase<Point2D, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
