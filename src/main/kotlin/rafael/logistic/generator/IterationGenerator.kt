@@ -42,12 +42,15 @@ abstract class IterationGenerator<T, P : IterationParameter> {
         else iterate(parameter, interactions, interaction + 1, value, values + value)
     }
 
+    protected open fun run(parameter: P, interactions: Int, initialValue: T): List<T> =
+            iterate(parameter, interactions, 1, initialValue, listOf(initialValue))
+
     abstract fun calculate(parameter: P, value: T): T
 
     fun generate(initialValue: T, parameter: P, interactions: Int): List<T> {
         notify(StartingEvent(initialValue))
         _calculating = true
-        return iterate(parameter, interactions, 1, initialValue, listOf(initialValue)).also {
+        return run(parameter, interactions, initialValue).also {
             notify(EndingEvent(interactions))
             _calculating = false
         }
