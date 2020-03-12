@@ -113,7 +113,7 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: SpinnerValueFact
 }
 
 
-private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
+fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
@@ -133,7 +133,7 @@ fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpi
     this.stepChanged(deltaProperty.value)
 }
 
-fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory.IntegerSpinnerValueFactory, action: () -> Unit) {
+fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit) {
     this.bind(valueFactory, action)
     this.editor.alignment = Pos.CENTER_RIGHT
 }

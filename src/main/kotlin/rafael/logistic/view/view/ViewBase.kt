@@ -7,6 +7,9 @@ import rafael.logistic.generator.IterationGenerator
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalTime
 
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {
 
@@ -43,7 +46,12 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     }
 
     protected fun loadData() {
+        val t0 = LocalTime.now()
+
         this.logisticData.value = refreshData(generator, spnIterations.value)
+
+        val deltaT = Duration.between(t0, LocalTime.now())
+        log.info("${spnIterations.value} : $deltaT")
     }
 
 }

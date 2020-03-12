@@ -6,10 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.maps.bifurcation.*?>
 
-<BorderPane prefHeight="589.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="589.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
@@ -30,7 +31,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblSkip" alignment="TOP_RIGHT" minWidth="75.0" text="Skip First =" textAlignment="RIGHT">
+                        <Label fx:id="lblSkip" styleClass="title" text="Skip First =">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
@@ -40,12 +41,22 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                     <children>
+                        <Label fx:id="lblPixelsSeparation" styleClass="title" text="Pixels Separation =">
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <Spinner fx:id="spnPixelsSeparation" prefWidth="60.0" />
+                    </children>
+                </FlowPane>
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
+                    <children>
                         <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations / R =" textAlignment="RIGHT">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnIterations" />
+                        <Spinner fx:id="spnIterations" prefWidth="100.0" />
                     </children>
                 </FlowPane>
             </children>
@@ -55,7 +66,7 @@
         </GridPane>
     </top>
     <center>
-        <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
+        <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="554.0" prefWidth="809.0" BorderPane.alignment="CENTER">
             <children>
                 <BifurcationChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
                     <xAxis>

@@ -18,12 +18,18 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val spnSkip             :   Spinner<Int>    by fxid()
     private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
 
+    private     val spnPixelsSeparation :   Spinner<Int>    by fxid()
+    private     val pixelsSeparationValueFactory    =   SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).observable())
+
     // @formatter:on
 
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
 
         spnSkip.configureActions(skipValueFactory, this::loadData)
+
+        pixelsSeparationValueFactory.value = 10
+        spnPixelsSeparation.configureActions(pixelsSeparationValueFactory, this::loadData)
     }
 
     override fun initializeCharts() {
@@ -46,7 +52,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
         return if (rAxis.widthProperty().value > 0)
             return generator.generate(spnX0.value, rAxis.lowerBound, rAxis.upperBound,
-                    rAxis.widthProperty().value.toInt() / 5, spnSkip.value, iterations)
+                    rAxis.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
         else
             emptyList()
     }
