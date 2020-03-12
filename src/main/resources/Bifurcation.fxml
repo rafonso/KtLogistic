@@ -35,7 +35,7 @@
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnSkip" prefWidth="60.0"/>
+                        <Spinner fx:id="spnSkip" prefWidth="60.0" />
                     </children>
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
@@ -45,7 +45,7 @@
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnIterations" disable="true" />
+                        <Spinner fx:id="spnIterations" />
                     </children>
                 </FlowPane>
             </children>

@@ -8,19 +8,29 @@ data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val
 
 class BifurcationGenerator : IterationGenerator<RData, BifurcationParameter>() {
 
+    private data class CalculateParameter(val r: Double, val maxIterations: Int, val sequenceSkipper: (Data) -> Data) {
+        val convergenceType = ConvergenceType.valueOf(r)
+
+        val verifier = when (convergenceType) {
+            ConvergenceType.ZERO     -> ZeroVerifier
+            ConvergenceType.CONSTANT -> ConstanstVerifier(r)
+            ConvergenceType.CYCLE_2  -> Cycle2Verifier
+            ConvergenceType.CHAOS    -> ChaosVerifier
+        }
+    }
+
     override fun calculate(parameter: BifurcationParameter, value: RData): RData {
         println("\t$value")
         return value
     }
 
-    private tailrec fun calculate(previousValue: Double, r: Double, maxIterations: Int,
-                                  sequenceSkipper: (List<Double>) -> List<Double>, sequenceForR: List<Double>): RData {
-        if (sequenceForR.size == maxIterations) {
-            return RData(r, sequenceSkipper(sequenceForR))
+    private tailrec fun calculate(previousValue: Double, parameter: CalculateParameter, sequenceForR: Data): RData {
+        if (sequenceForR.size == parameter.maxIterations || parameter.verifier.converges(sequenceForR)) {
+            return RData(parameter.r, parameter.sequenceSkipper(sequenceForR), parameter.convergenceType)
         }
 
-        val currentValue = r * previousValue * (1.0 - previousValue)
-        return calculate(currentValue, r, maxIterations, sequenceSkipper, sequenceForR + currentValue)
+        val currentValue = parameter.r * previousValue * (1.0 - previousValue)
+        return calculate(currentValue, parameter, sequenceForR + currentValue)
     }
 
     override fun run(parameter: BifurcationParameter, interactions: Int, initialValue: RData): List<RData> {
@@ -31,7 +41,7 @@ class BifurcationGenerator : IterationGenerator<RData, BifurcationParameter>() {
         return (0..parameter.stepsForR)
                 .map { step -> step * parameter.rStep }
                 .toList().parallelStream()
-                .map { r -> calculate(x0, r, parameter.iterationsPerR, sequenceSkipper, listOf(x0)) }
+                .map { r -> calculate(x0, CalculateParameter(r, parameter.iterationsPerR, sequenceSkipper), listOf(x0)) }
                 .collect(Collectors.toList())
     }
 

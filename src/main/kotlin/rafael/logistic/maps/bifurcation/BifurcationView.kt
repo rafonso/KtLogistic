@@ -15,7 +15,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, 0.1)
 
     private     val spnSkip             :   Spinner<Int>    by fxid()
-    private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0, 1)
+    private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0, 1)
 
     // @formatter:on
 
