@@ -7,7 +7,11 @@ import javafx.scene.shape.Circle
 import rafael.logistic.view.getRainbowColor
 import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*
+import java.time.Duration
+import java.time.LocalTime
 import java.util.stream.Collectors
+import java.util.stream.Stream
+import kotlin.streams.toList
 
 private const val MAX_RADIUS = 1.0
 private const val MIN_RADIUS = 0.4
@@ -22,8 +26,9 @@ class BifurcationChart(
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
     val x0Property = (0.0).toProperty()
+    private val x0 by x0Property
 
-    private fun rSequenceToElements(rSequence: RData): MutableList<Circle> {
+    private fun rSequenceToElements(rSequence: RData): Stream<Circle> {
         val rChart = rSequence.r.realToChartX()
         return rSequence.values
                 .mapIndexed { i, v -> Pair(v.realToChartY(), i.toDouble() / rSequence.values.size) }
@@ -34,14 +39,18 @@ class BifurcationChart(
                         fill = stroke
                     }
                 }
-                .collect(Collectors.toList())
     }
 
     override fun plotData() {
-        highlightP0(myXAxis.lowerBound, x0Property.value)
+        if(x0 in myYAxis.lowerBound..myYAxis.lowerBound) {
+            highlightP0(myXAxis.lowerBound, x0Property.value)
+        }
+
         // TODO: Está sendo chamado 2 vezes ao redimensionar. Descobrir por quê.
 //        Throwable().printStackTrace()
-        data.map(this::rSequenceToElements).forEach { elements -> background.getChildList()?.addAll(elements) }
+
+        val circles = data.parallelStream().flatMap { this.rSequenceToElements(it) }.toList()
+        background.getChildList()?.addAll(circles)
     }
 
 }
