@@ -3,6 +3,7 @@ package rafael.logistic.maps.bifurcation
 import javafx.beans.binding.Bindings
 import javafx.beans.property.DoubleProperty
 import javafx.scene.chart.NumberAxis
+import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
@@ -38,6 +39,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val deltaRLimitProperty =   1.toProperty()
     private     val deltaRStepProperty  =   (0.1).toProperty()
 
+    private     val lblPosMouse         :   Label            by fxid()
     // @formatter:on
 
     override fun initializeControls() {
@@ -80,6 +82,15 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
                     rAxis.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
         else
             emptyList()
+    }
+
+    override fun initializeAdditional() {
+        chart.mousePositionRealProperty().addListener(ChangeListener { _, _, _ ->
+            lblPosMouse.text = "(%s, %s)".format(
+                    rMaxValueFactory.converter.toString(chart.mousePositionRealProperty().value.x),
+                    rMaxValueFactory.converter.toString(chart.mousePositionRealProperty().value.y)
+            )
+        })
     }
 
 }

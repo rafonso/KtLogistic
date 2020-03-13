@@ -17,7 +17,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
     protected   val spnIterations           :   Spinner<Int>    by fxid()
-    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 5000, 100, 100)
+    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(10, 100, 100, 1)
 
     protected   val chart                   :   C               by fxid()
 
@@ -25,6 +25,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     // @formatter:on
 
     override fun onBeforeShow() {
+//        System.setProperty("java.util.logging.config.file", "/logging.properties")
+
         spnIterations.configureActions(iterationsValueFactory, ::loadData)
         initializeControls()
 
@@ -51,6 +53,9 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
         this.logisticData.value = refreshData(generator, spnIterations.value)
 
         val deltaT = Duration.between(t0, LocalTime.now())
+        log.finest("FINEST")
+        log.finer("FINER")
+        log.fine("FINE")
         log.info("${spnIterations.value} : $deltaT")
     }
 

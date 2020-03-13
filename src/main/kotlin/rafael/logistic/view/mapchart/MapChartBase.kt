@@ -2,6 +2,8 @@ package rafael.logistic.view.mapchart
 
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
+import javafx.event.EventHandler
+import javafx.geometry.Point2D
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
@@ -30,12 +32,19 @@ abstract class MapChartBase<T>(
 
     private val square = Point0()
 
+    private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
+    fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
+
     init {
         myXAxis.tickLabelFormatter = CONVERTER_2
         myYAxis.tickLabelFormatter = CONVERTER_2
         dataProperty.onChange {
             layoutPlotChildren()
         }
+        background.onMouseMoved = EventHandler { event ->
+            mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
+        }
+        background.onMouseExited = EventHandler { mousePositionRealProperty.value = Point2D(Double.NaN, Double.NaN) }
         initialize()
     }
 
@@ -65,7 +74,7 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealX(): Number = myXAxis.getValueForDisplay(this)!!
+    protected fun Double.chartToRealX(): Double = myXAxis.getValueForDisplay(this).toDouble()
 
     /**
      * Converte um valor real para seu equivalente no eixo Y do [LineChart].
@@ -79,8 +88,7 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealY(): Number = myYAxis.getValueForDisplay(this)!!
-
+    protected fun Double.chartToRealY(): Double = myYAxis.getValueForDisplay(this).toDouble()
 
 
 //    protected fun Point0.toPoint2D() = Point2D(
