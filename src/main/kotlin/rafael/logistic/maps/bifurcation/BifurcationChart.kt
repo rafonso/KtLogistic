@@ -38,7 +38,7 @@ class BifurcationChart(
     }
 
     override fun plotData() {
-        highlightP0(0.0, x0Property.value)
+        highlightP0(myXAxis.lowerBound, x0Property.value)
         // TODO: Está sendo chamado 2 vezes ao redimensionar. Descobrir por quê.
 //        Throwable().printStackTrace()
         data.map(this::rSequenceToElements).forEach { elements -> background.getChildList()?.addAll(elements) }

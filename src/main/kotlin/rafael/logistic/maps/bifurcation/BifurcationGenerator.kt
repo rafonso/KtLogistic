@@ -4,7 +4,7 @@ import rafael.logistic.generator.IterationGenerator
 import rafael.logistic.generator.IterationParameter
 import java.util.stream.Collectors
 
-data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val rStep: Double, val percentToSkip: Int) : IterationParameter
+data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val rMin: Double, val rStep: Double, val percentToSkip: Int) : IterationParameter
 
 class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParameter>() {
 
@@ -35,7 +35,7 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
         else { s -> s.subList((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
 
         return (0..parameter.stepsForR)
-                .map { step -> step * parameter.rStep }
+                .map { step -> step * parameter.rStep + parameter.rMin}
                 .toList().parallelStream()
                 .map { r -> calculate(x0, CalculateParameter(r, parameter.iterationsPerR, sequenceSkipper), listOf(x0)) }
                 .collect(Collectors.toList())
@@ -44,7 +44,7 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
     fun generate(x0: Double, rMin: Double, rMax: Double, stepsForR: Int, percentToSkip: Int, iterationsPerR: Int): List<RData> {
         val rStep = (rMax - rMin) / stepsForR
 
-        return super.generate(x0, BifurcationParameter(iterationsPerR, stepsForR, rStep, percentToSkip), stepsForR)
+        return super.generate(x0, BifurcationParameter(iterationsPerR, stepsForR, rMin, rStep, percentToSkip), stepsForR)
     }
 
 }
