@@ -44,7 +44,10 @@ abstract class MapChartBase<T>(
         background.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
         }
-        background.onMouseExited = EventHandler { mousePositionRealProperty.value = Point2D(Double.NaN, Double.NaN) }
+        background.onMouseExited = EventHandler { event ->
+            // TODO: Veficar se o mouse está dentro dos limites do backgound
+            mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
+        }
         initialize()
     }
 
