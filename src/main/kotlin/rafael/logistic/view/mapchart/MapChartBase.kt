@@ -1,5 +1,6 @@
 package rafael.logistic.view.mapchart
 
+import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
@@ -35,9 +36,17 @@ abstract class MapChartBase<T>(
     private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
     fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
 
+    private val deltaXByPixelProp = (0.0).toProperty()
+    val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
+
+    private val deltaYByPixelProp = (0.0).toProperty()
+    val deltaYByPixelProperty = deltaYByPixelProp  as ReadOnlyDoubleProperty
+
     init {
         myXAxis.tickLabelFormatter = CONVERTER_2
+        deltaXByPixelProp.bind((myXAxis.upperBoundProperty() - myXAxis.lowerBoundProperty()) / myXAxis.widthProperty())
         myYAxis.tickLabelFormatter = CONVERTER_2
+        deltaYByPixelProp.bind((myYAxis.upperBoundProperty() - myYAxis.lowerBoundProperty()) / myYAxis.heightProperty())
         dataProperty.onChange {
             layoutPlotChildren()
         }
