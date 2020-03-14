@@ -2,29 +2,16 @@ package rafael.logistic.view.experimental.template
 
 import javafx.scene.control.CheckBox
 import javafx.geometry.Point2D
+import rafael.logistic.view.mapchart.MouseRealPosNode
 import rafael.logistic.view.view.ViewBi
 import tornadofx.*
 
 class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateGenerator()) {
 
-//    override val maxDelta: Double
-//        get() = 1.0
-//
-//    override val maxX0Spinner: Double
-//        get() = 10.0
-//
-//    override val minX0Spinner: Double
-//        get() = -maxX0Spinner
-//
-//    override val maxY0Spinner: Double
-//        get() = maxX0Spinner
-//
-//    override val minY0Spinner: Double
-//        get() = -maxY0Spinner
-
-
     // @formatter:off
-    private val chbPinY :   CheckBox    by  fxid()
+    private val chbPinY         :   CheckBox            by  fxid()
+
+    private val txtMouseRealPos :   MouseRealPosNode    by fxid()
     // @formatter:on
 
     override fun initializeControlsBi() {
@@ -40,5 +27,9 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
 
     override fun refreshData(generator: TemplateGenerator, iterations: Int): List<Point2D> =
             generator.generate(Point2D(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
+
+    override fun initializeAdditional() {
+        txtMouseRealPos.bind(chart)
+    }
 
 }

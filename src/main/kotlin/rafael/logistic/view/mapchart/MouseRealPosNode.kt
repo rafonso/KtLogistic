@@ -1,6 +1,8 @@
 package rafael.logistic.view.mapchart
 
 import javafx.beans.binding.Bindings
+import javafx.beans.binding.When
+import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Point2D
 import javafx.scene.control.TextField
 import javafx.scene.text.Font
@@ -18,7 +20,20 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
 
     private val yDigitsProperty = 1.toProperty()
 
-    private val formatProperty = Bindings.concat("(%+.", xDigitsProperty.asString(), "f, %+.", yDigitsProperty.asString(), "f)")
+    private val xSignProperty = "+".toProperty()
+
+    private val ySignProperty = "+".toProperty()
+
+    private val formatProperty = Bindings.concat(
+            "(%", xSignProperty, ".", xDigitsProperty.asString(), "f," +
+            " %", ySignProperty, ".", yDigitsProperty.asString(), "f)"
+    )
+
+    private val showXSignProperty = SimpleBooleanProperty(this, "showXSign", true)
+    var showXSign by showXSignProperty
+
+    private val showYSignProperty = SimpleBooleanProperty(this, "showYSign", true)
+    var showYSign by showYSignProperty
 
     init {
         font = Font.font("Consolas", 12.0)
@@ -28,6 +43,9 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
 
         deltaXByPixelProperty.onChange { xDigitsProperty.value = posFirstDigit(it) }
         deltaYByPixelProperty.onChange { yDigitsProperty.value = posFirstDigit(it) }
+
+        xSignProperty.bind(When(showXSignProperty).then("+").otherwise(""))
+        ySignProperty.bind(When(showYSignProperty).then("+").otherwise(""))
 
         mousePositionRealProperty.onChange { writePos() }
         formatProperty.onChange { writePos() }

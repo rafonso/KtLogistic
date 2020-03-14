@@ -22,7 +22,7 @@
             <children>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                     <children>
-                        <Label fx:id="lblX0" styleClass="title" text="x₀ =" >
+                        <Label fx:id="lblX0" styleClass="title" text="x₀ =">
                             <padding>
                                 <Insets left="5.0" />
                             </padding>
@@ -32,7 +32,7 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblY0" styleClass="title" text="y₀ =" >
+                        <Label fx:id="lblY0" styleClass="title" text="y₀ =">
                             <padding>
                                 <Insets left="5.0" />
                             </padding>
@@ -79,6 +79,7 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
                 <IterationChartBi animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0" fx:id="xIterationsChart">
@@ -97,6 +98,7 @@
                         <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickUnit="2" upperBound="20.0" />
                     </yAxis>
                 </IterationChartBi>
+             <MouseRealPosNode fx:id="txtMouseRealPos" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
          </children>
       </GridPane>
     </bottom>
