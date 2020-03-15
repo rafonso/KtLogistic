@@ -5,7 +5,6 @@ import javafx.beans.binding.When
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Point2D
 import javafx.scene.control.TextField
-import javafx.scene.text.Font
 import tornadofx.*
 
 class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
@@ -36,9 +35,6 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
     var showYSign by showYSignProperty
 
     init {
-        font = Font.font("Consolas", 12.0)
-        insets(5.0)
-        prefWidth = 200.0
         isEditable = false
 
         deltaXByPixelProperty.onChange { xDigitsProperty.value = posFirstDigit(it) }
