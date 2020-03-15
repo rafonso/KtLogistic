@@ -36,6 +36,18 @@ abstract class MapChartBase<T>(
     private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
     fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
 
+    val xMinProperty                = (0.0).toProperty()
+    val xMin                        by xMinProperty
+
+    val xMaxProperty                = (0.0).toProperty()
+    val xMax                        by xMaxProperty
+
+    val yMinProperty                = (0.0).toProperty()
+    val yMin                        by yMinProperty
+
+    val yMaxProperty                = (0.0).toProperty()
+    val yMax                        by yMaxProperty
+
     private val deltaXByPixelProp = (0.0).toProperty()
     val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
 
@@ -43,13 +55,20 @@ abstract class MapChartBase<T>(
     val deltaYByPixelProperty = deltaYByPixelProp  as ReadOnlyDoubleProperty
 
     init {
+        xMinProperty.bindBidirectional(myXAxis.lowerBoundProperty())
+        xMaxProperty.bindBidirectional(myXAxis.upperBoundProperty())
         myXAxis.tickLabelFormatter = CONVERTER_2
-        deltaXByPixelProp.bind((myXAxis.upperBoundProperty() - myXAxis.lowerBoundProperty()) / myXAxis.widthProperty())
+        deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / myXAxis.widthProperty())
+
+        yMinProperty.bindBidirectional(myYAxis.lowerBoundProperty())
+        yMaxProperty.bindBidirectional(myYAxis.upperBoundProperty())
         myYAxis.tickLabelFormatter = CONVERTER_2
-        deltaYByPixelProp.bind((myYAxis.upperBoundProperty() - myYAxis.lowerBoundProperty()) / myYAxis.heightProperty())
+        deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / myYAxis.heightProperty())
+
         dataProperty.onChange {
             layoutPlotChildren()
         }
+
         background.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
         }
@@ -57,6 +76,7 @@ abstract class MapChartBase<T>(
             // TODO: Veficar se o mouse está dentro dos limites do backgound
             mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
         }
+
         initialize()
     }
 

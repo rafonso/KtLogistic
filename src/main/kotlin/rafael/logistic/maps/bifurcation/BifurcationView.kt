@@ -1,16 +1,15 @@
 package rafael.logistic.maps.bifurcation
 
-import javafx.beans.binding.Bindings
-import javafx.beans.property.DoubleProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import rafael.logistic.view.configureActions
+import rafael.logistic.view.configureMinMaxSpinners
+import rafael.logistic.view.doubleSpinnerValueFactory
 import rafael.logistic.view.mapchart.MouseRealPosNode
 import rafael.logistic.view.view.ViewBase
 import tornadofx.*
-import kotlin.math.pow
 
 private const val R_MIN = 0.0
 private const val R_MAX = 4.0
@@ -22,7 +21,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     // @formatter:off
     private     val spnX0               :   Spinner<Double>  by fxid()
     private     val deltaX0Property     =   1.toProperty()
-    private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
+    private     val x0ValueFactory      =   doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
     private     val spnSkip             :   Spinner<Int>    by fxid()
     private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
@@ -31,10 +30,10 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val pixelsSeparationValueFactory    =   SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).observable())
 
     private     val spnRMin             :   Spinner<Double>  by fxid()
-    private     val rMinValueFactory    =   SpinnerValueFactory.DoubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
+    private     val rMinValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
 
     private     val spnRMax             :   Spinner<Double>  by fxid()
-    private     val rMaxValueFactory    =   SpinnerValueFactory.DoubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
+    private     val rMaxValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
 
     private     val deltaRLimitProperty =   1.toProperty()
     private     val deltaRStepProperty  =   (0.1).toProperty()
@@ -50,15 +49,8 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
         pixelsSeparationValueFactory.value = 10
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory, this::loadData)
 
-        deltaRLimitProperty.onChange {
-            deltaRStepProperty.value = (0.1).pow(it)
-        }
-        spnRMin.configureActions(rMinValueFactory, deltaRLimitProperty, this::loadData)
-        spnRMax.configureActions(rMaxValueFactory, deltaRLimitProperty, this::loadData)
-        rMinValueFactory.maxProperty().bind(
-                Bindings.subtract(DoubleProperty.doubleProperty(rMaxValueFactory.valueProperty()), deltaRStepProperty))
-        rMaxValueFactory.minProperty().bind(
-                Bindings.add(DoubleProperty.doubleProperty(rMinValueFactory.valueProperty()), deltaRStepProperty))
+        configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
+                deltaRLimitProperty, deltaRStepProperty, this::loadData)
     }
 
     override fun initializeCharts() {
@@ -68,10 +60,9 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
         chart.x0Property.bind(spnX0.valueProperty())
 
-        val rAxis = (chart.xAxis as NumberAxis)
-        rAxis.widthProperty().onChange { loadData() }
-        rAxis.lowerBoundProperty().bind(spnRMin.valueProperty())
-        rAxis.upperBoundProperty().bind(spnRMax.valueProperty())
+        chart.xAxis.widthProperty().onChange { loadData() }
+        chart.xMinProperty.bind(spnRMin.valueProperty())
+        chart.xMaxProperty.bind(spnRMax.valueProperty())
     }
 
     override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> {

@@ -1,5 +1,7 @@
 package rafael.logistic.view
 
+import javafx.beans.binding.Bindings
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
 import javafx.event.Event
 import javafx.geometry.Pos
@@ -137,3 +139,20 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
     this.bind(valueFactory, action)
     this.editor.alignment = Pos.CENTER_RIGHT
 }
+
+fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+                            spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+                            deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit) {
+    deltaLimitProperty.onChange {
+        deltaStepProperty.value = (0.1).pow(it)
+    }
+    spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
+    spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
+    minValueFactory.maxProperty().bind(
+            Bindings.subtract(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()), deltaStepProperty))
+    maxValueFactory.minProperty().bind(
+            Bindings.add(DoubleProperty.doubleProperty(minValueFactory.valueProperty()), deltaStepProperty))
+}
+
+fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
+        SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
