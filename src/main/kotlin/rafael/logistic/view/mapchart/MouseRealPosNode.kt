@@ -5,6 +5,9 @@ import javafx.beans.binding.When
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Point2D
 import javafx.scene.control.TextField
+import javafx.scene.input.Clipboard
+import javafx.scene.input.MouseButton
+import javafx.scene.input.MouseEvent
 import tornadofx.*
 
 class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
@@ -62,6 +65,11 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
         mousePositionRealProperty.bind(chart.mousePositionRealProperty())
         deltaXByPixelProperty.bind(chart.deltaXByPixelProperty)
         deltaYByPixelProperty.bind(chart.deltaYByPixelProperty)
+        chart.addEventHandler(MouseEvent.MOUSE_CLICKED) { event ->
+            if(event.button == MouseButton.MIDDLE) {
+                Clipboard.getSystemClipboard().putString(text)
+            }
+        }
     }
 
 }
