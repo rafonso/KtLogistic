@@ -3,6 +3,7 @@ package rafael.logistic.view.experimental.template
 import javafx.geometry.Point2D
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
+import rafael.logistic.view.addCopyCapacity
 import rafael.logistic.view.configureMinMaxSpinners
 import rafael.logistic.view.doubleSpinnerValueFactory
 import rafael.logistic.view.mapchart.MouseRealPosNode
@@ -50,6 +51,11 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
                 deltaXLimitProperty, deltaXStepProperty, this::loadData)
         configureMinMaxSpinners(spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
                 deltaYLimitProperty, deltaYStepProperty, this::loadData)
+
+        spnXMin.addCopyCapacity()
+        spnXMax.addCopyCapacity()
+        spnYMin.addCopyCapacity()
+        spnYMax.addCopyCapacity()
     }
 
     override fun initializeCharts() {

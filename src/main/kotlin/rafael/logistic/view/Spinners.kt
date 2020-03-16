@@ -7,6 +7,7 @@ import javafx.event.Event
 import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory as DoubleSpinnerValueFactory
 import javafx.scene.input.*
 import tornadofx.*
 import java.math.RoundingMode
@@ -70,7 +71,7 @@ private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: Int
 
 private fun Spinner<Double>.stepChanged(step: Int) {
     runLater {
-        with(this.valueFactory as SpinnerValueFactory.DoubleSpinnerValueFactory) {
+        with(this.valueFactory as DoubleSpinnerValueFactory) {
             this.converter = SpinnerConverter(step)
             this.amountToStepBy = (0.1).pow(step)
             val strValue = DecimalFormat("#." + "#".repeat(step))
@@ -87,7 +88,7 @@ private fun Spinner<Double>.stepChanged(step: Int) {
  *
  * @param valueFactory [SpinnerValueFactory.DoubleSpinnerValueFactory] do Spinner
  */
-private fun Spinner<Double>.configureInvertSignal(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory) {
+private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerValueFactory) {
 
     fun hasSign() = (valueFactory.value.sign != 0.0)
 
@@ -122,7 +123,7 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
     this.valueProperty().onChange { action() }
 }
 
-fun Spinner<Double>.configureActions(valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
                                      deltaProperty: IntegerProperty, action: () -> Unit) {
     this.bind(valueFactory, action)
 
@@ -140,8 +141,11 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
     this.editor.alignment = Pos.CENTER_RIGHT
 }
 
-fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-                            spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+/**
+ * Víncula os valores mínimos e máximos de  dois [Spinner]s.
+ */
+fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
+                            spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
                             deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit) {
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
@@ -154,5 +158,24 @@ fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: SpinnerVal
             Bindings.add(DoubleProperty.doubleProperty(minValueFactory.valueProperty()), deltaStepProperty))
 }
 
+/**
+ * Cria uma nova instância de [DoubleSpinnerValueFactory].
+ *
+ * @param min Valor Mínimo
+ * @param max Valor Máximo
+ * @param initialValue Valor Inicial
+ * @param amountToStepBy valor do passso
+ */
 fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
-        SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
+        DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
+
+/**
+ * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
+ */
+fun Spinner<*>.addCopyCapacity() {
+    this.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
+        if(event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
+            Clipboard.getSystemClipboard().putString(this.value.toString())
+        }
+    }
+}

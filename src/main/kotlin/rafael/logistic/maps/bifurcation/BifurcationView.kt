@@ -4,6 +4,7 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
+import rafael.logistic.view.addCopyCapacity
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.configureMinMaxSpinners
 import rafael.logistic.view.doubleSpinnerValueFactory
@@ -51,6 +52,8 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
         configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
                 deltaRLimitProperty, deltaRStepProperty, this::loadData)
+        spnRMin.addCopyCapacity()
+        spnRMax.addCopyCapacity()
     }
 
     override fun initializeCharts() {
