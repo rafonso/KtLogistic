@@ -1,12 +1,12 @@
 package rafael.logistic.maps.bifurcation
 
-import rafael.logistic.generator.IterationGenerator
-import rafael.logistic.generator.IterationParameter
+import rafael.logistic.view.IterationGenerator
+import rafael.logistic.view.IterationParameter
 import java.util.stream.Collectors
 
 data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val rMin: Double, val rStep: Double, val percentToSkip: Int) : IterationParameter
 
-class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParameter>() {
+class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParameter> {
 
     private data class CalculateParameter(val r: Double, val maxIterations: Int, val sequenceSkipper: (Data) -> Data) {
         val convergenceType = ConvergenceType.valueOf(r)
@@ -30,7 +30,7 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
         return calculate(currentValue, parameter, sequenceForR + currentValue)
     }
 
-    override fun run(parameter: BifurcationParameter, interactions: Int, x0: Double): List<RData> {
+    override fun generate(x0: Double, parameter: BifurcationParameter, interactions: Int): List<RData> {
         val sequenceSkipper: (List<Double>) -> List<Double> = if (parameter.percentToSkip == 0) { s -> s }
         else { s -> s.subList((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
 
@@ -44,7 +44,7 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
     fun generate(x0: Double, rMin: Double, rMax: Double, stepsForR: Int, percentToSkip: Int, iterationsPerR: Int): List<RData> {
         val rStep = (rMax - rMin) / stepsForR
 
-        return super.generate(x0, BifurcationParameter(iterationsPerR, stepsForR, rMin, rStep, percentToSkip), stepsForR)
+        return generate(x0, BifurcationParameter(iterationsPerR, stepsForR, rMin, rStep, percentToSkip), stepsForR)
     }
 
 }

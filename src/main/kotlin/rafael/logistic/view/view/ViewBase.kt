@@ -4,7 +4,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.GenerationStatus
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.mapchart.MapChartBase

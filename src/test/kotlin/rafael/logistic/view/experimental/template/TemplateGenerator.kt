@@ -1,8 +1,8 @@
 package rafael.logistic.view.experimental.template
 
 import javafx.geometry.Point2D
-import rafael.logistic.generator.IterationGeneratorBi
-import rafael.logistic.generator.IterationParameter
+import rafael.logistic.view.IterationGeneratorBi
+import rafael.logistic.view.IterationParameter
 import java.util.*
 
 data class TemplateParameter(val min: Double, val max: Double) : IterationParameter

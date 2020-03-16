@@ -1,8 +1,8 @@
 package rafael.logistic.maps.tinkerbell
 
 import javafx.geometry.Point2D
-import rafael.logistic.generator.IterationGeneratorBi
-import rafael.logistic.generator.IterationParameter
+import rafael.logistic.view.IterationGeneratorBi
+import rafael.logistic.view.IterationParameter
 import kotlin.math.pow
 
 data class TinkerbellParameter(val a: Double, val b: Double, val c: Double, val d: Double) : IterationParameter

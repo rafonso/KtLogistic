@@ -6,7 +6,7 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.iterationchart.IterationChartDouble
 import rafael.logistic.view.mapchart.MapChartDouble

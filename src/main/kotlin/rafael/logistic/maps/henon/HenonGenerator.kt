@@ -1,8 +1,8 @@
 package rafael.logistic.maps.henon
 
 import javafx.geometry.Point2D
-import rafael.logistic.generator.IterationGeneratorBi
-import rafael.logistic.generator.IterationParameter
+import rafael.logistic.view.IterationGeneratorBi
+import rafael.logistic.view.IterationParameter
 
 data class HenonParameter(val alpha: Double, val beta: Double) : IterationParameter
 

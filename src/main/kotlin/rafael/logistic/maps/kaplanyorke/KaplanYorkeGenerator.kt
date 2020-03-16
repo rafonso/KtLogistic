@@ -1,8 +1,8 @@
 package rafael.logistic.maps.kaplanyorke
 
 import javafx.geometry.Point2D
-import rafael.logistic.generator.IterationGeneratorBi
-import rafael.logistic.generator.IterationParameter
+import rafael.logistic.view.IterationGeneratorBi
+import rafael.logistic.view.IterationParameter
 import kotlin.math.PI
 import kotlin.math.cos
 
