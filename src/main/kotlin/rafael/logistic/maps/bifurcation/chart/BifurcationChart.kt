@@ -1,9 +1,10 @@
-package rafael.logistic.maps.bifurcation
+package rafael.logistic.maps.bifurcation.chart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
+import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.view.getRainbowColor
 import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*

@@ -1,6 +1,6 @@
-package rafael.logistic.maps.bifurcation
+package rafael.logistic.maps.bifurcation.chart
 
 import rafael.logistic.view.Styles
-import tornadofx.App
+import tornadofx.*
 
 class BifurcationApp: App(BifurcationView::class, Styles::class)

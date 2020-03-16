@@ -1,10 +1,12 @@
-package rafael.logistic.maps.bifurcation
+package rafael.logistic.maps.bifurcation.chart
 
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
+import rafael.logistic.maps.bifurcation.BifurcationGenerator
+import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.view.*
 import rafael.logistic.view.mapchart.MouseRealPosNode
 import rafael.logistic.view.view.ViewBase
