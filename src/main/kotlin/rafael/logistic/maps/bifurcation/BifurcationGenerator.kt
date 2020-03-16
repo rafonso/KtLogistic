@@ -21,8 +21,6 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
 
     private tailrec fun calculate(previousValue: Double, parameter: CalculateParameter, sequenceForR: Data): RData {
         if (sequenceForR.size == parameter.maxIterations || parameter.verifier.converges(sequenceForR)) {
-            // Disparar Running Event?
-//            super.notify(RunningEvent())
             return RData(parameter.r, parameter.sequenceSkipper(sequenceForR), parameter.convergenceType)
         }
 
