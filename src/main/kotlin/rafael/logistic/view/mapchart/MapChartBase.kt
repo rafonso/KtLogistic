@@ -18,7 +18,7 @@ const val P0_SIDE = 20.0
 abstract class MapChartBase<T>(
         xAxis: Axis<Double>,
         yAxis: Axis<Double>,
-        data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data) {
+        data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T> {
 
     constructor(xAxis: Axis<Double>, yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
@@ -35,27 +35,26 @@ abstract class MapChartBase<T>(
     private val square = Point0()
 
     private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
-    fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
 
-    val xMinProperty                = (0.0).toProperty()
-    val xMin                        by xMinProperty
+    override val xMinProperty                = (0.0).toProperty()
+    override val xMin                        by xMinProperty
 
-    val xMaxProperty                = (0.0).toProperty()
-    val xMax                        by xMaxProperty
+    override val xMaxProperty                = (0.0).toProperty()
+    override val xMax                        by xMaxProperty
 
-    val yMinProperty                = (0.0).toProperty()
-    val yMin                        by yMinProperty
+    override val yMinProperty                = (0.0).toProperty()
+    override val yMin                        by yMinProperty
 
-    val yMaxProperty                = (0.0).toProperty()
-    val yMax                        by yMaxProperty
+    override val yMaxProperty                = (0.0).toProperty()
+    override val yMax                        by yMaxProperty
 
-    private val deltaXByPixelProp   = (0.0).toProperty()
-    val deltaXByPixelProperty       = deltaXByPixelProp as ReadOnlyDoubleProperty
+    private val deltaXByPixelProp            = (0.0).toProperty()
+    override val deltaXByPixelProperty       = deltaXByPixelProp as ReadOnlyDoubleProperty
 
     private val deltaYByPixelProp   = (0.0).toProperty()
-    val deltaYByPixelProperty       = deltaYByPixelProp as ReadOnlyDoubleProperty
+    override val deltaYByPixelProperty       = deltaYByPixelProp as ReadOnlyDoubleProperty
 
-    val generationStatusProperty = GenerationStatus.IDLE.toProperty()
+    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
 
     init {
         xMinProperty.bindBidirectional(myXAxis.lowerBoundProperty())
@@ -88,12 +87,6 @@ abstract class MapChartBase<T>(
             sq.x = x0.realToChartX()
             sq.y = y0.realToChartY()
             sq.toFront()
-
-//            sq.addEventHandler(MouseEvent.MOUSE_DRAGGED) { event ->
-//                val pos = background.sceneToLocal(event.sceneX, event.sceneY)
-//                p0Moved(sq, pos)
-//                println("(${sq.x}, ${sq.y})\t ${pos}\t ")
-//            }
         })
     }
 
@@ -109,7 +102,7 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealX(): Double = myXAxis.getValueForDisplay(this).toDouble()
+    private fun Double.chartToRealX(): Double = myXAxis.getValueForDisplay(this).toDouble()
 
     /**
      * Converte um valor real para seu equivalente no eixo Y do [LineChart].
@@ -123,25 +116,13 @@ abstract class MapChartBase<T>(
      *
      * @see Axis#getValueForDisplay()
      */
-    protected fun Double.chartToRealY(): Double = myYAxis.getValueForDisplay(this).toDouble()
+    private fun Double.chartToRealY(): Double = myYAxis.getValueForDisplay(this).toDouble()
 
-
-//    protected fun Point0.toPoint2D() = Point2D(
-//            myXAxis.getValueForDisplay(this.x) as Double,
-//            myYAxis.getValueForDisplay(this.y) as Double
-//    )
 
     protected abstract fun plotData()
 
-//    protected abstract fun p0Moved(square: Point0, pos: Point2D)
-
     protected open fun initialize() {
 
-    }
-
-    fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChartBase<T>) -> Unit = {}) {
-        this.dataProperty.bind(dataProperty)
-        handler(this)
     }
 
     override fun layoutPlotChildren() {
@@ -152,5 +133,12 @@ abstract class MapChartBase<T>(
 
         this.generationStatusProperty.value = GenerationStatus.IDLE
     }
+
+    override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T>) -> Unit) {
+        this.dataProperty.bind(dataProperty)
+        handler(this)
+    }
+
+    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
 
 }

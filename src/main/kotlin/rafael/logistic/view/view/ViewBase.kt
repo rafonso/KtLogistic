@@ -1,16 +1,18 @@
 package rafael.logistic.view.view
 
 import javafx.beans.property.ReadOnlyObjectProperty
+import javafx.scene.Node
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.GenerationStatus
+import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.configureActions
-import rafael.logistic.view.mapchart.MapChartBase
+import rafael.logistic.view.mapchart.MapChart
 import tornadofx.*
 
-abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {
+abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fxmlFile: String, protected val generator: G) :
+        View(title) where C : MapChart<T>, C : Node {
 
     // @formatter:off
     override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
@@ -23,8 +25,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     protected   val logisticData            =   emptyList<T>().toProperty()
     // @formatter:on
 
-    private val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
-    fun generationStatusProperty()          =   generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
+    private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
+    fun generationStatusProperty() = generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
 
     override fun onBeforeShow() {
         spnIterations.configureActions(iterationsValueFactory, ::loadData)

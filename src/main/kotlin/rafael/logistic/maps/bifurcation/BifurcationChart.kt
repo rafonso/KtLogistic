@@ -7,9 +7,6 @@ import javafx.scene.shape.Circle
 import rafael.logistic.view.getRainbowColor
 import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*
-import java.time.Duration
-import java.time.LocalTime
-import java.util.stream.Collectors
 import java.util.stream.Stream
 import kotlin.streams.toList
 

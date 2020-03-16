@@ -61,7 +61,7 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
         super.setText(formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y))
     }
 
-    fun bind(chart: MapChartBase<*>) {
+    fun bind(chart: MapChart<*>) {
         mousePositionRealProperty.bind(chart.mousePositionRealProperty())
         deltaXByPixelProperty.bind(chart.deltaXByPixelProperty)
         deltaYByPixelProperty.bind(chart.deltaYByPixelProperty)
