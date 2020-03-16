@@ -1,13 +1,11 @@
 package rafael.logistic.maps.bifurcation
 
 import javafx.scene.chart.NumberAxis
+import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.view.addCopyCapacity
-import rafael.logistic.view.configureActions
-import rafael.logistic.view.configureMinMaxSpinners
-import rafael.logistic.view.doubleSpinnerValueFactory
+import rafael.logistic.view.*
 import rafael.logistic.view.mapchart.MouseRealPosNode
 import rafael.logistic.view.view.ViewBase
 import tornadofx.*
@@ -20,26 +18,28 @@ private const val X_MAX = 1.0
 class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>("Bifurcation", "Bifurcation", BifurcationGenerator()) {
 
     // @formatter:off
-    private     val spnX0               :   Spinner<Double>  by fxid()
+    private     val spnX0               :   Spinner<Double>     by  fxid()
     private     val deltaX0Property     =   1.toProperty()
     private     val x0ValueFactory      =   doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
-    private     val spnSkip             :   Spinner<Int>    by fxid()
+    private     val spnSkip             :   Spinner<Int>        by  fxid()
     private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
 
-    private     val spnPixelsSeparation :   Spinner<Int>    by fxid()
+    private     val spnPixelsSeparation :   Spinner<Int>        by  fxid()
     private     val pixelsSeparationValueFactory    =   SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).observable())
 
-    private     val spnRMin             :   Spinner<Double>  by fxid()
+    private     val spnRMin             :   Spinner<Double>     by  fxid()
     private     val rMinValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
 
-    private     val spnRMax             :   Spinner<Double>  by fxid()
+    private     val spnRMax             :   Spinner<Double>     by  fxid()
     private     val rMaxValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
 
     private     val deltaRLimitProperty =   1.toProperty()
     private     val deltaRStepProperty  =   (0.1).toProperty()
 
-    private     val lblPosMouse         :   MouseRealPosNode   by fxid()
+    private     val lblPosMouse         :   MouseRealPosNode    by  fxid()
+
+    private     val lblStatus           :   Label               by  fxid()
     // @formatter:on
 
     override fun initializeControls() {
@@ -80,6 +80,12 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)
+        super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
+        super.generationStatusProperty().onChange {
+            runLater {
+                lblStatus.text = it?.toString()
+            }
+        }
     }
 
 }

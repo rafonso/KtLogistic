@@ -1,15 +1,14 @@
 package rafael.logistic.view.view
 
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
 import rafael.logistic.generator.IterationGenerator
+import rafael.logistic.view.GenerationStatus
 import rafael.logistic.view.configureActions
 import rafael.logistic.view.mapchart.MapChartBase
 import tornadofx.*
-import java.time.Duration
-import java.time.Instant
-import java.time.LocalTime
 
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>(title: String, fxmlFile: String, protected val generator: G) : View(title) {
 
@@ -24,18 +23,25 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     protected   val logisticData            =   emptyList<T>().toProperty()
     // @formatter:on
 
-    override fun onBeforeShow() {
-//        System.setProperty("java.util.logging.config.file", "/logging.properties")
+    private val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
+    fun generationStatusProperty()          =   generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
 
+    override fun onBeforeShow() {
         spnIterations.configureActions(iterationsValueFactory, ::loadData)
         initializeControls()
 
         chart.bind(logisticData)
+        chart.generationStatusProperty.bindBidirectional(this.generationStatusProperty)
         initializeCharts()
 
         initializeAdditional()
 
         loadData()
+    }
+
+    private fun reloadData(): List<T> {
+        this.generationStatusProperty.value = GenerationStatus.CALCULATING
+        return refreshData(generator, spnIterations.value)
     }
 
     protected abstract fun initializeControls()
@@ -48,15 +54,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C : MapChartBase<T>>
     }
 
     protected fun loadData() {
-        val t0 = LocalTime.now()
-
-        this.logisticData.value = refreshData(generator, spnIterations.value)
-
-        val deltaT = Duration.between(t0, LocalTime.now())
-        log.finest("FINEST")
-        log.finer("FINER")
-        log.fine("FINE")
-        log.info("${spnIterations.value} : $deltaT")
+        this.logisticData.value = reloadData()
     }
 
 }

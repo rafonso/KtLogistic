@@ -10,6 +10,7 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import rafael.logistic.view.CONVERTER_2
+import rafael.logistic.view.GenerationStatus
 import tornadofx.*
 
 const val P0_SIDE = 20.0
@@ -48,11 +49,13 @@ abstract class MapChartBase<T>(
     val yMaxProperty                = (0.0).toProperty()
     val yMax                        by yMaxProperty
 
-    private val deltaXByPixelProp = (0.0).toProperty()
-    val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
+    private val deltaXByPixelProp   = (0.0).toProperty()
+    val deltaXByPixelProperty       = deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    private val deltaYByPixelProp = (0.0).toProperty()
-    val deltaYByPixelProperty = deltaYByPixelProp  as ReadOnlyDoubleProperty
+    private val deltaYByPixelProp   = (0.0).toProperty()
+    val deltaYByPixelProperty       = deltaYByPixelProp as ReadOnlyDoubleProperty
+
+    val generationStatusProperty = GenerationStatus.IDLE.toProperty()
 
     init {
         xMinProperty.bindBidirectional(myXAxis.lowerBoundProperty())
@@ -142,8 +145,12 @@ abstract class MapChartBase<T>(
     }
 
     override fun layoutPlotChildren() {
+        this.generationStatusProperty.value = GenerationStatus.PLOTING
+
         background.getChildList()?.clear()
         plotData()
+
+        this.generationStatusProperty.value = GenerationStatus.IDLE
     }
 
 }
