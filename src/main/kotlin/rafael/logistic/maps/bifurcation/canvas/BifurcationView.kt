@@ -4,7 +4,6 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.maps.bifurcation.BifurcationGenerator
 import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.view.*
 import rafael.logistic.view.mapchart.MouseRealPosNode
@@ -16,7 +15,7 @@ private const val R_MAX = 4.0
 private const val X_MIN = 0.0
 private const val X_MAX = 1.0
 
-class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>("Bifurcation", "Bifurcation1", BifurcationGenerator()) {
+class BifurcationView : ViewBase<RData, FakeBifurcationGenerator, BifurcationCanvas>("Bifurcation", "Bifurcation1", FakeBifurcationGenerator()) {
 
     // @formatter:off
     private     val spnX0               :   Spinner<Double>     by  fxid()
@@ -32,6 +31,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
     private     val spnRMin             :   Spinner<Double>     by  fxid()
     private     val rMinValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
 
+
     private     val spnRMax             :   Spinner<Double>     by  fxid()
     private     val rMaxValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
 
@@ -43,12 +43,13 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
     private     val lblStatus           :   Label               by  fxid()
     // @formatter:on
 
+
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
 
         spnSkip.configureActions(skipValueFactory, this::loadData)
 
-        pixelsSeparationValueFactory.value = 10
+        pixelsSeparationValueFactory.value = 0
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory, this::loadData)
 
         configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
@@ -58,6 +59,9 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
     }
 
     override fun initializeCharts() {
+        chart.yMinProperty.value = 0.0
+        chart.yMaxProperty.value = 1.0
+
         val chartParent = chart.parent as Region
         chart.widthProperty().bind(chartParent.widthProperty())
         chart.widthProperty().onChange { loadData() }
@@ -70,24 +74,19 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
         chart.xMaxProperty.bind(spnRMax.valueProperty())
     }
 
-    override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> {
-//        val rAxis = (super.chart.xAxis as NumberAxis)
-//
-//        return if (rAxis.widthProperty().value > 0)
-//            return generator.generate(spnX0.value, rAxis.lowerBound, rAxis.upperBound,
-//                    rAxis.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
-//        else
-            return (1..10).map { RData(Math.random() * 4, spnX0.value) }
+    override fun refreshData(generator: FakeBifurcationGenerator, iterations: Int): List<RData> {
+        return generator.generate(spnX0.value, super.chart.xMin, super.chart.xMax,
+                super.chart.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
     }
 
     override fun initializeAdditional() {
-//        lblPosMouse.bind(chart)
+        lblPosMouse.bind(chart)
         super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
-//        super.generationStatusProperty().onChange {
-//            runLater {
-//                lblStatus.text = it?.toString()
-//            }
-//        }
+        super.generationStatusProperty().onChange {
+            runLater {
+                lblStatus.text = it?.toString()
+            }
+        }
     }
 
 }
