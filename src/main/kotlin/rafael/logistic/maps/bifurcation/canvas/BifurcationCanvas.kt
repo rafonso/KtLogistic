@@ -82,8 +82,6 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
     private fun repaint() {
         this.generationStatusProperty.value = GenerationStatus.PLOTING
 
-        println("%4d -> %10d".format(data.size, data.map { it.values.size }.sum()))
-
         val gc = super.getGraphicsContext2D()
         gc.clearRect(0.0, 0.0, width, height)
 

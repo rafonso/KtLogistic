@@ -6,6 +6,17 @@ private const val CONVERGENCE_DIFF = 0.001
 
 sealed class ConvergenceVerifier {
 
+    companion object {
+
+        fun valueOf(convergenceType: ConvergenceType, r: Double) = when (convergenceType) {
+            ConvergenceType.ZERO     -> ZeroVerifier
+            ConvergenceType.CONSTANT -> ConstantVerifier(r)
+            ConvergenceType.CYCLE_2  -> Cycle2Verifier
+            ConvergenceType.CHAOS    -> ChaosVerifier
+        }
+
+    }
+
     abstract fun converges(values: Data): Boolean
 
 }
@@ -14,7 +25,7 @@ object ZeroVerifier : ConvergenceVerifier() {
     override fun converges(values: Data): Boolean = values.last() <= CONVERGENCE_DIFF
 }
 
-class ConstanstVerifier(r: Double) : ConvergenceVerifier() {
+class ConstantVerifier(r: Double) : ConvergenceVerifier() {
 
     private val convergenceValue = (r - 1) / r
 
@@ -22,11 +33,11 @@ class ConstanstVerifier(r: Double) : ConvergenceVerifier() {
 
 }
 
-object Cycle2Verifier: ConvergenceVerifier() {
+object Cycle2Verifier : ConvergenceVerifier() {
     override fun converges(values: Data): Boolean = (values.size > 2) &&
             (abs(values.last() - values[values.lastIndex - 2]) <= CONVERGENCE_DIFF)
 }
 
-object ChaosVerifier: ConvergenceVerifier() {
+object ChaosVerifier : ConvergenceVerifier() {
     override fun converges(values: Data): Boolean = false
 }
