@@ -12,7 +12,7 @@ import rafael.logistic.view.mapchart.MapChart
 import tornadofx.*
 
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fxmlFile: String, protected val generator: G) :
-        View(title) where C : MapChart<T>, C : Node {
+        View(title) where C : MapChart<T, *>, C : Node {
 
     // @formatter:off
     override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")

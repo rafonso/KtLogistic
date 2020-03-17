@@ -88,6 +88,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
                 lblStatus.text = it?.toString()
             }
         }
+        chart.refreshData()
     }
 
 }

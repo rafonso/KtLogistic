@@ -10,7 +10,10 @@ import javafx.event.EventType
 import javafx.geometry.Point2D
 import rafael.logistic.view.GenerationStatus
 
-interface MapChart<T> {
+/**
+ *
+ */
+interface MapChart<T, E> {
 
     val xMinProperty: DoubleProperty
     val xMin: Double
@@ -31,12 +34,31 @@ interface MapChart<T> {
 
     fun mousePositionRealProperty(): ReadOnlyObjectProperty<Point2D>
 
-    fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T>) -> Unit = {})
+    fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit = {})
 
     fun <E : Event> addEventHandler(eventType: EventType<E>, eventHandler: EventHandler<in E>)
 
     fun <E : Event> addEventHandler(eventType: EventType<E>, eventHandler: (E) -> Unit) {
         addEventHandler(eventType, EventHandler(eventHandler))
+    }
+
+    fun prepareBackground()
+
+    fun dataToElementsToPlot(): List<E>
+
+    fun plotData(elements: List<E>)
+
+    fun refreshData() {
+        this.generationStatusProperty.value = GenerationStatus.PLOTTING
+        prepareBackground()
+
+        this.generationStatusProperty.value = GenerationStatus.PLOTTING_CONVERT
+        val elementsToPlot = dataToElementsToPlot()
+
+        this.generationStatusProperty.value = GenerationStatus.PLOTTING_DRAW
+        plotData(elementsToPlot)
+
+        this.generationStatusProperty.value = GenerationStatus.IDLE
     }
 
 }

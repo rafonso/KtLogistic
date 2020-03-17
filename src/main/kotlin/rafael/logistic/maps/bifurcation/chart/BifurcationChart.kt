@@ -2,6 +2,7 @@ package rafael.logistic.maps.bifurcation.chart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
+import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
 import rafael.logistic.maps.bifurcation.RData
@@ -23,8 +24,12 @@ class BifurcationChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-    val x0Property = (0.0).toProperty()
-    private val x0 by x0Property
+    // @formatter:off
+
+            val     x0Property  =   (0.0).toProperty()
+    private val     x0          by  x0Property
+
+    // @formatter:on
 
     private fun rSequenceToElements(rSequence: RData): Stream<Circle> {
         val rChart = rSequence.r.realToChartX()
@@ -39,16 +44,17 @@ class BifurcationChart(
                 }
     }
 
-    override fun plotData() {
+    override fun prepareBackground() {
+        background.getChildList()?.clear()
         if(x0 in myYAxis.lowerBound..myYAxis.lowerBound) {
             highlightP0(myXAxis.lowerBound, x0Property.value)
         }
+    }
 
-        // TODO: Está sendo chamado 2 vezes ao redimensionar. Descobrir por quê.
-//        Throwable().printStackTrace()
+    override fun dataToElementsToPlot(): List<Node> = data.parallelStream().flatMap { this.rSequenceToElements(it) }.toList()
 
-        val circles = data.parallelStream().flatMap { this.rSequenceToElements(it) }.toList()
-        background.getChildList()?.addAll(circles)
+    override fun plotData(elements: List<Node>) {
+        background.getChildList()?.addAll(elements)
     }
 
 }

@@ -18,43 +18,47 @@ const val P0_SIDE = 20.0
 abstract class MapChartBase<T>(
         xAxis: Axis<Double>,
         yAxis: Axis<Double>,
-        data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T> {
+        data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
 
     constructor(xAxis: Axis<Double>, yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
 
-    protected val background: Node = super.lookup(".chart-plot-background")
+    // @formatter:off
 
-    private val dataProperty = emptyList<T>().toProperty()
-    protected var data: List<T> by dataProperty
+    protected       val background: Node            =   super.lookup(".chart-plot-background")
 
-    protected val myXAxis = (xAxis as NumberAxis)
+    private         val dataProperty                =   emptyList<T>().toProperty()
+    protected       var data: List<T>               by  dataProperty
 
-    protected val myYAxis = (yAxis as NumberAxis)
+    protected       val myXAxis                     =   (xAxis as NumberAxis)
 
-    private val square = Point0()
+    protected       val myYAxis                     =   (yAxis as NumberAxis)
 
-    private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
+    private         val square                      =   Point0()
 
-    override val xMinProperty                = (0.0).toProperty()
-    override val xMin                        by xMinProperty
+    private         val mousePositionRealProperty   =   Point2D(0.0, 0.0).toProperty()
 
-    override val xMaxProperty                = (0.0).toProperty()
-    override val xMax                        by xMaxProperty
+    final override  val xMinProperty                =   (0.0).toProperty()
+    override        val xMin                        by  xMinProperty
 
-    override val yMinProperty                = (0.0).toProperty()
-    override val yMin                        by yMinProperty
+    final override  val xMaxProperty                =   (0.0).toProperty()
+    override        val xMax                        by  xMaxProperty
 
-    override val yMaxProperty                = (0.0).toProperty()
-    override val yMax                        by yMaxProperty
+    final override  val yMinProperty                =   (0.0).toProperty()
+    override        val yMin                        by  yMinProperty
 
-    private val deltaXByPixelProp            = (0.0).toProperty()
-    override val deltaXByPixelProperty       = deltaXByPixelProp as ReadOnlyDoubleProperty
+    final override  val yMaxProperty                =   (0.0).toProperty()
+    override        val yMax                        by  yMaxProperty
 
-    private val deltaYByPixelProp   = (0.0).toProperty()
-    override val deltaYByPixelProperty       = deltaYByPixelProp as ReadOnlyDoubleProperty
+    private         val deltaXByPixelProp           =   (0.0).toProperty()
+    override        val deltaXByPixelProperty       =   deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
+    private         val deltaYByPixelProp           =   (0.0).toProperty()
+    override        val deltaYByPixelProperty       =   deltaYByPixelProp as ReadOnlyDoubleProperty
+
+    override        val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
+
+    // @formatter:on
 
     init {
         xMinProperty.bindBidirectional(myXAxis.lowerBoundProperty())
@@ -118,23 +122,15 @@ abstract class MapChartBase<T>(
      */
     private fun Double.chartToRealY(): Double = myYAxis.getValueForDisplay(this).toDouble()
 
-
-    protected abstract fun plotData()
-
     protected open fun initialize() {
 
     }
 
     override fun layoutPlotChildren() {
-        this.generationStatusProperty.value = GenerationStatus.PLOTING
-
-        background.getChildList()?.clear()
-        plotData()
-
-        this.generationStatusProperty.value = GenerationStatus.IDLE
+        refreshData()
     }
 
-    override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T>) -> Unit) {
+    override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit) {
         this.dataProperty.bind(dataProperty)
         handler(this)
     }

@@ -17,7 +17,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
 
     protected val maxDelta = 0.1
 
-    protected open val iniX0Spinner = 0.5
+    protected val iniX0Spinner = 0.5
 
     // @formatter:off
     private     val iterationsChart     :   IterationChartDouble by fxid()

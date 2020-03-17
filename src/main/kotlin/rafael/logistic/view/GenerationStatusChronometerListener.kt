@@ -13,9 +13,9 @@ class GenerationStatusChronometerListener : ChangeListener<GenerationStatus> {
         val now = LocalTime.now()
 
         if (priorTime == null) {
-            println("[%s] %15s -> %15s".format(now, oldValue, newValue))
+            println("[%s] %20s -> %20s".format(now, oldValue, newValue))
         } else {
-            println("[%s] %15s -> %15s: %4d ms".format(now, oldValue, newValue, Duration.between(priorTime, now).toMillis()))
+            println("[%s] %20s -> %20s: %4d ms".format(now, oldValue, newValue, Duration.between(priorTime, now).toMillis()))
         }
 
         priorTime = if (newValue == GenerationStatus.IDLE) null else now

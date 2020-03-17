@@ -10,7 +10,7 @@ import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import tornadofx.*
 
-class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
+class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
 
     private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
 
@@ -65,7 +65,7 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
 
     }
 
-    fun bind(chart: MapChart<*>) {
+    fun bind(chart: MapChart<*, *>) {
         mousePositionRealProperty.bind(chart.mousePositionRealProperty())
         deltaXByPixelProperty.bind(chart.deltaXByPixelProperty)
         deltaYByPixelProperty.bind(chart.deltaYByPixelProperty)

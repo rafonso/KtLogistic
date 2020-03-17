@@ -14,11 +14,7 @@ import tornadofx.*
 import java.util.stream.Stream
 import kotlin.streams.toList
 
-private const val MAX_RADIUS = 1.0
-private const val MIN_RADIUS = 0.4
-private const val DELTA_RADIUS = MAX_RADIUS - MIN_RADIUS
-
-class BifurcationCanvas() : Canvas(), MapChart<RData> {
+class BifurcationCanvas : Canvas(), MapChart<RData, Triple<Int, Int, Color>> {
 
     // @formatter:off
 
@@ -49,6 +45,7 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
     private     var data                        by  dataProperty
 
     private     val mousePositionRealProperty   =   Point2D(0.0, 0.0).toProperty()
+
     // @formatter:on
 
     private fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
@@ -59,11 +56,13 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
 
     private fun Double.canvasToRealY() = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
 
+    private val gc = super.getGraphicsContext2D()
+
     init {
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / super.heightProperty())
 
-        dataProperty.onChange { repaint() }
+        dataProperty.onChange { refreshData() }
 
         this.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = Point2D(event.x.canvasToRealX(), event.y.canvasToRealY())
@@ -79,29 +78,26 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
                 .map { (xChart, pos) -> Triple(rChart, xChart, getRainbowColor(pos)) }
     }
 
-    private fun repaint() {
-        this.generationStatusProperty.value = GenerationStatus.PLOTING
-
-        val gc = super.getGraphicsContext2D()
+    override fun prepareBackground() {
         gc.clearRect(0.0, 0.0, width, height)
 
         // Paint background
-        gc.fill = Color.WHITE;
-        gc.fillRect(0.0, 0.0, width, height);
+        gc.fill = Color.WHITE
+        gc.fillRect(0.0, 0.0, width, height)
+    }
 
-        val coordinates = data.parallelStream().flatMap(this::rSequenceToCoordinates).toList()
+    override fun dataToElementsToPlot() = data.parallelStream().flatMap(this::rSequenceToCoordinates).toList()
+
+    override fun plotData(elements: List<Triple<Int, Int, Color>>) {
         val pixelWriter = gc.pixelWriter
-        coordinates.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
-
-        this.generationStatusProperty.value = GenerationStatus.IDLE
+        elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
 
-    override fun bind(dataProperty: ReadOnlyObjectProperty<List<RData>>, handler: (MapChart<RData>) -> Unit) {
+    override fun bind(dataProperty: ReadOnlyObjectProperty<List<RData>>, handler: (MapChart<RData, *>) -> Unit) {
         this.dataProperty.bind(dataProperty)
         handler(this)
     }
-
 
 }
