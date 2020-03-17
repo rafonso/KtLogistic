@@ -4,6 +4,7 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
+import rafael.logistic.maps.bifurcation.BifurcationGenerator
 import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.view.*
 import rafael.logistic.view.mapchart.MouseRealPosNode
@@ -15,7 +16,7 @@ private const val R_MAX = 4.0
 private const val X_MIN = 0.0
 private const val X_MAX = 1.0
 
-class BifurcationView : ViewBase<RData, FakeBifurcationGenerator, BifurcationCanvas>("Bifurcation", "Bifurcation1", FakeBifurcationGenerator()) {
+class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>("Bifurcation", "Bifurcation1", BifurcationGenerator()) {
 
     // @formatter:off
     private     val spnX0               :   Spinner<Double>     by  fxid()
@@ -42,7 +43,6 @@ class BifurcationView : ViewBase<RData, FakeBifurcationGenerator, BifurcationCan
 
     private     val lblStatus           :   Label               by  fxid()
     // @formatter:on
-
 
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
@@ -74,10 +74,11 @@ class BifurcationView : ViewBase<RData, FakeBifurcationGenerator, BifurcationCan
         chart.xMaxProperty.bind(spnRMax.valueProperty())
     }
 
-    override fun refreshData(generator: FakeBifurcationGenerator, iterations: Int): List<RData> {
-        return generator.generate(spnX0.value, super.chart.xMin, super.chart.xMax,
-                super.chart.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
-    }
+    override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> =
+            if (chart.width > 0)
+                generator.generate(spnX0.value, super.chart.xMin, super.chart.xMax,
+                        super.chart.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
+            else emptyList()
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)

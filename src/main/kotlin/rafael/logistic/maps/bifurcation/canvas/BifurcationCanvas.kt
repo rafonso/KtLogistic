@@ -68,10 +68,7 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
         this.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = Point2D(event.x.canvasToRealX(), event.y.canvasToRealY())
         }
-        this.onMouseExited = EventHandler { event ->
-            // TODO: Veficar se o mouse está dentro dos limites do backgound
-            mousePositionRealProperty.value = Point2D(event.x.canvasToRealX(), event.y.canvasToRealY())
-        }
+        this.onMouseExited = EventHandler { mousePositionRealProperty.value = null }
     }
 
     private fun rSequenceToCoordinates(rSequence: RData): Stream<Triple<Int, Int, Color>> {
@@ -110,31 +107,3 @@ class BifurcationCanvas() : Canvas(), MapChart<RData> {
 
 
 }
-
-/*
-    private fun rSequenceToElements(rSequence: RData): Stream<Circle> {
-        val rChart = rSequence.r.realToChartX()
-        return rSequence.values
-                .mapIndexed { i, v -> Pair(v.realToChartY(), i.toDouble() / rSequence.values.size) }
-                .parallelStream()
-                .map { (xChart, pos) ->
-                    Circle(rChart, xChart, (DELTA_RADIUS * pos + MIN_RADIUS)).apply {
-                        stroke = getRainbowColor(pos)
-                        fill = stroke
-                    }
-                }
-    }
-
-    override fun plotData() {
-        if(x0 in myYAxis.lowerBound..myYAxis.lowerBound) {
-            highlightP0(myXAxis.lowerBound, x0Property.value)
-        }
-
-        // TODO: Está sendo chamado 2 vezes ao redimensionar. Descobrir por quê.
-//        Throwable().printStackTrace()
-
-        val circles = data.parallelStream().flatMap { this.rSequenceToElements(it) }.toList()
-        background.getChildList()?.addAll(circles)
-    }
-
- */

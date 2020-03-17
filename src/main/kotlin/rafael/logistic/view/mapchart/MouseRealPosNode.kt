@@ -58,7 +58,11 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
     }
 
     private fun writePos() {
-        super.setText(formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y))
+        super.setText(
+                if (mousePositionRealProperty.value == null) ""
+                else formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y)
+        )
+
     }
 
     fun bind(chart: MapChart<*>) {
@@ -66,7 +70,7 @@ class MouseRealPosNode() : TextField("(+0.123456789, -0.98654321)") {
         deltaXByPixelProperty.bind(chart.deltaXByPixelProperty)
         deltaYByPixelProperty.bind(chart.deltaYByPixelProperty)
         chart.addEventHandler(MouseEvent.MOUSE_CLICKED) { event ->
-            if(event.button == MouseButton.MIDDLE) {
+            if (event.button == MouseButton.MIDDLE) {
                 Clipboard.getSystemClipboard().putString(text)
             }
         }
