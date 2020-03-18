@@ -14,7 +14,9 @@ import tornadofx.*
 import java.util.stream.Stream
 import kotlin.streams.toList
 
-class BifurcationCanvas : Canvas(), MapChart<RData, Triple<Int, Int, Color>> {
+typealias PixelInfo = Triple<Int, Int, Color>
+
+class BifurcationCanvas : Canvas(), MapChart<RData, PixelInfo> {
 
     // @formatter:off
 
@@ -70,12 +72,14 @@ class BifurcationCanvas : Canvas(), MapChart<RData, Triple<Int, Int, Color>> {
         this.onMouseExited = EventHandler { mousePositionRealProperty.value = null }
     }
 
-    private fun rSequenceToCoordinates(rSequence: RData): Stream<Triple<Int, Int, Color>> {
+    private fun rSequenceToCoordinates(rSequence: RData): Stream<PixelInfo> {
         val rChart = rSequence.r.realToCanvasX().toInt()
+        val size = rSequence.values.size
+
         return rSequence.values
-                .mapIndexed { i, v -> Pair(v.realToCanvasY().toInt(), i.toDouble() / rSequence.values.size) }
+                .mapIndexed { i, v -> Pair(v.realToCanvasY().toInt(), i.toDouble() / size) }
                 .parallelStream()
-                .map { (xChart, pos) -> Triple(rChart, xChart, getRainbowColor(pos)) }
+                .map { Triple(rChart, it.first, getRainbowColor(it.second)) }
     }
 
     override fun prepareBackground() {
@@ -86,9 +90,11 @@ class BifurcationCanvas : Canvas(), MapChart<RData, Triple<Int, Int, Color>> {
         gc.fillRect(0.0, 0.0, width, height)
     }
 
-    override fun dataToElementsToPlot() = data.parallelStream().flatMap(this::rSequenceToCoordinates).toList()
+    override fun dataToElementsToPlot() = data
+            .parallelStream()
+            .flatMap(this::rSequenceToCoordinates).toList()
 
-    override fun plotData(elements: List<Triple<Int, Int, Color>>) {
+    override fun plotData(elements: List<PixelInfo>) {
         val pixelWriter = gc.pixelWriter
         elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
     }
