@@ -7,7 +7,7 @@ import java.time.LocalTime
 
 class GenerationStatusChronometerListener : ChangeListener<GenerationStatus> {
 
-    var priorTime: LocalTime? = null
+    private var priorTime: LocalTime? = null
 
     override fun changed(observable: ObservableValue<out GenerationStatus>?, oldValue: GenerationStatus?, newValue: GenerationStatus?) {
         val now = LocalTime.now()
