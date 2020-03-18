@@ -85,7 +85,9 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
         super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
         super.generationStatusProperty().onChange {
             runLater {
-                lblStatus.text = it?.toString()
+                it?.let { status ->
+                    lblStatus.text = if (status == GenerationStatus.IDLE) "" else status.toString()
+                }
             }
         }
         chart.refreshData()
