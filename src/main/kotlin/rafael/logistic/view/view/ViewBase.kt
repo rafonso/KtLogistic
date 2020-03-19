@@ -15,14 +15,16 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
         View(title) where C : MapChart<T, *>, C : Node {
 
     // @formatter:off
-    override    val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected   val spnIterations           :   Spinner<Int>    by fxid()
-    private     val iterationsValueFactory  =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 1000, 100, 100)
+    override        val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected   val chart                   :   C               by fxid()
+    protected       val spnIterations           :   Spinner<Int>    by fxid()
+    protected open  val iterationsValueFactory  :   SpinnerValueFactory<Int>
+            =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 1000, 100, 100)
 
-    protected   val logisticData            =   emptyList<T>().toProperty()
+    protected       val chart                   :   C               by fxid()
+
+    protected       val logisticData            =   emptyList<T>().toProperty()
     // @formatter:on
 
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()

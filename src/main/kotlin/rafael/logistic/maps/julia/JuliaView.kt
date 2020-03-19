@@ -5,6 +5,7 @@ import javafx.geometry.Point2D
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
+import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
 import rafael.logistic.view.*
@@ -17,6 +18,9 @@ const val LIMIT = 2.0
 class JuliaView : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>("Julia", "Julia", JuliaGenerator()) {
 
     // @formatter:off
+
+    override val iterationsValueFactory :   SpinnerValueFactory<Int>
+            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(1, 2, 5, 10, 20, 30).observable())
 
     private     val spnZ0X              :   Spinner<Double>     by  fxid()
     private     val deltaZ0XProperty    =   1.toProperty()
@@ -118,6 +122,8 @@ class JuliaView : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>("Julia", "Jul
     }
 
     override fun initializeAdditional() {
+        spnIterations.valueFactory.value = 10
+
         lblPosMouse.bind(chart)
         super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
         super.generationStatusProperty().onChange {
