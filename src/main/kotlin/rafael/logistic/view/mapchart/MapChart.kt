@@ -48,8 +48,12 @@ interface MapChart<T, E> {
 
     fun plotData(elements: List<E>)
 
+    fun finalizePlotting() {
+
+    }
+
     fun refreshData() {
-        this.generationStatusProperty.value = GenerationStatus.PLOTTING
+        this.generationStatusProperty.value = GenerationStatus.PLOTTING_PREPARING
         prepareBackground()
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_CONVERT
@@ -57,6 +61,9 @@ interface MapChart<T, E> {
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_DRAW
         plotData(elementsToPlot)
+
+        this.generationStatusProperty.value = GenerationStatus.PLOTTING_FINALIZING
+        finalizePlotting()
 
         this.generationStatusProperty.value = GenerationStatus.IDLE
     }

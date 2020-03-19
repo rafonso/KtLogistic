@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
 import javafx.geometry.Point2D
 import javafx.scene.canvas.Canvas
+import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
 import rafael.logistic.view.GenerationStatus
 import tornadofx.*
@@ -55,7 +56,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     private fun Double.canvasToRealY() = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
 
-    private val gc = super.getGraphicsContext2D()
+    protected val gc: GraphicsContext = super.getGraphicsContext2D()
 
     init {
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())

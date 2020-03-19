@@ -3,7 +3,8 @@ package rafael.logistic.view
 enum class GenerationStatus {
     IDLE,
     CALCULATING,
-    PLOTTING,
+    PLOTTING_PREPARING,
     PLOTTING_CONVERT,
-    PLOTTING_DRAW
+    PLOTTING_DRAW,
+    PLOTTING_FINALIZING
 }
