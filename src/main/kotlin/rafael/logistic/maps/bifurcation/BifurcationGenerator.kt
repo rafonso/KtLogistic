@@ -8,20 +8,20 @@ data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val
 
 class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParameter> {
 
-    private tailrec fun calculate(previousValue: Double,
-                                   convergenceType: ConvergenceType,
-                                   verifier: ConvergenceVerifier,
-                                   r: Double,
-                                   maxIterations: Int,
-                                   sequenceSkipper: (Data) -> Data,
-                                   sequenceForR: MutableList<Double>): RData {
+    private tailrec fun calculate(col: Int, previousValue: Double,
+                                  convergenceType: ConvergenceType,
+                                  verifier: ConvergenceVerifier,
+                                  r: Double,
+                                  maxIterations: Int,
+                                  sequenceSkipper: (Data) -> Data,
+                                  sequenceForR: MutableList<Double>): RData {
         if (sequenceForR.size == maxIterations || verifier.converges(sequenceForR)) {
-            return RData(r, sequenceSkipper(sequenceForR), convergenceType)
+            return RData(col, r, sequenceSkipper(sequenceForR), convergenceType)
         }
 
         val currentValue = r * previousValue * (1.0 - previousValue)
         sequenceForR.add(currentValue)
-        return calculate(currentValue, convergenceType, verifier, r, maxIterations, sequenceSkipper, sequenceForR)
+        return calculate(col, currentValue, convergenceType, verifier, r, maxIterations, sequenceSkipper, sequenceForR)
     }
 
 
@@ -30,13 +30,13 @@ class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParame
         else { s -> s.subList((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
 
         return (0..parameter.stepsForR)
-                .map { step -> step * parameter.rStep + parameter.rMin }
+                .map { step -> Pair(step, step * parameter.rStep + parameter.rMin) }
                 .toList().parallelStream()
-                .map { r ->
+                .map { (col, r) ->
                     val convergenceType = ConvergenceType.valueOf(r)
                     val verifier = ConvergenceVerifier.valueOf(convergenceType, r)
 
-                    calculate(x0, convergenceType, verifier, r, parameter.iterationsPerR, sequenceSkipper, mutableListOf(x0))
+                    calculate(col, x0, convergenceType, verifier, r, parameter.iterationsPerR, sequenceSkipper, mutableListOf(x0))
                 }
                 .collect(Collectors.toList())
     }

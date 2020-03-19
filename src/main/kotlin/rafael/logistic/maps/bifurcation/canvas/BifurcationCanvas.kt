@@ -15,13 +15,12 @@ class BifurcationCanvas : CanvasChart<RData>() {
     // @formatter:on
 
     private fun rSequenceToCoordinates(rSequence: RData): Stream<PixelInfo> {
-        val rChart = rSequence.r.realToCanvasX().toInt()
         val size = rSequence.values.size
 
         return rSequence.values
                 .mapIndexed { i, v -> Pair(v.realToCanvasY().toInt(), i.toDouble() / size) }
                 .parallelStream()
-                .map { Triple(rChart, it.first, getRainbowColor(it.second)) }
+                .map { Triple(rSequence.col, it.first, getRainbowColor(it.second)) }
     }
 
     override fun dataToElementsToPlot() = data
