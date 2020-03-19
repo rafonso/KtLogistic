@@ -4,17 +4,14 @@ import javafx.geometry.Point2D
 import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.IterationParameter
 import java.util.stream.Collectors
-import kotlin.math.abs
-
-const val ESCAPE_RADIUS = 2.0
 
 data class JuliaParameter(val c: Point2D,
                           val xMin: Double, val xMax: Double, val xScale: Int,
                           val yMin: Double, val yMax: Double, val yScale: Int) : IterationParameter {
 
-    val deltaX = (xMax - xMin) / xScale
+    private val deltaX = (xMax - xMin) / xScale
 
-    val deltaY = (yMax - yMin) / yScale
+    private val deltaY = (yMax - yMin) / yScale
 
     val xValues = (0..xScale).map { it * deltaX + xMin }
 
@@ -22,37 +19,30 @@ data class JuliaParameter(val c: Point2D,
 
 }
 
-//bean.isIsMandelbrot() ?
-//checkConvergence(ci           , c             , 0.0   , 0.0   , bean.getConvergenceSteps()) :
-//checkConvergence(bean.getZi() , bean.getZ()   , ci    , c     , bean.getConvergenceSteps())
-
-
 class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
 
-    private fun checkConvergence(ci: Double, c: Double, z: Double, zi: Double, convergenceSteps: Int): Int {
-        var z = z
-        var zi = zi
-        for (i in 0 until convergenceSteps) {
-            val ziT = 2 * (z * zi)
-            val zT = z * z - zi * zi
-            z = zT + c
-            zi = ziT + ci
-            if (z * z + zi * zi >= 4.0) {
-                return i
-            }
+    private tailrec fun checkConvergence(zx: Double, zy: Double, cx: Double, cy: Double, convergenceSteps: Int, iteration: Int = 1): Int? {
+        if (iteration == convergenceSteps) {
+            return null
         }
-        return convergenceSteps
+
+        val nextZX = zx * zx - zy * zy + cx
+        val nextZY = 2 * zx * zy + cy
+
+        return if ((nextZX * nextZX + nextZY * nextZY) > 4.0) iteration
+        else checkConvergence(nextZX, nextZY, cx, cy, convergenceSteps, iteration + 1)
     }
 
-
     override fun generate(z0: Point2D, parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
+        val isMandelbrot = (z0.x == 0.0) && (z0.y == 0.0)
+        val verifier: (Double, Double) -> Int? =
+                if (isMandelbrot) { x, y -> checkConvergence(0.0, 0.0, x, y, interactions) }
+                else { x, y -> checkConvergence(x, y, parameter.c.x, parameter.c.y,interactions) }
 
-        fun isIgual(x: Double, y: Double) = (abs(x) in (abs(y) - parameter.deltaY)..(abs(y) + parameter.deltaY))
-                && (abs(y) in (abs(x) - parameter.deltaX)..(abs(x) + parameter.deltaX))
         return parameter.xValues.parallelStream()
                 .flatMap { x ->
                     parameter.yValues.parallelStream()
-                            .map { y -> JuliaInfo(x, y, if (isIgual(x, y)) (interactions * Math.random()).toInt() else null) }
+                            .map { y -> JuliaInfo(x, y, verifier(x, y)) }
                             .filter { ji -> !ji.converges }
                 }.collect(Collectors.toList())
     }

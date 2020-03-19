@@ -18,8 +18,8 @@ class JuliaCanvas : CanvasChart<JuliaInfo>() {
     override fun dataToElementsToPlot(): List<PixelInfo> {
         return data.map { ji ->
             Triple(
-                    ji.x.realToCanvasX().toInt(),
-                    ji.y.realToCanvasY().toInt(),
+                    ji.x.realToCanvasX(),
+                    ji.y.realToCanvasY(),
                     getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
             )
         }

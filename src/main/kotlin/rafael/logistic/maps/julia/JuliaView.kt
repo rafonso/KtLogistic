@@ -20,7 +20,7 @@ class JuliaView : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>("Julia", "Jul
     // @formatter:off
 
     override val iterationsValueFactory :   SpinnerValueFactory<Int>
-            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(1, 2, 5, 10, 20, 30).observable())
+            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300).observable())
 
     private     val spnZ0X              :   Spinner<Double>     by  fxid()
     private     val deltaZ0XProperty    =   1.toProperty()
