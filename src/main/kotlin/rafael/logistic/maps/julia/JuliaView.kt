@@ -1,5 +1,6 @@
 package rafael.logistic.maps.julia
 
+import javafx.beans.binding.Bindings
 import javafx.event.EventHandler
 import javafx.geometry.Point2D
 import javafx.scene.control.Button
@@ -20,7 +21,7 @@ class JuliaView : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>("Julia", "Jul
     // @formatter:off
 
     override val iterationsValueFactory :   SpinnerValueFactory<Int>
-            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300).observable())
+            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).observable())
 
     private     val spnZ0X              :   Spinner<Double>     by  fxid()
     private     val deltaZ0XProperty    =   1.toProperty()
@@ -100,10 +101,10 @@ class JuliaView : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>("Julia", "Jul
     override fun initializeCharts() {
         chart.backgroundProperty.value = Color.BLACK
 
+        chart.heightProperty().bind(chart.widthProperty())
         val chartParent = chart.parent as Region
-        chart.widthProperty().bind(chartParent.widthProperty())
+        chart.widthProperty().bind(Bindings.min(chartParent.widthProperty(), chartParent.heightProperty()))
         chart.widthProperty().onChange { loadData() }
-        chart.heightProperty().bind(chartParent.heightProperty())
         chart.heightProperty().onChange { loadData() }
 
         chart.xMinProperty.bind(spnXMin.valueProperty())

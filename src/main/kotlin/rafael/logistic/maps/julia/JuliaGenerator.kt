@@ -6,16 +6,18 @@ import rafael.logistic.view.IterationParameter
 import java.util.stream.Collectors
 
 data class JuliaParameter(val c: Point2D,
-                          val xMin: Double, val xMax: Double, val xScale: Int,
-                          val yMin: Double, val yMax: Double, val yScale: Int) : IterationParameter {
+                          val xMin: Double, val xMax: Double, val width: Int,
+                          val yMin: Double, val yMax: Double, val height: Int) : IterationParameter {
 
-    private val deltaX = (xMax - xMin) / xScale
+    private val deltaX = (xMax - xMin) / width
 
-    private val deltaY = (yMax - yMin) / yScale
+    private val deltaY = (yMax - yMin) / height
 
-    val xValues = (0..xScale).map { it * deltaX + xMin }
+    val xValues = (0..width).map { it * deltaX + xMin }
+    val cols = xValues.indices.toList()
 
-    val yValues = (0..yScale).map { it * deltaY + yMin }
+    val yValues = (0..height).map { it * deltaY + yMin }
+    val rows = yValues.indices.toList()
 
 }
 
@@ -39,10 +41,13 @@ class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
                 if (isMandelbrot) { x, y -> checkConvergence(0.0, 0.0, x, y, interactions) }
                 else { x, y -> checkConvergence(x, y, parameter.c.x, parameter.c.y,interactions) }
 
-        return parameter.xValues.parallelStream()
-                .flatMap { x ->
-                    parameter.yValues.parallelStream()
-                            .map { y -> JuliaInfo(x, y, verifier(x, y)) }
+        return parameter.cols.parallelStream()
+                .flatMap { col ->
+                    val x = parameter.xValues[col]
+                    parameter.rows.parallelStream()
+                            .map { row ->
+                                val y = parameter.yValues[row]
+                                JuliaInfo(col, row, x, y, verifier(x, y)) }
                             .filter { ji -> !ji.converges }
                 }.collect(Collectors.toList())
     }

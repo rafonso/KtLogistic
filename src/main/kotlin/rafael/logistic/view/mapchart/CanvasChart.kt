@@ -10,7 +10,7 @@ import javafx.scene.paint.Color
 import rafael.logistic.view.GenerationStatus
 import tornadofx.*
 
-typealias PixelInfo = Triple<Double, Double, Color>
+typealias PixelInfo = Triple<Int, Int, Color>
 
 abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
@@ -80,7 +80,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     override fun plotData(elements: List<PixelInfo>) {
         val pixelWriter = gc.pixelWriter
-        elements.forEach { (x, y, c) -> pixelWriter.setColor(x.toInt(), y.toInt(), c) }
+        elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>

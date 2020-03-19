@@ -5,6 +5,7 @@ import rafael.logistic.view.getRainbowColor
 import rafael.logistic.view.mapchart.CanvasChart
 import rafael.logistic.view.mapchart.PixelInfo
 import tornadofx.*
+import java.util.stream.Collectors
 
 class JuliaCanvas : CanvasChart<JuliaInfo>() {
 
@@ -16,13 +17,13 @@ class JuliaCanvas : CanvasChart<JuliaInfo>() {
     // @formatter:on
 
     override fun dataToElementsToPlot(): List<PixelInfo> {
-        return data.map { ji ->
+        return data.parallelStream().map { ji ->
             Triple(
-                    ji.x.realToCanvasX(),
-                    ji.y.realToCanvasY(),
+                    ji.col,
+                    super.getHeight().toInt() - ji.row,
                     getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
             )
-        }
+        }.collect(Collectors.toList())
     }
 
     override fun finalizePlotting() {
