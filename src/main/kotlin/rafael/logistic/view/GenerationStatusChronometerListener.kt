@@ -12,10 +12,13 @@ class GenerationStatusChronometerListener : ChangeListener<GenerationStatus> {
     override fun changed(observable: ObservableValue<out GenerationStatus>?, oldValue: GenerationStatus?, newValue: GenerationStatus?) {
         val now = LocalTime.now()
 
-        if (priorTime == null) {
-            println("[%s] %20s -> %20s".format(now, oldValue, newValue))
-        } else {
-            println("[%s] %20s -> %20s: %4d ms".format(now, oldValue, newValue, Duration.between(priorTime, now).toMillis()))
+        if (oldValue == GenerationStatus.IDLE) {
+            print(now)
+        } else if (priorTime != null && (newValue!!.ordinal - oldValue!!.ordinal == 1)) {
+            print("\t%4d".format(Duration.between(priorTime, now).toMillis()))
+        }
+        if (newValue == GenerationStatus.IDLE) {
+            println()
         }
 
         priorTime = if (newValue == GenerationStatus.IDLE) null else now
