@@ -1,6 +1,5 @@
 package rafael.logistic.view
 
-import javafx.beans.binding.Bindings
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
 import javafx.beans.value.ChangeListener
@@ -9,7 +8,7 @@ import javafx.event.Event
 import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory as DoubleSpinnerValueFactory
+import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
 import javafx.scene.input.*
 import tornadofx.*
 import java.math.RoundingMode
@@ -124,16 +123,24 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<*> {
+fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListener<in Any>): ChangeListener<out Any> {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
 
-    val listener = ChangeListener { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
     this.valueProperty().addListener(listener)
 
     return listener
 }
+
+/**
+ * Configura o [SpinnerValueFactory] do [Spinner], ...
+ *
+ * @param valueFactory SpinnerValueFactory a ser cinculado ao Spinner
+ * @param action Ação a ser feita ao mudar o valor
+ * @return [ChangeListener] chamando `action`.
+ */
+fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> = this.bind(valueFactory, ChangeListener { _: ObservableValue<out Any>?, _: Any, _: Any -> action() })
 
 /**
  * Configura um [Spinner] de [Double]s
@@ -143,14 +150,14 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): C
  */
 fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
                                      deltaProperty: IntegerProperty, action: () -> Unit): ChangeListener<*> {
-    val listener = this.bind(valueFactory, action)
+    val listener: ChangeListener<*> = this.bind(valueFactory, action)
 
     // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
     this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
     this.addEventFilter(MouseEvent.MOUSE_CLICKED) { handleIncrement(it.isControlDown, it.button, deltaProperty) }
     this.addEventHandler(KeyEvent.KEY_PRESSED) { handleIncrement(it.isControlDown, it.code, deltaProperty) }
     this.configureInvertSignal(valueFactory)
-    deltaProperty.addListener(ChangeListener { _, _, newStep -> this.stepChanged(newStep.toInt()) })
+    deltaProperty.addListener { _, _, newStep -> this.stepChanged(newStep.toInt()) }
     this.stepChanged(deltaProperty.value)
 
     return listener
@@ -166,6 +173,8 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
 
 /**
  * Víncula os valores mínimos e máximos de  dois [Spinner]s.
+ *
+ *
  */
 fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
                             spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
@@ -173,12 +182,12 @@ fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpin
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
     }
+
     spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
     spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
-    minValueFactory.maxProperty().bind(
-            Bindings.subtract(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()), deltaStepProperty))
-    maxValueFactory.minProperty().bind(
-            Bindings.add(DoubleProperty.doubleProperty(minValueFactory.valueProperty()), deltaStepProperty))
+
+    minValueFactory.maxProperty().bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
+    maxValueFactory.minProperty().bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
 }
 
 /**
