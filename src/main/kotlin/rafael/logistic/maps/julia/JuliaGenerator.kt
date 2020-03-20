@@ -5,7 +5,7 @@ import rafael.logistic.view.IterationGenerator
 import rafael.logistic.view.IterationParameter
 import java.util.stream.Collectors
 
-data class JuliaParameter(val c: Point2D,
+data class JuliaParameter(val cX: Double, val cY: Double,
                           val xMin: Double, val xMax: Double, val width: Int,
                           val yMin: Double, val yMax: Double, val height: Int) : IterationParameter {
 
@@ -21,9 +21,9 @@ data class JuliaParameter(val c: Point2D,
 
 }
 
-class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
+abstract class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
 
-    private tailrec fun checkConvergence(zx: Double, zy: Double, cx: Double, cy: Double, convergenceSteps: Int, iteration: Int = 1): Int? {
+    protected tailrec fun checkConvergence(zx: Double, zy: Double, cx: Double, cy: Double, convergenceSteps: Int, iteration: Int = 1): Int? {
         if (iteration == convergenceSteps) {
             return null
         }
@@ -35,19 +35,17 @@ class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
         else checkConvergence(nextZX, nextZY, cx, cy, convergenceSteps, iteration + 1)
     }
 
-    override fun generate(z0: Point2D, parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
-        val isMandelbrot = (z0.x == 0.0) && (z0.y == 0.0)
-        val verifier: (Double, Double) -> Int? =
-                if (isMandelbrot) { x, y -> checkConvergence(0.0, 0.0, x, y, interactions) }
-                else { x, y -> checkConvergence(x, y, parameter.c.x, parameter.c.y,interactions) }
+    protected abstract fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int?
 
+    override fun generate(z0: Point2D, parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
         return parameter.cols.parallelStream()
                 .flatMap { col ->
                     val x = parameter.xValues[col]
                     parameter.rows.parallelStream()
                             .map { row ->
                                 val y = parameter.yValues[row]
-                                JuliaInfo(col, row, x, y, verifier(x, y)) }
+                                JuliaInfo(col, row, x, y, verify(x, y, parameter, interactions))
+                            }
                             .filter { ji -> !ji.converges }
                 }.collect(Collectors.toList())
     }

@@ -3,10 +3,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.maps.bifurcation.canvas.*?>
+<?import rafael.logistic.maps.julia.*?>
 <?import rafael.logistic.view.mapchart.*?>
 
-<?import rafael.logistic.maps.julia.JuliaCanvas?>
 <BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <GridPane vgap="5.0" BorderPane.alignment="CENTER">
@@ -19,51 +18,10 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
-                    <children>
-                        <Label fx:id="lblZ0X" styleClass="title" text="Z₀.x =">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnZ0X" />
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
-                    <children>
-                        <Label fx:id="lblZ0Y" styleClass="title" text="Z₀.y =">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnZ0Y" />
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-                    <children>
-                        <Label fx:id="lblCX" styleClass="title" text="C.x =">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnCX" />
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
-                    <children>
-                        <Label fx:id="lblCY" styleClass="title" text="C.y =">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnCY" />
-                    </children>
-                </FlowPane>
 
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                     <children>
                         <Label fx:id="lblXMin" styleClass="title" text="X Min =">
                             <padding>
@@ -73,7 +31,7 @@
                         <Spinner fx:id="spnXMin" />
                     </children>
                 </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                     <children>
                         <Label fx:id="lblXMax" styleClass="title" text="X Max =">
                             <padding>
@@ -83,7 +41,7 @@
                         <Spinner fx:id="spnXMax" />
                     </children>
                 </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                     <children>
                         <Label fx:id="lblYMin" styleClass="title" text="Y Min =">
                             <padding>
@@ -93,7 +51,7 @@
                         <Spinner fx:id="spnYMin" />
                     </children>
                 </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                     <children>
                         <Label fx:id="lblYMax" styleClass="title" text="Y Max =">
                             <padding>
@@ -104,7 +62,7 @@
                     </children>
                 </FlowPane>
 
-                <FlowPane alignment="TOP_CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnSpan="4" GridPane.rowIndex="1">
                     <children>
                         <Label fx:id="lblIterations" styleClass="title" text="Iterations / Dot =">
                             <padding>
@@ -113,11 +71,6 @@
                         </Label>
                         <Spinner fx:id="spnIterations" />
                     </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="btnMandelbrot" mnemonicParsing="false" text="Reset To Mandelbrot" />
-               </children>
                 </FlowPane>
 
             </children>
