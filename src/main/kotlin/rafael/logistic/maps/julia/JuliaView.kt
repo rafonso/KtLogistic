@@ -1,6 +1,7 @@
 package rafael.logistic.maps.julia
 
 import javafx.beans.binding.Bindings
+import javafx.event.EventHandler
 import javafx.geometry.Point2D
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
@@ -78,6 +79,13 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
         chart.yMaxProperty.bind(spnYMax.valueProperty())
 
         chart.maxIterationsProperty.bind(super.spnIterations.valueProperty())
+
+        chart.onMouseClicked = EventHandler { event ->
+            if(event.clickCount == 2) {
+                println(event)
+            }
+        }
+
     }
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {

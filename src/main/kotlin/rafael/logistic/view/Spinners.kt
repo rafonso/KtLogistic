@@ -3,6 +3,8 @@ package rafael.logistic.view
 import javafx.beans.binding.Bindings
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.event.Event
 import javafx.geometry.Pos
 import javafx.scene.control.Spinner
@@ -115,17 +117,33 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
     }
 }
 
-
-fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit) {
+/**
+ * Configura o [SpinnerValueFactory] do [Spinner], ...
+ *
+ * @param valueFactory SpinnerValueFactory a ser cinculado ao Spinner
+ * @param action Ação a ser feita ao mudar o valor
+ * @return [ChangeListener] chamando `action`.
+ */
+fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<*> {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
-    this.valueProperty().onChange { action() }
+
+    val listener = ChangeListener { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
+    this.valueProperty().addListener(listener)
+
+    return listener
 }
 
+/**
+ * Configura um [Spinner] de [Double]s
+ *
+ *
+ *
+ */
 fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
-                                     deltaProperty: IntegerProperty, action: () -> Unit) {
-    this.bind(valueFactory, action)
+                                     deltaProperty: IntegerProperty, action: () -> Unit): ChangeListener<*> {
+    val listener = this.bind(valueFactory, action)
 
     // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
     this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
@@ -134,11 +152,16 @@ fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
     this.configureInvertSignal(valueFactory)
     deltaProperty.addListener(ChangeListener { _, _, newStep -> this.stepChanged(newStep.toInt()) })
     this.stepChanged(deltaProperty.value)
+
+    return listener
 }
 
-fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit) {
-    this.bind(valueFactory, action)
+fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> {
+    val listener = this.bind(valueFactory, action)
+
     this.editor.alignment = Pos.CENTER_RIGHT
+
+    return listener
 }
 
 /**
@@ -174,7 +197,7 @@ fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, am
  */
 fun Spinner<*>.addCopyCapacity() {
     this.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
-        if(event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
+        if (event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
             Clipboard.getSystemClipboard().putString(this.value.toString())
         }
     }
