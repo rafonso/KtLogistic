@@ -23,8 +23,8 @@ import kotlin.reflect.KFunction1
  * Configuração dos [Spinner]s
  */
 
-private const val MIN_STEP = 1
-private const val MAX_STEP = 9
+const val MIN_STEP = 1
+const val MAX_STEP = 10
 
 private fun IntegerProperty.incrementConditional() {
     this.value = min(MAX_STEP, this.value + 1)
@@ -70,6 +70,13 @@ private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: Int
     }
 }
 
+/**
+ * Altera o "passo" do Spinner. O argumento definirá quantos algarismos aparecerão depois da vírgula e o
+ * valor de [Spinner#amountToStepBy] será igual a 10 ^ (- step). Por exemplo se `step` for 4 então o valor de
+ * [Spinner#amountToStepBy] será 0,0001 e o valor será representado por "0,1234".
+ *
+ * @param step Passo do Spinner.
+ */
 private fun Spinner<Double>.stepChanged(step: Int) {
     runLater {
         with(this.valueFactory as DoubleSpinnerValueFactory) {
@@ -96,13 +103,13 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
     fun canSwap() = ((valueFactory.value > 0) && (-valueFactory.value > valueFactory.min)) ||
             ((valueFactory.value < 0) && (-valueFactory.value < valueFactory.max))
 
-
     fun invertSignal(correctControls: Boolean) {
         if (correctControls && hasSign() && canSwap()) {
             valueFactory.value = -valueFactory.value
         }
     }
 
+    // --------------------------------------------------------------
 
     if (valueFactory.min.sign == valueFactory.max.sign) {
         return
@@ -120,7 +127,7 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
  * Configura o [SpinnerValueFactory] do [Spinner], ...
  *
  * @param valueFactory SpinnerValueFactory a ser cinculado ao Spinner
- * @param action Ação a ser feita ao mudar o valor
+ * @param listener Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
 fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListener<in Any>): ChangeListener<out Any> {
@@ -145,8 +152,8 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): C
 /**
  * Configura um [Spinner] de [Double]s
  *
- *
- *
+ * @param valueFactory [DoubleSpinnerValueFactory] do Spinner
+ * @param deltaProperty
  */
 fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
                                      deltaProperty: IntegerProperty, action: () -> Unit): ChangeListener<*> {
@@ -163,40 +170,55 @@ fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
     return listener
 }
 
-fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> {
-    val listener = this.bind(valueFactory, action)
-
-    this.editor.alignment = Pos.CENTER_RIGHT
-
-    return listener
-}
+/**
+ * Confuigura os [Spinner]s do tipo [Int]. Configurando a ação a ser feita ao mudar o valor e alinhado o texto do
+ * mesmo à direita.
+ *
+ * @param valueFactory [SpinnerValueFactory] a ser usado
+ * @param action ação a ser feita ao mudar o valor.
+ * @return [ChangeListener] "embalando" `action`
+ */
+fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> =
+        this.bind(valueFactory, action).also {
+            this.editor.alignment = Pos.CENTER_RIGHT
+        }
 
 /**
  * Víncula os valores mínimos e máximos de  dois [Spinner]s.
  *
+ * @param spnMin Spinner que definirá o valor mínimo
+ * @param minValueFactory DoubleSpinnerValueFactory relacionado a `spnMin`
+ * @param spnMax Spinner que definirá o valor máxnimo
+ * @param maxValueFactory DoubleSpinnerValueFactory relacionado a `spnMax`
+ * @param deltaLimitProperty
+ * @param deltaStepProperty
+ * @param action Ação a ser feita ao alterar os valores dos Spinners
+ * @return [ChangeListener]s relacionados a `spnMin` e `spnMax` "embalando" `action`
  *
  */
 fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
                             spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
-                            deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit) {
+                            deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit): Pair<ChangeListener<*>, ChangeListener<*>> {
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
     }
 
-    spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
-    spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
+    val listenerSpnMin = spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
+    val listenerSpnMax = spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
 
     minValueFactory.maxProperty().bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
     maxValueFactory.minProperty().bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
+
+    return Pair(listenerSpnMin, listenerSpnMax)
 }
 
 /**
  * Cria uma nova instância de [DoubleSpinnerValueFactory].
  *
- * @param min Valor Mínimo
- * @param max Valor Máximo
- * @param initialValue Valor Inicial
- * @param amountToStepBy valor do passso
+ * @param min Valor Mínimo [DoubleSpinnerValueFactory#min]
+ * @param max Valor Máximo  [DoubleSpinnerValueFactory#max]
+ * @param initialValue Valor Inicial  [DoubleSpinnerValueFactory#initialValue]
+ * @param amountToStepBy valor do passso  [DoubleSpinnerValueFactory#amountToStepBy]
  */
 fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
         DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
