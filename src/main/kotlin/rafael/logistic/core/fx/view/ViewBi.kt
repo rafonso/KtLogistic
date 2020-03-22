@@ -1,4 +1,4 @@
-package rafael.logistic.core.view
+package rafael.logistic.core.fx.view
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -8,9 +8,9 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import rafael.logistic.core.generation.IterationGenerator
-import rafael.logistic.core.configureActions
-import rafael.logistic.core.iterationchart.IterationChartBi
-import rafael.logistic.core.mapchart.MapChartBi
+import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.iterationchart.IterationChartBi
+import rafael.logistic.core.fx.mapchart.MapChartBi
 import tornadofx.*
 
 abstract class ViewBi<G : IterationGenerator<*, Point2D, *>>(title: String, fxmlFile: String, generator: G) :

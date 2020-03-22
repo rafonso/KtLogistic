@@ -1,4 +1,4 @@
-package rafael.logistic.core.iterationchart
+package rafael.logistic.core.fx.iterationchart
 
 import javafx.beans.NamedArg
 import javafx.beans.property.ReadOnlyObjectProperty

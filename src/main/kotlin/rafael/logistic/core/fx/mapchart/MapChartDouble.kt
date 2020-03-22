@@ -1,4 +1,4 @@
-package rafael.logistic.core.mapchart
+package rafael.logistic.core.fx.mapchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
@@ -6,7 +6,7 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
 import javafx.scene.shape.Line
-import rafael.logistic.core.getRainbowColor
+import rafael.logistic.core.fx.getRainbowColor
 import tornadofx.*
 import java.util.stream.Collectors
 

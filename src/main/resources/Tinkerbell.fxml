@@ -4,8 +4,8 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.core.iterationchart.*?>
-<?import rafael.logistic.core.mapchart.*?>
+<?import rafael.logistic.core.fx.iterationchart.*?>
+<?import rafael.logistic.core.fx.mapchart.*?>
 
 <BorderPane minWidth="1020.0" prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>

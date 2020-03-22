@@ -10,10 +10,10 @@ import javafx.scene.layout.Region
 import javafx.scene.paint.Color
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.core.configureMinMaxSpinners
-import rafael.logistic.core.doubleSpinnerValueFactory
-import rafael.logistic.core.mapchart.MouseRealPosNode
-import rafael.logistic.core.view.ViewBase
+import rafael.logistic.core.fx.configureMinMaxSpinners
+import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.view.ViewBase
 import tornadofx.*
 
 

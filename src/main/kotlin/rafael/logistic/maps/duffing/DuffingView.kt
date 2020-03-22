@@ -3,8 +3,8 @@ package rafael.logistic.maps.duffing
 import javafx.geometry.Point2D
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.core.configureActions
-import rafael.logistic.core.view.ViewBi
+import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.view.ViewBi
 import tornadofx.*
 
 class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenerator()) {

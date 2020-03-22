@@ -1,4 +1,4 @@
-package rafael.logistic.core
+package rafael.logistic.core.fx
 
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty

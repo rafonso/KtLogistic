@@ -3,11 +3,11 @@ package rafael.logistic.core.experimental.template
 import javafx.geometry.Point2D
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
-import rafael.logistic.core.addCopyCapacity
-import rafael.logistic.core.configureMinMaxSpinners
-import rafael.logistic.core.doubleSpinnerValueFactory
-import rafael.logistic.core.mapchart.MouseRealPosNode
-import rafael.logistic.core.view.ViewBi
+import rafael.logistic.core.fx.addCopyCapacity
+import rafael.logistic.core.fx.configureMinMaxSpinners
+import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.view.ViewBi
 import tornadofx.*
 
 class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateGenerator()) {

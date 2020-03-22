@@ -3,8 +3,8 @@ package rafael.logistic.maps.mandelbrot
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.geometry.Point2D
-import rafael.logistic.core.view.ViewBi
-import rafael.logistic.core.configureActions
+import rafael.logistic.core.fx.view.ViewBi
+import rafael.logistic.core.fx.configureActions
 import tornadofx.*
 
 class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", MandelbrotGenerator()) {

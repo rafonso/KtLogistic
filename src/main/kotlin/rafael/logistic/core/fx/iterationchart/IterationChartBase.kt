@@ -1,4 +1,4 @@
-package rafael.logistic.core.iterationchart
+package rafael.logistic.core.fx.iterationchart
 
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
@@ -10,9 +10,9 @@ import javafx.scene.paint.CycleMethod
 import javafx.scene.paint.LinearGradient
 import javafx.scene.paint.Stop
 import javafx.scene.shape.PathElement
-import rafael.logistic.core.CONVERTER_0
-import rafael.logistic.core.CONVERTER_2
-import rafael.logistic.core.rainbow
+import rafael.logistic.core.fx.CONVERTER_0
+import rafael.logistic.core.fx.CONVERTER_2
+import rafael.logistic.core.fx.rainbow
 import tornadofx.*
 
 abstract class IterationChartBase<T>(

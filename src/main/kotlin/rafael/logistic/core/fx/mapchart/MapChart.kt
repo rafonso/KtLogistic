@@ -1,4 +1,4 @@
-package rafael.logistic.core.mapchart
+package rafael.logistic.core.fx.mapchart
 
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ObjectProperty

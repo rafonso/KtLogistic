@@ -1,7 +1,7 @@
 package rafael.logistic.maps.baker
 
 import javafx.geometry.Point2D
-import rafael.logistic.core.view.ViewBi
+import rafael.logistic.core.fx.view.ViewBi
 
 class BakerView : ViewBi<BakerGenerator>("Baker", "Baker", BakerGenerator()) {
 

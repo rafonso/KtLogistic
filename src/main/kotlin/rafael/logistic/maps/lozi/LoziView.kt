@@ -4,8 +4,8 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.geometry.Point2D
-import rafael.logistic.core.*
-import rafael.logistic.core.view.ViewBi
+import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.view.ViewBi
 
 class LoziView : ViewBi<LoziGenerator>("Lozi", "Lozi", LoziGenerator()) {
 

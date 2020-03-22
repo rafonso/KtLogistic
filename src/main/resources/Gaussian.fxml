@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.maps.gaussian.*?>
-<?import rafael.logistic.core.iterationchart.*?>
+<?import rafael.logistic.core.fx.iterationchart.*?>
 
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1">

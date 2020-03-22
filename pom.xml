@@ -4,14 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>tornadofx-maven-project</artifactId>
-    <version>1.0</version>
+    <groupId>rafael.ktfractal</groupId>
+    <artifactId>ktfractal</artifactId>
+    <version>0.5</version>
     <packaging>jar</packaging>
+	<name>KTFractal</name>
 
     <properties>
-        <kotlin.version>1.2.60</kotlin.version>
-        <tornadofx.version>1.7.17</tornadofx.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.5.2</junit.version>
+        <kotlin.version>1.3.60</kotlin.version>
+        <tornadofx.version>1.7.19</tornadofx.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <kotlin.code.style>official</kotlin.code.style>
     </properties>
 
     <dependencies>

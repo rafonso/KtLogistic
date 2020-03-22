@@ -1,4 +1,4 @@
-package rafael.logistic.core
+package rafael.logistic.core.fx
 
 import javafx.util.StringConverter
 

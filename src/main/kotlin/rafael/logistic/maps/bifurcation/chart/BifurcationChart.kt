@@ -6,8 +6,8 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
 import rafael.logistic.maps.bifurcation.RData
-import rafael.logistic.core.getRainbowColor
-import rafael.logistic.core.mapchart.MapChartBase
+import rafael.logistic.core.fx.getRainbowColor
+import rafael.logistic.core.fx.mapchart.MapChartBase
 import tornadofx.*
 import java.util.stream.Stream
 import kotlin.streams.toList
