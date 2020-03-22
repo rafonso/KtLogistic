@@ -1,14 +1,14 @@
-package rafael.logistic.view.view
+package rafael.logistic.core.view
 
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.Node
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.BorderPane
-import rafael.logistic.view.GenerationStatus
-import rafael.logistic.view.IterationGenerator
-import rafael.logistic.view.configureActions
-import rafael.logistic.view.mapchart.MapChart
+import rafael.logistic.core.generation.GenerationStatus
+import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.core.configureActions
+import rafael.logistic.core.mapchart.MapChart
 import tornadofx.*
 
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fxmlFile: String, protected val generator: G) :

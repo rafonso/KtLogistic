@@ -7,9 +7,10 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import rafael.logistic.maps.bifurcation.BifurcationGenerator
 import rafael.logistic.maps.bifurcation.RData
-import rafael.logistic.view.*
-import rafael.logistic.view.mapchart.MouseRealPosNode
-import rafael.logistic.view.view.ViewBase
+import rafael.logistic.core.*
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import rafael.logistic.core.mapchart.MouseRealPosNode
+import rafael.logistic.core.view.ViewBase
 import tornadofx.*
 
 private const val R_MIN = 0.0

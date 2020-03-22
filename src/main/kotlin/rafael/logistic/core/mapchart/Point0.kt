@@ -1,4 +1,4 @@
-package rafael.logistic.view.mapchart
+package rafael.logistic.core.mapchart
 
 import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo

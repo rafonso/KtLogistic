@@ -8,12 +8,12 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
-import rafael.logistic.view.GenerationStatus
-import rafael.logistic.view.GenerationStatusChronometerListener
-import rafael.logistic.view.configureMinMaxSpinners
-import rafael.logistic.view.doubleSpinnerValueFactory
-import rafael.logistic.view.mapchart.MouseRealPosNode
-import rafael.logistic.view.view.ViewBase
+import rafael.logistic.core.generation.GenerationStatus
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import rafael.logistic.core.configureMinMaxSpinners
+import rafael.logistic.core.doubleSpinnerValueFactory
+import rafael.logistic.core.mapchart.MouseRealPosNode
+import rafael.logistic.core.view.ViewBase
 import tornadofx.*
 
 

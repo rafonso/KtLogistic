@@ -1,4 +1,4 @@
-package rafael.logistic.view.mapchart
+package rafael.logistic.core.mapchart
 
 import javafx.beans.binding.Bindings
 import javafx.beans.binding.When

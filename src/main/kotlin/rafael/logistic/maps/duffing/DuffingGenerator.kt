@@ -1,8 +1,8 @@
 package rafael.logistic.maps.duffing
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGeneratorBi
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.pow
 
 data class DuffingParameter(val alpha: Double, val beta: Double) : IterationParameter

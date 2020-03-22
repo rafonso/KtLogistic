@@ -3,9 +3,9 @@ package rafael.logistic.maps.logistic
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.view.view.ViewDouble
-import rafael.logistic.view.configureActions
-import rafael.logistic.view.mapchart.MouseRealPosNode
+import rafael.logistic.core.view.ViewDouble
+import rafael.logistic.core.configureActions
+import rafael.logistic.core.mapchart.MouseRealPosNode
 
 class LogisticView : ViewDouble<LogisticGenerator, LogisticChart>("Logistic Equation", "Logistic", LogisticGenerator()) {
 

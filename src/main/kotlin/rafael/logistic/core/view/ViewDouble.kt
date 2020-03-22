@@ -1,4 +1,4 @@
-package rafael.logistic.view.view
+package rafael.logistic.core.view
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -6,10 +6,10 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.view.IterationGenerator
-import rafael.logistic.view.configureActions
-import rafael.logistic.view.iterationchart.IterationChartDouble
-import rafael.logistic.view.mapchart.MapChartDouble
+import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.core.configureActions
+import rafael.logistic.core.iterationchart.IterationChartDouble
+import rafael.logistic.core.mapchart.MapChartDouble
 import tornadofx.*
 
 abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :

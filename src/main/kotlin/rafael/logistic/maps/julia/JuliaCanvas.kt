@@ -1,9 +1,9 @@
 package rafael.logistic.maps.julia
 
 import javafx.scene.paint.Color
-import rafael.logistic.view.getRainbowColor
-import rafael.logistic.view.mapchart.CanvasChart
-import rafael.logistic.view.mapchart.PixelInfo
+import rafael.logistic.core.getRainbowColor
+import rafael.logistic.core.mapchart.CanvasChart
+import rafael.logistic.core.mapchart.PixelInfo
 import tornadofx.*
 import java.util.stream.Collectors
 

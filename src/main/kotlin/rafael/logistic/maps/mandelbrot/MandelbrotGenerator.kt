@@ -1,8 +1,8 @@
 package rafael.logistic.maps.mandelbrot
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGeneratorBi
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.pow
 
 data class MandelbrotParameter(val real: Double, val im: Double) : IterationParameter

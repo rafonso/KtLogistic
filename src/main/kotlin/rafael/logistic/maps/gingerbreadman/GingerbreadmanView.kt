@@ -1,7 +1,7 @@
 package rafael.logistic.maps.gingerbreadman
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.view.ViewBi
+import rafael.logistic.core.view.ViewBi
 
 class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
 

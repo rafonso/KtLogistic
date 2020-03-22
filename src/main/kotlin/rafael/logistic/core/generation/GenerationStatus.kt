@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.core.generation
 
 enum class GenerationStatus {
     IDLE,

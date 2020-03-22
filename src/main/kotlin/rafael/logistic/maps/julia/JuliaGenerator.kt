@@ -1,8 +1,8 @@
 package rafael.logistic.maps.julia
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGenerator
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.core.generation.IterationParameter
 import java.util.stream.Collectors
 
 data class JuliaParameter(val cX: Double, val cY: Double,

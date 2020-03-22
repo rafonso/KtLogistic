@@ -7,7 +7,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
-import rafael.logistic.view.mapchart.MapChartDouble
+import rafael.logistic.core.mapchart.MapChartDouble
 import tornadofx.*
 
 class TentChart(

@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.core
 
 import javafx.scene.paint.Color
 

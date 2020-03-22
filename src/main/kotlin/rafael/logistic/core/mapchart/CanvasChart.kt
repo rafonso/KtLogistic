@@ -1,4 +1,4 @@
-package rafael.logistic.view.mapchart
+package rafael.logistic.core.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -7,7 +7,7 @@ import javafx.geometry.Point2D
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
-import rafael.logistic.view.GenerationStatus
+import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 
 typealias PixelInfo = Triple<Int, Int, Color>

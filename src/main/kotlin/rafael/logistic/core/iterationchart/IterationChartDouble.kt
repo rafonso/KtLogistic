@@ -1,4 +1,4 @@
-package rafael.logistic.view.iterationchart
+package rafael.logistic.core.iterationchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList

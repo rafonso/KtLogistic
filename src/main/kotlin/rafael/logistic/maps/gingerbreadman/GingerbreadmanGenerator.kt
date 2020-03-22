@@ -1,8 +1,8 @@
 package rafael.logistic.maps.gingerbreadman
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGeneratorBi
-import rafael.logistic.view.NoParameter
+import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.core.generation.NoParameter
 import kotlin.math.absoluteValue
 
 class GingerbreadmanGenerator : IterationGeneratorBi<NoParameter>() {

@@ -1,8 +1,8 @@
 package rafael.logistic.maps.lozi
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGeneratorBi
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.absoluteValue
 
 data class LoziParameter(val alpha: Double, val beta: Double) : IterationParameter

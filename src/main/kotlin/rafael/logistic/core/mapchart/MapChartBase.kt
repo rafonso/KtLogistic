@@ -1,4 +1,4 @@
-package rafael.logistic.view.mapchart
+package rafael.logistic.core.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -9,8 +9,8 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
-import rafael.logistic.view.CONVERTER_2
-import rafael.logistic.view.GenerationStatus
+import rafael.logistic.core.CONVERTER_2
+import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 
 const val P0_SIDE = 20.0

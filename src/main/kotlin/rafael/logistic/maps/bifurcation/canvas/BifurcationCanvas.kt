@@ -1,9 +1,9 @@
 package rafael.logistic.maps.bifurcation.canvas
 
 import rafael.logistic.maps.bifurcation.RData
-import rafael.logistic.view.getRainbowColor
-import rafael.logistic.view.mapchart.CanvasChart
-import rafael.logistic.view.mapchart.PixelInfo
+import rafael.logistic.core.getRainbowColor
+import rafael.logistic.core.mapchart.CanvasChart
+import rafael.logistic.core.mapchart.PixelInfo
 import java.util.stream.Stream
 import kotlin.streams.toList
 

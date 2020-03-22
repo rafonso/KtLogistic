@@ -2,8 +2,8 @@ package rafael.logistic.maps.gaussian
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.view.view.ViewDouble
-import rafael.logistic.view.configureActions
+import rafael.logistic.core.view.ViewDouble
+import rafael.logistic.core.configureActions
 import tornadofx.*
 
 class GaussianView : ViewDouble<GaussianGenerator, GaussianChart>("Gaussian Equation", "Gaussian", GaussianGenerator()) {

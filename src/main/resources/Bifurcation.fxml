@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.maps.bifurcation.chart.BifurcationChart?>
-<?import rafael.logistic.view.mapchart.MouseRealPosNode?>
+<?import rafael.logistic.core.mapchart.MouseRealPosNode?>
 <BorderPane prefHeight="589.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <GridPane vgap="5.0" BorderPane.alignment="CENTER">

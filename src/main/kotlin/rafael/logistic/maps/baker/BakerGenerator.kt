@@ -1,8 +1,8 @@
 package rafael.logistic.maps.baker
 
 import javafx.geometry.Point2D
-import rafael.logistic.view.IterationGeneratorBi
-import rafael.logistic.view.NoParameter
+import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.core.generation.NoParameter
 
 class BakerGenerator : IterationGeneratorBi<NoParameter>() {
 

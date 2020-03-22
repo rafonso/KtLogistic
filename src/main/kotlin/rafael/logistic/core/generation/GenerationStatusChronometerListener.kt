@@ -1,4 +1,4 @@
-package rafael.logistic.view
+package rafael.logistic.core.generation
 
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue

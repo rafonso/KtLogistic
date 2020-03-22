@@ -1,7 +1,7 @@
 package rafael.logistic.maps.bifurcation
 
-import rafael.logistic.view.IterationGenerator
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.core.generation.IterationParameter
 import java.util.stream.Collectors
 
 data class BifurcationParameter(val iterationsPerR: Int, val stepsForR: Int, val rMin: Double, val rStep: Double, val percentToSkip: Int) : IterationParameter

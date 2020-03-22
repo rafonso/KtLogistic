@@ -1,7 +1,7 @@
 package rafael.logistic.maps.logistic
 
-import rafael.logistic.view.IterationGeneratorDouble
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorDouble
+import rafael.logistic.core.generation.IterationParameter
 
 data class LogisticParameter(val r: Double) : IterationParameter
 

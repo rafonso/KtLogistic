@@ -1,7 +1,7 @@
 package rafael.logistic.maps.gaussian
 
-import rafael.logistic.view.IterationGeneratorDouble
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorDouble
+import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.exp
 
 data class GaussianParameter(val alpha: Double, val beta: Double) : IterationParameter

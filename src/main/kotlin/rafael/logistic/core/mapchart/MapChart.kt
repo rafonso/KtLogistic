@@ -1,4 +1,4 @@
-package rafael.logistic.view.mapchart
+package rafael.logistic.core.mapchart
 
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ObjectProperty
@@ -8,7 +8,7 @@ import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.event.EventType
 import javafx.geometry.Point2D
-import rafael.logistic.view.GenerationStatus
+import rafael.logistic.core.generation.GenerationStatus
 
 /**
  *

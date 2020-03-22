@@ -1,7 +1,7 @@
 package rafael.logistic.maps.tent
 
-import rafael.logistic.view.IterationGeneratorDouble
-import rafael.logistic.view.IterationParameter
+import rafael.logistic.core.generation.IterationGeneratorDouble
+import rafael.logistic.core.generation.IterationParameter
 
 data class TentParameter(val mi: Double) : IterationParameter
 

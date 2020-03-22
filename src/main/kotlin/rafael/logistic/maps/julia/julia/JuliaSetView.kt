@@ -2,8 +2,8 @@ package rafael.logistic.maps.julia.julia
 
 import javafx.scene.control.Spinner
 import rafael.logistic.maps.julia.JuliaView
-import rafael.logistic.view.configureActions
-import rafael.logistic.view.doubleSpinnerValueFactory
+import rafael.logistic.core.configureActions
+import rafael.logistic.core.doubleSpinnerValueFactory
 import tornadofx.*
 
 class JuliaSetView : JuliaView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
