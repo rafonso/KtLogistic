@@ -1,4 +1,4 @@
-package rafael.logistic.maps.julia.julia
+package rafael.logistic.sets.julia
 
 import rafael.logistic.core.fx.Styles
 import tornadofx.*

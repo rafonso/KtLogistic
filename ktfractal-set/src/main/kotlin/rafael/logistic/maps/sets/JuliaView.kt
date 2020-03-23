@@ -1,4 +1,4 @@
-package rafael.logistic.maps.julia
+package rafael.logistic.maps.sets
 
 import javafx.beans.binding.Bindings
 import javafx.event.EventHandler
@@ -29,19 +29,25 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).observable())
 
     private     val spnXMin             :   Spinner<Double>     by  fxid()
-    private     val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
+    private     val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+        LIMIT, -LIMIT, 0.1)
 
     private     val spnXMax             :   Spinner<Double>     by  fxid()
-    private     val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
+    private     val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+        LIMIT,
+        LIMIT, 0.1)
 
     private     val deltaXProperty      =   1.toProperty()
     private     val deltaXStepProperty  =   (0.1).toProperty()
 
     private     val spnYMin             :   Spinner<Double>     by  fxid()
-    private     val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
+    private     val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+        LIMIT, -LIMIT, 0.1)
 
     private     val spnYMax             :   Spinner<Double>     by  fxid()
-    private     val yMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
+    private     val yMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+        LIMIT,
+        LIMIT, 0.1)
 
     private     val deltaYProperty      =   1.toProperty()
     private     val deltaYStepProperty  =   (0.1).toProperty()
@@ -89,9 +95,10 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     }
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
-        return generator.generate(Point2D(0.0, 0.0), JuliaParameter(cXProperty.value,  cYProperty.value,
-                spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
-                spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
+        return generator.generate(Point2D(0.0, 0.0), JuliaParameter(
+            cXProperty.value, cYProperty.value,
+            spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
+            spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
         ), iterations)
     }
 

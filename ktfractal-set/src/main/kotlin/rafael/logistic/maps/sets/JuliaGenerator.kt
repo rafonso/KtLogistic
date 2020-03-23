@@ -1,4 +1,4 @@
-package rafael.logistic.maps.julia
+package rafael.logistic.maps.sets
 
 import javafx.geometry.Point2D
 import rafael.logistic.core.generation.IterationGenerator
@@ -44,7 +44,13 @@ abstract class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaPara
                     parameter.rows.parallelStream()
                             .map { row ->
                                 val y = parameter.yValues[row]
-                                JuliaInfo(col, row, x, y, verify(x, y, parameter, interactions))
+                                JuliaInfo(
+                                    col,
+                                    row,
+                                    x,
+                                    y,
+                                    verify(x, y, parameter, interactions)
+                                )
                             }
                             .filter { ji -> !ji.converges }
                 }.collect(Collectors.toList())

@@ -1,7 +1,7 @@
-package rafael.logistic.maps.julia.mandelbrot
+package rafael.logistic.sets.mandelbrot
 
-import rafael.logistic.maps.julia.JuliaGenerator
-import rafael.logistic.maps.julia.JuliaParameter
+import rafael.logistic.maps.sets.JuliaGenerator
+import rafael.logistic.maps.sets.JuliaParameter
 
 class MandelbrotSetGenerator : JuliaGenerator() {
 

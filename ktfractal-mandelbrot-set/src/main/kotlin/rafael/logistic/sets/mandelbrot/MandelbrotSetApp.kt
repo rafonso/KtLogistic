@@ -1,4 +1,4 @@
-package rafael.logistic.maps.julia.mandelbrot
+package rafael.logistic.sets.mandelbrot
 
 import rafael.logistic.core.fx.Styles
 import tornadofx.*

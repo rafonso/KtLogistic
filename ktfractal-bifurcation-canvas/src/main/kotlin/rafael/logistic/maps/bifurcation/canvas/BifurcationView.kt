@@ -21,7 +21,7 @@ private const val R_MAX = 4.0
 private const val X_MIN = 0.0
 private const val X_MAX = 1.0
 
-class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>("Bifurcation", "Bifurcation1", BifurcationGenerator()) {
+class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>("Bifurcation Canvas", "BifurcationCanvas", BifurcationGenerator()) {
 
     // @formatter:off
     private     val spnX0               :   Spinner<Double>     by  fxid()

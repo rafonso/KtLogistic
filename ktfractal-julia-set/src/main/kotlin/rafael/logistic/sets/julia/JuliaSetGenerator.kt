@@ -1,7 +1,7 @@
-package rafael.logistic.maps.julia.julia
+package rafael.logistic.sets.julia
 
-import rafael.logistic.maps.julia.JuliaGenerator
-import rafael.logistic.maps.julia.JuliaParameter
+import rafael.logistic.maps.sets.JuliaGenerator
+import rafael.logistic.maps.sets.JuliaParameter
 
 class JuliaSetGenerator : JuliaGenerator() {
 
