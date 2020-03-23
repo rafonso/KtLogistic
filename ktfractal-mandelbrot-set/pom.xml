@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ktfractal</artifactId>
+        <groupId>rafael.ktfractal</groupId>
+        <version>0.5</version>
+    </parent>
+
+    <artifactId>ktfractal-mandelbrot-set</artifactId>
+    <packaging>jar</packaging>
+    <name>KTFractal - Mandelbrot Set</name>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>rafael.ktfractal</groupId>
+            <artifactId>ktfractal-core</artifactId>
+            <version>0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>rafael.ktfractal</groupId>
+            <artifactId>ktfractal-set</artifactId>
+            <version>0.5</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    </build>
+
+</project>

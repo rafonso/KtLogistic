@@ -7,8 +7,8 @@
     <groupId>rafael.ktfractal</groupId>
     <artifactId>ktfractal</artifactId>
     <version>0.5</version>
-    <packaging>jar</packaging>
-	<name>KTFractal</name>
+    <packaging>pom</packaging>
+    <name>KTFractal</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +39,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -52,9 +51,6 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
-                        <configuration>
-                        <jvmTarget>1.8</jvmTarget>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>test-compile</id>
@@ -64,8 +60,33 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmTarget>1.8</jvmTarget>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
+    <modules>
+        <module>ktfractal-core</module>
+        <module>ktfractal-logistic-map</module>
+        <module>ktfractal-baker-map</module>
+        <module>ktfractal-duffing-map</module>
+        <module>ktfractal-gaussian-map</module>
+        <module>ktfractal-gingerbreadman-map</module>
+        <module>ktfractal-henon-map</module>
+        <module>ktfractal-kaplanyorke-map</module>
+        <module>ktfractal-lozi-map</module>
+        <module>ktfractal-mandelbrot-map</module>
+        <module>ktfractal-standard-map</module>
+        <module>ktfractal-tent-map</module>
+        <module>ktfractal-tinkerbell-map</module>
+        <module>ktfractal-bifurcation</module>
+        <module>ktfractal-bifurcation-chart</module>
+        <module>ktfractal-bifurcation-canvas</module>
+        <module>ktfractal-set</module>
+        <module>ktfractal-julia-set</module>
+        <module>ktfractal-mandelbrot-set</module>
+        <module>ktfractal-template</module>
+    </modules>
 </project>
