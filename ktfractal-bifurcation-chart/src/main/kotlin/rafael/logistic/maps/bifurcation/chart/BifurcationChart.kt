@@ -22,7 +22,7 @@ class BifurcationChart(
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<RData>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
+            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
     // @formatter:off
 

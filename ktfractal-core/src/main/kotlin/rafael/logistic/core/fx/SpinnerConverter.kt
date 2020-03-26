@@ -2,7 +2,7 @@ package rafael.logistic.core.fx
 
 import javafx.util.StringConverter
 
-class SpinnerConverter(size: Int) : StringConverter<Double>() {
+internal class SpinnerConverter(size: Int) : StringConverter<Double>() {
 
     private val format = "%.${size}f"
 
@@ -12,5 +12,4 @@ class SpinnerConverter(size: Int) : StringConverter<Double>() {
 
 }
 
-val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>
-val CONVERTER_0 = SpinnerConverter(0) as StringConverter<Number>
+internal val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>

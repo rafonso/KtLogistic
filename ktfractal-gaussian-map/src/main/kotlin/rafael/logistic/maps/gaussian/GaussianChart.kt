@@ -16,7 +16,7 @@ class GaussianChart(
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartDouble(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
+            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
     val alphaProperty = (0.0).toProperty()
 

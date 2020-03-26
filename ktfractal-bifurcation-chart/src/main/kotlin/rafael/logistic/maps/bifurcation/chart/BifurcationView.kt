@@ -32,7 +32,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
     private     val skipValueFactory    =   SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
 
     private     val spnPixelsSeparation :   Spinner<Int>        by  fxid()
-    private     val pixelsSeparationValueFactory    =   SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).observable())
+    private     val pixelsSeparationValueFactory    =   SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).asObservable())
 
     private     val spnRMin             :   Spinner<Double>     by  fxid()
     private     val rMinValueFactory    =   doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)

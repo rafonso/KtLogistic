@@ -14,7 +14,7 @@ class IterationChartDouble(
         @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<Double>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().observable())
+            this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().asObservable<Series<Int, Double>>())
 
     override fun loadPath(iterationData: List<Double>): Array<PathElement> {
         val positions: List<Pair<Double, Double>> = iterationData

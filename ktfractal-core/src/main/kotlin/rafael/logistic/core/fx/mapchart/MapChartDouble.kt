@@ -20,19 +20,7 @@ abstract class MapChartDouble(
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<Double>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
-
-    private fun plotWithLines() {
-        val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-                .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
-
-        plotLines(coords) { l, i ->
-            l.stroke = getRainbowColor(i.toDouble() / coords.size)
-            l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
-            l.opacity = 0.5
-        }
-    }
+            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
     private fun refreshXY() {
         plotLines(getBounds()) { l, _ -> l.stroke = Color.BLUE }

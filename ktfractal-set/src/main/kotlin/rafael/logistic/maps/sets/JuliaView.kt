@@ -26,7 +26,7 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     // @formatter:off
 
     override val iterationsValueFactory :   SpinnerValueFactory<Int>
-            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).observable())
+            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).asObservable())
 
     private     val spnXMin             :   Spinner<Double>     by  fxid()
     private     val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,

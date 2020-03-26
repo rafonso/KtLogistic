@@ -25,7 +25,7 @@ class IterationChartBi(
 
     private var extractor: (BiDouble) -> Double = { kotlin.error("") }
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<BiDouble>>, _extractor: (BiDouble) -> Double) {
+    internal fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<BiDouble>>, _extractor: (BiDouble) -> Double) {
         super.bind(valueProperty, observableData)
         this.extractor = _extractor
     }

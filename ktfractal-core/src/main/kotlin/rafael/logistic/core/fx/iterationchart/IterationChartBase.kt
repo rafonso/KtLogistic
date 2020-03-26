@@ -10,10 +10,13 @@ import javafx.scene.paint.CycleMethod
 import javafx.scene.paint.LinearGradient
 import javafx.scene.paint.Stop
 import javafx.scene.shape.PathElement
-import rafael.logistic.core.fx.CONVERTER_0
+import javafx.util.StringConverter
 import rafael.logistic.core.fx.CONVERTER_2
+import rafael.logistic.core.fx.SpinnerConverter
 import rafael.logistic.core.fx.rainbow
 import tornadofx.*
+
+val CONVERTER_0 = SpinnerConverter(0) as StringConverter<Number>
 
 abstract class IterationChartBase<T>(
         xAxis: Axis<Int>,
@@ -51,7 +54,7 @@ abstract class IterationChartBase<T>(
 
     protected abstract fun loadPath(iterationData: List<T>): Array<PathElement>
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<T>>) {
+    internal fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<T>>) {
         this.iterationsProperty.bind(valueProperty)
         this.iterationDataProperty.bind(observableData)
     }

@@ -10,7 +10,7 @@ private const val MIN_OPACITY = 0.5
 
 const val DELTA_COLOR = 1.0 / 6
 
-val rainbow = arrayOf(Color.VIOLET, Color.INDIGO, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED)
+internal val rainbow = arrayOf(Color.VIOLET, Color.INDIGO, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED)
 
 private fun media(min: Double, max: Double, factor: Double) = (max - min) * factor + min
 

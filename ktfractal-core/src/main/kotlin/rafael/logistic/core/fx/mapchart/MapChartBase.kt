@@ -21,7 +21,7 @@ abstract class MapChartBase<T>(
         data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
 
     constructor(xAxis: Axis<Double>, yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().observable())
+            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
     // @formatter:off
 
