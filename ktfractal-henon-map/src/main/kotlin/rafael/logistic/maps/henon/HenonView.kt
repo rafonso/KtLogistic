@@ -3,7 +3,7 @@ package rafael.logistic.maps.henon
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.view.ViewBi
 
@@ -19,8 +19,8 @@ class HenonView : ViewBi<HenonGenerator>("Henon", "Henon", HenonGenerator()) {
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.3, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: HenonGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
+    override fun refreshData(generator: HenonGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

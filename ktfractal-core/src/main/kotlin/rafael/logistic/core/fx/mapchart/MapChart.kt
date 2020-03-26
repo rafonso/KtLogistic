@@ -7,7 +7,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.event.EventType
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 
 /**
@@ -32,7 +32,7 @@ interface MapChart<T, E> {
 
     val generationStatusProperty: ObjectProperty<GenerationStatus>
 
-    fun mousePositionRealProperty(): ReadOnlyObjectProperty<Point2D>
+    fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
 
     fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit = {})
 

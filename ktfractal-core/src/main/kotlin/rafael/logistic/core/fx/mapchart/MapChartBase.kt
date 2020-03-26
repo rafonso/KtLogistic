@@ -4,7 +4,7 @@ import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
@@ -36,7 +36,7 @@ abstract class MapChartBase<T>(
 
     private         val square                      =   Point0()
 
-    private         val mousePositionRealProperty   =   Point2D(0.0, 0.0).toProperty()
+    private         val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
 
     final override  val xMinProperty                =   (0.0).toProperty()
     override        val xMin                        by  xMinProperty
@@ -76,11 +76,11 @@ abstract class MapChartBase<T>(
         }
 
         background.onMouseMoved = EventHandler { event ->
-            mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
+            mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
         }
         background.onMouseExited = EventHandler { event ->
             // TODO: Veficar se o mouse está dentro dos limites do backgound
-            mousePositionRealProperty.value = Point2D(event.x.chartToRealX(), event.y.chartToRealY())
+            mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
         }
 
         initialize()
@@ -135,6 +135,6 @@ abstract class MapChartBase<T>(
         handler(this)
     }
 
-    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
+    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
 }

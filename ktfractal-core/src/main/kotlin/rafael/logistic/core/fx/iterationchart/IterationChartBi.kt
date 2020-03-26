@@ -7,30 +7,30 @@ import javafx.scene.chart.Axis
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.PathElement
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import tornadofx.*
 
 class IterationChartBi(
         @NamedArg("xAxis") xAxis: Axis<Int>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<Point2D>(xAxis, yAxis, data) {
+        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<BiDouble>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().observable())
+            this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().asObservable<Series<Int, Double>>())
 
     companion object {
-        val extractorX: (Point2D) -> Double = Point2D::getX
-        val extractorY: (Point2D) -> Double = Point2D::getY
+        val extractorX: (BiDouble) -> Double = BiDouble::x
+        val extractorY: (BiDouble) -> Double = BiDouble::y
     }
 
-    private var extractor: (Point2D) -> Double = { kotlin.error("") }
+    private var extractor: (BiDouble) -> Double = { kotlin.error("") }
 
-    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<Point2D>>, _extractor: (Point2D) -> Double) {
+    fun bind(valueProperty: ReadOnlyObjectProperty<Int>, observableData: ReadOnlyObjectProperty<List<BiDouble>>, _extractor: (BiDouble) -> Double) {
         super.bind(valueProperty, observableData)
         this.extractor = _extractor
     }
 
-    override fun loadPath(iterationData: List<Point2D>): Array<PathElement> {
+    override fun loadPath(iterationData: List<BiDouble>): Array<PathElement> {
         val positions: List<Pair<Int, Double>> = iterationData
                 .mapIndexed { i, pt -> Pair(i, extractor(pt)) }
                 .filter { pair -> pair.second >= valueYAxis.lowerBound && pair.second <= valueYAxis.upperBound }

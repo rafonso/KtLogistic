@@ -1,6 +1,6 @@
 package rafael.logistic.maps.sets
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.generation.IterationParameter
 import java.util.stream.Collectors
@@ -21,7 +21,7 @@ data class JuliaParameter(val cX: Double, val cY: Double,
 
 }
 
-abstract class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaParameter> {
+abstract class JuliaGenerator : IterationGenerator<BiDouble, JuliaInfo, JuliaParameter> {
 
     protected tailrec fun checkConvergence(zx: Double, zy: Double, cx: Double, cy: Double, convergenceSteps: Int, iteration: Int = 1): Int? {
         if (iteration == convergenceSteps) {
@@ -37,7 +37,7 @@ abstract class JuliaGenerator : IterationGenerator<Point2D, JuliaInfo, JuliaPara
 
     protected abstract fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int?
 
-    override fun generate(z0: Point2D, parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
+    override fun generate(z0: BiDouble, parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
         return parameter.cols.parallelStream()
                 .flatMap { col ->
                     val x = parameter.xValues[col]

@@ -3,7 +3,7 @@ package rafael.logistic.core.fx.mapchart
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
@@ -42,7 +42,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
     private     val dataProperty                =   emptyList<T>().toProperty()
     protected   var data :List<T>               by  dataProperty
 
-    private     val mousePositionRealProperty   =   Point2D(0.0, 0.0).toProperty()
+    private     val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
 
                 val backgroundProperty          =   Color.WHITE.toProperty()
 
@@ -65,7 +65,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         dataProperty.onChange { refreshData() }
 
         this.onMouseMoved = EventHandler { event ->
-            mousePositionRealProperty.value = Point2D(event.x.canvasToRealX(), event.y.canvasToRealY())
+            mousePositionRealProperty.value = BiDouble(event.x.canvasToRealX(), event.y.canvasToRealY())
         }
         this.onMouseExited = EventHandler { mousePositionRealProperty.value = null }
     }
@@ -83,7 +83,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
     }
 
-    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<Point2D>
+    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
     override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit) {
         this.dataProperty.bind(dataProperty)

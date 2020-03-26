@@ -2,7 +2,7 @@ package rafael.logistic.maps.sets
 
 import javafx.beans.binding.Bindings
 import javafx.event.EventHandler
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
@@ -95,7 +95,7 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     }
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
-        return generator.generate(Point2D(0.0, 0.0), JuliaParameter(
+        return generator.generate(BiDouble(0.0, 0.0), JuliaParameter(
             cXProperty.value, cYProperty.value,
             spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
             spnYMin.value, spnYMax.value, chart.heightProperty().intValue()

@@ -2,7 +2,7 @@ package rafael.logistic.maps.standard
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.view.ViewBi
 import tornadofx.*
@@ -19,7 +19,7 @@ class StandardView : ViewBi<StandardGenerator>("Standard", "Standard", StandardG
         spnK.configureActions(kValueFactory, deltaKProperty, this::loadData)
     }
 
-    override fun refreshData(generator: StandardGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), spnK.value, iterations)
+    override fun refreshData(generator: StandardGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), spnK.value, iterations)
 
 }

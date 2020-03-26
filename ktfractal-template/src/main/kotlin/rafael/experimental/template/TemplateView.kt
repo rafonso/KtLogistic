@@ -1,6 +1,6 @@
 package rafael.experimental.template
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.addCopyCapacity
@@ -72,8 +72,8 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
         chart.yMaxProperty.bind(spnYMax.valueProperty())
     }
 
-    override fun refreshData(generator: TemplateGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
+    override fun refreshData(generator: TemplateGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
 
     override fun initializeAdditional() {
         txtMouseRealPos.bind(chart)

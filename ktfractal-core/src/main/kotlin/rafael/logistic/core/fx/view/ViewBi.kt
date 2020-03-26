@@ -2,7 +2,7 @@ package rafael.logistic.core.fx.view
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
@@ -13,8 +13,8 @@ import rafael.logistic.core.fx.iterationchart.IterationChartBi
 import rafael.logistic.core.fx.mapchart.MapChartBi
 import tornadofx.*
 
-abstract class ViewBi<G : IterationGenerator<*, Point2D, *>>(title: String, fxmlFile: String, generator: G) :
-        ViewBase<Point2D, G, MapChartBi>(title, fxmlFile, generator) {
+abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
+        ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
     private         val spnX0               :   Spinner<Double>     by  fxid()

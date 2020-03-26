@@ -1,6 +1,6 @@
 package rafael.logistic.maps.gingerbreadman
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.view.ViewBi
 
 class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
@@ -21,7 +21,7 @@ class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "
         get() = -maxY0Spinner
 
 
-    override fun refreshData(generator: GingerbreadmanGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), iterations)
+    override fun refreshData(generator: GingerbreadmanGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), iterations)
 
 }

@@ -1,6 +1,6 @@
 package rafael.logistic.maps.duffing
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.configureActions
@@ -22,8 +22,8 @@ class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenera
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
+    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

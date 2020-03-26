@@ -3,7 +3,7 @@ package rafael.logistic.core.fx.mapchart
 import javafx.beans.binding.Bindings
 import javafx.beans.binding.When
 import javafx.beans.property.SimpleBooleanProperty
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.TextField
 import javafx.scene.input.Clipboard
 import javafx.scene.input.MouseButton
@@ -12,7 +12,7 @@ import tornadofx.*
 
 class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
 
-    private val mousePositionRealProperty = Point2D(0.0, 0.0).toProperty()
+    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
     private val deltaXByPixelProperty = (0.0).toProperty()
 

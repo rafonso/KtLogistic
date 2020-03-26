@@ -1,6 +1,6 @@
 package rafael.logistic.maps.henon
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.IterationParameter
 
@@ -8,10 +8,10 @@ data class HenonParameter(val alpha: Double, val beta: Double) : IterationParame
 
 class HenonGenerator : IterationGeneratorBi<HenonParameter>() {
 
-    override fun calculate(parameter: HenonParameter, point: Point2D): Point2D =
-            Point2D(1.0 - parameter.alpha * point.x * point.x + point.y, parameter.beta * point.x)
+    override fun calculate(parameter: HenonParameter, point: BiDouble): BiDouble =
+            BiDouble(1.0 - parameter.alpha * point.x * point.x + point.y, parameter.beta * point.x)
 
-    fun generate(p0: Point2D, alpha: Double, beta: Double, iterations: Int) =
+    fun generate(p0: BiDouble, alpha: Double, beta: Double, iterations: Int) =
             super.generate(p0, HenonParameter(alpha, beta), iterations)
 
 }

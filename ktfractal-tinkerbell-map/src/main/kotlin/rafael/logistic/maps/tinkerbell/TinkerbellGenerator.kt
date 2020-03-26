@@ -1,6 +1,6 @@
 package rafael.logistic.maps.tinkerbell
 
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.pow
@@ -14,13 +14,13 @@ data class TinkerbellParameter(val a: Double, val b: Double, val c: Double, val 
  */
 class TinkerbellGenerator : IterationGeneratorBi<TinkerbellParameter>() {
 
-    override fun calculate(parameter: TinkerbellParameter, value: Point2D): Point2D =
-            Point2D(
+    override fun calculate(parameter: TinkerbellParameter, value: BiDouble): BiDouble =
+            BiDouble(
                     value.x.pow(2) - value.y.pow(2) + parameter.a * value.x + parameter.b * value.y,
                     2 * value.x * value.y + parameter.c * value.x + parameter.d * value.y
             )
 
-    fun generate(p0: Point2D, a: Double, b: Double, c: Double, d: Double, iterations: Int) =
+    fun generate(p0: BiDouble, a: Double, b: Double, c: Double, d: Double, iterations: Int) =
             super.generate(p0, TinkerbellParameter(a, b, c, d), iterations)
 
 }

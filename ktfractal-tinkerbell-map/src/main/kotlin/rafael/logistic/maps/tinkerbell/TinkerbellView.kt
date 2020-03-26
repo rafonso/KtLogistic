@@ -2,7 +2,7 @@ package rafael.logistic.maps.tinkerbell
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.geometry.Point2D
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.view.ViewBi
 import tornadofx.*
@@ -45,8 +45,8 @@ class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", T
     private val dValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: TinkerbellGenerator, iterations: Int): List<Point2D> =
-            generator.generate(Point2D(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
+    override fun refreshData(generator: TinkerbellGenerator, iterations: Int): List<BiDouble> =
+            generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

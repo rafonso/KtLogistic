@@ -1,7 +1,5 @@
 package rafael.logistic.core.generation
 
-import javafx.geometry.Point2D
-
 /**
  * Interface marcadora dos parâmetros para a geração dos dados.
  */
@@ -57,4 +55,4 @@ abstract class IterationGeneratorBase<T, P : IterationParameter> : IterationGene
 
 typealias IterationGeneratorDouble<P> = IterationGeneratorBase<Double, P>
 
-typealias IterationGeneratorBi<P> = IterationGeneratorBase<Point2D, P>
+typealias IterationGeneratorBi<P> = IterationGeneratorBase<BiDouble, P>
