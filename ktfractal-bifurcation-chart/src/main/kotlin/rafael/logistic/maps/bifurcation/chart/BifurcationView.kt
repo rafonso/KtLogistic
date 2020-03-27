@@ -5,16 +5,18 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.maps.bifurcation.BifurcationGenerator
-import rafael.logistic.maps.bifurcation.RData
-import rafael.logistic.core.fx.addCopyCapacity
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
-import tornadofx.*
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import rafael.logistic.maps.bifurcation.BifurcationGenerator
+import rafael.logistic.maps.bifurcation.RData
+import tornadofx.asObservable
+import tornadofx.onChange
+import tornadofx.runLater
+import tornadofx.toProperty
 
 private const val R_MIN = 0.0
 private const val R_MAX = 4.0
@@ -58,8 +60,6 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
         configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
                 deltaRLimitProperty, deltaRStepProperty, this::loadData)
-        spnRMin.addCopyCapacity()
-        spnRMax.addCopyCapacity()
     }
 
     override fun initializeCharts() {

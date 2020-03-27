@@ -71,6 +71,17 @@ private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: Int
 }
 
 /**
+ * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
+ */
+fun Spinner<*>.addCopyCapacity() {
+    this.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
+        if (event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
+            Clipboard.getSystemClipboard().putString(this.value.toString())
+        }
+    }
+}
+
+/**
  * Altera o "passo" do Spinner. O argumento definirá quantos algarismos aparecerão depois da vírgula e o
  * valor de [Spinner#amountToStepBy] será igual a 10 ^ (- step). Por exemplo se `step` for 4 então o valor de
  * [Spinner#amountToStepBy] será 0,0001 e o valor será representado por "0,1234".
@@ -134,6 +145,7 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListen
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
+    this.addCopyCapacity()
 
     this.valueProperty().addListener(listener)
 
@@ -223,13 +235,3 @@ fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpin
 fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
         DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
 
-/**
- * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
- */
-fun Spinner<*>.addCopyCapacity() {
-    this.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
-        if (event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
-            Clipboard.getSystemClipboard().putString(this.value.toString())
-        }
-    }
-}

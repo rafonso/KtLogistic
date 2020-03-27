@@ -1,13 +1,12 @@
 package rafael.experimental.template
 
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.addCopyCapacity
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBi
+import rafael.logistic.core.generation.BiDouble
 import tornadofx.disableWhen
 import tornadofx.onChange
 import tornadofx.toProperty
@@ -54,10 +53,6 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
         configureMinMaxSpinners(spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
                 deltaYLimitProperty, deltaYStepProperty, this::loadData)
 
-        spnXMin.addCopyCapacity()
-        spnXMax.addCopyCapacity()
-        spnYMin.addCopyCapacity()
-        spnYMax.addCopyCapacity()
     }
 
     override fun initializeCharts() {
