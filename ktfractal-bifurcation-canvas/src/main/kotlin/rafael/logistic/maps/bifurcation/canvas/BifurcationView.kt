@@ -57,7 +57,10 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
         spnSkip.configureActions(skipValueFactory, this::loadData)
 
         pixelsSeparationValueFactory.value = 0
-        spnPixelsSeparation.configureActions(pixelsSeparationValueFactory, this::loadData)
+        spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
+            chart.pixelsSeparation = spnPixelsSeparation.value + 1
+            this.loadData()
+        }
 
         configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
                 deltaRLimitProperty, deltaRStepProperty, this::loadData)
@@ -77,6 +80,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
 
         chart.xMinProperty.bind(spnRMin.valueProperty())
         chart.xMaxProperty.bind(spnRMax.valueProperty())
+
     }
 
     override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> =
