@@ -4,11 +4,15 @@ import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ObjectProperty
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
+import javafx.embed.swing.SwingFXUtils
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.event.EventType
+import javafx.scene.image.WritableImage
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
+import java.io.File
+import javax.imageio.ImageIO
 
 /**
  *
@@ -48,6 +52,8 @@ interface MapChart<T, E> {
 
     fun plotData(elements: List<E>)
 
+    fun exportImageTo(file: File): Boolean
+
     fun finalizePlotting() {
 
     }
@@ -68,4 +74,11 @@ interface MapChart<T, E> {
         this.generationStatusProperty.value = GenerationStatus.IDLE
     }
 
+}
+
+internal fun exportImageTo(file: File, width: Int, height: Int, snapshotGenerator: (WritableImage) -> WritableImage): Boolean {
+    val image = WritableImage(width, height)
+    val writableImage = snapshotGenerator(image)
+    val renderedImage = SwingFXUtils.fromFXImage(writableImage, null)
+    return ImageIO.write(renderedImage, "png", file)
 }

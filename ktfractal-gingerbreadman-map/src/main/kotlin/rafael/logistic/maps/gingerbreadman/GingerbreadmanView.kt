@@ -24,4 +24,6 @@ class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "
     override fun refreshData(generator: GingerbreadmanGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), iterations)
 
+    override fun getImageName1(): String = "gingerbreadman"
+
 }

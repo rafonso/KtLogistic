@@ -4,6 +4,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
 class GaussianView : ViewDouble<GaussianGenerator, GaussianChart>("Gaussian Equation", "Gaussian", GaussianGenerator()) {
@@ -30,5 +31,7 @@ class GaussianView : ViewDouble<GaussianGenerator, GaussianChart>("Gaussian Equa
         chart.alphaProperty.bind(spnAlpha.valueProperty())
         chart.betaProperty.bind(spnBeta.valueProperty())
     }
+
+    override fun getImageName1(): String = "gaussian.Alpha=${spnAlpha.valueToString()}.Beta=${spnBeta.valueToString()}"
 
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.valueToString
 
 class LogisticView : ViewDouble<LogisticGenerator, LogisticChart>("Logistic Equation", "Logistic", LogisticGenerator()) {
 
@@ -36,4 +37,5 @@ class LogisticView : ViewDouble<LogisticGenerator, LogisticChart>("Logistic Equa
         txtMouseRealPos.bind(chart)
     }
 
+    override fun getImageName1(): String = "logistic.R=${spnR.valueToString()}"
 }

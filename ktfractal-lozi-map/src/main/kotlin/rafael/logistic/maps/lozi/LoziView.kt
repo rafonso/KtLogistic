@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 
 class LoziView : ViewBi<LoziGenerator>("Lozi", "Lozi", LoziGenerator()) {
@@ -26,5 +27,7 @@ class LoziView : ViewBi<LoziGenerator>("Lozi", "Lozi", LoziGenerator()) {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
         spnB.configureActions(bValueFactory, deltaBProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "lozi.Alpha=${spnA.valueToString()}.Beta=${spnB.valueToString()}"
 
 }

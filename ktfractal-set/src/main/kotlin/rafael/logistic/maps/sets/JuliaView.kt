@@ -1,20 +1,22 @@
 package rafael.logistic.maps.sets
 
 import javafx.beans.binding.Bindings
-import javafx.event.EventHandler
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
-import rafael.logistic.core.generation.GenerationStatus
-import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
-import tornadofx.*
+import rafael.logistic.core.generation.BiDouble
+import rafael.logistic.core.generation.GenerationStatus
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import tornadofx.asObservable
+import tornadofx.onChange
+import tornadofx.runLater
+import tornadofx.toProperty
 
 
 abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenerator) : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>(title, fxmlFile, generator) {
@@ -28,24 +30,24 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     override val iterationsValueFactory :   SpinnerValueFactory<Int>
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).asObservable())
 
-    private     val spnXMin             :   Spinner<Double>     by  fxid()
-    private     val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+    protected   val spnXMin             :   Spinner<Double>     by  fxid()
+    protected   val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
         LIMIT, -LIMIT, 0.1)
 
-    private     val spnXMax             :   Spinner<Double>     by  fxid()
-    private     val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+    protected   val spnXMax             :   Spinner<Double>     by  fxid()
+    protected   val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
         LIMIT,
         LIMIT, 0.1)
 
-    private     val deltaXProperty      =   1.toProperty()
-    private     val deltaXStepProperty  =   (0.1).toProperty()
+    private val deltaXProperty      =   1.toProperty()
+    private val deltaXStepProperty  =   (0.1).toProperty()
 
-    private     val spnYMin             :   Spinner<Double>     by  fxid()
-    private     val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+    protected   val spnYMin             :   Spinner<Double>     by  fxid()
+    protected   val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
         LIMIT, -LIMIT, 0.1)
 
-    private     val spnYMax             :   Spinner<Double>     by  fxid()
-    private     val yMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
+    protected   val spnYMax             :   Spinner<Double>     by  fxid()
+    protected   val yMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
         LIMIT,
         LIMIT, 0.1)
 
@@ -61,7 +63,6 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     protected   val cYProperty          =   (0.0).toProperty()
 
     // @formatter:on
-
 
     override fun initializeControls() {
         configureMinMaxSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
@@ -86,11 +87,11 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
 
         chart.maxIterationsProperty.bind(super.spnIterations.valueProperty())
 
-        chart.onMouseClicked = EventHandler { event ->
-            if(event.clickCount == 2) {
-                println(event)
-            }
-        }
+//        chart.onMouseClicked = EventHandler { event ->
+//            if(event.clickCount == 2) {
+//                println(event)
+//            }
+//        }
 
     }
 

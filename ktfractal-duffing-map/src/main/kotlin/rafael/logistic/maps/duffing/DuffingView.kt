@@ -4,6 +4,7 @@ import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import tornadofx.*
 
@@ -29,5 +30,7 @@ class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenera
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
         spnB.configureActions(bValueFactory, deltaBProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "duffing.Alpha=${spnA.valueToString()}.Beta=${spnB.valueToString()}"
 
 }

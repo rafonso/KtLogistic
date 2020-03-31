@@ -23,7 +23,11 @@ private const val R_MAX = 4.0
 private const val X_MIN = 0.0
 private const val X_MAX = 1.0
 
-class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>("Bifurcation Chart", "BifurcationChart", BifurcationGenerator()) {
+class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
+    "Bifurcation Chart",
+    "BifurcationChart",
+    BifurcationGenerator()
+) {
 
     // @formatter:off
     private     val spnX0               :   Spinner<Double>     by  fxid()
@@ -58,8 +62,10 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
         pixelsSeparationValueFactory.value = 10
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory, this::loadData)
 
-        configureMinMaxSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
-                deltaRLimitProperty, deltaRStepProperty, this::loadData)
+        configureMinMaxSpinners(
+            spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory,
+            deltaRLimitProperty, deltaRStepProperty, this::loadData
+        )
     }
 
     override fun initializeCharts() {
@@ -78,8 +84,10 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
         val rAxis = (super.chart.xAxis as NumberAxis)
 
         return if (rAxis.widthProperty().value > 0)
-            return generator.generate(spnX0.value, rAxis.lowerBound, rAxis.upperBound,
-                    rAxis.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations)
+            return generator.generate(
+                spnX0.value, rAxis.lowerBound, rAxis.upperBound,
+                rAxis.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1), spnSkip.value, iterations
+            )
         else
             emptyList()
     }
@@ -93,5 +101,13 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
             }
         }
     }
+
+    override fun getImageName(): String = "bifurcation" +
+            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
+            ".Iterations_R=${spnIterations.value}" +
+            ".RMin=${rMinValueFactory.converter.toString(spnRMin.value)}" +
+            ".RMax=${rMaxValueFactory.converter.toString(spnRMax.value)}" +
+            (if (spnSkip.value > 0) ".Skip=${spnSkip.value}pct" else "") +
+            (if (spnPixelsSeparation.value > 0) ".PxnSep=${spnPixelsSeparation.value}" else "")
 
 }

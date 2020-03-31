@@ -152,6 +152,8 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListen
     return listener
 }
 
+fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toString(this.value)
+
 /**
  * Configura o [SpinnerValueFactory] do [Spinner], ...
  *

@@ -4,59 +4,61 @@ import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import rafael.logistic.core.fx.CONVERTER_2
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
+import java.io.File
 
 const val P0_SIDE = 20.0
 
 abstract class MapChartBase<T>(
-        xAxis: Axis<Double>,
-        yAxis: Axis<Double>,
-        data: ObservableList<Series<Double, Double>>) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
+    xAxis: Axis<Double>,
+    yAxis: Axis<Double>,
+    data: ObservableList<Series<Double, Double>>
+) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
 
     constructor(xAxis: Axis<Double>, yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
     // @formatter:off
 
-    protected       val background: Node            =   super.lookup(".chart-plot-background")
+    protected val background: Node = super.lookup(".chart-plot-background")
 
-    private         val dataProperty                =   emptyList<T>().toProperty()
-    protected       var data: List<T>               by  dataProperty
+    private val dataProperty = emptyList<T>().toProperty()
+    protected var data: List<T> by dataProperty
 
-    protected       val myXAxis                     =   (xAxis as NumberAxis)
+    protected val myXAxis = (xAxis as NumberAxis)
 
-    protected       val myYAxis                     =   (yAxis as NumberAxis)
+    protected val myYAxis = (yAxis as NumberAxis)
 
-    private         val square                      =   Point0()
+    private val square = Point0()
 
-    private         val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
+    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
-    final override  val xMinProperty                =   (0.0).toProperty()
-    override        val xMin                        by  xMinProperty
+    final override val xMinProperty = (0.0).toProperty()
+    override val xMin by xMinProperty
 
-    final override  val xMaxProperty                =   (0.0).toProperty()
-    override        val xMax                        by  xMaxProperty
+    final override val xMaxProperty = (0.0).toProperty()
+    override val xMax by xMaxProperty
 
-    final override  val yMinProperty                =   (0.0).toProperty()
-    override        val yMin                        by  yMinProperty
+    final override val yMinProperty = (0.0).toProperty()
+    override val yMin by yMinProperty
 
-    final override  val yMaxProperty                =   (0.0).toProperty()
-    override        val yMax                        by  yMaxProperty
+    final override val yMaxProperty = (0.0).toProperty()
+    override val yMax by yMaxProperty
 
-    private         val deltaXByPixelProp           =   (0.0).toProperty()
-    override        val deltaXByPixelProperty       =   deltaXByPixelProp as ReadOnlyDoubleProperty
+    private val deltaXByPixelProp = (0.0).toProperty()
+    override val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    private         val deltaYByPixelProp           =   (0.0).toProperty()
-    override        val deltaYByPixelProperty       =   deltaYByPixelProp as ReadOnlyDoubleProperty
+    private val deltaYByPixelProp = (0.0).toProperty()
+    override val deltaYByPixelProperty = deltaYByPixelProp as ReadOnlyDoubleProperty
 
-    override        val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
+    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
 
     // @formatter:on
 
@@ -136,5 +138,10 @@ abstract class MapChartBase<T>(
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
+
+    override fun exportImageTo(file: File): Boolean =
+        exportImageTo(file, super.getWidth().toInt(), super.getHeight().toInt()) {
+            super.snapshot(null, it)
+        }
 
 }

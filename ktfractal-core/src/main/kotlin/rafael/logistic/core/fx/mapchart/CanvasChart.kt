@@ -3,12 +3,13 @@ package rafael.logistic.core.fx.mapchart
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
+import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
+import java.io.File
 
 typealias PixelInfo = Triple<Int, Int, Color>
 
@@ -16,35 +17,35 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     // @formatter:off
 
-                val x0Property                  =   (0.0).toProperty()
-    private     val x0                          by  x0Property
+    val x0Property = (0.0).toProperty()
+    private val x0 by x0Property
 
-    override    val xMinProperty                =   (0.0).toProperty()
-    override    val xMin                        by  xMinProperty
+    override val xMinProperty = (0.0).toProperty()
+    override val xMin by xMinProperty
 
-    override    val xMaxProperty                =   (0.0).toProperty()
-    override    val xMax                        by  xMaxProperty
+    override val xMaxProperty = (0.0).toProperty()
+    override val xMax by xMaxProperty
 
-    override    val yMinProperty                =   (0.0).toProperty()
-    override    val yMin                        by  yMinProperty
+    override val yMinProperty = (0.0).toProperty()
+    override val yMin by yMinProperty
 
-    override    val yMaxProperty                =   (0.0).toProperty()
-    override    val yMax                        by  yMaxProperty
+    override val yMaxProperty = (0.0).toProperty()
+    override val yMax by yMaxProperty
 
-    private     val deltaXByPixelProp           =   (0.0).toProperty()
-    override    val deltaXByPixelProperty       =   deltaXByPixelProp as ReadOnlyDoubleProperty
+    private val deltaXByPixelProp = (0.0).toProperty()
+    override val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    private     val deltaYByPixelProp           =   (0.0).toProperty()
-    override    val deltaYByPixelProperty       =   deltaYByPixelProp as ReadOnlyDoubleProperty
+    private val deltaYByPixelProp = (0.0).toProperty()
+    override val deltaYByPixelProperty = deltaYByPixelProp as ReadOnlyDoubleProperty
 
-    override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
+    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
 
-    private     val dataProperty                =   emptyList<T>().toProperty()
-    protected   var data :List<T>               by  dataProperty
+    private val dataProperty = emptyList<T>().toProperty()
+    protected var data: List<T> by dataProperty
 
-    private     val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
+    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
-                val backgroundProperty          =   Color.WHITE.toProperty()
+    val backgroundProperty = Color.WHITE.toProperty()
 
     // @formatter:on
 
@@ -89,5 +90,11 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         this.dataProperty.bind(dataProperty)
         handler(this)
     }
+
+    override fun exportImageTo(file: File): Boolean =
+        exportImageTo(file, super.getWidth().toInt(), super.getHeight().toInt()) {
+            super.snapshot(null, it)
+        }
+
 
 }

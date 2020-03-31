@@ -20,8 +20,6 @@ class BifurcationCanvas : CanvasChart<RData>() {
     // @formatter:on
 
     private fun rSequenceToCoordinates(rSequence: RData): Stream<PixelInfo> {
-        val rChart = rSequence.r.realToCanvasX().toInt()
-        println("rChart: $rChart, rSequence.col : ${rSequence.col}")
         val size = rSequence.values.size
 
         return rSequence.values

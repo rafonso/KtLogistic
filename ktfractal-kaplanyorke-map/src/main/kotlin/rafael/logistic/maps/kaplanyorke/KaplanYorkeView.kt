@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 
 class KaplanYorkeView : ViewBi<KaplanYorkeGenerator>("Kaplan-Yorke", "KaplanYorke", KaplanYorkeGenerator()) {
@@ -25,5 +26,7 @@ class KaplanYorkeView : ViewBi<KaplanYorkeGenerator>("Kaplan-Yorke", "KaplanYork
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "kaplan-yorke.Alpha=${spnA.valueToString()}"
 
 }

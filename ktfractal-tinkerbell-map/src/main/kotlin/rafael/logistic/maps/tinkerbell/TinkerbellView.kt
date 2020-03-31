@@ -2,10 +2,11 @@ package rafael.logistic.maps.tinkerbell
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
-import tornadofx.*
+import rafael.logistic.core.generation.BiDouble
+import tornadofx.toProperty
 
 class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", TinkerbellGenerator()) {
 
@@ -54,5 +55,8 @@ class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", T
         spnC.configureActions(cValueFactory, deltaCProperty, this::loadData)
         spnD.configureActions(dValueFactory, deltaDProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "Tinkerbell" +
+            ".a=${spnA.valueToString()}.b=${spnB.valueToString()}.c=${spnC.valueToString()}.d=${spnD.valueToString()}"
 
 }

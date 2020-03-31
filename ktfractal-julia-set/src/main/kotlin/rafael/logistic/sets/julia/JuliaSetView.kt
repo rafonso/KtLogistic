@@ -19,8 +19,16 @@ class JuliaSetView : JuliaView("Julia Set", "JuliaSet",
     private     val spnCY               :   Spinner<Double>     by  fxid()
     private     val deltaCYProperty     =   1.toProperty()
     private     val cYValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
-
     // @formatter:on
+
+    override fun getImageName(): String = "julia" +
+            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
+            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
+            ".YMin=${yMinValueFactory.converter.toString(spnYMin.value)}" +
+            ".YMax=${yMaxValueFactory.converter.toString(spnYMax.value)}" +
+            ".CX=${cXValueFactory.converter.toString(spnCX.value)}" +
+            ".CY=${cYValueFactory.converter.toString(spnCY.value)}" +
+            ".Iterations_Dot=${spnIterations.value}"
 
     override fun initializeControls() {
         super.initializeControls()

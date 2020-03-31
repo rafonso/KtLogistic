@@ -2,10 +2,11 @@ package rafael.logistic.maps.mandelbrot
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.fx.configureActions
-import tornadofx.*
+import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.view.ViewBi
+import rafael.logistic.core.generation.BiDouble
+import tornadofx.toProperty
 
 class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", MandelbrotGenerator()) {
 
@@ -26,5 +27,7 @@ class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", M
         spnCX.configureActions(cXValueFactory, deltaCXProperty, this::loadData)
         spnCY.configureActions(cYValueFactory, deltaCYProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "mandelbrot.CX=${spnCX.valueToString()}.CY=${spnCY.valueToString()}"
 
 }

@@ -2,16 +2,17 @@ package rafael.logistic.core.fx.view
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.iterationchart.IterationChartBi
 import rafael.logistic.core.fx.mapchart.MapChartBi
-import tornadofx.*
+import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.generation.BiDouble
+import rafael.logistic.core.generation.IterationGenerator
+import tornadofx.toProperty
 
 abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
         ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
@@ -57,5 +58,9 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
 
     }
 
+    override fun getImageName(): String =
+        "${getImageName1()}.X0=${spnX0.valueToString()}.Y0=${spnX0.valueToString()}.Iterations=${spnIterations.value}"
+
+    protected abstract fun getImageName1(): String
 
 }

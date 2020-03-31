@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.disableWhen
@@ -73,5 +74,9 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
     override fun initializeAdditional() {
         txtMouseRealPos.bind(chart)
     }
+
+    override fun getImageName1(): String = "template" +
+            ".XMin=${spnXMin.valueToString()}.XMax=${spnXMax.valueToString()}" +
+            ".YMin=${spnYMin.valueToString()}.YMax=${spnYMax.valueToString()}"
 
 }

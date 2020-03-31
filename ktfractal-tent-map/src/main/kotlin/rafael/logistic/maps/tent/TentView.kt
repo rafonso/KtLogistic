@@ -4,6 +4,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
 class TentView : ViewDouble<TentGenerator, TentChart>("Tent", "Tent", TentGenerator()) {
@@ -24,5 +25,7 @@ class TentView : ViewDouble<TentGenerator, TentChart>("Tent", "Tent", TentGenera
     override fun initializeControlsDouble() {
         spnMi.configureActions(miValueFactory, deltaMiProperty, this::loadData)
     }
+
+    override fun getImageName1(): String = "tent.Mi=${spnMi.valueToString()}"
 
 }
