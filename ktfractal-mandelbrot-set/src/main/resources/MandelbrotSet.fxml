@@ -96,8 +96,9 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
             <children>
-                <MouseRealPosNode fx:id="lblPosMouse"/>
-                <Label fx:id="lblStatus" prefWidth="200.0" text="XXXXXXXX"/>
+                <MouseRealPosNode fx:id="lblPosMouse" />
+                <Label fx:id="lblStatus" prefWidth="200.0" text="XXXXXXXX" />
+                <Label fx:id="lblDeltaXY" prefWidth="200.0" text="ΔX - ΔY = 0.0" />
             </children>
         </FlowPane>
     </bottom>

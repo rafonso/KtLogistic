@@ -1,6 +1,7 @@
 package rafael.logistic.maps.sets
 
 import javafx.beans.binding.Bindings
+import javafx.beans.binding.When
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
@@ -13,10 +14,8 @@ import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import tornadofx.asObservable
-import tornadofx.onChange
-import tornadofx.runLater
-import tornadofx.toProperty
+import tornadofx.*
+import kotlin.math.abs
 
 
 abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenerator) : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>(title, fxmlFile, generator) {
@@ -31,16 +30,13 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).asObservable())
 
     protected   val spnXMin             :   Spinner<Double>     by  fxid()
-    protected   val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
-        LIMIT, -LIMIT, 0.1)
+    protected   val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
 
     protected   val spnXMax             :   Spinner<Double>     by  fxid()
-    protected   val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
-        LIMIT,
-        LIMIT, 0.1)
+    protected   val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
 
-    private val deltaXProperty      =   1.toProperty()
-    private val deltaXStepProperty  =   (0.1).toProperty()
+    private val deltaXProperty          =   1.toProperty()
+    private val deltaXStepProperty      =   (0.1).toProperty()
 
     protected   val spnYMin             :   Spinner<Double>     by  fxid()
     protected   val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
@@ -58,17 +54,37 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
 
     private     val lblStatus           :   Label               by  fxid()
 
-    protected   val cXProperty          =   (0.0).toProperty()
+    private val lblDeltaXY: Label by fxid()
+
+    private val deltaXYProperty = (0.0).toProperty()
+
+    private val deltaXYConverterProperty = objectProperty(yMinValueFactory.converterProperty().value)
+
+    protected val cXProperty = (0.0).toProperty()
 
     protected   val cYProperty          =   (0.0).toProperty()
 
     // @formatter:on
 
+    private fun recalculateDeltaXY() {
+        deltaXYProperty.value = (spnXMax.value - spnXMin.value) - (spnYMax.value - spnYMin.value)
+    }
+
     override fun initializeControls() {
-        configureMinMaxSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
-                deltaXProperty, deltaXStepProperty, this::loadData)
-        configureMinMaxSpinners(spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
-                deltaYProperty, deltaYStepProperty, this::loadData)
+        configureMinMaxSpinners(
+            spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
+            deltaXProperty, deltaXStepProperty
+        ) {
+            this.recalculateDeltaXY()
+            this.loadData()
+        }
+        configureMinMaxSpinners(
+            spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
+            deltaYProperty, deltaYStepProperty
+        ) {
+            this.recalculateDeltaXY()
+            this.loadData()
+        }
     }
 
     override fun initializeCharts() {
@@ -96,15 +112,32 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     }
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
-        return generator.generate(BiDouble(0.0, 0.0), JuliaParameter(
-            cXProperty.value, cYProperty.value,
-            spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
-            spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
-        ), iterations)
+        return generator.generate(
+            BiDouble(0.0, 0.0), JuliaParameter(
+                cXProperty.value, cYProperty.value,
+                spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
+                spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
+            ), iterations
+        )
     }
 
     override fun initializeAdditional() {
         spnIterations.valueFactory.value = 10
+
+        deltaXYConverterProperty.bind(
+            When(deltaXProperty.greaterThan(deltaYProperty)).then(xMinValueFactory.converterProperty())
+                .otherwise(yMinValueFactory.converterProperty())
+        )
+        lblDeltaXY.textProperty()
+            .bind(Bindings.concat("ΔX - ΔY = ", deltaXYProperty.asString("%+.10f")))
+        deltaXYProperty.onChange { delta ->
+            lblDeltaXY.textFill =
+                if (delta > 0) Color.color(0.0, deltaXYProperty.value / 4, 0.0)
+                else Color.color(-deltaXYProperty.value / 4, 0.0, 0.0)
+
+            val isZero = abs(delta) < 0.000000001
+            lblDeltaXY.style = "-fx-background-color: ${if (isZero) "green" else "transparent"};"
+        }
 
         lblPosMouse.bind(chart)
         super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
