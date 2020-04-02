@@ -7,8 +7,6 @@ import rafael.logistic.maps.bifurcation.RData
 import tornadofx.getValue
 import tornadofx.setValue
 import tornadofx.toProperty
-import java.util.stream.Stream
-import kotlin.streams.toList
 
 class BifurcationCanvas : CanvasChart<RData>() {
 
@@ -19,18 +17,25 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     // @formatter:on
 
-    private fun rSequenceToCoordinates(rSequence: RData): Stream<PixelInfo> {
+    private fun rSequenceToCoordinates(rSequence: RData, pixSep: Int, yToCanvas: (Double) -> Int): List<PixelInfo> {
+        // Depepdendo do convergenceType, o tamanho rSequence.values pode variar
         val size = rSequence.values.size
 
         return rSequence.values
-            .mapIndexed { i, v -> Pair(v.realToCanvasY().toInt(), i.toDouble() / size) }
-            .parallelStream()
-            .map { Triple(rSequence.col * pixelsSeparation, it.first, getRainbowColor(it.second)) }
+            .mapIndexed { i, v ->
+                Triple(rSequence.col * pixSep, yToCanvas(v), getRainbowColor(i.toDouble() / size))
+            }
     }
 
-    override fun dataToElementsToPlot() = data
-        .parallelStream()
-        .flatMap(this::rSequenceToCoordinates)
-        .toList()
+    override fun dataToElementsToPlot(): List<PixelInfo> {
+        // Otimizações agressivas. Não precisa chamar os getters toda hora.
+        val ym = yMin
+        val deltaY = yMax - yMin
+        val h = super.getHeight()
+        val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
+        val pixSep = pixelsSeparationProperty.value
+
+        return data.flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas) }
+    }
 
 }
