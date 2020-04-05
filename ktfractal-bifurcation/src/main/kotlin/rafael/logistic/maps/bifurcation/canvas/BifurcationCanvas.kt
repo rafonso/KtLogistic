@@ -1,29 +1,35 @@
 package rafael.logistic.maps.bifurcation.canvas
 
+import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
 import rafael.logistic.maps.bifurcation.RData
-import tornadofx.getValue
-import tornadofx.setValue
 import tornadofx.toProperty
 
 class BifurcationCanvas : CanvasChart<RData>() {
 
     // @formatter:off
 
-    private val pixelsSeparationProperty    =   1.toProperty()
-            var pixelsSeparation            by  pixelsSeparationProperty
+    val pixelsSeparationProperty    =   1.toProperty()
 
     // @formatter:on
 
-    private fun rSequenceToCoordinates(rSequence: RData, pixSep: Int, yToCanvas: (Double) -> Int): List<PixelInfo> {
-        // Depepdendo do convergenceType, o tamanho rSequence.values pode variar
+    private fun rSequenceToCoordinates(
+        rSequence: RData,
+        pixSep: Int,
+        yToCanvas: (Double) -> Int,
+        colorCache: MutableMap<Int, Color>
+    ): List<PixelInfo> {
         val size = rSequence.values.size
+        val rPos = rSequence.col * pixSep
 
         return rSequence.values
             .mapIndexed { i, v ->
-                Triple(rSequence.col * pixSep, yToCanvas(v), getRainbowColor(i.toDouble() / size))
+                Triple(
+                    rPos,
+                    yToCanvas(v),
+                    colorCache.getOrPut(i) { getRainbowColor(i.toDouble() / size) })
             }
     }
 
@@ -34,8 +40,9 @@ class BifurcationCanvas : CanvasChart<RData>() {
         val h = super.getHeight()
         val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
         val pixSep = pixelsSeparationProperty.value
+        val colorCache = mutableMapOf<Int, Color>()
 
-        return data.flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas) }
+        return data.flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache) }
     }
 
 }

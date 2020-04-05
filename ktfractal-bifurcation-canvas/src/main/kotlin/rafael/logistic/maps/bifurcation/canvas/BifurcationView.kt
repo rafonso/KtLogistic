@@ -66,7 +66,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
 
         pixelsSeparationValueFactory.value = 0
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
-            chart.pixelsSeparation = spnPixelsSeparation.value + 1
+            chart.pixelsSeparationProperty.value = spnPixelsSeparation.value + 1
             this.loadData()
         }
 

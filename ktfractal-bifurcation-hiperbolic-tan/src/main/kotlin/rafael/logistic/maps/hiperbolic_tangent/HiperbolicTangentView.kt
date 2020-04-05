@@ -12,13 +12,14 @@ import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.maps.bifurcation.RData
+import rafael.logistic.maps.bifurcation.canvas.BifurcationCanvas
 import rafael.logistic.maps.hiperbolic_tangent.data.*
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
 
-class HiperbolicTangentView : ViewBase<RData, HiperbolicTangentGenerator, HiperbolicTangentCanvas>(
+class HiperbolicTangentView : ViewBase<RData, HiperbolicTangentGenerator, BifurcationCanvas>(
     "Hiperbolic Tangent Canvas",
     "HiperbolicTangentMap",
     HiperbolicTangentGenerator()
@@ -67,7 +68,7 @@ class HiperbolicTangentView : ViewBase<RData, HiperbolicTangentGenerator, Hiperb
 
         pixelsSeparationValueFactory.value = 0
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
-            chart.pixelsSeparation = spnPixelsSeparation.value + 1
+            chart.pixelsSeparationProperty.value = spnPixelsSeparation.value + 1
             this.loadData()
         }
 
