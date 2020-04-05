@@ -20,7 +20,7 @@ import tornadofx.toProperty
 class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>(
     "Bifurcation Canvas",
     "BifurcationCanvas",
-    BifurcationGenerator()
+    LogisticBifurcationGenerator()
 ) {
 
     // @formatter:off

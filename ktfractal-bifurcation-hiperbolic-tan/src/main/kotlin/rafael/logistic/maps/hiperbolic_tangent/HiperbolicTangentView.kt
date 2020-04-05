@@ -11,13 +11,14 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.maps.hiperbolic_tangent.data.*
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
 
-class HiperbolicTangentView : ViewBase<GData, HiperbolicTangentGenerator, HiperbolicTangentCanvas>(
+class HiperbolicTangentView : ViewBase<RData, HiperbolicTangentGenerator, HiperbolicTangentCanvas>(
     "Hiperbolic Tangent Canvas",
     "HiperbolicTangentMap",
     HiperbolicTangentGenerator()
@@ -92,7 +93,7 @@ class HiperbolicTangentView : ViewBase<GData, HiperbolicTangentGenerator, Hiperb
         chart.xMaxProperty.bind(spnGMax.valueProperty())
     }
 
-    override fun refreshData(generator: HiperbolicTangentGenerator, iterations: Int): List<GData> =
+    override fun refreshData(generator: HiperbolicTangentGenerator, iterations: Int): List<RData> =
         if (chart.width > 0)
             generator.generate(
                 spnX0.value, super.chart.xMin, super.chart.xMax,

@@ -3,12 +3,12 @@ package rafael.logistic.maps.hiperbolic_tangent
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
-import rafael.logistic.maps.hiperbolic_tangent.data.GData
+import rafael.logistic.maps.bifurcation.RData
 import tornadofx.getValue
 import tornadofx.setValue
 import tornadofx.toProperty
 
-class HiperbolicTangentCanvas : CanvasChart<GData>() {
+class HiperbolicTangentCanvas : CanvasChart<RData>() {
 
     // @formatter:off
 
@@ -17,7 +17,7 @@ class HiperbolicTangentCanvas : CanvasChart<GData>() {
 
     // @formatter:on
 
-    private fun rSequenceToCoordinates(rSequence: GData, pixSep: Int, yToCanvas: (Double) -> Int): List<PixelInfo> {
+    private fun rSequenceToCoordinates(rSequence: RData, pixSep: Int, yToCanvas: (Double) -> Int): List<PixelInfo> {
         // Depepdendo do convergenceType, o tamanho rSequence.values pode variar
         val size = rSequence.values.size
 
