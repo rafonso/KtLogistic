@@ -11,17 +11,11 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.maps.hiperbolic_tangent.data.GData
-import rafael.logistic.maps.hiperbolic_tangent.data.HiperbolicTangentGenerator
+import rafael.logistic.maps.hiperbolic_tangent.data.*
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
-
-private const val R_MIN = 0.0
-private const val R_MAX = 17.0
-private const val X_MIN = 0.0
-private const val X_MAX = 5.0
 
 class HiperbolicTangentView : ViewBase<GData, HiperbolicTangentGenerator, HiperbolicTangentCanvas>(
     "Hiperbolic Tangent Canvas",
@@ -42,11 +36,11 @@ class HiperbolicTangentView : ViewBase<GData, HiperbolicTangentGenerator, Hiperb
         SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).asObservable())
 
     private val spnGMin: Spinner<Double> by fxid()
-    private val gMinValueFactory = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
+    private val gMinValueFactory = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MIN, 0.1)
 
 
     private val spnGMax: Spinner<Double> by fxid()
-    private val gMaxValueFactory = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
+    private val gMaxValueFactory = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MAX, 0.1)
 
     private val deltaGLimitProperty = 1.toProperty()
     private val deltaGStepProperty = (0.1).toProperty()
