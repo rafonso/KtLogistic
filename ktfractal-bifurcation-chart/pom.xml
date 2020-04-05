@@ -20,12 +20,12 @@
         <dependency>
             <groupId>rafael.ktfractal</groupId>
             <artifactId>ktfractal-core</artifactId>
-            <version>0.5</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>rafael.ktfractal</groupId>
             <artifactId>ktfractal-bifurcation</artifactId>
-            <version>0.5</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
