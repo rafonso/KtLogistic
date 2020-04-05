@@ -11,17 +11,11 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.maps.bifurcation.BifurcationGenerator
-import rafael.logistic.maps.bifurcation.RData
+import rafael.logistic.maps.bifurcation.*
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
-
-private const val R_MIN = 0.0
-private const val R_MAX = 4.0
-private const val X_MIN = 0.0
-private const val X_MAX = 1.0
 
 class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>(
     "Bifurcation Canvas",
