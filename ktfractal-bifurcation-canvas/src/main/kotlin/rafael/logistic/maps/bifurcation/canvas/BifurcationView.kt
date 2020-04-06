@@ -29,7 +29,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
     private val x0ValueFactory = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
     private val spnSkip: Spinner<Int> by fxid()
-    private val skipValueFactory = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
+    private val skipValueFactory = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 90, 0, 1)
 
     private val spnPixelsSeparation: Spinner<Int> by fxid()
     private val pixelsSeparationValueFactory =
@@ -102,7 +102,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)
-        super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
+        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 it?.let { status ->
@@ -110,7 +110,6 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
                 }
             }
         }
-        chart.refreshData()
     }
 
 }
