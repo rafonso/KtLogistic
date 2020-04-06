@@ -140,7 +140,7 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
         }
 
         lblPosMouse.bind(chart)
-        super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
+        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 it?.let { status ->

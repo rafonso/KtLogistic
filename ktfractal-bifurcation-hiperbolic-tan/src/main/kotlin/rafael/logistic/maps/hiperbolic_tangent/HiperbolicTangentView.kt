@@ -104,7 +104,7 @@ class HiperbolicTangentView : ViewBase<RData, HiperbolicTangentGenerator, Bifurc
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)
-        super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
+        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 it?.let { status ->

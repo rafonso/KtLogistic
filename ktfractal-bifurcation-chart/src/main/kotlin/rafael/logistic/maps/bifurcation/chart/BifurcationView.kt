@@ -88,7 +88,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationChart>(
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)
-        super.generationStatusProperty().addListener(GenerationStatusChronometerListener())
+        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 lblStatus.text = it?.toString()
