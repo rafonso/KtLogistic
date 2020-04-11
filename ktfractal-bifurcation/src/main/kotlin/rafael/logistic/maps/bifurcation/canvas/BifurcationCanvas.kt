@@ -6,6 +6,7 @@ import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
 import rafael.logistic.maps.bifurcation.RData
 import tornadofx.toProperty
+import java.util.stream.Collectors
 
 class BifurcationCanvas : CanvasChart<RData>() {
 
@@ -42,7 +43,8 @@ class BifurcationCanvas : CanvasChart<RData>() {
         val pixSep = pixelsSeparationProperty.value
         val colorCache = mutableMapOf<Int, Color>()
 
-        return data.flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache) }
+        return data.parallelStream().flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache).stream() }
+            .collect(Collectors.toList())
     }
 
 }

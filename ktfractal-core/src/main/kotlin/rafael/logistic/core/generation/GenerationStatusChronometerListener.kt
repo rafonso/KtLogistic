@@ -29,14 +29,11 @@ class GenerationStatusChronometerListener private constructor() : ChangeListener
     ) {
         val now = LocalTime.now()
 
-        if(oldValue == GenerationStatus.IDLE || oldValue == GenerationStatus.CALCULATING) {
-            Throwable(oldValue.toString()).printStackTrace()
-        }
-
         if (oldValue == GenerationStatus.IDLE) {
             print(now)
         } else if (priorTime != null) { //  && (newValue != GenerationStatus.IDLE)) {
-            print("\t${oldValue?.code}: %4d".format(Duration.between(priorTime, now).toMillis()))
+            print("\t%4d".format(Duration.between(priorTime, now).toMillis()))
+//            print("\t${oldValue?.code}: %4d".format(Duration.between(priorTime, now).toMillis()))
         }
         if (newValue == GenerationStatus.IDLE) {
             println()
