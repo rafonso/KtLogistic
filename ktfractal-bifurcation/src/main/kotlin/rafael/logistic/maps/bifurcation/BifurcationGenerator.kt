@@ -18,32 +18,40 @@ abstract class BifurcationGenerator : IterationGenerator<Double, RData, Bifurcat
         col: Int, previousValue: Double,
         r: Double,
         maxIterations: Int,
-        sequenceSkipper: (Data) -> Data,
-        sequenceForR: MutableList<Double>
+        sequenceSkipper: (DoubleArray) -> DoubleArray,
+        i: Int,
+        sequenceForR: DoubleArray
     ): RData {
-        if (sequenceForR.size == maxIterations) {
+        if (i == maxIterations) {
             return RData(col, r, sequenceSkipper(sequenceForR))
         }
 
         val currentValue = getNextX(r, previousValue)
-        sequenceForR.add(currentValue)
+        sequenceForR[i] = currentValue
         return calculate(
             col, currentValue,
-            r, maxIterations, sequenceSkipper, sequenceForR
+            r, maxIterations, sequenceSkipper, i + 1, sequenceForR
         )
     }
 
     protected abstract fun getNextX(r: Double, x: Double): Double
 
     override fun generate(x0: Double, parameter: BifurcationParameter, interactions: Int): List<RData> {
-        val sequenceSkipper: (List<Double>) -> List<Double> = if (parameter.percentToSkip == 0) { s -> s }
-        else { s -> s.subList((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
+        val sequenceSkipper: (DoubleArray) -> DoubleArray = if (parameter.percentToSkip == 0) { s -> s }
+        else { s -> s.copyOfRange((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
 
         return (0..parameter.stepsForR)
             .map { step -> Pair(step, step * parameter.rStep + parameter.rMin) }
             .toList().parallelStream()
             .map { (col, r) ->
-                calculate(col, x0, r, parameter.iterationsPerR, sequenceSkipper, mutableListOf(x0))
+                calculate(
+                    col,
+                    x0,
+                    r,
+                    parameter.iterationsPerR,
+                    sequenceSkipper,
+                    1,
+                    DoubleArray(parameter.iterationsPerR).also { it[0] = x0 })
             }
             .collect(Collectors.toList())
     }

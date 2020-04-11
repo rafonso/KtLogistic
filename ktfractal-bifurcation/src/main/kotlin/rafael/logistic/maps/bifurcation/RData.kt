@@ -1,5 +1,21 @@
 package rafael.logistic.maps.bifurcation
 
-typealias Data = List<Double>
+data class RData(val col: Int, val r: Double, val values: DoubleArray) {
 
-data class RData(val col: Int, val r: Double, val values: Data)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RData) return false
+
+        if (col != other.col) return false
+        if (r != other.r) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = col
+        result = 31 * result + r.hashCode()
+        return result
+    }
+
+}
