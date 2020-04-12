@@ -27,7 +27,7 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     // @formatter:off
 
     override val iterationsValueFactory :   SpinnerValueFactory<Int>
-            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500).asObservable())
+            = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500, 1000).asObservable())
 
     protected   val spnXMin             :   Spinner<Double>     by  fxid()
     protected   val xMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
@@ -113,7 +113,7 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
         return generator.generate(
-            BiDouble(0.0, 0.0), JuliaParameter(
+            BiDouble.ZERO, JuliaParameter(
                 cXProperty.value, cYProperty.value,
                 spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
                 spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
