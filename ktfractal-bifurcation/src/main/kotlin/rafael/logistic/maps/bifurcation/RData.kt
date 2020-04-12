@@ -8,6 +8,7 @@ data class RData(val col: Int, val r: Double, val values: DoubleArray) {
 
         if (col != other.col) return false
         if (r != other.r) return false
+        if (!values.contentEquals(other.values)) return false
 
         return true
     }
@@ -15,6 +16,7 @@ data class RData(val col: Int, val r: Double, val values: DoubleArray) {
     override fun hashCode(): Int {
         var result = col
         result = 31 * result + r.hashCode()
+        result = 31 * result + values.contentHashCode()
         return result
     }
 
