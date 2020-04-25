@@ -12,8 +12,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.5.2</junit.version>
-        <kotlin.version>1.3.60</kotlin.version>
+        <maven.compiler.target>10</maven.compiler.target>
+        <maven.compiler.source>10</maven.compiler.source>
+        <kotlin.version>1.3.72</kotlin.version>
         <tornadofx.version>1.7.19</tornadofx.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlin.code.style>official</kotlin.code.style>
@@ -61,7 +62,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>10</jvmTarget>
                 </configuration>
             </plugin>
         </plugins>
