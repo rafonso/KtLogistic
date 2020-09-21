@@ -72,7 +72,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
         val prefs = Preferences.userRoot().node(this.javaClass.name)
         val imageDir = prefs.get("imageDir", System.getProperty("user.home"))
         val imageName = getImageName() + ".png"
-
+/*
         chooseFile(
             "Export Image",
             arrayOf(FileChooser.ExtensionFilter("PNG File", listOf("*.png"))),
@@ -89,6 +89,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
                 }
             }
         }
+ */
     }
 
 

@@ -12,10 +12,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>10</maven.compiler.target>
-        <maven.compiler.source>10</maven.compiler.source>
-        <kotlin.version>1.3.72</kotlin.version>
-        <tornadofx.version>1.7.19</tornadofx.version>
+        <jdk.version>1.8</jdk.version>
+        <maven.compiler.target>${jdk.version}</maven.compiler.target>
+        <maven.compiler.source>${jdk.version}</maven.compiler.source>
+        <kotlin.version>1.4.10</kotlin.version>
+        <tornadofx.version>1.7.20</tornadofx.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlin.code.style>official</kotlin.code.style>
     </properties>
@@ -62,7 +63,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>10</jvmTarget>
+                    <jvmTarget>${jdk.version}</jvmTarget>
                 </configuration>
             </plugin>
         </plugins>
