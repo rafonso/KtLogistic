@@ -72,14 +72,14 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
         val prefs = Preferences.userRoot().node(this.javaClass.name)
         val imageDir = prefs.get("imageDir", System.getProperty("user.home"))
         val imageName = getImageName() + ".png"
-/*
+
         chooseFile(
             "Export Image",
             arrayOf(FileChooser.ExtensionFilter("PNG File", listOf("*.png"))),
+            File(imageDir),
             FileChooserMode.Save,
             super.currentWindow
         ) {
-            this.initialDirectory = File(imageDir)
             this.initialFileName = imageName
         }.firstOrNull()?.let { imageFile ->
             if (chart.exportImageTo(imageFile)) {
@@ -89,7 +89,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
                 }
             }
         }
- */
+
     }
 
 
