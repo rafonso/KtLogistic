@@ -102,7 +102,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
          <children>
-            <MouseRealPosNode fx:id="lblPosMouse" />
+            <MouseRealPosNode fx:id="lblPosMouse" prefWidth="300.0"/>
             <Label fx:id="lblStatus" prefWidth="200.0" text="XXXXXXXX" />
          </children>
       </FlowPane>

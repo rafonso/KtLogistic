@@ -8,9 +8,15 @@ import javafx.scene.control.TextField
 import javafx.scene.input.Clipboard
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.FlowPane
 import tornadofx.*
 
-class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
+class MouseRealPosNode : FlowPane() {
+
+    private val txtPos = TextField("(+0.123456789, -0.98654321)").also { txf ->
+        txf.isEditable = false
+        txf.prefWidth = 300.0
+    }
 
     private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
@@ -38,7 +44,8 @@ class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
     var showYSign by showYSignProperty
 
     init {
-        isEditable = false
+        super.getChildren().add(txtPos)
+//        txtPos.minWidth = 300.0
 
         deltaXByPixelProperty.onChange { xDigitsProperty.value = posFirstDigit(it) }
         deltaYByPixelProperty.onChange { yDigitsProperty.value = posFirstDigit(it) }
@@ -58,11 +65,9 @@ class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
     }
 
     private fun writePos() {
-        super.setText(
+        txtPos.text =
                 if (mousePositionRealProperty.value == null) ""
                 else formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y)
-        )
-
     }
 
     fun bind(chart: MapChart<*, *>) {
@@ -71,7 +76,7 @@ class MouseRealPosNode : TextField("(+0.123456789, -0.98654321)") {
         deltaYByPixelProperty.bind(chart.deltaYByPixelProperty)
         chart.addEventHandler(MouseEvent.MOUSE_CLICKED) { event ->
             if (event.button == MouseButton.MIDDLE) {
-                Clipboard.getSystemClipboard().putString(text)
+                Clipboard.getSystemClipboard().putString(txtPos.text)
             }
         }
     }
