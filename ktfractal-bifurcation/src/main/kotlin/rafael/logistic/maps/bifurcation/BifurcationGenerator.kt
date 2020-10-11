@@ -36,14 +36,19 @@ abstract class BifurcationGenerator : IterationGenerator<Double, RData, Bifurcat
 
     protected abstract fun getNextX(r: Double, x: Double): Double
 
-    override fun generate(x0: Double, parameter: BifurcationParameter, interactions: Int): List<RData> {
+    override fun generate(
+        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") x0: Double,
+        parameter: BifurcationParameter,
+        interactions: Int
+    ): List<RData> {
         val sequenceSkipper: (DoubleArray) -> DoubleArray = if (parameter.percentToSkip == 0) { s -> s }
         else { s -> s.copyOfRange((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
 
         return (0..parameter.stepsForR)
-            .map { step -> Pair(step, step * parameter.rStep + parameter.rMin) }
             .toList().parallelStream()
-            .map { (col, r) ->
+            .map { col ->
+                val r = col * parameter.rStep + parameter.rMin
+
                 calculate(
                     col,
                     x0,

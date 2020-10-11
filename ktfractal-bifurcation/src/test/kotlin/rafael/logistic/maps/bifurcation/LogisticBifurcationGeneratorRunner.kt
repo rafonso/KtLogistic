@@ -20,7 +20,7 @@ fun main() {
     // Heating
     repeat(10) { generator.generate(x0Min, rMin, rMax, stepsForR, percentToSkip, iterationsPerR) }
 
-    val t0 = LocalTime.now()
+    val t0 = System.currentTimeMillis()
 
     (0..x0Step).forEach { i ->
         val x0 = x0Min + deltaX0 * i
@@ -33,7 +33,6 @@ fun main() {
         println("\t${Duration.between(t0i, t1i).toMillis()}")
     }
 
-    val t1 = LocalTime.now()
     println("-".repeat(60))
-    println("TEMPO TOTAL: ${Duration.between(t0, t1)}")
+    println("TEMPO TOTAL: ${System.currentTimeMillis() - t0}")
 }
