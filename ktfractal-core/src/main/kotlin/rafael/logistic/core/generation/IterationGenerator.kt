@@ -41,18 +41,34 @@ abstract class IterationGeneratorBase<T, P : IterationParameter> : IterationGene
 
     abstract fun calculate(parameter: P, value: T): T
 
-    private tailrec fun iterate(parameter: P, interactions: Int, interaction: Int, priorValue: T, values: List<T>): List<T> {
-        val value = calculate(parameter, priorValue)
+    abstract fun createArray(interactions: Int): Array<T>
 
-        return if (interaction == interactions) values + value
-        else iterate(parameter, interactions, interaction + 1, value, values + value)
+    private tailrec fun iterate(parameter: P, i: Int, priorValue: T, values: Array<T>): List<T> {
+        if (i >= values.size) {
+            return values.toList()
+        }
+
+        val value = calculate(parameter, priorValue)
+        values[i] = value
+
+        return iterate(parameter, i + 1, value, values)
     }
 
     override fun generate(initialValue: T, parameter: P, interactions: Int): List<T> =
-            iterate(parameter, interactions, 1, initialValue, listOf(initialValue))
+        iterate(parameter, 1, initialValue, createArray(interactions).also { arr ->
+            arr[0] = initialValue
+        })
 
 }
 
-typealias IterationGeneratorDouble<P> = IterationGeneratorBase<Double, P>
+abstract class IterationGeneratorDouble<P : IterationParameter> :IterationGeneratorBase<Double, P>() {
 
-typealias IterationGeneratorBi<P> = IterationGeneratorBase<BiDouble, P>
+    override fun createArray(interactions: Int): Array<Double> = Array(interactions) { Double.NaN }
+
+}
+
+abstract class IterationGeneratorBi<P : IterationParameter> :IterationGeneratorBase<BiDouble, P>() {
+
+    override fun createArray(interactions: Int): Array<BiDouble> = Array(interactions) { BiDouble.NAN }
+
+}
