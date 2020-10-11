@@ -1,3 +1,5 @@
+@file:Suppress("LeakingThis")
+
 package rafael.logistic.core.fx.view
 
 import javafx.beans.binding.Bindings

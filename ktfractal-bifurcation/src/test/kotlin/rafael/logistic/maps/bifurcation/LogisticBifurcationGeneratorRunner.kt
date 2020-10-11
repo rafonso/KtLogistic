@@ -18,7 +18,7 @@ fun main() {
     val generator = LogisticBifurcationGenerator()
 
     // Heating
-    (0..10).forEach { generator.generate(x0Min, rMin, rMax, stepsForR, percentToSkip, iterationsPerR) }
+    repeat(10) { generator.generate(x0Min, rMin, rMax, stepsForR, percentToSkip, iterationsPerR) }
 
     val t0 = LocalTime.now()
 

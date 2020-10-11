@@ -13,6 +13,7 @@ class IterationChartDouble(
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<Double>(xAxis, yAxis, data) {
 
+    @Suppress("unused")
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Int, Double>>().asObservable<Series<Int, Double>>())
 

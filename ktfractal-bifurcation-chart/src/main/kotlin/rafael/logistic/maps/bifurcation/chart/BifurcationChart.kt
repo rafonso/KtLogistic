@@ -21,11 +21,6 @@ class BifurcationChart(
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<RData>(xAxis, yAxis, data) {
 
-    constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
-
-    // @formatter:off
-
             val     x0Property  =   (0.0).toProperty()
     private val     x0          by  x0Property
 

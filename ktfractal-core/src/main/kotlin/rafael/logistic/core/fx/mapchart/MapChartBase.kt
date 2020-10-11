@@ -1,3 +1,5 @@
+@file:Suppress("LeakingThis")
+
 package rafael.logistic.core.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
@@ -21,11 +23,6 @@ abstract class MapChartBase<T>(
     yAxis: Axis<Double>,
     data: ObservableList<Series<Double, Double>>
 ) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
-
-    constructor(xAxis: Axis<Double>, yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
-
-    // @formatter:off
 
     protected val background: Node = super.lookup(".chart-plot-background")
 

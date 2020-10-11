@@ -20,16 +20,16 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
     val x0Property = (0.0).toProperty()
     private val x0 by x0Property
 
-    override val xMinProperty = (0.0).toProperty()
+    final override val xMinProperty = (0.0).toProperty()
     override val xMin by xMinProperty
 
-    override val xMaxProperty = (0.0).toProperty()
+    final override val xMaxProperty = (0.0).toProperty()
     override val xMax by xMaxProperty
 
-    override val yMinProperty = (0.0).toProperty()
+    final override val yMinProperty = (0.0).toProperty()
     override val yMin by yMinProperty
 
-    override val yMaxProperty = (0.0).toProperty()
+    final override val yMaxProperty = (0.0).toProperty()
     override val yMax by yMaxProperty
 
     private val deltaXByPixelProp = (0.0).toProperty()

@@ -19,9 +19,6 @@ abstract class MapChartDouble(
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<Double>(xAxis, yAxis, data) {
 
-    constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
-            this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
-
     private fun refreshXY() {
         plotLines(getBounds()) { l, _ -> l.stroke = Color.BLUE }
     }

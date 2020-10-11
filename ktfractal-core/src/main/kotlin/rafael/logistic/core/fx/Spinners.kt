@@ -35,12 +35,12 @@ private fun IntegerProperty.decrementConditional() {
 }
 
 private val incrementAction: Map<Enum<*>, KFunction1<IntegerProperty, Unit>> = mapOf(
-        // @formatter:off
-        Pair(KeyCode    .RIGHT      , IntegerProperty::incrementConditional),
-        Pair(KeyCode    .LEFT       , IntegerProperty::decrementConditional),
-        Pair(MouseButton.PRIMARY    , IntegerProperty::decrementConditional),
-        Pair(MouseButton.SECONDARY  , IntegerProperty::incrementConditional)
-        // @formatter:on
+    // @formatter:off
+    Pair(KeyCode.RIGHT, IntegerProperty::incrementConditional),
+    Pair(KeyCode.LEFT, IntegerProperty::decrementConditional),
+    Pair(MouseButton.PRIMARY, IntegerProperty::decrementConditional),
+    Pair(MouseButton.SECONDARY, IntegerProperty::incrementConditional)
+    // @formatter:on
 )
 
 private fun Spinner<*>.incrementValue(event: Event) {
@@ -50,7 +50,7 @@ private fun Spinner<*>.incrementValue(event: Event) {
             if (event.deltaY > 0) this.increment(delta)
             if (event.deltaY < 0) this.decrement(delta)
         }
-        is KeyEvent    -> {
+        is KeyEvent -> {
             if (event.eventType == KeyEvent.KEY_PRESSED) {
                 if (event.isControlDown) {
                     if (event.code == KeyCode.UP) {
@@ -94,8 +94,8 @@ private fun Spinner<Double>.stepChanged(step: Int) {
             this.converter = SpinnerConverter(step)
             this.amountToStepBy = (0.1).pow(step)
             val strValue = DecimalFormat("#." + "#".repeat(step))
-                    .apply { roundingMode = RoundingMode.DOWN }
-                    .format(this.value).replace(",", ".")
+                .apply { roundingMode = RoundingMode.DOWN }
+                .format(this.value).replace(",", ".")
             this.value = this.converter.fromString(strValue)
             this@stepChanged.editor.text = this.converter.toString(this.value)
         }
@@ -161,7 +161,8 @@ fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toStri
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> = this.bind(valueFactory, ChangeListener { _: ObservableValue<out Any>?, _: Any, _: Any -> action() })
+fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
+    this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
 
 /**
  * Configura um [Spinner] de [Double]s
@@ -169,8 +170,10 @@ fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): C
  * @param valueFactory [DoubleSpinnerValueFactory] do Spinner
  * @param deltaProperty
  */
-fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
-                                     deltaProperty: IntegerProperty, action: () -> Unit): ChangeListener<*> {
+fun Spinner<Double>.configureActions(
+    valueFactory: DoubleSpinnerValueFactory,
+    deltaProperty: IntegerProperty, action: () -> Unit
+): ChangeListener<*> {
     val listener: ChangeListener<*> = this.bind(valueFactory, action)
 
     // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
@@ -193,9 +196,9 @@ fun Spinner<Double>.configureActions(valueFactory: DoubleSpinnerValueFactory,
  * @return [ChangeListener] "embalando" `action`
  */
 fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> =
-        this.bind(valueFactory, action).also {
-            this.editor.alignment = Pos.CENTER_RIGHT
-        }
+    this.bind(valueFactory, action).also {
+        this.editor.alignment = Pos.CENTER_RIGHT
+    }
 
 /**
  * Víncula os valores mínimos e máximos de  dois [Spinner]s.
@@ -210,9 +213,11 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
  * @return [ChangeListener]s relacionados a `spnMin` e `spnMax` "embalando" `action`
  *
  */
-fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
-                            spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
-                            deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit): Pair<ChangeListener<*>, ChangeListener<*>> {
+fun configureMinMaxSpinners(
+    spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
+    spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
+    deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit
+): Pair<ChangeListener<*>, ChangeListener<*>> {
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
     }
@@ -220,8 +225,10 @@ fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpin
     val listenerSpnMin = spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
     val listenerSpnMax = spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
 
-    minValueFactory.maxProperty().bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
-    maxValueFactory.minProperty().bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
+    minValueFactory.maxProperty()
+        .bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
+    maxValueFactory.minProperty()
+        .bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
 
     return Pair(listenerSpnMin, listenerSpnMax)
 }
@@ -235,5 +242,5 @@ fun configureMinMaxSpinners(spnMin: Spinner<Double>, minValueFactory: DoubleSpin
  * @param amountToStepBy valor do passso  [DoubleSpinnerValueFactory#amountToStepBy]
  */
 fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
-        DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
+    DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
 
