@@ -15,24 +15,30 @@ data class BifurcationParameter(
 abstract class BifurcationGenerator : IterationGenerator<Double, RData, BifurcationParameter> {
 
     private tailrec fun calculate(
-        col: Int, previousValue: Double,
+        col: Int,
+        previousValue: Double,
         r: Double,
-        maxIterations: Int,
         sequenceSkipper: (DoubleArray) -> DoubleArray,
         i: Int,
-        sequenceForR: DoubleArray
+        values: DoubleArray
     ): RData {
-        if (i == maxIterations) {
-            return RData(col, r, sequenceSkipper(sequenceForR))
+        if (i >= values.size) {
+            return RData(col, r, sequenceSkipper(values))
         }
 
         val currentValue = getNextX(r, previousValue)
-        sequenceForR[i] = currentValue
+        values[i] = currentValue
         return calculate(
             col, currentValue,
-            r, maxIterations, sequenceSkipper, i + 1, sequenceForR
+            r, sequenceSkipper, i + 1, values
         )
     }
+
+    protected open fun initValues(sequence: DoubleArray, x0: Double) {
+        sequence[0] = x0
+    }
+
+    protected open fun initPosSequence(): Int = 1
 
     protected abstract fun getNextX(r: Double, x: Double): Double
 
@@ -48,21 +54,22 @@ abstract class BifurcationGenerator : IterationGenerator<Double, RData, Bifurcat
             .toList().parallelStream()
             .map { col ->
                 val r = col * parameter.rStep + parameter.rMin
+                val values = DoubleArray(parameter.iterationsPerR)
+                initValues(values, x0)
+                val initPos = initPosSequence()
 
                 calculate(
                     col,
                     x0,
                     r,
-                    parameter.iterationsPerR,
                     sequenceSkipper,
-                    1,
-                    DoubleArray(parameter.iterationsPerR).also { it[0] = x0 })
+                    initPos,
+                    values)
             }
             .collect(Collectors.toList())
     }
 
-
-    fun generate(
+    open fun generate(
         x0: Double,
         rMin: Double,
         rMax: Double,
