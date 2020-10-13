@@ -110,6 +110,7 @@ class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>
                 }
             }
         }
+        chart.refreshData()
     }
 
 }
