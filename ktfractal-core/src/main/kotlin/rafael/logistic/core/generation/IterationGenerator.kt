@@ -41,7 +41,13 @@ abstract class IterationGeneratorBase<T, P : IterationParameter> : IterationGene
 
     abstract fun calculate(parameter: P, value: T): T
 
-    abstract fun createArray(interactions: Int): Array<T>
+    /**
+     * Cria um [Array] do tipo [T] que será preenchido os dados a serem retornados.
+     *
+     * @param size tamanho do array
+     * @return Array do tipo [T] com o amanho solicitado
+     */
+    protected abstract fun createArray(size: Int): Array<T>
 
     private tailrec fun iterate(parameter: P, i: Int, priorValue: T, values: Array<T>): List<T> {
         if (i >= values.size) {
@@ -61,14 +67,20 @@ abstract class IterationGeneratorBase<T, P : IterationParameter> : IterationGene
 
 }
 
+/**
+ * [IterationGenerator] que retorna um uma lista de [Double]
+ */
 abstract class IterationGeneratorDouble<P : IterationParameter> :IterationGeneratorBase<Double, P>() {
 
-    override fun createArray(interactions: Int): Array<Double> = Array(interactions) { Double.NaN }
+    override fun createArray(size: Int): Array<Double> = Array(size) { Double.NaN }
 
 }
 
+/**
+ * [IterationGenerator] que retorna um uma lista de [BiDouble]
+ */
 abstract class IterationGeneratorBi<P : IterationParameter> :IterationGeneratorBase<BiDouble, P>() {
 
-    override fun createArray(interactions: Int): Array<BiDouble> = Array(interactions) { BiDouble.NAN }
+    override fun createArray(size: Int): Array<BiDouble> = Array(size) { BiDouble.NAN }
 
 }
