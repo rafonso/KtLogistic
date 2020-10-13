@@ -91,5 +91,6 @@
         <module>ktfractal-mandelbrot-set</module>
         <module>ktfractal-template</module>
         <module>ktfractal-bifurcation-hiperbolic-tan</module>
+        <module>ktfractal-bifurcation-henon</module>
     </modules>
 </project>
