@@ -11,8 +11,9 @@ object JuliaGeneratorStub : JuliaGenerator() {
     override fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int? = 1
 }
 
-fun heat() {
-    val parameter = JuliaParameter(0.0, 0.0, 0.0, 100.0, 1, 0.0, 100.0, 1)
+fun heat(w: Int, h: Int) {
+    println("Heating for $w x $h = ${w * h}")
+    val parameter = JuliaParameter(0.0, 0.0, 0.0, 100.0, w, 0.0, 100.0, h)
     (1..100).forEach { _ -> JuliaGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
 }
 
@@ -22,14 +23,17 @@ fun execute(width: Int, height: Int) {
     val parameter = JuliaParameter(0.0, 0.0, 0.0, 100.0, width, 0.0, 100.0, height)
 
     val t0 = System.currentTimeMillis()
-    (1..CYCLES).forEach { _ -> JuliaGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
+    repeat(CYCLES) { JuliaGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
     val deltaT = System.currentTimeMillis() - t0
 
     println("%6d".format(deltaT))
 }
 
 fun main() {
-    heat()
+    heat(10, 10)
+    heat(101, 101)
+
+    println("Running ...")
 
     widthsHights.forEach { (w, h) -> execute(w, h) }
 }
