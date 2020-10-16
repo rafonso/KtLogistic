@@ -19,12 +19,12 @@ import kotlin.math.pow
 import kotlin.math.sign
 import kotlin.reflect.KFunction1
 
-/**
+/*
  * Configuração dos [Spinner]s
  */
 
-const val MIN_STEP = 1
-const val MAX_STEP = 10
+private const val MIN_STEP = 1
+private const val MAX_STEP = 10
 
 private fun IntegerProperty.incrementConditional() {
     this.value = min(MAX_STEP, this.value + 1)
@@ -36,32 +36,32 @@ private fun IntegerProperty.decrementConditional() {
 
 private val incrementAction: Map<Enum<*>, KFunction1<IntegerProperty, Unit>> = mapOf(
     // @formatter:off
-    Pair(KeyCode.RIGHT, IntegerProperty::incrementConditional),
-    Pair(KeyCode.LEFT, IntegerProperty::decrementConditional),
-    Pair(MouseButton.PRIMARY, IntegerProperty::decrementConditional),
-    Pair(MouseButton.SECONDARY, IntegerProperty::incrementConditional)
+    Pair(KeyCode    .RIGHT      , IntegerProperty::incrementConditional),
+    Pair(KeyCode    .LEFT       , IntegerProperty::decrementConditional),
+    Pair(MouseButton.PRIMARY    , IntegerProperty::decrementConditional),
+    Pair(MouseButton.SECONDARY  , IntegerProperty::incrementConditional)
     // @formatter:on
 )
 
 private fun Spinner<*>.incrementValue(event: Event) {
+    // @formatter:off
     when (event) {
-        is ScrollEvent -> {
+        is ScrollEvent  -> {
             val delta = if (event.isControlDown) 10 else 1
             if (event.deltaY > 0) this.increment(delta)
             if (event.deltaY < 0) this.decrement(delta)
         }
-        is KeyEvent -> {
-            if (event.eventType == KeyEvent.KEY_PRESSED) {
-                if (event.isControlDown) {
-                    if (event.code == KeyCode.UP) {
-                        this.increment(10)
-                    } else if (event.code == KeyCode.DOWN) {
-                        this.decrement(10)
-                    }
+        is KeyEvent     -> if (event.eventType == KeyEvent.KEY_PRESSED && event.isControlDown) {
+            when (event.code) {
+                KeyCode.UP      -> this.increment(10)
+                KeyCode.DOWN    -> this.decrement(10)
+                else            -> {
+                    // Do nothinng
                 }
             }
         }
     }
+    // @formatter:on
 }
 
 private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: IntegerProperty) {
@@ -72,8 +72,10 @@ private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: Int
 
 /**
  * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
+ *
+ * @receiver [Spinner]
  */
-fun Spinner<*>.addCopyCapacity() {
+private fun Spinner<*>.addCopyCapacity() {
     this.addEventHandler(KeyEvent.KEY_PRESSED) { event ->
         if (event.isControlDown && (event.code == KeyCode.C || event.code == KeyCode.INSERT)) {
             Clipboard.getSystemClipboard().putString(this.value.toString())
@@ -141,7 +143,7 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
  * @param listener Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListener<in Any>): ChangeListener<out Any> {
+private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListener<in Any>): ChangeListener<out Any> {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
@@ -161,18 +163,20 @@ fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toStri
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
+private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
     this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
 
 /**
  * Configura um [Spinner] de [Double]s
  *
+ * @receiver [Spinner]
  * @param valueFactory [DoubleSpinnerValueFactory] do Spinner
  * @param deltaProperty
  */
 fun Spinner<Double>.configureActions(
     valueFactory: DoubleSpinnerValueFactory,
-    deltaProperty: IntegerProperty, action: () -> Unit
+    deltaProperty: IntegerProperty,
+    action: () -> Unit
 ): ChangeListener<*> {
     val listener: ChangeListener<*> = this.bind(valueFactory, action)
 
@@ -191,6 +195,7 @@ fun Spinner<Double>.configureActions(
  * Confuigura os [Spinner]s do tipo [Int]. Configurando a ação a ser feita ao mudar o valor e alinhado o texto do
  * mesmo à direita.
  *
+ * @receiver [Spinner] do tipo [Int]
  * @param valueFactory [SpinnerValueFactory] a ser usado
  * @param action ação a ser feita ao mudar o valor.
  * @return [ChangeListener] "embalando" `action`
@@ -203,14 +208,14 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
 /**
  * Víncula os valores mínimos e máximos de  dois [Spinner]s.
  *
- * @param spnMin Spinner que definirá o valor mínimo
- * @param minValueFactory DoubleSpinnerValueFactory relacionado a `spnMin`
- * @param spnMax Spinner que definirá o valor máxnimo
- * @param maxValueFactory DoubleSpinnerValueFactory relacionado a `spnMax`
+ * @param spnMin [Spinner] que definirá o valor mínimo
+ * @param minValueFactory [DoubleSpinnerValueFactory] relacionado a `spnMin`
+ * @param spnMax [Spinner] que definirá o valor máxnimo
+ * @param maxValueFactory [DoubleSpinnerValueFactory] relacionado a `spnMax`
  * @param deltaLimitProperty
  * @param deltaStepProperty
  * @param action Ação a ser feita ao alterar os valores dos Spinners
- * @return [ChangeListener]s relacionados a `spnMin` e `spnMax` "embalando" `action`
+ * @return [ChangeListener]s relacionados a [spnMin] e [spnMax] "embalando" [action]
  *
  */
 fun configureMinMaxSpinners(
