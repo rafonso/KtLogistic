@@ -3,8 +3,11 @@ package rafael.logistic.core.generation
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import java.time.Duration
-import java.time.LocalTime
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
 
 /**
  * Cronometra os tempos gastos em cada [GenerationStatus].
@@ -20,20 +23,20 @@ class GenerationStatusChronometerListener private constructor() : ChangeListener
         }
     }
 
-    private var priorTime: LocalTime? = null
+    private var priorTime: Instant? = null
 
+    @ExperimentalTime
     override fun changed(
         observable: ObservableValue<out GenerationStatus>?,
         oldValue: GenerationStatus?,
         newValue: GenerationStatus?
     ) {
-        val now = LocalTime.now()
+        val now = Clock.System.now()
 
         if (oldValue == GenerationStatus.IDLE) {
-            print(now)
+            print(now.toLocalDateTime(TimeZone.currentSystemDefault()))
         } else if (priorTime != null) { //  && (newValue != GenerationStatus.IDLE)) {
-            print("\t%4d".format(Duration.between(priorTime, now).toMillis()))
-//            print("\t${oldValue?.code}: %4d".format(Duration.between(priorTime, now).toMillis()))
+            print("\t%4.0f".format((now - priorTime!!).inMilliseconds))
         }
         if (newValue == GenerationStatus.IDLE) {
             println()
