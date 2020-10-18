@@ -15,13 +15,19 @@ private const val MIN_WIDTH = 0.4
 private const val DELTA_WIDTH = MAX_WIDTH - MIN_WIDTH
 
 abstract class MapChartDouble(
-        @NamedArg("xAxis") xAxis: Axis<Double>,
-        @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<Double>(xAxis, yAxis, data) {
+    @NamedArg("xAxis") xAxis: Axis<Double>,
+    @NamedArg("yAxis") yAxis: Axis<Double>,
+    @NamedArg("data") data: ObservableList<Series<Double, Double>>
+) : MapChartBase<Double>(xAxis, yAxis, data) {
 
     private fun refreshXY() {
         plotLines(getBounds()) { l, _ -> l.stroke = Color.BLUE }
     }
+
+    private fun indexToLine(i: Int, coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit) =
+        Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
+            handler(l, i)
+        }
 
     protected fun plotLines(coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit = { _, _ -> }) {
         val elements = coordinatesToLines(coords, handler)
@@ -30,15 +36,12 @@ abstract class MapChartDouble(
     }
 
     private fun coordinatesToLines(coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit): List<Line> =
-            (1 until coords.size)
-                    .toList()
-                    .parallelStream()
-                    .map { i ->
-                        Line(coords[i - 1].first, coords[i - 1].second, coords[i].first, coords[i].second).also { l ->
-                            handler(l, i)
-                        }
-                    }
-                    .collect(Collectors.toList())
+        (1 until coords.size)
+            .toList()
+            .parallelStream()
+            .map { indexToLine(it, coords, handler) }
+            .collect(Collectors.toList())
+
 
     protected abstract fun recalculateBounds()
 
@@ -61,8 +64,8 @@ abstract class MapChartDouble(
 
     override fun dataToElementsToPlot(): List<Node> {
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-                .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
-                .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
+            .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
+            .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
 
         return coordinatesToLines(coords) { l, i ->
             l.stroke = getRainbowColor(i.toDouble() / coords.size)

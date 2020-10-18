@@ -15,12 +15,26 @@ private const val MIN_RADIUS = 0.4
 private const val DELTA_RADIUS = MAX_RADIUS - MIN_RADIUS
 
 class MapChartBi(
-        @NamedArg("xAxis") xAxis: Axis<Double>,
-        @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartBase<BiDouble>(xAxis, yAxis, data) {
+    @NamedArg("xAxis") xAxis: Axis<Double>,
+    @NamedArg("yAxis") yAxis: Axis<Double>,
+    @NamedArg("data") data: ObservableList<Series<Double, Double>>
+) : MapChartBase<BiDouble>(xAxis, yAxis, data) {
 
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
+
+    private fun coordsToCircle(centerX: Double, centerY: Double, pos: Double) =
+        Circle(centerX, centerY, (DELTA_RADIUS * pos + MIN_RADIUS)).apply {
+            stroke = getRainbowColor(pos)
+            fill = stroke
+        }
+
+    private fun biDoubleToCoords(i: Int, p: BiDouble) =
+        Triple(p.x.realToChartX(), p.y.realToChartY(), i.toDouble() / data.size)
+
+    private fun insideBounds(p: BiDouble) =
+        (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&
+                (p.y >= myYAxis.lowerBound) && (p.y <= myYAxis.upperBound)
 
     override fun initialize() {
         super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
@@ -33,19 +47,13 @@ class MapChartBi(
     }
 
     override fun dataToElementsToPlot(): List<Node> = data
-            .filter { p ->
-                (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&
-                        (p.y >= myYAxis.lowerBound) && (p.y <= myYAxis.upperBound)
-            }
-            .mapIndexed { i, p -> Triple(p.x.realToChartX(), p.y.realToChartY(), i.toDouble() / data.size) }
-            .parallelStream()
-            .map { t ->
-                Circle(t.first, t.second, (DELTA_RADIUS * t.third + MIN_RADIUS)).apply {
-                    stroke = getRainbowColor(t.third)
-                    fill = stroke
-                }
-            }
-            .collect(Collectors.toList())
+        .filter(this::insideBounds)
+        .mapIndexed(this::biDoubleToCoords)
+        .parallelStream()
+        .map { (centerX, centerY, pos) ->
+            coordsToCircle(centerX, centerY, pos)
+        }
+        .collect(Collectors.toList())
 
     override fun plotData(elements: List<Node>) {
         background.getChildList()?.addAll(elements)
