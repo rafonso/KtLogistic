@@ -61,8 +61,9 @@ abstract class JuliaGenerator : IterationGenerator<BiDouble, JuliaInfo, JuliaPar
 
                         JuliaInfo(col, row, x, y, iterationsToDiverge)
                     }
-                    .filter { ji -> !ji.converges }
-            }.collect(Collectors.toList())
+            }
+            .filter { ji -> !ji.converges }
+            .collect(Collectors.toList())
     }
 
     private fun generateFromArray(parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
