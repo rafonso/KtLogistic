@@ -92,5 +92,6 @@
         <module>ktfractal-template</module>
         <module>ktfractal-bifurcation-hiperbolic-tan</module>
         <module>ktfractal-bifurcation-henon</module>
+        <module>ktfractal-bifurcation-lozi</module>
     </modules>
 </project>
