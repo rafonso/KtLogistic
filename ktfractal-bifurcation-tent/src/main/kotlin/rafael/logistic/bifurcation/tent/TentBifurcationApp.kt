@@ -1,7 +1,6 @@
 package rafael.logistic.bifurcation.tent
 
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.bifurcation.tent.TentBifurcationView
-import tornadofx.*
+import tornadofx.App
 
 class TentBifurcationApp: App(TentBifurcationView::class, Styles::class)
