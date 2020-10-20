@@ -1,7 +1,7 @@
 package rafael.logistic.set.julia
 
 import javafx.scene.control.Spinner
-import rafael.logistic.map.sets.JuliaView
+import rafael.logistic.map.set.JuliaView
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import tornadofx.*

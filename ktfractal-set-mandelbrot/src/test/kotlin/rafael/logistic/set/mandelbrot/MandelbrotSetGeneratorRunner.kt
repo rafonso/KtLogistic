@@ -1,7 +1,7 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.map.sets.JuliaParameter
+import rafael.logistic.map.set.JuliaParameter
 import java.time.Duration
 import java.time.LocalTime
 

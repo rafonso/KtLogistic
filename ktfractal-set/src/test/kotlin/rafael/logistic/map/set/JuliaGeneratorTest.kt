@@ -1,4 +1,4 @@
-package rafael.logistic.map.sets
+package rafael.logistic.map.set
 
 import rafael.logistic.core.generation.BiDouble
 

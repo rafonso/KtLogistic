@@ -1,6 +1,6 @@
 package rafael.logistic.set.mandelbrot
 
-import rafael.logistic.map.sets.JuliaView
+import rafael.logistic.map.set.JuliaView
 
 class MandelbrotSetView : JuliaView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetGenerator()) {
 
