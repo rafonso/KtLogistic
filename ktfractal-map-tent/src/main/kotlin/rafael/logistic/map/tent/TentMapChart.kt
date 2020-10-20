@@ -10,7 +10,7 @@ import javafx.scene.shape.Path
 import rafael.logistic.core.fx.mapchart.MapChartDouble
 import tornadofx.*
 
-class TentChart(
+class TentMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartDouble(xAxis, yAxis, data) {

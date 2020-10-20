@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-tent-map</artifactId>
+    <artifactId>ktfractal-map-tent</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Tent Map</name>
 

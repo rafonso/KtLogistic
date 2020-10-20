@@ -7,7 +7,7 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
-class TentView : ViewDouble<TentGenerator, TentChart>("Tent", "Tent", TentGenerator()) {
+class TentMapView : ViewDouble<TentMapGenerator, TentMapChart>("Tent Map", "TentMap", TentMapGenerator()) {
 
     // @formatter:off
     private val spnMi           :   Spinner<Double>   by fxid()
@@ -15,7 +15,7 @@ class TentView : ViewDouble<TentGenerator, TentChart>("Tent", "Tent", TentGenera
     private val miValueFactory  =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 2.0, 1.0, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: TentGenerator, iterations: Int): List<Double> =
+    override fun refreshData(generator: TentMapGenerator, iterations: Int): List<Double> =
             generator.generate(x0Property.value, spnMi.value, iterations)
 
     override fun initializeAdditional() {
