@@ -71,6 +71,13 @@
 
     <modules>
         <module>ktfractal-core</module>
+        <module>ktfractal-bifurcation</module>
+        <module>ktfractal-bifurcation-gaussian</module>
+        <module>ktfractal-bifurcation-henon</module>
+        <module>ktfractal-bifurcation-hiperbolic-tan</module>
+        <module>ktfractal-bifurcation-logistic</module>
+        <module>ktfractal-bifurcation-lozi</module>
+        <module>ktfractal-bifurcation-tent</module>
         <module>ktfractal-map-baker</module>
         <module>ktfractal-map-duffing</module>
         <module>ktfractal-map-gaussian</module>
@@ -83,17 +90,9 @@
         <module>ktfractal-map-standard</module>
         <module>ktfractal-map-tent</module>
         <module>ktfractal-map-tinkerbell</module>
-        <module>ktfractal-bifurcation</module>
-        <module>ktfractal-bifurcation-chart</module>
-        <module>ktfractal-bifurcation-logistic</module>
         <module>ktfractal-set</module>
         <module>ktfractal-set-julia</module>
         <module>ktfractal-set-mandelbrot</module>
         <module>ktfractal-template</module>
-        <module>ktfractal-bifurcation-gaussian</module>
-        <module>ktfractal-bifurcation-hiperbolic-tan</module>
-        <module>ktfractal-bifurcation-henon</module>
-        <module>ktfractal-bifurcation-lozi</module>
-        <module>ktfractal-bifurcation-tent</module>
     </modules>
 </project>
