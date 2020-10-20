@@ -88,7 +88,7 @@
         <module>ktfractal-bifurcation-logistic</module>
         <module>ktfractal-set</module>
         <module>ktfractal-set-julia</module>
-        <module>ktfractal-mandelbrot-set</module>
+        <module>ktfractal-set-mandelbrot</module>
         <module>ktfractal-template</module>
         <module>ktfractal-bifurcation-hiperbolic-tan</module>
         <module>ktfractal-bifurcation-henon</module>

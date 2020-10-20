@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
+<?import rafael.logistic.map.sets.JuliaCanvas?>
+<BorderPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <GridPane vgap="5.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
+                <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
+            </rowConstraints>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
+                <Label fx:id="lblXMin" styleClass="title" text="X Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMin"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
+                <Label fx:id="lblXMax" styleClass="title" text="X Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMax"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+                <Label fx:id="lblYMin" styleClass="title" text="Y Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnYMin"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
+                <Label fx:id="lblYMax" styleClass="title" text="Y Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnYMax"/>
+            </FlowPane>
+
+            <FlowPane alignment="TOP_CENTER" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                <Label fx:id="lblIterations" styleClass="title" text="Iterations / Dot =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnIterations"/>
+            </FlowPane>
+
+        </GridPane>
+    </top>
+    <center>
+        <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+            <JuliaCanvas fx:id="chart" height="200.0" width="200.0"/>
+        </FlowPane>
+    </center>
+    <bottom>
+        <FlowPane hgap="5.0" style="-fx-border-width: 1px; -fx-border-style: dashed;" vgap="5.0"
+                  BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </BorderPane.margin>
+            <MouseRealPosNode fx:id="lblPosMouse"/>
+            <Label fx:id="lblStatus" prefWidth="200.0" text="XXXXXXXX"/>
+            <Label fx:id="lblDeltaXY" prefWidth="200.0" text="ΔX - ΔY = 0.0"/>
+        </FlowPane>
+    </bottom>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+</BorderPane>

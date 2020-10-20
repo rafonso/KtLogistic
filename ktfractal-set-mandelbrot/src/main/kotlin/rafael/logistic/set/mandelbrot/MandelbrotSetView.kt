@@ -1,4 +1,4 @@
-package rafael.logistic.sets.mandelbrot
+package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.map.sets.JuliaView
 

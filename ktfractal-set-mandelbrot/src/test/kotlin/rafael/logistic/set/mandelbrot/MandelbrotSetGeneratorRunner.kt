@@ -1,4 +1,4 @@
-package rafael.logistic.sets.mandelbrot
+package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.map.sets.JuliaParameter
