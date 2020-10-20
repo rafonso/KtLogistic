@@ -1,14 +1,14 @@
 package rafael.logistic.map.duffing
 
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
-import tornadofx.*
+import rafael.logistic.core.generation.BiDouble
+import tornadofx.toProperty
 
-class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenerator()) {
+class DuffingMapView : ViewBi<DuffingMapGenerator>("Duffing Map", "DuffingMap", DuffingMapGenerator()) {
 
     override val iniX0Spinner: Double
         get() = 1.0
@@ -23,8 +23,8 @@ class DuffingView : ViewBi<DuffingGenerator>("Duffing", "Duffing", DuffingGenera
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: DuffingGenerator, iterations: Int): List<BiDouble> =
-            generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
+    override fun refreshData(generator: DuffingMapGenerator, iterations: Int): List<BiDouble> =
+        generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {
         spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)

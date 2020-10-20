@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-duffing-map</artifactId>
+    <artifactId>ktfractal-map-duffing</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Duffing Map</name>
 
