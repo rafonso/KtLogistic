@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.toProperty
 
-class StandardView : ViewBi<StandardGenerator>("Standard", "Standard", StandardGenerator()) {
+class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMap", StandardMapGenerator()) {
 
     // @formatter:off
     private val spnK            :   Spinner<Double> by fxid()
@@ -20,7 +20,7 @@ class StandardView : ViewBi<StandardGenerator>("Standard", "Standard", StandardG
         spnK.configureActions(kValueFactory, deltaKProperty, this::loadData)
     }
 
-    override fun refreshData(generator: StandardGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: StandardMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnK.value, iterations)
 
     override fun getImageName1(): String = "standard.K=${spnK.valueToString()}"

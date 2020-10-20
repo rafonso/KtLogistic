@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-standard-map</artifactId>
+    <artifactId>ktfractal-map-standard</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Standard Map</name>
 

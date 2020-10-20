@@ -6,18 +6,21 @@ import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.PI
 import kotlin.math.sin
 
-data class StandardParameter(val k: Double) : IterationParameter
+data class StandardMapParameter(val k: Double) : IterationParameter
 
 // https://en.wikipedia.org/wiki/Standard_map
 // http://mathworld.wolfram.com/StandardMap.html
-class StandardGenerator : IterationGeneratorBi<StandardParameter>() {
+class StandardMapGenerator : IterationGeneratorBi<StandardMapParameter>() {
 
-    override fun calculate(parameter: StandardParameter, point: BiDouble): BiDouble {
+    override fun calculate(
+        parameter: StandardMapParameter,
+        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+    ): BiDouble {
         val y = point.y + parameter.k * sin(point.x) / (2 * PI)
         return BiDouble((point.x + y), y)
     }
 
     fun generate(p0: BiDouble, k: Double, iterations: Int) =
-            super.generate(p0, StandardParameter(k), iterations)
+        super.generate(p0, StandardMapParameter(k), iterations)
 
 }
