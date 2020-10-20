@@ -5,7 +5,6 @@ import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
-import rafael.logistic.map.bifurcation.RData
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.MapChartBase
 import tornadofx.*

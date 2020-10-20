@@ -11,7 +11,6 @@ import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.map.bifurcation.RData
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
