@@ -23,10 +23,10 @@ selecionado.
 #### Execução
 1. Abra um projeto e vá para `src` -> `main` -> `kotlin` 
 -> `[pacote]` e abre o arquivo com final `View`.
-2. Ao abrir, verifique se ao lado da classe `View` aparece 
+2. Ao abrir, verifique se ao lado da classe `App` aparece 
 o ícone do TornadoFX. 
 3. Sobre esse ícone, clique com o botão direto do mouse 
-e seleciona a opção **Create ???View ...**
+e seleciona a opção **Create ???App ...**
 4. Ao abrir o diálogo de configuração vá para a aba 
 **Configuration**, opção **Use classpath of module**. 
 ***Verifique que o projeto indicado é o mesmo projeto do 
@@ -35,26 +35,29 @@ forma vai aparecer a mensagem de erro de que não está
 achando a Classe da view.
 
 #### Relação de projetos e de suas Views
-| Projeto                              | Pacote                                     | Classe                    | Observação |
-| -------------                        |:-------------                              |:-----                     | -----|
-| ktfractal-baker-map                  | `rafael.logitic.maps.baker               ` | `BakerView              ` | |
-| ktfractal-bifurcation-canvas         | `rafael.logitic.maps.bifurcation.canvas  ` | `BifurcationView        ` | |
-| ktfractal-bifurcation-chart          | `rafael.logitic.maps.bifurcation.chart   ` | `BifurcationView        ` | |
-| ktfractal-bifurcation-hiperbolic-tan | `rafael.logitic.maps.hiperbolic_tangent  ` | `HiperbolicTangentView  ` | |
-| ktfractal-bifurcation                |                                            |                           | Projeto base para os `ktfractal-bifurcation`|
-| ktfractal-core                       |                                            |                           | Projeto Pai de todos |
-| ktfractal-duffing-map                | `rafael.logitic.maps.duffing             ` | `DuffingView            ` | |
-| ktfractal-gaussian-map               | `rafael.logitic.maps.gaussian            ` | `GaussianView           ` | |
-| ktfractal-gingerbreadman-map         | `rafael.logitic.maps.gingerbreadman      ` | `GingerbreadmanView     ` | |
-| ktfractal-henon-map                  | `rafael.logitic.maps.henon               ` | `HenonView              ` | |
-| ktfractal-julia-set                  | `rafael.logitic.sets.julia               ` | `JuliaSetView           ` | |
-| ktfractal-kaplanyorke-map            | `rafael.logitic.maps.kaplanyorke         ` | `KaplanYorkeView        ` | |
-| ktfractal-logistic-map               | `rafael.logitic.maps.logistic            ` | `LogisticView           ` | |
-| ktfractal-lozi-map                   | `rafael.logitic.maps.lozi                ` | `LoziView               ` | |
-| ktfractal-mandelbrot-map             | `rafael.logitic.maps.mandelbrot          ` | `MandelbrotView         ` | |
-| ktfractal-mandelbrot-set             | `rafael.logitic.sets.mandelbrot          ` | `MandelbrotSetView      ` | |
-| ktfractal-set                        |                                            |                           | Projeto base para `ktfractal-mandelbrot-set`e `ktfractal-julia-set` |
-| ktfractal-standard-map               | `rafael.logitic.maps.standard            ` | `StandardView           ` | |
-| ktfractal-template                   | `rafael.experimental.template            ` | `TemplateView           ` | |
-| ktfractal-tent-map                   | `rafael.logitic.maps.tent                ` | `TentView               ` | |
-| ktfractal-tinkerbell-map             | `rafael.logitic.maps.tinkerbell          ` | `TinkerbellView         ` | |
+| Projeto                               | Pacote                                            | Classe                            | Observação |
+| -------------                         |:-------------                                     |:-----                             | -----|
+| ktfractal-core                        |                                                   |                                   | Projeto Pai de todos                         |
+| ktfractal-bifurcation                 |                                                   |                                   | Projeto base para os `ktfractal-bifurcation` |
+| ktfractal-bifurcation-gaussian        | `rafael.logistic.bifurcation.gaussian`            | `GaussianBifurcationApp`          |                                              |
+| ktfractal-bifurcation-henon           | `rafael.logistic.bifurcation.henon`               | `HenonBifurcationApp`             |                                              |
+| ktfractal-bifurcation-hiperbolic-tan  | `rafael.logistic.bifurcation.hiperbolic_tangent`  | `HiperbolicTangentBifurcationApp` |                                              |
+| ktfractal-bifurcation-logistic        | `rafael.logistic.bifurcation.logistic`            | `LogisticBifurcationApp`          |                                              |
+| ktfractal-bifurcation-lozi            | `rafael.logistic.bifurcation.lozi`                | `LoziBifurcationApp`              |                                              |
+| ktfractal-bifurcation-tent            | `rafael.logistic.bifurcation.tent`                | `TentBifurcationApp`              |                                              |
+| ktfractal-map-baker                   | `rafael.logistic.map.baker`                       | `BakerMapApp`                     |                                              |
+| ktfractal-map-duffing                 | `rafael.logistic.map.duffing`                     | `DuffingMapApp`                   |                                              |
+| ktfractal-map-gaussian                | `rafael.logistic.map.gaussian`                    | `GaussianMapApp`                  |                                              |
+| ktfractal-map-gingerbreadman          | `rafael.logistic.map.gingerbreadman`              | `GingerbreadmanMapApp`            |                                              |
+| ktfractal-map-henon                   | `rafael.logistic.map.henon`                       | `HenonMapApp`                     |                                              |
+| ktfractal-map-kaplanyorke             | `rafael.logistic.map.kaplanyorke`                 | `KaplanYorkeMapApp`               |                                              |
+| ktfractal-map-logistic                | `rafael.logistic.map.logistic`                    | `LogisticMapApp`                  |                                              |
+| ktfractal-map-lozi                    | `rafael.logistic.map.lozi`                        | `LoziMapApp`                      |                                              |
+| ktfractal-map-mandelbrot              | `rafael.logistic.map.mandelbrot`                  | `MandelbrotMapApp`                |                                              |
+| ktfractal-map-standard                | `rafael.logistic.map.standard`                    | `StandardMapApp`                  |                                              |
+| ktfractal-map-tent                    | `rafael.logistic.map.tent`                        | `TentMapApp`                      |                                              |
+| ktfractal-map-tinkerbell              | `rafael.logistic.map.tinkerbell`                  | `TinkerbellMapApp`                |                                              |
+| ktfractal-set                         |                                                   |                                   | Projeto base para `ktfractal-set`            |
+| ktfractal-set-julia                   | `rafael.logistic.set.julia`                       | `JuliaSetApp`                     |                                              |
+| ktfractal-set-mandelbrot              | `rafael.logistic.set.mandelbrot`                  | `MandelbrotSetApp`                |                                              |
+| ktfractal-template                    | `rafael.experimental.template`                    | `TemplateApp`                     |                                              |
