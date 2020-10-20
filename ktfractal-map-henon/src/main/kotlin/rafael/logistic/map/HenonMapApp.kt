@@ -1,4 +1,4 @@
-package rafael.logistic.map.henon
+package rafael.logistic.map
 
 import rafael.logistic.core.fx.Styles
 import tornadofx.App

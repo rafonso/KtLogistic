@@ -1,4 +1,4 @@
-package rafael.logistic.map.henon
+package rafael.logistic.map
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
