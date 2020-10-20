@@ -2,15 +2,19 @@ package rafael.experimental.template
 
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
+import tornadofx.App
 import tornadofx.disableWhen
 import tornadofx.onChange
 import tornadofx.toProperty
+
+class TemplateApp: App(TemplateView::class, Styles::class)
 
 class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateGenerator()) {
 

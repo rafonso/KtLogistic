@@ -1,7 +1,11 @@
 package rafael.logistic.map.gingerbreadman
 
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.view.ViewBi
+import tornadofx.App
+
+class GingerbreadmanMapApp: App(GingerbreadmanMapView::class, Styles::class)
 
 class GingerbreadmanMapView : ViewBi<GingerbreadmanMapGenerator>("Gingerbreadman Map", "GingerbreadmanMap", GingerbreadmanMapGenerator()) {
 

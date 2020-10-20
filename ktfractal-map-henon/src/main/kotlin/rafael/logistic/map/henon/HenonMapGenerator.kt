@@ -1,4 +1,4 @@
-package rafael.logistic.map
+package rafael.logistic.map.henon
 
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGeneratorBi

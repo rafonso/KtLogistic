@@ -2,10 +2,13 @@ package rafael.logistic.map.tent
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import tornadofx.*
+
+class TentMapApp: App(TentMapView::class, Styles::class)
 
 class TentMapView : ViewDouble<TentMapGenerator, TentMapChart>("Tent Map", "TentMap", TentMapGenerator()) {
 

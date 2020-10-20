@@ -1,7 +1,11 @@
 package rafael.logistic.map.baker
 
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.view.ViewBi
+import tornadofx.App
+
+class BakerMapApp: App(BakerMapView::class, Styles::class)
 
 class BakerMapView : ViewBi<BakerMapGenerator>("Baker Map", "BakerMap", BakerMapGenerator()) {
 

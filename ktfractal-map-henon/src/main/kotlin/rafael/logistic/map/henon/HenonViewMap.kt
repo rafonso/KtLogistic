@@ -1,12 +1,16 @@
-package rafael.logistic.map
+package rafael.logistic.map.henon
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
+import tornadofx.App
+
+class HenonMapApp: App(HenonViewMap::class, Styles::class)
 
 class HenonViewMap : ViewBi<HenonMapGenerator>("Henon Map", "HenonMap", HenonMapGenerator()) {
 

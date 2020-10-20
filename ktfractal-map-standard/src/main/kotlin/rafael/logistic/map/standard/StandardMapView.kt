@@ -2,11 +2,15 @@ package rafael.logistic.map.standard
 
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
+import tornadofx.App
 import tornadofx.toProperty
+
+class StandardMapApp: App(StandardMapView::class, Styles::class)
 
 class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMap", StandardMapGenerator()) {
 

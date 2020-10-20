@@ -4,6 +4,7 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
+import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
@@ -13,10 +14,9 @@ import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.map.bifurcation.RData
 import rafael.logistic.map.bifurcation.BifurcationCanvas
-import tornadofx.asObservable
-import tornadofx.onChange
-import tornadofx.runLater
-import tornadofx.toProperty
+import tornadofx.*
+
+class HenonBifurcationApp: App(HenonBifurcationView::class, Styles::class)
 
 class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, BifurcationCanvas>(
     "Henon Bifurcation",
