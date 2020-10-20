@@ -11,14 +11,14 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.maps.bifurcation.*
+import rafael.logistic.maps.bifurcation.RData
 import rafael.logistic.maps.bifurcation.canvas.BifurcationCanvas
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
 
-class LogisticBifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>(
+class LogisticBifurcationView : ViewBase<RData, LogisticBifurcationGenerator, BifurcationCanvas>(
     "Logistic Bifurcation",
     "LogisticBifurcation",
     LogisticBifurcationGenerator()
@@ -93,7 +93,7 @@ class LogisticBifurcationView : ViewBase<RData, BifurcationGenerator, Bifurcatio
         chart.xMaxProperty.bind(spnRMax.valueProperty())
     }
 
-    override fun refreshData(generator: BifurcationGenerator, iterations: Int): List<RData> =
+    override fun refreshData(generator: LogisticBifurcationGenerator, iterations: Int): List<RData> =
         if (chart.width > 0)
             generator.generate(
                 spnX0.value, super.chart.xMin, super.chart.xMax,

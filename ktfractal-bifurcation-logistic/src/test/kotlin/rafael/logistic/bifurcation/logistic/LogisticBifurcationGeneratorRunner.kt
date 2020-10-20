@@ -1,4 +1,4 @@
-package rafael.logistic.maps.bifurcation
+package rafael.logistic.bifurcation.logistic
 
 import java.time.Duration
 import java.time.LocalTime
