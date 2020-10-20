@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-baker-map</artifactId>
+    <artifactId>ktfractal-map-baker</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Baker Map</name>
 

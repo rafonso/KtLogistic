@@ -72,7 +72,7 @@
     <modules>
         <module>ktfractal-core</module>
         <module>ktfractal-logistic-map</module>
-        <module>ktfractal-baker-map</module>
+        <module>ktfractal-map-baker</module>
         <module>ktfractal-duffing-map</module>
         <module>ktfractal-gaussian-map</module>
         <module>ktfractal-gingerbreadman-map</module>
