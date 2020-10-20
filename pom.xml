@@ -74,7 +74,7 @@
         <module>ktfractal-logistic-map</module>
         <module>ktfractal-map-baker</module>
         <module>ktfractal-map-duffing</module>
-        <module>ktfractal-gaussian-map</module>
+        <module>ktfractal-map-gaussian</module>
         <module>ktfractal-gingerbreadman-map</module>
         <module>ktfractal-henon-map</module>
         <module>ktfractal-kaplanyorke-map</module>

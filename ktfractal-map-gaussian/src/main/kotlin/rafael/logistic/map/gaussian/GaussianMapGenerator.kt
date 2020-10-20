@@ -6,15 +6,18 @@ import kotlin.math.exp
 
 data class GaussianParameter(val alpha: Double, val beta: Double) : IterationParameter
 
-class GaussianGenerator : IterationGeneratorDouble<GaussianParameter>() {
+class GaussianMapGenerator : IterationGeneratorDouble<GaussianParameter>() {
 
     companion object {
         fun calc(alpha: Double, beta: Double, x: Double): Double = exp(-alpha * x * x) + beta
     }
 
-    override fun calculate(parameter: GaussianParameter, x: Double): Double = calc(parameter.alpha, parameter.beta, x)
+    override fun calculate(
+        parameter: GaussianParameter,
+        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") x: Double
+    ): Double = calc(parameter.alpha, parameter.beta, x)
 
     fun generate(x0: Double, alpha: Double, beta: Double, iterations: Int): List<Double> =
-            super.generate(x0, GaussianParameter(alpha, beta), iterations)
+        super.generate(x0, GaussianParameter(alpha, beta), iterations)
 
 }

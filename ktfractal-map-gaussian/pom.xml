@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-gaussian-map</artifactId>
+    <artifactId>ktfractal-map-gaussian</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Gaussian Map</name>
 

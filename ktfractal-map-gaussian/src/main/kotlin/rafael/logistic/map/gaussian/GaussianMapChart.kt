@@ -10,7 +10,7 @@ import tornadofx.*
 
 const val X_INTERVALS = 100
 
-class GaussianChart(
+class GaussianMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartDouble(xAxis, yAxis, data) {
@@ -43,7 +43,7 @@ class GaussianChart(
     override fun refreshAsymptote() {
         val positions = (0..X_INTERVALS)
                 .map { it * deltaX + (xAxis as NumberAxis).lowerBound }
-                .map { x -> Pair(x, GaussianGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
+                .map { x -> Pair(x, GaussianMapGenerator.calc(alphaProperty.value, betaProperty.value, x)) }
                 .map { Pair(it.first.realToChartX(), it.second.realToChartY()) }
         plotLines(positions) { l, _ -> l.stroke = Color.GREEN }
     }

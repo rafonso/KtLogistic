@@ -7,7 +7,7 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
-class GaussianView : ViewDouble<GaussianGenerator, GaussianChart>("Gaussian Equation", "Gaussian", GaussianGenerator()) {
+class GaussianMapView : ViewDouble<GaussianMapGenerator, GaussianMapChart>("Gaussian Map", "GaussianMap", GaussianMapGenerator()) {
 
     // @formatter:off
     private val spnAlpha            :   Spinner<Double>   by fxid()
@@ -19,7 +19,7 @@ class GaussianView : ViewDouble<GaussianGenerator, GaussianChart>("Gaussian Equa
     private val betaValueFactory    =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 0.0, 0.0, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: GaussianGenerator, iterations: Int): List<Double> =
+    override fun refreshData(generator: GaussianMapGenerator, iterations: Int): List<Double> =
             generator.generate(x0Property.value, spnAlpha.value, spnBeta.value, iterations)
 
     override fun initializeControlsDouble() {
