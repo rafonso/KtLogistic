@@ -1,4 +1,4 @@
-package rafael.logistic.bifurcation.lozi
+package rafael.logistic.map.lozi
 
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner

@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-lozi-map</artifactId>
+    <artifactId>ktfractal-map-lozi</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Lozi Map</name>
 
