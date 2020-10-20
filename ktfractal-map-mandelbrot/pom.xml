@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-mandelbrot-map</artifactId>
+    <artifactId>ktfractal-map-mandelbrot</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Mandelbrot Map</name>
 

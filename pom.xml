@@ -79,7 +79,7 @@
         <module>ktfractal-map-kaplanyorke</module>
         <module>ktfractal-map-logistic</module>
         <module>ktfractal-map-lozi</module>
-        <module>ktfractal-mandelbrot-map</module>
+        <module>ktfractal-map-mandelbrot</module>
         <module>ktfractal-standard-map</module>
         <module>ktfractal-tent-map</module>
         <module>ktfractal-tinkerbell-map</module>

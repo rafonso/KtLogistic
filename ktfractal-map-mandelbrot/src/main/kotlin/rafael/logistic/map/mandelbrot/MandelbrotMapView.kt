@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.toProperty
 
-class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", MandelbrotGenerator()) {
+class MandelbrotMapView : ViewBi<MandelbrotMapGenerator>("Mandelbrot Map", "MandelbrotMap", MandelbrotMapGenerator()) {
 
     // @formatter:off
     private val spnCX            :   Spinner<Double>   by fxid()
@@ -20,7 +20,7 @@ class MandelbrotView : ViewBi<MandelbrotGenerator>("Mandelbrot", "Mandelbrot", M
     private val cYValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: MandelbrotGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: MandelbrotMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnCX.value, spnCY.value, iterations)
 
     override fun initializeControlsBi() {
