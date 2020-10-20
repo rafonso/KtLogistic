@@ -12,7 +12,7 @@ import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.maps.bifurcation.RData
-import rafael.logistic.maps.bifurcation.canvas.BifurcationCanvas
+import rafael.logistic.maps.bifurcation.BifurcationCanvas
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater

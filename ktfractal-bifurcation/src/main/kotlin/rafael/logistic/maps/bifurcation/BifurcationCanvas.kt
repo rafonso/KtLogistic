@@ -1,10 +1,9 @@
-package rafael.logistic.maps.bifurcation.canvas
+package rafael.logistic.maps.bifurcation
 
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
-import rafael.logistic.maps.bifurcation.RData
 import tornadofx.toProperty
 import java.util.stream.Collectors
 
