@@ -3,7 +3,7 @@ package rafael.logistic.map.gingerbreadman
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.fx.view.ViewBi
 
-class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "Gingerbreadman", GingerbreadmanGenerator()) {
+class GingerbreadmanMapView : ViewBi<GingerbreadmanMapGenerator>("Gingerbreadman Map", "GingerbreadmanMap", GingerbreadmanMapGenerator()) {
 
     override val maxDelta: Double
         get() = 1.0
@@ -21,7 +21,7 @@ class GingerbreadmanView : ViewBi<GingerbreadmanGenerator>("Ginger bread man", "
         get() = -maxY0Spinner
 
 
-    override fun refreshData(generator: GingerbreadmanGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: GingerbreadmanMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), iterations)
 
     override fun getImageName1(): String = "gingerbreadman"

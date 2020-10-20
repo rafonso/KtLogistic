@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-gingerbreadman-map</artifactId>
+    <artifactId>ktfractal-map-gingerbreadman</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Gingerbreadman Map</name>
 

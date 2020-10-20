@@ -6,7 +6,7 @@ fun main() {
     val p0 = BiDouble(8.0, 0.5)
     val iterations = 1000
     val cycles = 5000
-    val generator = GingerbreadmanGenerator()
+    val generator = GingerbreadmanMapGenerator()
 
     // Heating
     repeat(100) {
