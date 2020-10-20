@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
-<?import rafael.logistic.maps.bifurcation.canvas.BifurcationCanvas?>
+<?import rafael.logistic.map.bifurcation.BifurcationCanvas?>
 
 <BorderPane prefHeight="589.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1">

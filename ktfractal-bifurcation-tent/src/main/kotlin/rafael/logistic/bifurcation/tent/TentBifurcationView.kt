@@ -11,8 +11,8 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import rafael.logistic.maps.bifurcation.*
-import rafael.logistic.maps.bifurcation.BifurcationCanvas
+import rafael.logistic.map.bifurcation.*
+import rafael.logistic.map.bifurcation.BifurcationCanvas
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater

@@ -1,7 +1,7 @@
 package rafael.logistic.bifurcation.henon
 
-import rafael.logistic.maps.bifurcation.BifurcationGenerator
-import rafael.logistic.maps.bifurcation.RData
+import rafael.logistic.map.bifurcation.BifurcationGenerator
+import rafael.logistic.map.bifurcation.RData
 
 const val ALPHA_MIN = 0.0
 const val ALPHA_MAX = 2.0

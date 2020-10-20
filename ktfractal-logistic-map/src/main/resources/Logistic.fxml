@@ -4,7 +4,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.maps.logistic.*?>
+<?import rafael.logistic.map.logistic.*?>
 <?import rafael.logistic.core.fx.iterationchart.*?>
 <?import rafael.logistic.core.fx.mapchart.*?>
 

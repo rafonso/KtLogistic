@@ -1,6 +1,6 @@
 package rafael.logistic.bifurcation.logistic
 
-import rafael.logistic.maps.bifurcation.BifurcationGenerator
+import rafael.logistic.map.bifurcation.BifurcationGenerator
 
 const val R_MIN = 0.0
 const val R_MAX = 4.0
