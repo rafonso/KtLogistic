@@ -82,7 +82,7 @@
         <module>ktfractal-map-mandelbrot</module>
         <module>ktfractal-map-standard</module>
         <module>ktfractal-map-tent</module>
-        <module>ktfractal-tinkerbell-map</module>
+        <module>ktfractal-map-tinkerbell</module>
         <module>ktfractal-bifurcation</module>
         <module>ktfractal-bifurcation-chart</module>
         <module>ktfractal-bifurcation-logistic</module>

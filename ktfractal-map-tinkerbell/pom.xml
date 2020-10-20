@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-tinkerbell-map</artifactId>
+    <artifactId>ktfractal-map-tinkerbell</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Tinkerbell Map</name>
 

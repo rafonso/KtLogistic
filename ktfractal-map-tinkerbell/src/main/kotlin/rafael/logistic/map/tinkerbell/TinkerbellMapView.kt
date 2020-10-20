@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.toProperty
 
-class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", TinkerbellGenerator()) {
+class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "TinkerbellMap", TinkerbellMapGenerator()) {
 
     override val iniX0Spinner: Double
         get() = -0.72
@@ -46,7 +46,7 @@ class TinkerbellView : ViewBi<TinkerbellGenerator>("Tinkerbell", "Tinkerbell", T
     private val dValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: TinkerbellGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: TinkerbellMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
 
     override fun initializeControlsBi() {
