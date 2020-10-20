@@ -1,4 +1,4 @@
-package rafael.logistic.bifurcation.henon
+package rafael.logistic.map.henon
 
 import rafael.logistic.map.bifurcation.BifurcationGenerator
 import rafael.logistic.map.bifurcation.RData

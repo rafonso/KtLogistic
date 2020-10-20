@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-henon-map</artifactId>
+    <artifactId>ktfractal-map-henon</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Henon Map</name>
 

@@ -1,4 +1,4 @@
-package rafael.logistic.bifurcation.henon
+package rafael.logistic.map.henon
 
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 
-class HenonView : ViewBi<HenonGenerator>("Henon", "Henon", HenonGenerator()) {
+class HenonViewMap : ViewBi<HenonMapGenerator>("Henon Map", "HenonMap", HenonMapGenerator()) {
 
     // @formatter:off
     private val spnA            :   Spinner<Double>   by fxid()
@@ -20,7 +20,7 @@ class HenonView : ViewBi<HenonGenerator>("Henon", "Henon", HenonGenerator()) {
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.3, maxDelta)
     // @formatter:on
 
-    override fun refreshData(generator: HenonGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: HenonMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {

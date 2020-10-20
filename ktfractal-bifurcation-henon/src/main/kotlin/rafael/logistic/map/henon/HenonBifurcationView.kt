@@ -1,4 +1,4 @@
-package rafael.logistic.bifurcation.henon
+package rafael.logistic.map.henon
 
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner

@@ -1,4 +1,4 @@
-package rafael.logistic.bifurcation.henon
+package rafael.logistic.map.henon
 
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGeneratorBi
@@ -6,7 +6,7 @@ import rafael.logistic.core.generation.IterationParameter
 
 data class HenonParameter(val alpha: Double, val beta: Double) : IterationParameter
 
-class HenonGenerator : IterationGeneratorBi<HenonParameter>() {
+class HenonMapGenerator : IterationGeneratorBi<HenonParameter>() {
 
     override fun calculate(
         parameter: HenonParameter,
