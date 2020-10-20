@@ -85,7 +85,7 @@
         <module>ktfractal-tinkerbell-map</module>
         <module>ktfractal-bifurcation</module>
         <module>ktfractal-bifurcation-chart</module>
-        <module>ktfractal-bifurcation-canvas</module>
+        <module>ktfractal-bifurcation-logistic</module>
         <module>ktfractal-set</module>
         <module>ktfractal-julia-set</module>
         <module>ktfractal-mandelbrot-set</module>

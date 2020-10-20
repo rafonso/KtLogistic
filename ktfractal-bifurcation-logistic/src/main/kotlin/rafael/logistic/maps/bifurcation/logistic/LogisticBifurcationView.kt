@@ -1,4 +1,4 @@
-package rafael.logistic.maps.bifurcation.canvas
+package rafael.logistic.maps.bifurcation.logistic
 
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
@@ -12,14 +12,15 @@ import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.maps.bifurcation.*
+import rafael.logistic.maps.bifurcation.canvas.BifurcationCanvas
 import tornadofx.asObservable
 import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
 
-class BifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>(
-    "Bifurcation Canvas",
-    "BifurcationCanvas",
+class LogisticBifurcationView : ViewBase<RData, BifurcationGenerator, BifurcationCanvas>(
+    "Logistic Bifurcation",
+    "LogisticBifurcation",
     LogisticBifurcationGenerator()
 ) {
 

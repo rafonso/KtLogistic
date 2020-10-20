@@ -8,9 +8,9 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-bifurcation-canvas</artifactId>
+    <artifactId>ktfractal-bifurcation-logistic</artifactId>
     <packaging>jar</packaging>
-    <name>KTFractal - Bifurcation Canvas</name>
+    <name>KTFractal - Logistic Bifurcation</name>
 
     <properties>
     </properties>
