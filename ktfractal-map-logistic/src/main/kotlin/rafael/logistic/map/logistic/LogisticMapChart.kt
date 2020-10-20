@@ -8,7 +8,7 @@ import javafx.scene.shape.QuadCurve
 import rafael.logistic.core.fx.mapchart.MapChartDouble
 import tornadofx.*
 
-class LogisticChart(
+class LogisticMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
         @NamedArg("yAxis") yAxis: Axis<Double>,
         @NamedArg("data") data: ObservableList<Series<Double, Double>>) : MapChartDouble(xAxis, yAxis, data) {

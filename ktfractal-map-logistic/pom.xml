@@ -10,7 +10,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-logistic-map</artifactId>
+    <artifactId>ktfractal-map-logistic</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Logistic Map</name>
 

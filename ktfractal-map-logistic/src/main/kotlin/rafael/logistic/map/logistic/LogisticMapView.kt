@@ -8,17 +8,17 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.valueToString
 
-class LogisticView : ViewDouble<LogisticGenerator, LogisticChart>("Logistic Equation", "Logistic", LogisticGenerator()) {
+class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logistic Map", "LogisticMap", LogisticMapGenerator()) {
 
     // @formatter:off
-    private val spnR            :   Spinner<Double>   by fxid()
+    private val spnR            :   Spinner<Double>     by fxid()
     private val deltaRProperty  =   SimpleIntegerProperty(this, "deltaR"    , 1     )
     private val rValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4.0, 1.0, maxDelta)
 
     private val txtMouseRealPos :   MouseRealPosNode    by fxid()
     // @formatter:on
 
-    override fun refreshData(generator: LogisticGenerator, iterations: Int): List<Double> =
+    override fun refreshData(generator: LogisticMapGenerator, iterations: Int): List<Double> =
             generator.generate(x0Property.value, spnR.value, iterations)
 
     override fun initializeControlsDouble() {
