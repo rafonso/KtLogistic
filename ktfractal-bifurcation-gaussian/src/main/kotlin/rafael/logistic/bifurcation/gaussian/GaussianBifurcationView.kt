@@ -29,13 +29,9 @@ class GaussianBifurcationView : ViewBase<RData, GaussianBifurcationGenerator, Bi
     private val deltaX0Property                 = 1.toProperty()
     private val x0ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
-//    private val spnX1                           : Spinner<Double>   by fxid()
-//    private val deltaX1Property                 = 1.toProperty()
-//    private val x1ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
-
     private val spnAlpha                         : Spinner<Double>   by fxid()
     private val deltaAlphaProperty               = 1.toProperty()
-    private val alphaValueFactory                = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 0.0, 0.1)
+    private val alphaValueFactory                = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 5.0, 0.1)
 
     private val spnSkip                         : Spinner<Int>      by fxid()
     private val skipValueFactory                = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
