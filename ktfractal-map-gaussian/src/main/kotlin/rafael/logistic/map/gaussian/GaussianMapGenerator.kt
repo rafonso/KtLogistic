@@ -6,6 +6,7 @@ import kotlin.math.exp
 
 data class GaussianParameter(val alpha: Double, val beta: Double) : IterationParameter
 
+// https://en.wikipedia.org/wiki/Gauss_iterated_map
 class GaussianMapGenerator : IterationGeneratorDouble<GaussianParameter>() {
 
     companion object {

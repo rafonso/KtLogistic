@@ -1,4 +1,4 @@
-package rafael.logistic.map.henon
+package rafael.logistic.bifurcation.gaussian
 
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
@@ -18,10 +18,10 @@ import tornadofx.onChange
 import tornadofx.runLater
 import tornadofx.toProperty
 
-class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, BifurcationCanvas>(
-    "Henon Bifurcation",
-    "HenonBifurcation",
-    HenonBifurcationGenerator()
+class GaussianBifurcationView : ViewBase<RData, GaussianBifurcationGenerator, BifurcationCanvas>(
+    "Gaussian Bifurcation",
+    "GaussianBifurcation",
+    GaussianBifurcationGenerator()
 ) {
 
     // @formatter:off
@@ -29,13 +29,13 @@ class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, Bifurcat
     private val deltaX0Property                 = 1.toProperty()
     private val x0ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
-    private val spnX1                           : Spinner<Double>   by fxid()
-    private val deltaX1Property                 = 1.toProperty()
-    private val x1ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
+//    private val spnX1                           : Spinner<Double>   by fxid()
+//    private val deltaX1Property                 = 1.toProperty()
+//    private val x1ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
-    private val spnBeta                         : Spinner<Double>   by fxid()
-    private val deltaBetaProperty               = 1.toProperty()
-    private val betaValueFactory                = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, 0.0, 0.1)
+    private val spnAlpha                         : Spinner<Double>   by fxid()
+    private val deltaAlphaProperty               = 1.toProperty()
+    private val alphaValueFactory                = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 0.0, 0.1)
 
     private val spnSkip                         : Spinner<Int>      by fxid()
     private val skipValueFactory                = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
@@ -44,14 +44,14 @@ class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, Bifurcat
     private val pixelsSeparationValueFactory    =
         SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).asObservable())
 
-    private val spnAlphaMin                     : Spinner<Double>   by fxid()
-    private val alphaMinValueFactory            = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, ALPHA_MIN, 0.1)
+    private val spnBetaMin                     : Spinner<Double>   by fxid()
+    private val betaMinValueFactory            = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MIN, 0.1)
 
-    private val spnAlphaMax                     : Spinner<Double>   by fxid()
-    private val alphaMaxValueFactory            = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, ALPHA_MAX, 0.1)
+    private val spnBetaMax                     : Spinner<Double>   by fxid()
+    private val betaMaxValueFactory            = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MAX, 0.1)
 
-    private val deltaAlphaLimitProperty         = 1.toProperty()
-    private val deltaAlphaStepProperty          = (0.1).toProperty()
+    private val deltaBetaLimitProperty         = 1.toProperty()
+    private val deltaBetaStepProperty          = (0.1).toProperty()
 
     private val lblPosMouse                     : MouseRealPosNode  by fxid()
 
@@ -59,20 +59,18 @@ class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, Bifurcat
 
     // @formatter:on
 
-    override fun getImageName() = "henon-bifurcation" +
+    override fun getImageName() = "gaussian-bifurcation" +
             ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
-            ".X1=${x1ValueFactory.converter.toString(spnX1.value)}" +
-            ".Beta=${betaValueFactory.converter.toString(spnBeta.value)}" +
-            ".Iterations_Alpha=${spnIterations.value}" +
-            ".AlphaMin=${alphaMinValueFactory.converter.toString(spnAlphaMin.value)}" +
-            ".AlphaMax=${alphaMaxValueFactory.converter.toString(spnAlphaMax.value)}" +
+            ".Alpha=${alphaValueFactory.converter.toString(spnAlpha.value)}" +
+            ".Iterations_Beta=${spnIterations.value}" +
+            ".BetaMin=${betaMinValueFactory.converter.toString(spnBetaMin.value)}" +
+            ".BetaMax=${betaMaxValueFactory.converter.toString(spnBetaMax.value)}" +
             (if (spnSkip.value > 0) ".Skip=${spnSkip.value}pct" else "") +
             (if (spnPixelsSeparation.value > 0) ".PxnSep=${spnPixelsSeparation.value}" else "")
 
     override fun initializeControls() {
         spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
-        spnX1.configureActions(x1ValueFactory, deltaX1Property, this::loadData)
-        spnBeta.configureActions(betaValueFactory, deltaBetaProperty, this::loadData)
+        spnAlpha.configureActions(alphaValueFactory, deltaAlphaProperty, this::loadData)
 
         spnSkip.configureActions(skipValueFactory, this::loadData)
 
@@ -83,8 +81,8 @@ class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, Bifurcat
         }
 
         configureMinMaxSpinners(
-            spnAlphaMin, alphaMinValueFactory, spnAlphaMax, alphaMaxValueFactory,
-            deltaAlphaLimitProperty, deltaAlphaStepProperty, this::loadData
+            spnBetaMin, betaMinValueFactory, spnBetaMax, betaMaxValueFactory,
+            deltaBetaLimitProperty, deltaBetaStepProperty, this::loadData
         )
     }
 
@@ -100,18 +98,18 @@ class HenonBifurcationView : ViewBase<RData, HenonBifurcationGenerator, Bifurcat
 
         chart.x0Property.bind(spnX0.valueProperty())
 
-        chart.xMinProperty.bind(spnAlphaMin.valueProperty())
-        chart.xMaxProperty.bind(spnAlphaMax.valueProperty())
+        chart.xMinProperty.bind(spnBetaMin.valueProperty())
+        chart.xMaxProperty.bind(spnBetaMax.valueProperty())
     }
 
-    override fun refreshData(generator: HenonBifurcationGenerator, iterations: Int): List<RData> =
+    override fun refreshData(generator: GaussianBifurcationGenerator, iterations: Int): List<RData> =
         if (chart.width > 0) {
             generator.generate(
-                spnX1.value,
+                spnX0.value,
                 super.chart.xMin, super.chart.xMax,
                 super.chart.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1),
                 spnSkip.value, iterations,
-                spnBeta.value, spnX0.value
+                spnAlpha.value
             )
         } else emptyList()
 
