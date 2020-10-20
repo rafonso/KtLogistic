@@ -9,7 +9,7 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-julia-set</artifactId>
+    <artifactId>ktfractal-set-julia</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Julia Set</name>
 

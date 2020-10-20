@@ -1,4 +1,4 @@
-package rafael.logistic.sets.julia
+package rafael.logistic.set.julia
 
 import javafx.scene.control.Spinner
 import rafael.logistic.map.sets.JuliaView
