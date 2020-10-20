@@ -1,4 +1,4 @@
-package rafael.logistic.map.lozi
+package rafael.logistic.bifurcation.lozi
 
 import rafael.logistic.map.bifurcation.BifurcationGenerator
 import rafael.logistic.map.bifurcation.IBifurcationParameter

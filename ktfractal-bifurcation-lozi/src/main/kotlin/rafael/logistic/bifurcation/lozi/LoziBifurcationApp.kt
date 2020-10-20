@@ -1,4 +1,4 @@
-package rafael.logistic.map.lozi
+package rafael.logistic.bifurcation.lozi
 
 import rafael.logistic.core.fx.Styles
 import tornadofx.App
