@@ -77,7 +77,7 @@
         <module>ktfractal-map-gaussian</module>
         <module>ktfractal-map-gingerbreadman</module>
         <module>ktfractal-map-henon</module>
-        <module>ktfractal-kaplanyorke-map</module>
+        <module>ktfractal-map-kaplanyorke</module>
         <module>ktfractal-lozi-map</module>
         <module>ktfractal-mandelbrot-map</module>
         <module>ktfractal-standard-map</module>

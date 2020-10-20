@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 
-class KaplanYorkeView : ViewBi<KaplanYorkeGenerator>("Kaplan-Yorke", "KaplanYorke", KaplanYorkeGenerator()) {
+class KaplanYorkeMapView : ViewBi<KaplanYorkeMapGenerator>("Kaplan-Yorke Map", "KaplanYorkeMap", KaplanYorkeMapGenerator()) {
 
     override val iniX0Spinner: Double
         get() = 0.5
@@ -20,7 +20,7 @@ class KaplanYorkeView : ViewBi<KaplanYorkeGenerator>("Kaplan-Yorke", "KaplanYork
 
     // @formatter:on
 
-    override fun refreshData(generator: KaplanYorkeGenerator, iterations: Int): List<BiDouble> =
+    override fun refreshData(generator: KaplanYorkeMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, iterations)
 
     override fun initializeControlsBi() {
