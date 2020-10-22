@@ -19,7 +19,7 @@ private enum class PlotBounds(
     val yUpperBound: Double
 ) {
     ZOOM_IN(-2.0, +2.0, -2.0, +2.0),
-    ZOOM_OUT(-9.0, +9.0, -3.0, +11.0);
+    ZOOM_OUT(-11.0, +11.0, -11.0, +11.0);
 
     companion object {
         fun valueOf(u: Double) = if (u < U_CHANGE_SCALE_VALUE) ZOOM_IN else ZOOM_OUT
@@ -39,26 +39,30 @@ class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMap
 
     // @formatter:on
 
+    private fun changeScale(newU: Double) {
+        val plotBounds = PlotBounds.valueOf(newU)
+
+        super.chart.xMinProperty.value = plotBounds.xLowerBound
+        super.chart.xMaxProperty.value = plotBounds.xUpperBound
+        super.chart.yMinProperty.value = plotBounds.yLowerBound
+        super.chart.yMaxProperty.value = plotBounds.yUpperBound
+
+        super.xIterationsYAxis.lowerBound = plotBounds.xLowerBound
+        super.xIterationsYAxis.upperBound = plotBounds.xUpperBound
+        super.yIterationsYAxis.lowerBound = plotBounds.yLowerBound
+        super.yIterationsYAxis.upperBound = plotBounds.yUpperBound
+    }
+
     override fun refreshData(generator: IkedaMapGenerator, iterations: Int): List<BiDouble> =
         generator.generate(BiDouble(x0Property.value, y0Property.value), spnU.value, iterations)
 
     override fun initializeControlsBi() {
         spnU.configureActions(uValueFactory, deltaUProperty, this::loadData)
         spnU.valueProperty().addListener { _, oldU, newU ->
-            if ((oldU < U_CHANGE_SCALE_VALUE && newU >= U_CHANGE_SCALE_VALUE) ||
-                (oldU >= U_CHANGE_SCALE_VALUE && newU < U_CHANGE_SCALE_VALUE)
-            ) {
-                val plotBounds = PlotBounds.valueOf(newU)
-
-                super.chart.xMinProperty.value = plotBounds.xLowerBound
-                super.chart.xMaxProperty.value = plotBounds.xUpperBound
-                super.chart.yMinProperty.value = plotBounds.yLowerBound
-                super.chart.yMaxProperty.value = plotBounds.yUpperBound
-
-                super.xIterationsYAxis.lowerBound = plotBounds.xLowerBound
-                super.xIterationsYAxis.upperBound = plotBounds.xUpperBound
-                super.yIterationsYAxis.lowerBound = plotBounds.yLowerBound
-                super.yIterationsYAxis.upperBound = plotBounds.yUpperBound
+            val goingToZoomOut = oldU <  U_CHANGE_SCALE_VALUE && newU >= U_CHANGE_SCALE_VALUE
+            val goingToZoomInn = oldU >= U_CHANGE_SCALE_VALUE && newU <  U_CHANGE_SCALE_VALUE
+            if (goingToZoomOut || goingToZoomInn) {
+                changeScale(newU)
             }
         }
     }

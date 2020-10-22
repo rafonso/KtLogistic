@@ -8,10 +8,10 @@ import kotlin.math.pow
 import kotlin.math.sin
 
 const val U_MIN = -1.0
-const val U_MAX = +1.0
+const val U_MAX = -U_MIN
 
-const val X_MIN = -5.0
-const val X_MAX = +5.0
+const val X_MIN = -6.0
+const val X_MAX = -X_MIN
 
 data class IkedaBifurcationParameter(
     override val iterationsPerR: Int,
