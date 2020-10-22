@@ -75,6 +75,7 @@
         <module>ktfractal-bifurcation-gaussian</module>
         <module>ktfractal-bifurcation-henon</module>
         <module>ktfractal-bifurcation-hiperbolic-tan</module>
+        <module>ktfractal-bifurcation-ikeda</module>
         <module>ktfractal-bifurcation-logistic</module>
         <module>ktfractal-bifurcation-lozi</module>
         <module>ktfractal-bifurcation-tent</module>
