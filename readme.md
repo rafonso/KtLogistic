@@ -42,6 +42,7 @@ achando a Classe da view.
 | ktfractal-bifurcation-gaussian        | `rafael.logistic.bifurcation.gaussian`            | `GaussianBifurcationApp`          |                                              |
 | ktfractal-bifurcation-henon           | `rafael.logistic.bifurcation.henon`               | `HenonBifurcationApp`             |                                              |
 | ktfractal-bifurcation-hiperbolic-tan  | `rafael.logistic.bifurcation.hiperbolic_tangent`  | `HiperbolicTangentBifurcationApp` |                                              |
+| ktfractal-bifurcation-ikeda           | `rafael.logistic.bifurcation.ikeda`               | `IkedaBifurcationApp`             |                                              |
 | ktfractal-bifurcation-logistic        | `rafael.logistic.bifurcation.logistic`            | `LogisticBifurcationApp`          |                                              |
 | ktfractal-bifurcation-lozi            | `rafael.logistic.bifurcation.lozi`                | `LoziBifurcationApp`              |                                              |
 | ktfractal-bifurcation-tent            | `rafael.logistic.bifurcation.tent`                | `TentBifurcationApp`              |                                              |
@@ -50,6 +51,7 @@ achando a Classe da view.
 | ktfractal-map-gaussian                | `rafael.logistic.map.gaussian`                    | `GaussianMapApp`                  |                                              |
 | ktfractal-map-gingerbreadman          | `rafael.logistic.map.gingerbreadman`              | `GingerbreadmanMapApp`            |                                              |
 | ktfractal-map-henon                   | `rafael.logistic.map.henon`                       | `HenonMapApp`                     |                                              |
+| ktfractal-map-ikeda                   | `rafael.logistic.map.ikeda`                       | `IkedaMapApp`                     |                                              |
 | ktfractal-map-kaplanyorke             | `rafael.logistic.map.kaplanyorke`                 | `KaplanYorkeMapApp`               |                                              |
 | ktfractal-map-logistic                | `rafael.logistic.map.logistic`                    | `LogisticMapApp`                  |                                              |
 | ktfractal-map-lozi                    | `rafael.logistic.map.lozi`                        | `LoziMapApp`                      |                                              |
