@@ -26,6 +26,9 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     private         val xIterationsChart    :   IterationChartBi    by  fxid()
     private         val yIterationsChart    :   IterationChartBi    by  fxid()
 
+    protected       val xIterationsYAxis    =   (xIterationsChart.yAxis as NumberAxis)
+    protected       val yIterationsYAxis    =   (yIterationsChart.yAxis as NumberAxis)
+
     protected open  val maxDelta            =   0.1
     protected open  val iniX0Spinner        =   0.0
     protected open  val minX0Spinner        =   (chart.xAxis as NumberAxis).lowerBound
@@ -36,11 +39,11 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
 
     private         val deltaX0Property     =   1.toProperty()
     private         val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minX0Spinner, maxX0Spinner, iniX0Spinner, maxDelta)
-    protected       val x0Property:ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
+    protected       val x0Property          :   ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
 
     private         val deltaY0Property     =   1.toProperty()
     private         val y0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minY0Spinner, maxY0Spinner, iniY0Spinner, maxDelta)
-    protected       val y0Property:ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
+    protected       val y0Property          :   ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
     // @formatter:on
 
     override fun initializeControls() {

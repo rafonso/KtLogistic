@@ -83,6 +83,7 @@
         <module>ktfractal-map-gaussian</module>
         <module>ktfractal-map-gingerbreadman</module>
         <module>ktfractal-map-henon</module>
+        <module>ktfractal-map-ikeda</module>
         <module>ktfractal-map-kaplanyorke</module>
         <module>ktfractal-map-logistic</module>
         <module>ktfractal-map-lozi</module>
