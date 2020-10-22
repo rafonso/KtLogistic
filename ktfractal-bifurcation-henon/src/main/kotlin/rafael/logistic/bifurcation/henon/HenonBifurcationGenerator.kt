@@ -1,7 +1,7 @@
 package rafael.logistic.bifurcation.henon
 
-import rafael.logistic.map.bifurcation.BifurcationGenerator
-import rafael.logistic.map.bifurcation.IBifurcationParameter
+import rafael.logistic.map.bifurcation.BifurcationGeneratorWithPrior
+import rafael.logistic.map.bifurcation.BifurcationParameterWithPrior
 import rafael.logistic.map.bifurcation.RData
 
 const val ALPHA_MIN = 0.0
@@ -19,32 +19,19 @@ data class HenonBifurcationParameter(
     override val rMin: Double,
     override val rMax: Double,
     override val percentToSkip: Int,
-    val beta: Double,
-    val xMinus1: Double
-) : IBifurcationParameter {
-    var xPrior = xMinus1
-}
+    override val xMinus1: Double,
+    val beta: Double
+) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1)
 
 // https://en.wikipedia.org/wiki/H%C3%A9non_map#One_Dimensional_Decomposition
-class HenonBifurcationGenerator : BifurcationGenerator<HenonBifurcationParameter>() {
+class HenonBifurcationGenerator : BifurcationGeneratorWithPrior<HenonBifurcationParameter>() {
 
-    override fun initValues(sequence: DoubleArray, x0: Double, parameter: HenonBifurcationParameter) {
-        sequence[0] = parameter.xMinus1
-        sequence[1] = x0
-
-        parameter.xPrior = parameter.xMinus1
-    }
-
-    override fun initPosSequence(): Int = 2
-
-    override fun getNextX(
+    override fun getNextXWithPrior(
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") alpha: Double,
-        x: Double,
+        x: Double, xPrior: Double,
         parameter: HenonBifurcationParameter
     ): Double =
-        (1.0 - alpha * x * x + parameter.beta * parameter.xPrior).also {
-            parameter.xPrior = x
-        }
+        (1.0 - alpha * x * x + parameter.beta * xPrior)
 
     fun generate(
         x0: Double,
@@ -53,10 +40,10 @@ class HenonBifurcationGenerator : BifurcationGenerator<HenonBifurcationParameter
         stepsForR: Int,
         percentToSkip: Int,
         iterationsPerR: Int,
-        beta: Double, xMinus1: Double
+        xMinus1: Double, beta: Double
     ): List<RData> = super.generate(
         x0,
-        HenonBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, beta, xMinus1),
+        HenonBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1, beta),
         iterationsPerR
     )
 

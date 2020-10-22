@@ -3,7 +3,6 @@ package rafael.logistic.map.bifurcation
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.generation.IterationParameter
 import java.util.stream.Collectors
-import kotlin.reflect.KFunction
 
 interface IBifurcationParameter : IterationParameter {
     val iterationsPerR: Int
@@ -85,3 +84,43 @@ abstract class BifurcationGenerator<P : IBifurcationParameter> : IterationGenera
 
 }
 
+interface IBifurcationParameterWithPrior: IBifurcationParameter {
+    val xMinus1: Double
+
+    var xPrior: Double
+}
+
+open class BifurcationParameterWithPrior(
+    override val iterationsPerR: Int,
+    override val stepsForR: Int,
+    override val rMin: Double,
+    override val rMax: Double,
+    override val percentToSkip: Int,
+    override val xMinus1: Double
+) : IBifurcationParameterWithPrior {
+    @Suppress("LeakingThis")
+    override var xPrior = xMinus1
+}
+
+abstract class BifurcationGeneratorWithPrior<P : IBifurcationParameterWithPrior> : BifurcationGenerator<P>() {
+
+    override fun initValues(sequence: DoubleArray, x0: Double, parameter: P) {
+        sequence[0] = parameter.xMinus1
+        sequence[1] = x0
+
+        parameter.xPrior = parameter.xMinus1
+    }
+
+    override fun initPosSequence(): Int = 2
+
+    override fun getNextX(r: Double, x: Double, parameter: P): Double {
+        val nextX = getNextXWithPrior(r, x, parameter.xPrior, parameter)
+
+        parameter.xPrior = x
+
+        return nextX
+    }
+
+    protected abstract fun getNextXWithPrior(r: Double, x: Double, xPrior: Double, parameter: P): Double
+
+}

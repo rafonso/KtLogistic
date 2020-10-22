@@ -111,7 +111,7 @@ class LoziBifurcationView : ViewBase<RData, LoziBifurcationGenerator, Bifurcatio
                 super.chart.xMin, super.chart.xMax,
                 super.chart.widthProperty().value.toInt() / (spnPixelsSeparation.value + 1),
                 spnSkip.value, iterations,
-                spnBeta.value, spnX0.value
+                spnX0.value, spnBeta.value
             )
         } else emptyList()
 

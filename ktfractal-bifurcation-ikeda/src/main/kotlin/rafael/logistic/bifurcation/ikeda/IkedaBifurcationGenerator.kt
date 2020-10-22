@@ -1,7 +1,7 @@
 package rafael.logistic.bifurcation.ikeda
 
-import rafael.logistic.map.bifurcation.BifurcationGenerator
-import rafael.logistic.map.bifurcation.IBifurcationParameter
+import rafael.logistic.map.bifurcation.BifurcationGeneratorWithPrior
+import rafael.logistic.map.bifurcation.BifurcationParameterWithPrior
 import rafael.logistic.map.bifurcation.RData
 import kotlin.math.cos
 import kotlin.math.pow
@@ -19,34 +19,21 @@ data class IkedaBifurcationParameter(
     override val rMin: Double,
     override val rMax: Double,
     override val percentToSkip: Int,
-    val xMinus1: Double
-) : IBifurcationParameter {
-    var xPrior = xMinus1
-}
+    override val xMinus1: Double
+) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1)
 
 // https://en.wikipedia.org/wiki/Ikeda_map
-class IkedaBifurcationGenerator : BifurcationGenerator<IkedaBifurcationParameter>() {
+class IkedaBifurcationGenerator : BifurcationGeneratorWithPrior<IkedaBifurcationParameter>() {
 
-    override fun initValues(sequence: DoubleArray, x0: Double, parameter: IkedaBifurcationParameter) {
-        sequence[0] = parameter.xMinus1
-        sequence[1] = x0
-
-        parameter.xPrior = parameter.xMinus1
-    }
-
-    override fun initPosSequence(): Int = 2
-
-    override fun getNextX(
+    override fun getNextXWithPrior(
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") u: Double,
-        x: Double,
+        x: Double, xPrior: Double,
         parameter: IkedaBifurcationParameter
     ): Double {
-        val t = 0.4 - 6.0 / (1 + x.pow(2) +  parameter.xPrior.pow(2))
+        val t = 0.4 - 6.0 / (1 + x.pow(2) + xPrior.pow(2))
 
-        return (1.0 + u * (x * cos(t) - parameter.xPrior * sin(t)) +
-                u * (x * sin(t) + parameter.xPrior * cos(t))).also {
-            parameter.xPrior = x
-        }
+        return (1.0 + u * (x * cos(t) - xPrior * sin(t)) +
+                u * (x * sin(t) + xPrior * cos(t)))
     }
 
     fun generate(
