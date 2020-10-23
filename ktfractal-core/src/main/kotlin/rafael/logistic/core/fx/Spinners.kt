@@ -9,6 +9,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
+import javafx.scene.control.Tooltip
 import javafx.scene.input.*
 import tornadofx.*
 import java.math.RoundingMode
@@ -100,8 +101,49 @@ private fun Spinner<Double>.stepChanged(step: Int) {
                 .format(this.value).replace(",", ".")
             this.value = this.converter.fromString(strValue)
             this@stepChanged.editor.text = this.converter.toString(this.value)
+
+            changeSpinnerTooltip(this@stepChanged, this, step)
         }
     }
+}
+
+/**
+ * Configura o [Tooltip] do [Spinner] conforme os passos são alterados
+ *
+ * @param spinner [Spinner] enfocado
+ * @param doubleSpinnerValueFactory [DoubleSpinnerValueFactory] do spinner
+ * @param step passo do Spinner
+ */
+private fun changeSpinnerTooltip(
+    spinner: Spinner<Double>,
+    doubleSpinnerValueFactory: DoubleSpinnerValueFactory,
+    step: Int
+) {
+    // @formatter:off
+    val converter   = doubleSpinnerValueFactory.converter
+    val strStep     = converter.toString(doubleSpinnerValueFactory.amountToStepBy       )
+    val str10Step   = converter.toString(doubleSpinnerValueFactory.amountToStepBy * 10  )
+    val strMax      = converter.toString(doubleSpinnerValueFactory.max                  )
+    val strMin      = converter.toString(doubleSpinnerValueFactory.min                  )
+    // @formatter:on
+
+    val temp01Step = strStep.toMutableList()
+    temp01Step[temp01Step.lastIndex] = '0'
+    temp01Step.add('1')
+    val str01Step = temp01Step.joinToString("")
+
+    spinner.tooltip = Tooltip(
+        """
+            Max value = $strMax
+            Min value = $strMin
+            Press ${'\u2191'} to increment $strStep
+            Press ${'\u2193'} to decrement $strStep
+            Press CRTL + ${'\u2191'} to increment $str10Step
+            Press CRTL + ${'\u2193'} to decrement $str10Step
+            ${if (step > MIN_STEP) "Press CRTL + ${'\u2190'} or CTRL + LBM to change step from $strStep to $str10Step" else ""}
+            ${if (step < MAX_STEP) "Press CRTL + ${'\u2192'} or CTRL + RBM to change step from $strStep to $str01Step" else ""}
+            """.trimIndent()
+    )
 }
 
 /**
@@ -143,7 +185,10 @@ private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerVal
  * @param listener Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, listener: ChangeListener<in Any>): ChangeListener<out Any> {
+private fun Spinner<*>.bind(
+    valueFactory: SpinnerValueFactory<*>,
+    listener: ChangeListener<in Any>
+): ChangeListener<out Any> {
     this.valueFactory = valueFactory
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
@@ -232,8 +277,14 @@ fun configureMinMaxSpinners(
 
     minValueFactory.maxProperty()
         .bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
+    minValueFactory.maxProperty().onChange {
+        changeSpinnerTooltip(spnMin, minValueFactory, deltaLimitProperty.value)
+    }
     maxValueFactory.minProperty()
         .bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
+    maxValueFactory.minProperty().onChange {
+        changeSpinnerTooltip(spnMax, maxValueFactory, deltaLimitProperty.value)
+    }
 
     return Pair(listenerSpnMin, listenerSpnMax)
 }
