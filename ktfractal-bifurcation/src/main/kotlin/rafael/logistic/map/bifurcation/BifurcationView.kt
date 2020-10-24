@@ -1,0 +1,99 @@
+package rafael.logistic.map.bifurcation
+
+import javafx.scene.control.Label
+import javafx.scene.control.Spinner
+import javafx.scene.control.SpinnerValueFactory
+import javafx.scene.layout.Region
+import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.view.ViewBase
+import rafael.logistic.core.generation.GenerationStatus
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import tornadofx.asObservable
+import tornadofx.onChange
+import tornadofx.runLater
+
+abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructor(
+    title: String,
+    fxmlFile: String,
+    generator: G
+) :
+    ViewBase<RData, G, BifurcationCanvas>(title, fxmlFile, generator) {
+
+    // @formatter:off
+
+    private val spnSkip                         : Spinner<Int>      by fxid()
+    private val skipValueFactory                = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
+    protected val skip                          : Int
+        get() = spnSkip.value
+
+    private val spnPixelsSeparation             : Spinner<Int>      by fxid()
+    private val pixelsSeparationValueFactory    =
+        SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).asObservable())
+    private val pixelsSeparation              : Int
+        get() = spnPixelsSeparation.value
+
+    private val lblPosMouse                     : MouseRealPosNode  by fxid()
+
+    private val lblStatus                       : Label             by fxid()
+
+    // @formatter:on
+
+    protected abstract fun getParametersName(): String
+
+    override fun getImageName() = getParametersName() +
+            (if (skip > 0) ".Skip=${skip}pct" else "") +
+            (if (pixelsSeparation > 0) ".PxnSep=${pixelsSeparation}" else "")
+
+    override fun initializeControls() {
+        spnSkip.configureActions(skipValueFactory, this::loadData)
+
+        pixelsSeparationValueFactory.value = 0
+        spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
+            chart.pixelsSeparationProperty.value = spnPixelsSeparation.value + 1
+            this.loadData()
+        }
+    }
+
+    override fun initializeAdditional() {
+        lblPosMouse.bind(chart)
+        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
+        super.generationStatusProperty().onChange {
+            runLater {
+                it?.let { status ->
+                    lblStatus.text = if (status == GenerationStatus.IDLE) "" else status.toString()
+                }
+            }
+        }
+        chart.refreshData()
+    }
+
+    protected fun initializeCharts(
+        yMin: Double,
+        yMax: Double,
+        spnX0: Spinner<Double>,
+        spnXMin: Spinner<Double>,
+        spnXMax: Spinner<Double>
+    ) {
+        chart.yMinProperty.value = yMin
+        chart.yMaxProperty.value = yMax
+
+        val chartParent = chart.parent as Region
+        chart.widthProperty().bind(chartParent.widthProperty())
+        chart.widthProperty().onChange { loadData() }
+        chart.heightProperty().bind(chartParent.heightProperty())
+        chart.heightProperty().onChange { loadData() }
+
+        chart.x0Property.bind(spnX0.valueProperty())
+
+        chart.xMinProperty.bind(spnXMin.valueProperty())
+        chart.xMaxProperty.bind(spnXMax.valueProperty())
+    }
+
+    protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>
+
+    override fun refreshData(generator: G, iterations: Int): List<RData> =
+        if (chart.width > 0) refreshData(generator, iterations, super.chart.widthProperty().value.toInt() / (pixelsSeparation + 1), skip)
+        else emptyList()
+
+}
