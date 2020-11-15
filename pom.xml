@@ -12,7 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>10</jdk.version>
+        <jdk.version>11</jdk.version>
+        <javafx.version>${jdk.version}</javafx.version>
         <maven.compiler.target>${jdk.version}</maven.compiler.target>
         <maven.compiler.source>${jdk.version}</maven.compiler.source>
         <kotlin.version>1.4.10</kotlin.version>
@@ -22,6 +23,16 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
         <dependency>
             <groupId>no.tornado</groupId>
             <artifactId>tornadofx</artifactId>
