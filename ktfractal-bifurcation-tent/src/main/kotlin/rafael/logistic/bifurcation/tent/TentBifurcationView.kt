@@ -2,13 +2,10 @@ package rafael.logistic.bifurcation.tent
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.map.bifurcation.BifurcationView
 import rafael.logistic.map.bifurcation.RData
 import tornadofx.App
-import tornadofx.toProperty
 
 class TentBifurcationApp : App(TentBifurcationView::class, Styles::class)
 
@@ -19,40 +16,59 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 ) {
 
     // @formatter:off
-    private val spnX0: Spinner<Double> by fxid()
-    private val deltaX0Property = 1.toProperty()
-    private val x0ValueFactory = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
+    private val spnX0                   : Spinner<Double>   by fxid()
+    private val deltaX0Property         = oneProperty()
+    private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
-    private val spnMiMin: Spinner<Double> by fxid()
-    private val miMinValueFactory = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MIN, 0.1)
+    private val spnMiMin                : Spinner<Double>   by fxid()
+    private val miMinValueFactory       = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MIN, 0.1)
 
-    private val spnMiMax: Spinner<Double> by fxid()
-    private val miMaxValueFactory = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MAX, 0.1)
+    private val spnMiMax                : Spinner<Double>   by fxid()
+    private val miMaxValueFactory       = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MAX, 0.1)
 
-    private val deltaMiLimitProperty = 1.toProperty()
-    private val deltaMiStepProperty = (0.1).toProperty()
+    private val deltaMiLimitProperty    = oneProperty()
+    private val deltaMiStepProperty     = decimalProperty()
+
+    private val spnXMin                 : Spinner<Double>   by fxid()
+    private val xMinValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
+
+    private val spnXMax                 : Spinner<Double>   by fxid()
+    private val xMaxValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
+
+    private val deltaXLimitProperty     = oneProperty()
+    private val deltaXStepProperty      = decimalProperty()
 
     // @formatter:on
 
     override fun getParametersName() = "tent-bifurcation" +
             ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
             ".Iterations_R=${spnIterations.value}" +
+            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
+            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
             ".RMin=${miMinValueFactory.converter.toString(spnMiMin.value)}" +
             ".RMax=${miMaxValueFactory.converter.toString(spnMiMax.value)}"
 
     override fun initializeControls() {
         super.initializeControls()
 
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
 
-        configureMinMaxSpinners(
+        configureXAxisSpinners(
+            spnXMin,
+            xMinValueFactory,
+            spnXMax,
+            xMaxValueFactory,
+            deltaXLimitProperty,
+            deltaXStepProperty
+        )
+        configureYAxisSpinners(
             spnMiMin, miMinValueFactory, spnMiMax, miMaxValueFactory,
-            deltaMiLimitProperty, deltaMiStepProperty, this::loadData
+            deltaMiLimitProperty, deltaMiStepProperty
         )
     }
 
     override fun initializeCharts() {
-        super.initializeCharts(X_MIN, X_MAX, spnX0, spnMiMin, spnMiMax)
+        super.initializeCharts(spnX0, spnMiMin, spnMiMax, spnXMin, spnXMax)
     }
 
     override fun refreshData(

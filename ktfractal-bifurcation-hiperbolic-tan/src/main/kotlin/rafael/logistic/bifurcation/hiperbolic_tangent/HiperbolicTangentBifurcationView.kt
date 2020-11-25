@@ -2,13 +2,10 @@ package rafael.logistic.bifurcation.hiperbolic_tangent
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.map.bifurcation.BifurcationView
 import rafael.logistic.map.bifurcation.RData
 import tornadofx.App
-import tornadofx.toProperty
 
 class HiperbolicTangentBifurcationApp : App(HiperbolicTangentBifurcationView::class, Styles::class)
 
@@ -19,40 +16,59 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
 ) {
 
     // @formatter:off
-    private val spnX0: Spinner<Double> by fxid()
-    private val deltaX0Property = 1.toProperty()
-    private val x0ValueFactory = doubleSpinnerValueFactory(X_MIN, X_MAX, 1.0, 0.1)
 
-    private val spnGMin: Spinner<Double> by fxid()
-    private val gMinValueFactory = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MIN, 0.1)
+    private val spnX0               : Spinner<Double> by fxid()
+    private val deltaX0Property     = oneProperty()
+    private val x0ValueFactory      = doubleSpinnerValueFactory(X_MIN, X_MAX, 1.0, 0.1)
 
-    private val spnGMax: Spinner<Double> by fxid()
-    private val gMaxValueFactory = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MAX, 0.1)
+    private val spnGMin             : Spinner<Double>   by fxid()
+    private val gMinValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MIN, 0.1)
 
-    private val deltaGLimitProperty = 1.toProperty()
-    private val deltaGStepProperty = (0.1).toProperty()
+    private val spnGMax             : Spinner<Double>   by fxid()
+    private val gMaxValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MAX, 0.1)
+
+    private val deltaGLimitProperty = oneProperty()
+    private val deltaGStepProperty  = decimalProperty()
+
+    private val spnXMin             : Spinner<Double>   by fxid()
+    private val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
+
+    private val spnXMax             : Spinner<Double>   by fxid()
+    private val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
+
+    private val deltaXLimitProperty = oneProperty()
+    private val deltaXStepProperty  = decimalProperty()
 
     // @formatter:on
 
     override fun getParametersName() = "hiperbolic-tangent-bifurcation" +
             ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
             ".Iterations_G=${spnIterations.value}" +
+            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
+            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
             ".GMin=${gMinValueFactory.converter.toString(spnGMin.value)}" +
             ".GMax=${gMaxValueFactory.converter.toString(spnGMax.value)}"
 
     override fun initializeControls() {
         super.initializeControls()
 
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
 
-        configureMinMaxSpinners(
-            spnGMin, gMinValueFactory, spnGMax, gMaxValueFactory,
-            deltaGLimitProperty, deltaGStepProperty, this::loadData
+        configureXAxisSpinners(
+            spnXMin,
+            xMinValueFactory,
+            spnXMax,
+            xMaxValueFactory,
+            deltaXLimitProperty,
+            deltaXStepProperty
         )
+        configureYAxisSpinners(
+            spnGMin, gMinValueFactory, spnGMax, gMaxValueFactory,
+            deltaGLimitProperty, deltaGStepProperty)
     }
 
     override fun initializeCharts() {
-        super.initializeCharts(X_MIN, X_MAX, spnX0, spnGMin, spnGMax)
+        super.initializeCharts(spnX0, spnGMin, spnGMax, spnXMin, spnXMax)
     }
 
     override fun refreshData(

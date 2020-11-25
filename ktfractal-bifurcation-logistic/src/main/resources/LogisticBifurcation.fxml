@@ -20,7 +20,7 @@
             <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" >
                     <children>
                         <Label fx:id="lblX0" styleClass="title" text="x₀ =">
                             <padding>
@@ -30,7 +30,7 @@
                         <Spinner fx:id="spnX0" />
                     </children>
                 </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2">
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" >
                     <children>
                         <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations / R =" textAlignment="RIGHT">
                             <padding>
@@ -40,6 +40,29 @@
                         <Spinner fx:id="spnIterations" prefWidth="100.0" />
                     </children>
                 </FlowPane>
+
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+                    <children>
+                        <Label fx:id="lblSkip" styleClass="title" text="Skip First =">
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <Spinner fx:id="spnSkip" prefWidth="60.0" />
+                    </children>
+                </FlowPane>
+                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
+                    <children>
+                        <Label fx:id="lblPixelsSeparation" styleClass="title" text="Pixels Separation =">
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <Spinner fx:id="spnPixelsSeparation" prefWidth="60.0" />
+                    </children>
+                </FlowPane>
+
+
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <children>
                         <Label fx:id="lblRMin" styleClass="title" text="R Min =">
@@ -62,22 +85,22 @@
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
-                        <Label fx:id="lblSkip" styleClass="title" text="Skip First =">
+                        <Label fx:id="lblXMin" styleClass="title" text="X Min =">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnSkip" prefWidth="60.0" />
+                        <Spinner fx:id="spnXMin" />
                     </children>
                 </FlowPane>
                 <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <children>
-                        <Label fx:id="lblPixelsSeparation" styleClass="title" text="Pixels Separation =">
+                        <Label fx:id="lblXMax" styleClass="title" text="X Max =">
                             <padding>
                                 <Insets right="5.0" />
                             </padding>
                         </Label>
-                        <Spinner fx:id="spnPixelsSeparation" prefWidth="60.0" />
+                        <Spinner fx:id="spnXMax" />
                     </children>
                 </FlowPane>
             </children>

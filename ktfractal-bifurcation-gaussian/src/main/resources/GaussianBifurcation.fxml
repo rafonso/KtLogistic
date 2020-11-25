@@ -12,15 +12,16 @@
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
 <?import rafael.logistic.map.bifurcation.BifurcationCanvas?>
 
-<BorderPane prefHeight="589.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/11.0.1"
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <GridPane vgap="5.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
@@ -35,17 +36,17 @@
                         <Insets left="5.0"/>
                     </padding>
                 </Label>
-                <Spinner fx:id="spnX0"/>
+                <Spinner fx:id="spnX0" prefWidth="120.0"/>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblAlpha" styleClass="title" text="α =">
                     <padding>
                         <Insets left="5.0"/>
                     </padding>
                 </Label>
-                <Spinner fx:id="spnAlpha"/>
+                <Spinner fx:id="spnAlpha" prefWidth="120.0"/>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations / β ="
                        textAlignment="RIGHT">
                     <padding>
@@ -54,23 +55,7 @@
                 </Label>
                 <Spinner fx:id="spnIterations" prefWidth="100.0"/>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label fx:id="lblBetaMin" styleClass="title" text="β Min =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnBetaMin"/>
-            </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Label fx:id="lblBetaMax" styleClass="title" text="β Max =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnBetaMax"/>
-            </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                 <Label fx:id="lblSkip" styleClass="title" text="Skip First =">
                     <padding>
                         <Insets right="5.0"/>
@@ -78,13 +63,45 @@
                 </Label>
                 <Spinner fx:id="spnSkip" prefWidth="60.0"/>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="4">
                 <Label fx:id="lblPixelsSeparation" styleClass="title" text="Pixels Separation =">
                     <padding>
                         <Insets right="5.0"/>
                     </padding>
                 </Label>
                 <Spinner fx:id="spnPixelsSeparation" prefWidth="60.0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label fx:id="lblBetaMin" styleClass="title" text="β Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnBetaMin" prefWidth="120.0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="lblBetaMax" styleClass="title" text="β Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnBetaMax" prefWidth="120.0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Label fx:id="lblXMin" styleClass="title" text="X Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMin" prefWidth="120.0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Label fx:id="lblXMax" styleClass="title" text="X Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMax" prefWidth="120.0"/>
             </FlowPane>
         </GridPane>
     </top>

@@ -1,15 +1,18 @@
 package rafael.logistic.map.bifurcation
 
+import javafx.beans.property.DoubleProperty
+import javafx.beans.property.IntegerProperty
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import tornadofx.asObservable
+import tornadofx.observableListOf
 import tornadofx.onChange
 import tornadofx.runLater
 
@@ -29,8 +32,8 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     private val spnPixelsSeparation             : Spinner<Int>      by fxid()
     private val pixelsSeparationValueFactory    =
-        SpinnerValueFactory.ListSpinnerValueFactory(listOf(0, 1, 2, 4, 10, 50, 100).asObservable())
-    private val pixelsSeparation              : Int
+        SpinnerValueFactory.ListSpinnerValueFactory(observableListOf(0, 1, 2, 4, 10, 50, 100))
+    private val pixelsSeparation                : Int
         get() = spnPixelsSeparation.value
 
     private val lblPosMouse                     : MouseRealPosNode  by fxid()
@@ -68,16 +71,51 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.refreshData()
     }
 
+    protected fun configureSpinners(
+        spnValue: Spinner<Double>, valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        deltaProperty: IntegerProperty
+    ) {
+        spnValue.configureActions(valueFactory, deltaProperty, this::loadData)
+    }
+
+    protected fun configureXAxisSpinners(
+        spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
+    ) {
+        configureMinMaxSpinners(
+            spnMin,
+            minValueFactory,
+            spnMax,
+            maxValueFactory,
+            deltaLimitProperty,
+            deltaStepProperty
+        ) {}
+    }
+
+    protected fun configureYAxisSpinners(
+        spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
+    ) {
+        configureMinMaxSpinners(
+            spnMin,
+            minValueFactory,
+            spnMax,
+            maxValueFactory,
+            deltaLimitProperty,
+            deltaStepProperty,
+            this::loadData
+        )
+    }
+
     protected fun initializeCharts(
-        yMin: Double,
-        yMax: Double,
         spnX0: Spinner<Double>,
         spnXMin: Spinner<Double>,
-        spnXMax: Spinner<Double>
+        spnXMax: Spinner<Double>,
+        spnYMin: Spinner<Double>,
+        spnYMax: Spinner<Double>
     ) {
-        chart.yMinProperty.value = yMin
-        chart.yMaxProperty.value = yMax
-
         val chartParent = chart.parent as Region
         chart.widthProperty().bind(chartParent.widthProperty())
         chart.widthProperty().onChange { loadData() }
@@ -88,12 +126,21 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
         chart.xMinProperty.bind(spnXMin.valueProperty())
         chart.xMaxProperty.bind(spnXMax.valueProperty())
+        chart.yMinProperty.bind(spnYMin.valueProperty())
+        chart.yMinProperty.onChange { chart.refreshData() }
+        chart.yMaxProperty.bind(spnYMax.valueProperty())
+        chart.yMaxProperty.onChange { chart.refreshData() }
     }
 
     protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>
 
     override fun refreshData(generator: G, iterations: Int): List<RData> =
-        if (chart.width > 0) refreshData(generator, iterations, super.chart.widthProperty().value.toInt() / (pixelsSeparation + 1), skip)
+        if (chart.width > 0) refreshData(
+            generator,
+            iterations,
+            super.chart.widthProperty().value.toInt() / (pixelsSeparation + 1),
+            skip
+        )
         else emptyList()
 
 }

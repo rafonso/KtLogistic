@@ -2,13 +2,10 @@ package rafael.logistic.bifurcation.gaussian
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.map.bifurcation.BifurcationView
 import rafael.logistic.map.bifurcation.RData
 import tornadofx.App
-import tornadofx.toProperty
 
 class GaussianBifurcationApp : App(GaussianBifurcationView::class, Styles::class)
 
@@ -20,11 +17,11 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val deltaX0Property         = 1.toProperty()
+    private val deltaX0Property         = oneProperty()
     private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnAlpha                : Spinner<Double>   by fxid()
-    private val deltaAlphaProperty      = 1.toProperty()
+    private val deltaAlphaProperty      = oneProperty()
     private val alphaValueFactory       = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 5.0, 0.1)
 
     private val spnBetaMin              : Spinner<Double>   by fxid()
@@ -33,8 +30,17 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     private val spnBetaMax              : Spinner<Double>   by fxid()
     private val betaMaxValueFactory     = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MAX, 0.1)
 
-    private val deltaBetaLimitProperty  = 1.toProperty()
-    private val deltaBetaStepProperty   = (0.1).toProperty()
+    private val deltaBetaLimitProperty  = oneProperty()
+    private val deltaBetaStepProperty   = decimalProperty()
+
+    private val spnXMin                 : Spinner<Double>   by fxid()
+    private val xMinValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
+
+    private val spnXMax                 : Spinner<Double>   by fxid()
+    private val xMaxValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
+
+    private val deltaXLimitProperty     = oneProperty()
+    private val deltaXStepProperty      = decimalProperty()
 
     // @formatter:on
 
@@ -42,23 +48,33 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
             ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
             ".Alpha=${alphaValueFactory.converter.toString(spnAlpha.value)}" +
             ".Iterations_Beta=${spnIterations.value}" +
+            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
+            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
             ".BetaMin=${betaMinValueFactory.converter.toString(spnBetaMin.value)}" +
             ".BetaMax=${betaMaxValueFactory.converter.toString(spnBetaMax.value)}"
 
     override fun initializeControls() {
         super.initializeControls()
 
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
-        spnAlpha.configureActions(alphaValueFactory, deltaAlphaProperty, this::loadData)
+        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
+        super.configureSpinners(spnAlpha, alphaValueFactory, deltaAlphaProperty)
 
-        configureMinMaxSpinners(
+        configureXAxisSpinners(
+            spnXMin,
+            xMinValueFactory,
+            spnXMax,
+            xMaxValueFactory,
+            deltaXLimitProperty,
+            deltaXStepProperty
+        )
+        configureYAxisSpinners(
             spnBetaMin, betaMinValueFactory, spnBetaMax, betaMaxValueFactory,
-            deltaBetaLimitProperty, deltaBetaStepProperty, this::loadData
+            deltaBetaLimitProperty, deltaBetaStepProperty
         )
     }
 
     override fun initializeCharts() {
-        super.initializeCharts(X_MIN, X_MAX, spnX0, spnBetaMin, spnBetaMax)
+        super.initializeCharts(spnX0, spnBetaMin, spnBetaMax, spnXMin, spnXMax)
     }
 
     override fun refreshData(
