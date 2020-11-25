@@ -8,8 +8,10 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.configureMinMaxSpinners
+import rafael.logistic.core.fx.decimalProperty
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
@@ -35,8 +37,8 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     protected   val spnXMax             :   Spinner<Double>     by  fxid()
     protected   val xMaxValueFactory    =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
 
-    private val deltaXProperty          =   1.toProperty()
-    private val deltaXStepProperty      =   (0.1).toProperty()
+    private val deltaXProperty          =   oneProperty()
+    private val deltaXStepProperty      =   decimalProperty()
 
     protected   val spnYMin             :   Spinner<Double>     by  fxid()
     protected   val yMinValueFactory    =   doubleSpinnerValueFactory(-LIMIT,
@@ -47,8 +49,8 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
         LIMIT,
         LIMIT, 0.1)
 
-    private     val deltaYProperty      =   1.toProperty()
-    private     val deltaYStepProperty  =   (0.1).toProperty()
+    private     val deltaYProperty      =   oneProperty()
+    private     val deltaYStepProperty  =   decimalProperty()
 
     private     val lblPosMouse         :   MouseRealPosNode    by  fxid()
 

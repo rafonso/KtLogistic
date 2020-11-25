@@ -19,18 +19,6 @@ import java.util.prefs.Preferences
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fxmlFile: String, protected val generator: G) :
         View(title) where C : MapChart<T, *>, C : Node {
 
-    companion object {
-        /**
-         * @return [javafx.beans.property.IntegerProperty] com valor inicial 1.
-         */
-        fun oneProperty()     = 1    .toProperty()
-
-        /**
-         * @return [javafx.beans.property.DoubleProperty] com valor inicial 0.1.
-         */
-        fun decimalProperty() = (0.1).toProperty()
-    }
-
     // @formatter:off
 
     override        val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")

@@ -4,11 +4,11 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.App
-import tornadofx.toProperty
 
 class StandardMapApp: App(StandardMapView::class, Styles::class)
 
@@ -16,7 +16,7 @@ class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMa
 
     // @formatter:off
     private val spnK            :   Spinner<Double> by fxid()
-    private val deltaKProperty  =   1.toProperty()
+    private val deltaKProperty  =   oneProperty()
     private val kValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 5.0, 1.0, maxDelta)
     // @formatter:on
 

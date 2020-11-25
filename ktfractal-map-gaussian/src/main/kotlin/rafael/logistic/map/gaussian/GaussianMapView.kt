@@ -5,6 +5,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
@@ -14,11 +15,11 @@ class GaussianMapView : ViewDouble<GaussianMapGenerator, GaussianMapChart>("Gaus
 
     // @formatter:off
     private val spnAlpha            :   Spinner<Double>   by fxid()
-    private val deltaAlphaProperty  =   1.toProperty()
+    private val deltaAlphaProperty  =   oneProperty()
     private val alphaValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 10.0, 1.0, maxDelta)
 
     private val spnBeta             :   Spinner<Double>   by fxid()
-    private val deltaBetaProperty   =   1.toProperty()
+    private val deltaBetaProperty   =   oneProperty()
     private val betaValueFactory    =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 0.0, 0.0, maxDelta)
     // @formatter:on
 

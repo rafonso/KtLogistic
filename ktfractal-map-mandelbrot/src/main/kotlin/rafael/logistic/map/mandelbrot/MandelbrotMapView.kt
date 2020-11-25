@@ -4,11 +4,11 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.App
-import tornadofx.toProperty
 
 class MandelbrotMapApp: App(MandelbrotMapView::class, Styles::class)
 
@@ -16,11 +16,11 @@ class MandelbrotMapView : ViewBi<MandelbrotMapGenerator>("Mandelbrot Map", "Mand
 
     // @formatter:off
     private val spnCX            :   Spinner<Double>   by fxid()
-    private val deltaCXProperty  =   1.toProperty()
+    private val deltaCXProperty  =   oneProperty()
     private val cXValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
 
     private val spnCY            :   Spinner<Double>   by fxid()
-    private val deltaCYProperty  =   1.toProperty()
+    private val deltaCYProperty  =   oneProperty()
     private val cYValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-2.0, 2.0, -0.5, maxDelta)
     // @formatter:on
 

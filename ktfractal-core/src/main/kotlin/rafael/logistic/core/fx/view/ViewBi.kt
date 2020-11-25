@@ -11,10 +11,10 @@ import javafx.scene.layout.Region
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.iterationchart.IterationChartBi
 import rafael.logistic.core.fx.mapchart.MapChartBi
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator
-import tornadofx.toProperty
 
 abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
         ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
@@ -37,11 +37,11 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     protected open  val minY0Spinner        =   (chart.yAxis as NumberAxis).lowerBound
     protected open  val maxY0Spinner        =   (chart.yAxis as NumberAxis).upperBound
 
-    private         val deltaX0Property     =   1.toProperty()
+    private         val deltaX0Property     =   oneProperty()
     private         val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minX0Spinner, maxX0Spinner, iniX0Spinner, maxDelta)
     protected       val x0Property          :   ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
 
-    private         val deltaY0Property     =   1.toProperty()
+    private         val deltaY0Property     =   oneProperty()
     private         val y0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minY0Spinner, maxY0Spinner, iniY0Spinner, maxDelta)
     protected       val y0Property          :   ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
     // @formatter:on

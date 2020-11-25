@@ -4,6 +4,7 @@ import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
+import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import java.util.stream.Collectors
 
@@ -11,7 +12,7 @@ class JuliaCanvas : CanvasChart<JuliaInfo>() {
 
     // @formatter:off
 
-    val maxIterationsProperty   =   1.toProperty()
+    val maxIterationsProperty   =   oneProperty()
     private var maxIterations   by  maxIterationsProperty
 
     // @formatter:on

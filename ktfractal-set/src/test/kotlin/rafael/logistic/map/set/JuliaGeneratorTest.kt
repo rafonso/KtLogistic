@@ -8,7 +8,7 @@ val values = arrayOf(1, 5, 10, 50, 100, 500, 1000)
 val widthsHights = values.flatMap { w -> values.map { h -> Pair(w, h) } }.sortedBy { it.first * it.second }
 
 object JuliaGeneratorStub : JuliaGenerator() {
-    override fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int? = 1
+    override fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int = 1
 }
 
 fun heat(w: Int, h: Int) {

@@ -2,17 +2,13 @@ package rafael.experimental.template
 
 import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureMinMaxSpinners
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
-import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.App
 import tornadofx.disableWhen
 import tornadofx.onChange
-import tornadofx.toProperty
 
 class TemplateApp: App(TemplateView::class, Styles::class)
 
@@ -35,11 +31,11 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
     private val spnYMax             :   Spinner<Double>     by fxid()
     private val yMaxValueFactory    =   doubleSpinnerValueFactory(chart.yMin, chart.yMax, chart.yMax, 0.1)
 
-    private     val deltaXLimitProperty =   1.toProperty()
-    private     val deltaXStepProperty  =   (0.1).toProperty()
+    private     val deltaXLimitProperty =   oneProperty()
+    private     val deltaXStepProperty  =   decimalProperty()
 
-    private     val deltaYLimitProperty =   1.toProperty()
-    private     val deltaYStepProperty  =   (0.1).toProperty()
+    private     val deltaYLimitProperty =   oneProperty()
+    private     val deltaYStepProperty  =   decimalProperty()
 
     // @formatter:on
 

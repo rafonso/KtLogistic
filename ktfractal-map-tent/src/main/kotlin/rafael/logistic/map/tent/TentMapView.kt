@@ -5,6 +5,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.view.ViewDouble
 import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import tornadofx.*
 
@@ -14,7 +15,7 @@ class TentMapView : ViewDouble<TentMapGenerator, TentMapChart>("Tent Map", "Tent
 
     // @formatter:off
     private val spnMi           :   Spinner<Double>   by fxid()
-    private val deltaMiProperty =   1.toProperty()
+    private val deltaMiProperty =   oneProperty()
     private val miValueFactory  =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 2.0, 1.0, maxDelta)
     // @formatter:on
 

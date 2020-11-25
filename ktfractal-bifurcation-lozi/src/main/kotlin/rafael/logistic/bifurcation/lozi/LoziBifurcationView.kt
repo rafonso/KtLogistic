@@ -2,7 +2,9 @@ package rafael.logistic.bifurcation.lozi
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
+import rafael.logistic.core.fx.decimalProperty
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.map.bifurcation.BifurcationView
 import rafael.logistic.map.bifurcation.RData
 import tornadofx.App

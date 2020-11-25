@@ -5,6 +5,7 @@ import rafael.logistic.core.fx.Styles
 import rafael.logistic.map.set.JuliaView
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 
 class JuliaSetApp: App(JuliaSetView::class, Styles::class)
@@ -14,11 +15,11 @@ class JuliaSetView : JuliaView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
     // @formatter:off
 
     private     val spnCX               :   Spinner<Double>     by  fxid()
-    private     val deltaCXProperty     =   1.toProperty()
+    private     val deltaCXProperty     =   oneProperty()
     private     val cXValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
 
     private     val spnCY               :   Spinner<Double>     by  fxid()
-    private     val deltaCYProperty     =   1.toProperty()
+    private     val deltaCYProperty     =   oneProperty()
     private     val cYValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
     // @formatter:on
 

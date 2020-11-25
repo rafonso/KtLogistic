@@ -7,12 +7,12 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Region
-import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.iterationchart.IterationChartDouble
 import rafael.logistic.core.fx.mapchart.MapChartDouble
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
-import tornadofx.*
+import rafael.logistic.core.generation.IterationGenerator
 
 abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
         ViewBase<Double, G, C>(title, fxmlFile, generator) {
@@ -25,7 +25,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     private     val iterationsChart     :   IterationChartDouble by fxid()
 
     private     val spnX0               :   Spinner<Double> by fxid()
-    private     val deltaX0Property     =   1.toProperty()
+    private     val deltaX0Property     =   oneProperty()
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(
             (chart.xAxis as NumberAxis).lowerBound, (chart.xAxis as NumberAxis).upperBound, iniX0Spinner, maxDelta)
     protected   val x0Property:ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
