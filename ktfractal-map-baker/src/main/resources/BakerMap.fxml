@@ -18,42 +18,34 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
             </rowConstraints>
-            <children>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-                    <children>
-                        <Label fx:id="lblX0" styleClass="title" text="x₀ =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnX0"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
-                    <children>
-                        <Label fx:id="lblY0" styleClass="title" text="y₀ =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnY0"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="4">
-                    <children>
-                        <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
-                               textAlignment="RIGHT">
-                            <padding>
-                                <Insets right="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnIterations"/>
-                    </children>
-                </FlowPane>
-            </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+                <Label fx:id="lblX0" styleClass="title" text="x₀ =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnX0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
+                <Label fx:id="lblY0" styleClass="title" text="y₀ =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnY0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="4">
+                <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
+                       textAlignment="RIGHT">
+                    <padding>
+                        <Insets right="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnIterations"/>
+            </FlowPane>
         </GridPane>
     </top>
     <center>
@@ -64,33 +56,31 @@
                             upperBound="1.0"/>
             </xAxis>
             <yAxis>
-                <NumberAxis autoRanging="false" lowerBound="0.0" minorTickCount="10" side="LEFT" tickUnit="0.1"
+                <NumberAxis autoRanging="false" minorTickCount="10" side="LEFT" tickUnit="0.1"
                             upperBound="1.0"/>
             </yAxis>
         </MapChartBi>
     </center>
     <bottom>
         <VBox>
-            <children>
-                <IterationChartBi fx:id="xIterationsChart" animated="false" createSymbols="false" legendVisible="false"
-                                  prefHeight="100.0" BorderPane.alignment="CENTER">
-                    <xAxis>
-                        <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis autoRanging="false" side="LEFT" lowerBound="0.0" tickUnit="0.1" upperBound="1.0"/>
-                    </yAxis>
-                </IterationChartBi>
-                <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
-                                  prefHeight="100.0" BorderPane.alignment="CENTER">
-                    <xAxis>
-                        <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis autoRanging="false" side="LEFT" lowerBound="0.0" tickUnit="0.1" upperBound="1.0"/>
-                    </yAxis>
-                </IterationChartBi>
-            </children>
+            <IterationChartBi fx:id="xIterationsChart" animated="false" createSymbols="false" legendVisible="false"
+                              prefHeight="100.0" BorderPane.alignment="CENTER">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis autoRanging="false" side="LEFT" tickUnit="0.1" upperBound="1.0"/>
+                </yAxis>
+            </IterationChartBi>
+            <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
+                              prefHeight="100.0" BorderPane.alignment="CENTER">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis autoRanging="false" side="LEFT" tickUnit="0.1" upperBound="1.0"/>
+                </yAxis>
+            </IterationChartBi>
         </VBox>
     </bottom>
 </BorderPane>

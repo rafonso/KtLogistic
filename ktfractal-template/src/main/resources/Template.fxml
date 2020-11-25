@@ -21,104 +21,86 @@
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
             </rowConstraints>
-            <children>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
-                    <children>
-                        <Label fx:id="lblX0" styleClass="title" text="x₀ =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnX0"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
-                    <children>
-                        <Label fx:id="lblY0" styleClass="title" text="y₀ =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnY0"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-                    <children>
-                        <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
-                               textAlignment="RIGHT">
-                            <padding>
-                                <Insets right="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnIterations"/>
-                    </children>
-                </FlowPane>
-                <CheckBox fx:id="chbPinY" mnemonicParsing="false" prefWidth="200.0" text="Pin Y"
-                          GridPane.columnIndex="3"/>
-
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <children>
-                        <Label fx:id="lblXMin" styleClass="title" text="x Min =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnXMin"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <children>
-                        <Label fx:id="lblXMax" styleClass="title" text="x Max =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnXMax"/>
-                    </children>
-                </FlowPane>
-
-
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <children>
-                        <Label fx:id="lblYMin" styleClass="title" text="y Min =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnYMin"/>
-                    </children>
-                </FlowPane>
-                <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                    <children>
-                        <Label fx:id="lblYMax" styleClass="title" text="y Max =">
-                            <padding>
-                                <Insets left="5.0"/>
-                            </padding>
-                        </Label>
-                        <Spinner fx:id="spnYMax"/>
-                    </children>
-                </FlowPane>
-
-            </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
+                <Label fx:id="lblX0" styleClass="title" text="x₀ =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnX0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
+                <Label fx:id="lblY0" styleClass="title" text="y₀ =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnY0"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+                <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
+                       textAlignment="RIGHT">
+                    <padding>
+                        <Insets right="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnIterations"/>
+            </FlowPane>
+            <CheckBox fx:id="chbPinY" mnemonicParsing="false" prefWidth="200.0" text="Pin Y"
+                      GridPane.columnIndex="3"/>
+
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label fx:id="lblXMin" styleClass="title" text="x Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMin"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="lblXMax" styleClass="title" text="x Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnXMax"/>
+            </FlowPane>
+
+
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Label fx:id="lblYMin" styleClass="title" text="y Min =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnYMin"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Label fx:id="lblYMax" styleClass="title" text="y Max =">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <Spinner fx:id="spnYMax"/>
+            </FlowPane>
+
         </GridPane>
     </top>
     <center>
         <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
-            <children>
-                <MapChartBi fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
-                    <xAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-20.0" minorTickCount="0" side="BOTTOM" tickUnit="1"
-                                    upperBound="20.0"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-20.0" minorTickCount="10" side="LEFT" tickUnit="1"
-                                    upperBound="20.0"/>
-                    </yAxis>
-                </MapChartBi>
-            </children>
+            <MapChartBi fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
+                <xAxis>
+                    <NumberAxis autoRanging="false" lowerBound="-20.0" minorTickCount="0" side="BOTTOM" tickUnit="1"
+                                upperBound="20.0"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis autoRanging="false" lowerBound="-20.0" minorTickCount="10" side="LEFT" tickUnit="1"
+                                upperBound="20.0"/>
+                </yAxis>
+            </MapChartBi>
         </FlowPane>
     </center>
     <bottom>
@@ -131,27 +113,25 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <children>
-                <IterationChartBi animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0"
-                                  fx:id="xIterationsChart">
-                    <xAxis>
-                        <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickUnit="2" upperBound="20.0"/>
-                    </yAxis>
-                </IterationChartBi>
-                <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
-                                  prefHeight="100.0" GridPane.columnIndex="1">
-                    <xAxis>
-                        <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickUnit="2" upperBound="20.0"/>
-                    </yAxis>
-                </IterationChartBi>
-                <MouseRealPosNode fx:id="txtMouseRealPos" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            </children>
+            <IterationChartBi animated="false" createSymbols="false" legendVisible="false" prefHeight="100.0"
+                              fx:id="xIterationsChart">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickUnit="2" upperBound="20.0"/>
+                </yAxis>
+            </IterationChartBi>
+            <IterationChartBi fx:id="yIterationsChart" animated="false" createSymbols="false" legendVisible="false"
+                              prefHeight="100.0" GridPane.columnIndex="1">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" tickUnit="10.0"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickUnit="2" upperBound="20.0"/>
+                </yAxis>
+            </IterationChartBi>
+            <MouseRealPosNode fx:id="txtMouseRealPos" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         </GridPane>
     </bottom>
 </BorderPane>
