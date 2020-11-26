@@ -3,7 +3,6 @@ package rafael.logistic.map.standard
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
@@ -21,7 +20,7 @@ class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMa
     // @formatter:on
 
     override fun initializeControlsBi() {
-        spnK.configureActions(kValueFactory, deltaKProperty, this::loadData)
+        spnK.configureSpinner(kValueFactory, deltaKProperty)
     }
 
     override fun refreshData(generator: StandardMapGenerator, iterations: Int): List<BiDouble> =

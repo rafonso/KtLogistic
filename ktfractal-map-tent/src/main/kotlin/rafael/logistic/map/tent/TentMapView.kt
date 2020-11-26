@@ -3,11 +3,10 @@ package rafael.logistic.map.tent
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.view.ViewDouble
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
-import tornadofx.*
+import rafael.logistic.core.fx.view.ViewDouble
+import tornadofx.App
 
 class TentMapApp: App(TentMapView::class, Styles::class)
 
@@ -27,7 +26,7 @@ class TentMapView : ViewDouble<TentMapGenerator, TentMapChart>("Tent Map", "Tent
     }
 
     override fun initializeControlsDouble() {
-        spnMi.configureActions(miValueFactory, deltaMiProperty, this::loadData)
+        spnMi.configureSpinner(miValueFactory, deltaMiProperty)
     }
 
     override fun getImageName1(): String = "tent.Mi=${spnMi.valueToString()}"

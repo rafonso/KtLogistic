@@ -58,8 +58,8 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     override fun initializeControls() {
         super.initializeControls()
 
-        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
-        super.configureSpinners(spnX1, x1ValueFactory, deltaX1Property)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
+        spnX1.configureSpinner(x1ValueFactory, deltaX1Property)
 
         configureXAxisSpinners(
             spnXMin,

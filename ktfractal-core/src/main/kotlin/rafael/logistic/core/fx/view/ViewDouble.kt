@@ -7,7 +7,6 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.iterationchart.IterationChartDouble
 import rafael.logistic.core.fx.mapchart.MapChartDouble
 import rafael.logistic.core.fx.oneProperty
@@ -33,7 +32,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     // @formatter:on
 
     override fun initializeControls() {
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
         initializeControlsDouble()
     }
 

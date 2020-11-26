@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
@@ -57,7 +56,7 @@ class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMap
         generator.generate(BiDouble(x0Property.value, y0Property.value), spnU.value, iterations)
 
     override fun initializeControlsBi() {
-        spnU.configureActions(uValueFactory, deltaUProperty, this::loadData)
+        spnU.configureSpinner(uValueFactory, deltaUProperty)
         spnU.valueProperty().addListener { _, oldU, newU ->
             val goingToZoomOut = oldU <  U_CHANGE_SCALE_VALUE && newU >= U_CHANGE_SCALE_VALUE
             val goingToZoomInn = oldU >= U_CHANGE_SCALE_VALUE && newU <  U_CHANGE_SCALE_VALUE

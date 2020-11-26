@@ -3,7 +3,6 @@ package rafael.logistic.map.tinkerbell
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
@@ -55,10 +54,10 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
 
     override fun initializeControlsBi() {
-        spnA.configureActions(aValueFactory, deltaAProperty, this::loadData)
-        spnB.configureActions(bValueFactory, deltaBProperty, this::loadData)
-        spnC.configureActions(cValueFactory, deltaCProperty, this::loadData)
-        spnD.configureActions(dValueFactory, deltaDProperty, this::loadData)
+        spnA.configureSpinner(aValueFactory, deltaAProperty)
+        spnB.configureSpinner(bValueFactory, deltaBProperty)
+        spnC.configureSpinner(cValueFactory, deltaCProperty)
+        spnD.configureSpinner(dValueFactory, deltaDProperty)
     }
 
     override fun getImageName1(): String = "Tinkerbell" +

@@ -2,11 +2,10 @@ package rafael.logistic.set.julia
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.map.set.JuliaView
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.oneProperty
-import tornadofx.*
+import rafael.logistic.map.set.JuliaView
+import tornadofx.App
 
 class JuliaSetApp: App(JuliaSetView::class, Styles::class)
 
@@ -36,10 +35,10 @@ class JuliaSetView : JuliaView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
         super.initializeControls()
 
         super.cXProperty.bind(spnCX.valueProperty())
-        spnCX.configureActions(cXValueFactory, deltaCXProperty, this::loadData)
+        spnCX.configureSpinner(cXValueFactory, deltaCXProperty)
 
         super.cYProperty.bind(spnCY.valueProperty())
-        spnCY.configureActions(cYValueFactory, deltaCYProperty, this::loadData)
+        spnCY.configureSpinner(cYValueFactory, deltaCYProperty)
     }
 
 }

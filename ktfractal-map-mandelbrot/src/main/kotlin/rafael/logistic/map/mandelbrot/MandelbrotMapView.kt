@@ -3,7 +3,6 @@ package rafael.logistic.map.mandelbrot
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBi
@@ -28,8 +27,8 @@ class MandelbrotMapView : ViewBi<MandelbrotMapGenerator>("Mandelbrot Map", "Mand
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnCX.value, spnCY.value, iterations)
 
     override fun initializeControlsBi() {
-        spnCX.configureActions(cXValueFactory, deltaCXProperty, this::loadData)
-        spnCY.configureActions(cYValueFactory, deltaCYProperty, this::loadData)
+        spnCX.configureSpinner(cXValueFactory, deltaCXProperty)
+        spnCY.configureSpinner(cYValueFactory, deltaCYProperty)
     }
 
     override fun getImageName1(): String = "mandelbrot.CX=${spnCX.valueToString()}.CY=${spnCY.valueToString()}"

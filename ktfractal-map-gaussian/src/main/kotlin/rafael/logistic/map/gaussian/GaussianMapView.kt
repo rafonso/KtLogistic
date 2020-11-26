@@ -3,11 +3,10 @@ package rafael.logistic.map.gaussian
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.view.ViewDouble
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
-import tornadofx.*
+import rafael.logistic.core.fx.view.ViewDouble
+import tornadofx.App
 
 class GaussianMapApp: App(GaussianMapView::class, Styles::class)
 
@@ -27,8 +26,8 @@ class GaussianMapView : ViewDouble<GaussianMapGenerator, GaussianMapChart>("Gaus
             generator.generate(x0Property.value, spnAlpha.value, spnBeta.value, iterations)
 
     override fun initializeControlsDouble() {
-        spnAlpha.configureActions(alphaValueFactory, deltaAlphaProperty, this::loadData)
-        spnBeta.configureActions(betaValueFactory, deltaBetaProperty, this::loadData)
+        spnAlpha.configureSpinner(alphaValueFactory, deltaAlphaProperty)
+        spnBeta.configureSpinner(betaValueFactory, deltaBetaProperty)
     }
 
     override fun initializeAdditional() {

@@ -63,9 +63,9 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
     override fun initializeControls() {
         super.initializeControls()
 
-        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
-        super.configureSpinners(spnX1, x1ValueFactory, deltaX1Property)
-        super.configureSpinners(spnBeta, betaValueFactory, deltaBetaProperty)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
+        spnX1.configureSpinner(x1ValueFactory, deltaX1Property)
+        spnBeta.configureSpinner(betaValueFactory, deltaBetaProperty)
 
         configureXAxisSpinners(
             spnXMin,

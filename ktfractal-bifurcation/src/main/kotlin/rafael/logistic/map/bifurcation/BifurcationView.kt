@@ -71,43 +71,32 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.refreshData()
     }
 
-    protected fun configureSpinners(
-        spnValue: Spinner<Double>, valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        deltaProperty: IntegerProperty
-    ) {
-        spnValue.configureActions(valueFactory, deltaProperty, this::loadData)
-    }
-
     protected fun configureXAxisSpinners(
         spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
-    ) {
-        configureMinMaxSpinners(
-            spnMin,
-            minValueFactory,
-            spnMax,
-            maxValueFactory,
-            deltaLimitProperty,
-            deltaStepProperty
-        ) {}
-    }
+    ) = configureMinMaxSpinners(
+        spnMin,
+        minValueFactory,
+        spnMax,
+        maxValueFactory,
+        deltaLimitProperty,
+        deltaStepProperty
+    ) {}
 
     protected fun configureYAxisSpinners(
         spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
-    ) {
-        configureMinMaxSpinners(
-            spnMin,
-            minValueFactory,
-            spnMax,
-            maxValueFactory,
-            deltaLimitProperty,
-            deltaStepProperty,
-            this::loadData
-        )
-    }
+    ) = configureMinMaxSpinners(
+        spnMin,
+        minValueFactory,
+        spnMax,
+        maxValueFactory,
+        deltaLimitProperty,
+        deltaStepProperty,
+        this::loadData
+    )
 
     protected fun initializeCharts(
         spnX0: Spinner<Double>,

@@ -58,8 +58,8 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     override fun initializeControls() {
         super.initializeControls()
 
-        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
-        super.configureSpinners(spnAlpha, alphaValueFactory, deltaAlphaProperty)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
+        spnAlpha.configureSpinner(alphaValueFactory, deltaAlphaProperty)
 
         configureXAxisSpinners(
             spnXMin,

@@ -4,10 +4,9 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.view.ViewDouble
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.view.ViewDouble
 import tornadofx.App
 
 class LogisticMapApp: App(LogisticMapView::class, Styles::class)
@@ -26,7 +25,7 @@ class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logi
             generator.generate(x0Property.value, spnR.value, iterations)
 
     override fun initializeControlsDouble() {
-        spnR.configureActions(rValueFactory, deltaRProperty, this::loadData)
+        spnR.configureSpinner(rValueFactory, deltaRProperty)
     }
 
     override fun initializeCharts() {

@@ -54,7 +54,7 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     override fun initializeControls() {
         super.initializeControls()
 
-        super.configureSpinners(spnX0, x0ValueFactory, deltaX0Property)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
 
         configureXAxisSpinners(
             spnXMin,

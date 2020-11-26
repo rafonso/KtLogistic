@@ -1,5 +1,6 @@
 package rafael.logistic.core.fx.view
 
+import javafx.beans.property.IntegerProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.Node
 import javafx.scene.control.Spinner
@@ -16,8 +17,12 @@ import java.io.File
 import java.util.prefs.Preferences
 
 
-abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fxmlFile: String, protected val generator: G) :
-        View(title) where C : MapChart<T, *>, C : Node {
+abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
+    title: String,
+    fxmlFile: String,
+    protected val generator: G
+) :
+    View(title) where C : MapChart<T, *>, C : Node {
 
     // @formatter:off
 
@@ -30,6 +35,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
     protected       val chart                   :   C               by fxid()
 
     protected       val logisticData            =   emptyList<T>().toProperty()
+
     // @formatter:on
 
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
@@ -69,6 +75,11 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
     protected open fun initializeAdditional() {
     }
 
+    protected fun Spinner<Double>.configureSpinner(
+        valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
+        deltaProperty: IntegerProperty
+    ) = this.configureActions(valueFactory, deltaProperty) { loadData() }
+
     protected fun exportImage() {
         val prefs = Preferences.userRoot().node(this.javaClass.name)
         val imageDir = prefs.get("imageDir", System.getProperty("user.home"))
@@ -90,9 +101,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(title: String, fx
                 }
             }
         }
-
     }
-
 
     protected fun loadData() {
         this.logisticData.value = reloadData()

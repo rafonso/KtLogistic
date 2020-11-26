@@ -8,7 +8,6 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.iterationchart.IterationChartBi
 import rafael.logistic.core.fx.mapchart.MapChartBi
 import rafael.logistic.core.fx.oneProperty
@@ -47,8 +46,8 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     // @formatter:on
 
     override fun initializeControls() {
-        spnX0.configureActions(x0ValueFactory, deltaX0Property, this::loadData)
-        spnY0.configureActions(y0ValueFactory, deltaY0Property, this::loadData)
+        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
+        spnY0.configureSpinner(y0ValueFactory, deltaY0Property)
         initializeControlsBi()
     }
 
