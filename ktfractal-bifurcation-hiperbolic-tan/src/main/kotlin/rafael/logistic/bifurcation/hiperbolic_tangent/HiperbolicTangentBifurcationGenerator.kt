@@ -1,8 +1,8 @@
 package rafael.logistic.bifurcation.hiperbolic_tangent
 
-import rafael.logistic.map.bifurcation.BifurcationGenerator
-import rafael.logistic.map.bifurcation.BifurcationParameter
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationGenerator
+import rafael.logistic.bifurcation.BifurcationParameter
+import rafael.logistic.bifurcation.RData
 import kotlin.math.tanh
 
 const val G_MIN = 0.0

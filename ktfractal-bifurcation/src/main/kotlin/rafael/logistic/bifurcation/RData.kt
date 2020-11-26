@@ -1,4 +1,4 @@
-package rafael.logistic.map.bifurcation
+package rafael.logistic.bifurcation
 
 data class RData(val col: Int, val r: Double, val values: DoubleArray) {
 

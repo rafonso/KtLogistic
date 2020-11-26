@@ -1,8 +1,8 @@
 package rafael.logistic.bifurcation.lozi
 
-import rafael.logistic.map.bifurcation.BifurcationGeneratorWithPrior
-import rafael.logistic.map.bifurcation.BifurcationParameterWithPrior
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationGeneratorWithPrior
+import rafael.logistic.bifurcation.BifurcationParameterWithPrior
+import rafael.logistic.bifurcation.RData
 import kotlin.math.absoluteValue
 
 const val ALPHA_MIN = 0.0

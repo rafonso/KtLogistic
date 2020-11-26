@@ -1,4 +1,4 @@
-package rafael.logistic.map.bifurcation
+package rafael.logistic.bifurcation
 
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor

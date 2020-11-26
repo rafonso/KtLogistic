@@ -1,8 +1,8 @@
 package rafael.logistic.bifurcation.gaussian
 
-import rafael.logistic.map.bifurcation.BifurcationGenerator
-import rafael.logistic.map.bifurcation.IBifurcationParameter
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationGenerator
+import rafael.logistic.bifurcation.IBifurcationParameter
+import rafael.logistic.bifurcation.RData
 import kotlin.math.exp
 
 const val ALPHA_MIN = 00.0

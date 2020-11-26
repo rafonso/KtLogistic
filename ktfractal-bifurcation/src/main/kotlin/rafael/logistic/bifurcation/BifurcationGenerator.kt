@@ -1,4 +1,4 @@
-package rafael.logistic.map.bifurcation
+package rafael.logistic.bifurcation
 
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.generation.IterationParameter

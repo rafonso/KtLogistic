@@ -1,8 +1,8 @@
 package rafael.logistic.bifurcation.logistic
 
-import rafael.logistic.map.bifurcation.BifurcationGenerator
-import rafael.logistic.map.bifurcation.BifurcationParameter
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationGenerator
+import rafael.logistic.bifurcation.BifurcationParameter
+import rafael.logistic.bifurcation.RData
 
 const val R_MIN = 0.0
 const val R_MAX = 4.0

@@ -5,8 +5,8 @@ import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.decimalProperty
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.map.bifurcation.BifurcationView
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationView
+import rafael.logistic.bifurcation.RData
 import tornadofx.App
 
 class IkedaBifurcationApp : App(IkedaBifurcationView::class, Styles::class)

@@ -1,4 +1,4 @@
-package rafael.logistic.map.bifurcation
+package rafael.logistic.bifurcation
 
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty

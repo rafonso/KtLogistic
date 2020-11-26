@@ -1,8 +1,8 @@
 package rafael.logistic.bifurcation.ikeda
 
-import rafael.logistic.map.bifurcation.BifurcationGeneratorWithPrior
-import rafael.logistic.map.bifurcation.BifurcationParameterWithPrior
-import rafael.logistic.map.bifurcation.RData
+import rafael.logistic.bifurcation.BifurcationGeneratorWithPrior
+import rafael.logistic.bifurcation.BifurcationParameterWithPrior
+import rafael.logistic.bifurcation.RData
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
