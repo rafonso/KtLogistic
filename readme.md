@@ -36,6 +36,7 @@ achando a Classe da view.
 5. Na Opção **VM options** adicione a linha `
 --module-path [JAVAFX_PATH]/lib 
 --add-modules=javafx.controls,javafx.fxml
+--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED
 `
 
 #### Relação de projetos e de suas Views
