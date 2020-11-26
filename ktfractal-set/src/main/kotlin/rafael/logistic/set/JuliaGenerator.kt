@@ -1,4 +1,4 @@
-package rafael.logistic.map.set
+package rafael.logistic.set
 
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator

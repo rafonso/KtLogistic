@@ -1,4 +1,4 @@
-package rafael.logistic.map.set
+package rafael.logistic.set
 
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor

@@ -1,4 +1,4 @@
-package rafael.logistic.map.set
+package rafael.logistic.set
 
 import javafx.beans.binding.Bindings
 import javafx.beans.binding.When

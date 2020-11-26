@@ -1,4 +1,4 @@
-package rafael.logistic.map.set
+package rafael.logistic.set
 
 data class JuliaInfo(val col: Int, val row: Int, val x: Double, val y: Double, val iterationsToDiverge: Int?) {
 

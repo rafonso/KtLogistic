@@ -4,7 +4,7 @@ import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.map.set.JuliaView
+import rafael.logistic.set.JuliaView
 import tornadofx.App
 
 class JuliaSetApp: App(JuliaSetView::class, Styles::class)

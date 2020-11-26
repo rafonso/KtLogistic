@@ -1,7 +1,7 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.map.set.JuliaView
+import rafael.logistic.set.JuliaView
 import tornadofx.App
 
 class MandelbrotSetApp: App(MandelbrotSetView::class, Styles::class)
