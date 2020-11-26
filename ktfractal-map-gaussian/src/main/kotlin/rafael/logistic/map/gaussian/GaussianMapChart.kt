@@ -5,8 +5,9 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.chart.NumberAxis
 import javafx.scene.paint.Color
-import rafael.logistic.core.fx.mapchart.MapChartDouble
-import tornadofx.*
+import rafael.logistic.map.fx.mapchart.MapChartDouble
+import tornadofx.asObservable
+import tornadofx.toProperty
 
 const val X_INTERVALS = 100
 

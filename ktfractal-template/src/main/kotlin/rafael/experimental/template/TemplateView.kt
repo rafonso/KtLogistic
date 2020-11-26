@@ -4,8 +4,8 @@ import javafx.scene.control.CheckBox
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
-import rafael.logistic.core.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
+import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.App
 import tornadofx.disableWhen
 import tornadofx.onChange

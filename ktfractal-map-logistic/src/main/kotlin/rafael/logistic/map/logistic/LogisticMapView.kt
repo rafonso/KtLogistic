@@ -6,7 +6,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.valueToString
-import rafael.logistic.core.fx.view.ViewDouble
+import rafael.logistic.map.fx.view.ViewDouble
 import tornadofx.App
 
 class LogisticMapApp: App(LogisticMapView::class, Styles::class)

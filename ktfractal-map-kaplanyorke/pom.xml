@@ -21,6 +21,11 @@
             <artifactId>ktfractal-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>rafael.ktfractal</groupId>
+            <artifactId>ktfractal-map</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package rafael.logistic.core.fx.iterationchart
+package rafael.logistic.map.fx.iterationchart
 
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
@@ -16,6 +16,7 @@ import rafael.logistic.core.fx.SpinnerConverter
 import rafael.logistic.core.fx.rainbow
 import tornadofx.*
 
+@Suppress("UNCHECKED_CAST")
 val CONVERTER_0 = SpinnerConverter(0) as StringConverter<Number>
 
 abstract class IterationChartBase<T>(

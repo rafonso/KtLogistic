@@ -5,8 +5,10 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
 import javafx.scene.shape.QuadCurve
-import rafael.logistic.core.fx.mapchart.MapChartDouble
-import tornadofx.*
+import rafael.logistic.map.fx.mapchart.MapChartDouble
+import tornadofx.add
+import tornadofx.asObservable
+import tornadofx.toProperty
 
 class LogisticMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,

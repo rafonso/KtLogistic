@@ -9,22 +9,14 @@
         <version>0.5</version>
     </parent>
 
-    <artifactId>ktfractal-map-standard</artifactId>
+    <artifactId>ktfractal-map</artifactId>
     <packaging>jar</packaging>
-    <name>KTFractal - Standard Map</name>
-
-    <properties>
-    </properties>
+    <name>KTFractal - Map</name>
 
     <dependencies>
         <dependency>
             <groupId>rafael.ktfractal</groupId>
             <artifactId>ktfractal-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>rafael.ktfractal</groupId>
-            <artifactId>ktfractal-map</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

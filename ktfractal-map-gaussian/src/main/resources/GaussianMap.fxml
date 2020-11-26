@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.map.gaussian.*?>
-<?import rafael.logistic.core.fx.iterationchart.*?>
-
+<?import rafael.logistic.map.gaussian.GaussianMapChart?>
+<?import rafael.logistic.map.fx.iterationchart.IterationChartDouble?>
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1">
     <top>

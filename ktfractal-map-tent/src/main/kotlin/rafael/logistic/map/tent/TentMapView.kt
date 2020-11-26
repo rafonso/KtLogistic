@@ -5,7 +5,7 @@ import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
-import rafael.logistic.core.fx.view.ViewDouble
+import rafael.logistic.map.fx.view.ViewDouble
 import tornadofx.App
 
 class TentMapApp: App(TentMapView::class, Styles::class)

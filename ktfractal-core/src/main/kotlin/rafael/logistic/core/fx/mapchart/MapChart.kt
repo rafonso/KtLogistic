@@ -76,7 +76,7 @@ interface MapChart<T, E> {
 
 }
 
-internal fun exportImageTo(file: File, width: Int, height: Int, snapshotGenerator: (WritableImage) -> WritableImage): Boolean {
+fun exportImageTo(file: File, width: Int, height: Int, snapshotGenerator: (WritableImage) -> WritableImage): Boolean {
     val image = WritableImage(width, height)
     val writableImage = snapshotGenerator(image)
     val renderedImage = SwingFXUtils.fromFXImage(writableImage, null)

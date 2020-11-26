@@ -1,6 +1,6 @@
 @file:Suppress("LeakingThis")
 
-package rafael.logistic.core.fx.view
+package rafael.logistic.map.fx.view
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -8,12 +8,13 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.iterationchart.IterationChartBi
-import rafael.logistic.core.fx.mapchart.MapChartBi
+import rafael.logistic.map.fx.iterationchart.IterationChartBi
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.map.fx.mapchart.MapChartBi
 
 abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
         ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {

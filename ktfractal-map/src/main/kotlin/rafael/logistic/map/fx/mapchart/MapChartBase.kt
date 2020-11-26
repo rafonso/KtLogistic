@@ -1,6 +1,6 @@
 @file:Suppress("LeakingThis")
 
-package rafael.logistic.core.fx.mapchart
+package rafael.logistic.map.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
@@ -11,6 +11,8 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import rafael.logistic.core.fx.CONVERTER_2
+import rafael.logistic.core.fx.mapchart.MapChart
+import rafael.logistic.core.fx.mapchart.exportImageTo
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*

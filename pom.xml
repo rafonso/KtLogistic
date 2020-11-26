@@ -90,6 +90,7 @@
         <module>ktfractal-bifurcation-logistic</module>
         <module>ktfractal-bifurcation-lozi</module>
         <module>ktfractal-bifurcation-tent</module>
+        <module>ktfractal-map</module>
         <module>ktfractal-map-baker</module>
         <module>ktfractal-map-duffing</module>
         <module>ktfractal-map-gaussian</module>

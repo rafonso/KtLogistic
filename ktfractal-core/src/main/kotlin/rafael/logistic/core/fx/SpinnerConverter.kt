@@ -9,7 +9,7 @@ import javafx.util.StringConverter
  *
  * @param size
  */
-internal class SpinnerConverter(size: Int) : StringConverter<Double>() {
+class SpinnerConverter(size: Int) : StringConverter<Double>() {
 
     private val format = "%.${size}f"
 
@@ -20,4 +20,4 @@ internal class SpinnerConverter(size: Int) : StringConverter<Double>() {
 }
 
 @Suppress("UNCHECKED_CAST")
-internal val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>
+val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>
