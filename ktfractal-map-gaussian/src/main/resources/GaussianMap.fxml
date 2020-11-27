@@ -23,37 +23,20 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
-                <Label fx:id="lblAlpha" alignment="CENTER_RIGHT" minWidth="75.0" text="Alpha ="
-                       textAlignment="RIGHT">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnAlpha"/>
+                <Label fx:id="lblAlpha" styleClass="title" text="Alpha ="/>
+                <Spinner fx:id="spnAlpha" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
-                <Label fx:id="lblBeta" styleClass="title" text="Beta =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnBeta"/>
+                <Label fx:id="lblBeta" styleClass="title" text="Beta ="/>
+                <Spinner fx:id="spnBeta" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-                <Label fx:id="lblX0" styleClass="title" text="x₀ =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnX0"/>
+                <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
+                <Spinner fx:id="spnX0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
-                <Label fx:id="lblIterations" styleClass="title" text="Iterations =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnIterations"/>
+                <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
+                <Spinner fx:id="spnIterations" styleClass="spnIterations" />
             </FlowPane>
         </GridPane>
     </top>

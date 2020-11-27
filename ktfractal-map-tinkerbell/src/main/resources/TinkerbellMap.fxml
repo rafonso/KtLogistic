@@ -25,60 +25,32 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="0">
-                <Label fx:id="lblA" styleClass="title" text="a =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnA" prefWidth="120.0"/>
+                <Label fx:id="lblA" styleClass="title" text="a ="/>
+                <Spinner fx:id="spnA" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="1">
-                <Label fx:id="lblB" styleClass="title" text="b =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnB" prefWidth="120.0"/>
+                <Label fx:id="lblB" styleClass="title" text="b ="/>
+                <Spinner fx:id="spnB" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="2">
-                <Label fx:id="lblC" styleClass="title" text="c =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnC" prefWidth="120.0"/>
+                <Label fx:id="lblC" styleClass="title" text="c ="/>
+                <Spinner fx:id="spnC" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="3">
-                <Label fx:id="lblD" styleClass="title" text="d =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnD" prefWidth="120.0"/>
+                <Label fx:id="lblD" styleClass="title" text="d ="/>
+                <Spinner fx:id="spnD" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="4">
-                <Label fx:id="lblX0" styleClass="title" text="x₀ =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnX0" prefWidth="120.0"/>
+                <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
+                <Spinner fx:id="spnX0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="5">
-                <Label fx:id="lblY0" styleClass="title" text="y₀ =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnY0" prefWidth="120.0"/>
+                <Label fx:id="lblY0" styleClass="title" text="y₀ ="/>
+                <Spinner fx:id="spnY0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" minWidth="170.0" GridPane.columnIndex="6">
-                <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="-Infinity" text="Iterations =">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnIterations" prefWidth="100.0"/>
+                <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
+                <Spinner fx:id="spnIterations" styleClass="spnIterations" />
             </FlowPane>
         </GridPane>
     </top>

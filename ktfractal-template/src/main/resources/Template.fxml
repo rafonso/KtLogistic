@@ -25,66 +25,37 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
-                <Label fx:id="lblX0" styleClass="title" text="x₀ =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnX0"/>
+                <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
+                <Spinner fx:id="spnX0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
-                <Label fx:id="lblY0" styleClass="title" text="y₀ =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnY0"/>
+                <Label fx:id="lblY0" styleClass="title" text="y₀ ="/>
+                <Spinner fx:id="spnY0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-                <Label fx:id="lblIterations" alignment="TOP_RIGHT" minWidth="75.0" text="Iterations ="
-                       textAlignment="RIGHT">
-                    <padding>
-                        <Insets right="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnIterations"/>
+                <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
+                <Spinner fx:id="spnIterations" styleClass="spnIterations" />
             </FlowPane>
             <CheckBox fx:id="chbPinY" mnemonicParsing="false" prefWidth="200.0" text="Pin Y"
                       GridPane.columnIndex="3"/>
 
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label fx:id="lblXMin" styleClass="title" text="x Min =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnXMin"/>
+                <Label fx:id="lblXMin" styleClass="title" text="x Min ="/>
+                <Spinner fx:id="spnXMin" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Label fx:id="lblXMax" styleClass="title" text="x Max =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnXMax"/>
+                <Label fx:id="lblXMax" styleClass="title" text="x Max ="/>
+                <Spinner fx:id="spnXMax" styleClass="spnDouble" />
             </FlowPane>
 
 
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                <Label fx:id="lblYMin" styleClass="title" text="y Min =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnYMin"/>
+                <Label fx:id="lblYMin" styleClass="title" text="y Min ="/>
+                <Spinner fx:id="spnYMin" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                <Label fx:id="lblYMax" styleClass="title" text="y Max =">
-                    <padding>
-                        <Insets left="5.0"/>
-                    </padding>
-                </Label>
-                <Spinner fx:id="spnYMax"/>
+                <Label fx:id="lblYMax" styleClass="title" text="y Max ="/>
+                <Spinner fx:id="spnYMax" styleClass="spnDouble" />
             </FlowPane>
 
         </GridPane>
