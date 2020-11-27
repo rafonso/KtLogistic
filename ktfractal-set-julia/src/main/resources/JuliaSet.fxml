@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
 <?import rafael.logistic.set.JuliaCanvas?>
 <BorderPane prefHeight="604.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
-        <GridPane vgap="5.0" BorderPane.alignment="CENTER">
+        <GridPane vgap="5.0" styleClass="defaultInsets" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
@@ -20,9 +20,6 @@
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
                 <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
             </rowConstraints>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
             <FlowPane alignment="TOP_CENTER" GridPane.columnSpan="2">
                 <Label fx:id="lblCX" styleClass="title" text="C.x ="/>
                 <Spinner fx:id="spnCX" styleClass="spnDouble"/>
@@ -60,15 +57,11 @@
     </top>
     <center>
         <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets/>
-            </BorderPane.margin>
             <JuliaCanvas fx:id="chart" height="200.0" width="200.0"/>
         </FlowPane>
     </center>
     <bottom>
-        <FlowPane hgap="5.0" style="-fx-border-width: 1px; -fx-border-style: dashed;" vgap="5.0"
-                  BorderPane.alignment="CENTER">
+        <FlowPane styleClass="bottom" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
@@ -78,7 +71,4 @@
                    style="-fx-border-color: #000000; -fx-border-style: solid;" textFill="RED"/>
         </FlowPane>
     </bottom>
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-    </padding>
 </BorderPane>

@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
-<?import rafael.logistic.map.logistic.LogisticMapChart?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartDouble?>
-<BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-       <GridPane BorderPane.alignment="CENTER">
-           <columnConstraints>
-               <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-               <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
-           </columnConstraints>
-           <rowConstraints>
-               <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
-           </rowConstraints>
-           <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-           </padding>
-           <FlowPane alignment="TOP_CENTER" GridPane.halignment="RIGHT">
-               <Label fx:id="lblR" styleClass="title" text="R ="/>
-               <Spinner fx:id="spnR" styleClass="spnDouble" />
-           </FlowPane>
-           <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
-               <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-               <Spinner fx:id="spnX0" styleClass="spnDouble" />
-           </FlowPane>
-           <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
-               <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
-               <Spinner fx:id="spnIterations" styleClass="spnIterations" />
-           </FlowPane>
-       </GridPane>
-   </top>
+<?import rafael.logistic.map.logistic.LogisticMapChart?>
+<BorderPane prefHeight="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <GridPane vgap="5.0" styleClass="defaultInsets" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" valignment="BASELINE" vgrow="ALWAYS"/>
+            </rowConstraints>
+            <FlowPane alignment="TOP_CENTER" GridPane.halignment="RIGHT">
+                <Label fx:id="lblR" styleClass="title" text="R ="/>
+                <Spinner fx:id="spnR" styleClass="spnDouble"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
+                <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
+                <Spinner fx:id="spnX0" styleClass="spnDouble"/>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
+                <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
+                <Spinner fx:id="spnIterations" styleClass="spnIterations"/>
+            </FlowPane>
+        </GridPane>
+    </top>
     <center>
         <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
-            <LogisticMapChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false">
+            <LogisticMapChart fx:id="chart" animated="false" createSymbols="false" legendVisible="false"
+                              prefHeight="300.0">
                 <xAxis>
                     <NumberAxis autoRanging="false" minorTickCount="2" side="BOTTOM" tickUnit="0.1" upperBound="1.0"/>
                 </xAxis>
@@ -48,10 +45,7 @@
         </FlowPane>
     </center>
     <bottom>
-        <VBox minHeight="-Infinity" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
+        <VBox styleClass="defaultInsets" BorderPane.alignment="CENTER">
             <IterationChartDouble fx:id="iterationsChart" animated="false" createSymbols="false" legendVisible="false"
                                   prefHeight="100.0">
                 <xAxis>

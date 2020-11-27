@@ -5,7 +5,6 @@ import javafx.beans.property.IntegerProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.Event
-import javafx.geometry.Pos
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
@@ -210,8 +209,6 @@ private fun Spinner<*>.bind(
     return listener
 }
 
-fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toString(this.value)
-
 /**
  * Configura o [SpinnerValueFactory] do [Spinner], ...
  *
@@ -221,6 +218,11 @@ fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toStri
  */
 private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
     this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
+
+/**
+ * @return Valor do Spinner formatado
+ */
+fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toString(this.value)
 
 /**
  * Configura um [Spinner] de [Double]s
@@ -258,9 +260,7 @@ fun Spinner<Double>.configureActions(
  * @return [ChangeListener] "embalando" `action`
  */
 fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> =
-    this.bind(valueFactory, action).also {
-        this.editor.alignment = Pos.CENTER_RIGHT
-    }
+    this.bind(valueFactory, action)
 
 /**
  * Víncula os valores mínimos e máximos de  dois [Spinner]s.
