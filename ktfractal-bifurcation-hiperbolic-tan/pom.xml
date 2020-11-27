@@ -19,11 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>rafael.ktfractal</groupId>
-            <artifactId>ktfractal-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>rafael.ktfractal</groupId>
             <artifactId>ktfractal-bifurcation</artifactId>
             <version>${project.version}</version>
         </dependency>
