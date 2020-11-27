@@ -1,6 +1,6 @@
 package rafael.logistic.map.gaussian
 
-import rafael.logistic.core.generation.IterationGeneratorDouble
+import rafael.logistic.map.generation.IterationGeneratorDouble
 import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.exp
 

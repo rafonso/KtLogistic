@@ -1,7 +1,7 @@
 package rafael.logistic.map.ikeda
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.map.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.cos
 import kotlin.math.pow

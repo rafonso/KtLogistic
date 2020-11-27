@@ -1,7 +1,7 @@
 package rafael.logistic.map.baker
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.map.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.NoParameter
 
 class BakerMapGenerator : IterationGeneratorBi<NoParameter>() {

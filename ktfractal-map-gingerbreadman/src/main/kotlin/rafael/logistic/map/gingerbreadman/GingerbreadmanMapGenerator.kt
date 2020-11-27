@@ -1,7 +1,7 @@
 package rafael.logistic.map.gingerbreadman
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.map.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.NoParameter
 import kotlin.math.absoluteValue
 

@@ -1,7 +1,7 @@
 package rafael.logistic.map.henon
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.map.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.IterationParameter
 
 data class HenonParameter(val alpha: Double, val beta: Double) : IterationParameter

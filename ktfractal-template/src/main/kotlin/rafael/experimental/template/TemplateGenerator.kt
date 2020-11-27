@@ -1,7 +1,7 @@
 package rafael.experimental.template
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.core.generation.IterationGeneratorBi
+import rafael.logistic.map.generation.IterationGeneratorBi
 import rafael.logistic.core.generation.IterationParameter
 import kotlin.random.Random
 
