@@ -6,7 +6,7 @@
 <?import rafael.logistic.bifurcation.BifurcationCanvas?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
 <BorderPane prefHeight="589.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
         <GridPane vgap="5.0" styleClass="defaultInsets" BorderPane.alignment="CENTER">
             <columnConstraints>

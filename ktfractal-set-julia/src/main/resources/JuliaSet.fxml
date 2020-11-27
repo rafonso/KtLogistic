@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
 <?import rafael.logistic.set.JuliaCanvas?>
-<BorderPane prefHeight="604.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+<BorderPane prefHeight="604.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
         <GridPane vgap="5.0" styleClass="defaultInsets" BorderPane.alignment="CENTER">
