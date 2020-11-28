@@ -7,10 +7,10 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.map.fx.mapchart.MapChartDouble
 import tornadofx.add
 import tornadofx.asObservable
-import tornadofx.toProperty
 
 class TentMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
@@ -21,7 +21,7 @@ class TentMapChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
-    val miProperty = (0.0).toProperty()
+    val miProperty = zeroProperty()
 
     private var zeroY = 0.0
     private var zeroX = 0.0

@@ -5,9 +5,9 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.chart.NumberAxis
 import javafx.scene.paint.Color
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.map.fx.mapchart.MapChartDouble
 import tornadofx.asObservable
-import tornadofx.toProperty
 
 const val X_INTERVALS = 100
 
@@ -20,9 +20,9 @@ class GaussianMapChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
-    val alphaProperty = (0.0).toProperty()
+    val alphaProperty = zeroProperty()
 
-    val betaProperty = (0.0).toProperty()
+    val betaProperty = zeroProperty()
 
     private val deltaX = ((xAxis as NumberAxis).upperBound - (xAxis as NumberAxis).lowerBound) / X_INTERVALS
 

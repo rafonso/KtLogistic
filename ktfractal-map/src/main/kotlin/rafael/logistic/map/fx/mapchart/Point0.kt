@@ -4,7 +4,9 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.LineTo
 import javafx.scene.shape.MoveTo
 import javafx.scene.shape.Path
-import tornadofx.*
+import rafael.logistic.core.fx.zeroProperty
+import tornadofx.getValue
+import tornadofx.setValue
 
 private const val SIDE = 20.0
 
@@ -21,10 +23,10 @@ class Point0 : Path(
         // @formatter:on
 ) {
 
-    private val xProperty = (0.0).toProperty()
+    private val xProperty = zeroProperty()
     var x by xProperty
 
-    private val yProperty = (0.0).toProperty()
+    private val yProperty = zeroProperty()
     var y by yProperty
 
     init {

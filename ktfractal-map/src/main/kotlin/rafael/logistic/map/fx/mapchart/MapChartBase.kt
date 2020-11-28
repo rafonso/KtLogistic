@@ -13,6 +13,7 @@ import javafx.scene.chart.NumberAxis
 import rafael.logistic.core.fx.CONVERTER_2
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.mapchart.exportImageTo
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
@@ -39,22 +40,22 @@ abstract class MapChartBase<T>(
 
     private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
-    final override val xMinProperty = (0.0).toProperty()
+    final override val xMinProperty = zeroProperty()
     override val xMin by xMinProperty
 
-    final override val xMaxProperty = (0.0).toProperty()
+    final override val xMaxProperty = zeroProperty()
     override val xMax by xMaxProperty
 
-    final override val yMinProperty = (0.0).toProperty()
+    final override val yMinProperty = zeroProperty()
     override val yMin by yMinProperty
 
-    final override val yMaxProperty = (0.0).toProperty()
+    final override val yMaxProperty = zeroProperty()
     override val yMax by yMaxProperty
 
-    private val deltaXByPixelProp = (0.0).toProperty()
+    private val deltaXByPixelProp = zeroProperty()
     override val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    private val deltaYByPixelProp = (0.0).toProperty()
+    private val deltaYByPixelProp = zeroProperty()
     override val deltaYByPixelProperty = deltaYByPixelProp as ReadOnlyDoubleProperty
 
     override val generationStatusProperty = GenerationStatus.IDLE.toProperty()

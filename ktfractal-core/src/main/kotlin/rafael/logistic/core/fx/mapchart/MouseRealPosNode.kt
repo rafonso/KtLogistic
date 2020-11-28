@@ -3,12 +3,13 @@ package rafael.logistic.core.fx.mapchart
 import javafx.beans.binding.Bindings
 import javafx.beans.binding.When
 import javafx.beans.property.SimpleBooleanProperty
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.control.TextField
 import javafx.scene.input.Clipboard
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.FlowPane
+import rafael.logistic.core.fx.zeroProperty
+import rafael.logistic.core.generation.BiDouble
 import tornadofx.*
 
 class MouseRealPosNode : FlowPane() {
@@ -20,9 +21,9 @@ class MouseRealPosNode : FlowPane() {
 
     private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
 
-    private val deltaXByPixelProperty = (0.0).toProperty()
+    private val deltaXByPixelProperty = zeroProperty()
 
-    private val deltaYByPixelProperty = (0.0).toProperty()
+    private val deltaYByPixelProperty = zeroProperty()
 
     private val xDigitsProperty = 1.toProperty()
 

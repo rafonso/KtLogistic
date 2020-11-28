@@ -6,6 +6,7 @@ import javafx.event.EventHandler
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.paint.Color
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
@@ -17,47 +18,47 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     // @formatter:off
 
-    val x0Property = (0.0).toProperty()
-    private val x0 by x0Property
+                        val x0Property                  =   zeroProperty()
+    private             val x0                          by  x0Property
 
-    final override val xMinProperty = (0.0).toProperty()
-    override val xMin by xMinProperty
+    final   override    val xMinProperty                =   zeroProperty()
+            override    val xMin                        by  xMinProperty
 
-    final override val xMaxProperty = (0.0).toProperty()
-    override val xMax by xMaxProperty
+    final   override    val xMaxProperty                =   zeroProperty()
+            override    val xMax                        by  xMaxProperty
 
-    final override val yMinProperty = (0.0).toProperty()
-    override val yMin by yMinProperty
+    final   override    val yMinProperty                =   zeroProperty()
+            override    val yMin                        by  yMinProperty
 
-    final override val yMaxProperty = (0.0).toProperty()
-    override val yMax by yMaxProperty
+    final   override    val yMaxProperty                =   zeroProperty()
+            override    val yMax                        by  yMaxProperty
 
-    private val deltaXByPixelProp = (0.0).toProperty()
-    override val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
+    private             val deltaXByPixelProp           =   zeroProperty()
+            override    val deltaXByPixelProperty       =   deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    private val deltaYByPixelProp = (0.0).toProperty()
-    override val deltaYByPixelProperty = deltaYByPixelProp as ReadOnlyDoubleProperty
+    private             val deltaYByPixelProp           =   zeroProperty()
+            override    val deltaYByPixelProperty       =   deltaYByPixelProp as ReadOnlyDoubleProperty
 
-    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
+            override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
-    private val dataProperty = emptyList<T>().toProperty()
-    protected var data: List<T> by dataProperty
+    private             val dataProperty                =   emptyList<T>().toProperty()
+    protected           var data                        :   List<T> by dataProperty
 
-    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
+    private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
 
-    val backgroundProperty = Color.WHITE.toProperty()
+                        val backgroundProperty          =   Color.WHITE.toProperty()
+
+    protected           val gc                          :   GraphicsContext = super.getGraphicsContext2D()
+
+    protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
+
+    private     fun Double.canvasToRealX() = (xMax - xMin) * this / super.getWidth() + xMin
+
+    protected   fun Double.realToCanvasY() = (1 - (this - yMin) / (yMax - yMin)) * super.getHeight()
+
+    private     fun Double.canvasToRealY() = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
 
     // @formatter:on
-
-    protected fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
-
-    private fun Double.canvasToRealX() = (xMax - xMin) * this / super.getWidth() + xMin
-
-    protected fun Double.realToCanvasY() = (1 - (this - yMin) / (yMax - yMin)) * super.getHeight()
-
-    private fun Double.canvasToRealY() = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
-
-    protected val gc: GraphicsContext = super.getGraphicsContext2D()
 
     init {
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
@@ -95,6 +96,5 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         exportImageTo(file, super.getWidth().toInt(), super.getHeight().toInt()) {
             super.snapshot(null, it)
         }
-
 
 }

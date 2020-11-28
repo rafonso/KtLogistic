@@ -5,10 +5,10 @@ import javafx.collections.ObservableList
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
 import javafx.scene.shape.QuadCurve
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.map.fx.mapchart.MapChartDouble
 import tornadofx.add
 import tornadofx.asObservable
-import tornadofx.toProperty
 
 class LogisticMapChart(
         @NamedArg("xAxis") xAxis: Axis<Double>,
@@ -19,7 +19,7 @@ class LogisticMapChart(
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
-    val rProperty = (0.0).toProperty()
+    val rProperty = zeroProperty()
 
     private var zeroX =0.0
     private var zeroY =0.0
