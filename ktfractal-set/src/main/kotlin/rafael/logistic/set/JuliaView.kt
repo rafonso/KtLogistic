@@ -20,7 +20,8 @@ import tornadofx.*
 import kotlin.math.abs
 
 
-abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenerator) : ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>(title, fxmlFile, generator) {
+abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenerator) :
+    ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>(title, fxmlFile, generator) {
 
     companion object {
         const val LIMIT = 2.0
@@ -56,13 +57,13 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
 
     private     val lblStatus           :   Label               by  fxid()
 
-    private val lblDeltaXY: Label by fxid()
+    private val lblDeltaXY              :   Label               by  fxid()
 
-    private val deltaXYProperty = (0.0).toProperty()
+    private val deltaXYProperty         =   (0.0).toProperty()
 
-    private val deltaXYConverterProperty = objectProperty(yMinValueFactory.converterProperty().value)
+    private val deltaXYConverterProperty=   objectProperty(yMinValueFactory.converterProperty().value)
 
-    protected val cXProperty = (0.0).toProperty()
+    protected val cXProperty            =   (0.0).toProperty()
 
     protected   val cYProperty          =   (0.0).toProperty()
 
@@ -114,13 +115,13 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     }
 
     override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
-        return generator.generate(
-            BiDouble.ZERO, JuliaParameter(
-                cXProperty.value, cYProperty.value,
-                spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
-                spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
-            ), iterations
+        val parameter = JuliaParameter(
+            cXProperty.value, cYProperty.value,
+            spnXMin.value, spnXMax.value, chart. widthProperty().intValue(),
+            spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
         )
+
+        return generator.generate(BiDouble.ZERO, parameter, iterations)
     }
 
     override fun initializeAdditional() {

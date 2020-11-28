@@ -34,9 +34,9 @@ class GenerationStatusChronometerListener private constructor() : ChangeListener
         val now = Clock.System.now()
 
         if (oldValue == GenerationStatus.IDLE) {
-            print(now.toLocalDateTime(TimeZone.currentSystemDefault()))
+            print("%-30s".format(now.toLocalDateTime(TimeZone.currentSystemDefault())))
         } else if (priorTime != null) { //  && (newValue != GenerationStatus.IDLE)) {
-            print("\t%4.0f".format((now - priorTime!!).inMilliseconds))
+            print("\t%s: %4.0f".format(oldValue?.code ?: "??", (now - priorTime!!).inMilliseconds))
         }
         if (newValue == GenerationStatus.IDLE) {
             println()
