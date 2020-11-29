@@ -6,6 +6,9 @@ import rafael.logistic.core.generation.IterationParameter
 import kotlin.math.PI
 import kotlin.math.sin
 
+const val MIN_K = 0.0
+const val MAX_K = 10.0
+
 data class StandardMapParameter(val k: Double) : IterationParameter
 
 // https://en.wikipedia.org/wiki/Standard_map
