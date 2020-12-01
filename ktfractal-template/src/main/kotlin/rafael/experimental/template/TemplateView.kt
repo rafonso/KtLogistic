@@ -37,6 +37,8 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
     private     val deltaYLimitProperty =   oneProperty()
     private     val deltaYStepProperty  =   decimalProperty()
 
+    override    val spinnerComponents   = emptyArray<SpinnerComponents>()
+
     // @formatter:on
 
     override fun initializeControlsBi() {

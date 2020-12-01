@@ -19,7 +19,6 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0               : Spinner<Double> by fxid()
-    private val deltaX0Property     = oneProperty()
     private val x0ValueFactory      = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
     private val spnRMin             : Spinner<Double> by fxid()
@@ -40,6 +39,8 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
     private val deltaXLimitProperty = oneProperty()
     private val deltaXStepProperty  = decimalProperty()
 
+    override val spinnerComponents  = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+
     // @formatter:on
 
     override fun getParametersName() = "bifurcation" +
@@ -52,8 +53,6 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
 
         configureXAxisSpinners(
             spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,

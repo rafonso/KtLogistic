@@ -17,21 +17,23 @@ class DuffingMapView : ViewBi<DuffingMapGenerator>("Duffing Map", "DuffingMap", 
         get() = 1.0
 
     // @formatter:off
-    private val spnA            :   Spinner<Double>   by fxid()
-    private val deltaAProperty  =   2.toProperty()
-    private val aValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.75, maxDelta)
+    private val spnA                :   Spinner<Double>   by fxid()
+    private val aValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(2.0, 3.0, 2.75, maxDelta)
 
-    private val spnB            :   Spinner<Double>   by fxid()
-    private val deltaBProperty  =   2.toProperty()
-    private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, maxDelta)
+    private val spnB                :   Spinner<Double>   by fxid()
+    private val bValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.5, 0.15, maxDelta)
+
+    override val spinnerComponents  = arrayOf(
+        SpinnerComponents(spnA, aValueFactory, 2.toProperty()),
+        SpinnerComponents(spnB, bValueFactory, 2.toProperty()),
+    )
+
     // @formatter:on
 
     override fun refreshData(generator: DuffingMapGenerator, iterations: Int): List<BiDouble> =
         generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, iterations)
 
     override fun initializeControlsBi() {
-        spnA.configureSpinner(aValueFactory, deltaAProperty)
-        spnB.configureSpinner(bValueFactory, deltaBProperty)
     }
 
     override fun getImageName1(): String = "duffing.Alpha=${spnA.valueToString()}.Beta=${spnB.valueToString()}"

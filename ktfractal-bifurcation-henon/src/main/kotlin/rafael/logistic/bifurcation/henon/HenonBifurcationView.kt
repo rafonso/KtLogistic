@@ -19,15 +19,12 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val deltaX0Property         = oneProperty()
     private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnX1                   : Spinner<Double>   by fxid()
-    private val deltaX1Property         = oneProperty()
     private val x1ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnBeta                 : Spinner<Double>   by fxid()
-    private val deltaBetaProperty       = oneProperty()
     private val betaValueFactory        = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, 0.0, 0.1)
 
     private val spnAlphaMin             : Spinner<Double>   by fxid()
@@ -48,6 +45,12 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
     private val deltaXLimitProperty     = oneProperty()
     private val deltaXStepProperty      = decimalProperty()
 
+    override val spinnerComponents      = arrayOf(
+        SpinnerComponents(spnX0     , x0ValueFactory  ),
+        SpinnerComponents(spnX1     , x1ValueFactory  ),
+        SpinnerComponents(spnBeta   , betaValueFactory),
+    )
+
     // @formatter:on
 
     override fun getParametersName() = "henon-bifurcation" +
@@ -62,10 +65,6 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
-        spnX1.configureSpinner(x1ValueFactory, deltaX1Property)
-        spnBeta.configureSpinner(betaValueFactory, deltaBetaProperty)
 
         configureXAxisSpinners(
             spnXMin,

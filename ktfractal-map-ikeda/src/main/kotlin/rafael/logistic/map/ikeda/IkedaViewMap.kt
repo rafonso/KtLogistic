@@ -1,12 +1,11 @@
 package rafael.logistic.map.ikeda
 
-import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
-import rafael.logistic.map.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
+import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.App
 
 private const val U_CHANGE_SCALE_VALUE = 0.9
@@ -32,9 +31,10 @@ class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMap
 
     // @formatter:off
 
-    private val spnU            :   Spinner<Double> by fxid()
-    private val deltaUProperty  =   SimpleIntegerProperty(this, "deltaU", 1)
-    private val uValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(U_MIN, U_MAX, (U_MIN + U_MAX) / 2, maxDelta)
+    private     val spnU                :   Spinner<Double> by fxid()
+    private     val uValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(U_MIN, U_MAX, (U_MIN + U_MAX) / 2, maxDelta)
+
+    override    val spinnerComponents   =   arrayOf(SpinnerComponents(spnU, uValueFactory))
 
     // @formatter:on
 
@@ -56,12 +56,13 @@ class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMap
         generator.generate(BiDouble(x0Property.value, y0Property.value), spnU.value, iterations)
 
     override fun initializeControlsBi() {
-        spnU.configureSpinner(uValueFactory, deltaUProperty)
         spnU.valueProperty().addListener { _, oldU, newU ->
-            val goingToZoomOut = oldU <  U_CHANGE_SCALE_VALUE && newU >= U_CHANGE_SCALE_VALUE
-            val goingToZoomInn = oldU >= U_CHANGE_SCALE_VALUE && newU <  U_CHANGE_SCALE_VALUE
-            if (goingToZoomOut || goingToZoomInn) {
-                changeScale(newU)
+            if(oldU != null) {
+                val goingToZoomOut = oldU < U_CHANGE_SCALE_VALUE && newU >= U_CHANGE_SCALE_VALUE
+                val goingToZoomInn = oldU >= U_CHANGE_SCALE_VALUE && newU < U_CHANGE_SCALE_VALUE
+                if (goingToZoomOut || goingToZoomInn) {
+                    changeScale(newU)
+                }
             }
         }
     }

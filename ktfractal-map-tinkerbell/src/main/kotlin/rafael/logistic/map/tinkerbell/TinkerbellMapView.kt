@@ -3,10 +3,9 @@ package rafael.logistic.map.tinkerbell
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
-import rafael.logistic.map.fx.view.ViewBi
 import rafael.logistic.core.generation.BiDouble
+import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.App
 import tornadofx.toProperty
 
@@ -34,31 +33,28 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
 
     // @formatter:off
     private val spnA            :   Spinner<Double>   by fxid()
-    private val deltaAProperty  =   oneProperty()
     private val aValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.9, maxDelta)
 
     private val spnB            :   Spinner<Double>   by fxid()
-    private val deltaBProperty  =   4.toProperty()
     private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 1.0, -0.6013, maxDelta)
 
     private val spnC            :   Spinner<Double>   by fxid()
-    private val deltaCProperty  =   oneProperty()
     private val cValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-4.0, 4.0, 2.0, maxDelta)
 
     private val spnD            :   Spinner<Double>   by fxid()
-    private val deltaDProperty  =   oneProperty()
     private val dValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
+
+    override    val spinnerComponents   =   arrayOf(
+        SpinnerComponents(spnA, aValueFactory),
+        SpinnerComponents(spnB, bValueFactory, 4.toProperty()),
+        SpinnerComponents(spnC, cValueFactory),
+        SpinnerComponents(spnD, dValueFactory),
+    )
+
     // @formatter:on
 
     override fun refreshData(generator: TinkerbellMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
-
-    override fun initializeControlsBi() {
-        spnA.configureSpinner(aValueFactory, deltaAProperty)
-        spnB.configureSpinner(bValueFactory, deltaBProperty)
-        spnC.configureSpinner(cValueFactory, deltaCProperty)
-        spnD.configureSpinner(dValueFactory, deltaDProperty)
-    }
 
     override fun getImageName1(): String = "Tinkerbell" +
             ".a=${spnA.valueToString()}.b=${spnB.valueToString()}.c=${spnC.valueToString()}.d=${spnD.valueToString()}"

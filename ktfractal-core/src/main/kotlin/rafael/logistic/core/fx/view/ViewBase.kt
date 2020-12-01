@@ -12,6 +12,7 @@ import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.mapchart.MapChart
+import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import java.io.File
 import java.util.prefs.Preferences
@@ -23,6 +24,19 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     protected val generator: G
 ) :
     View(title) where C : MapChart<T, *>, C : Node {
+
+    /**
+     * Dados de configuração de um [Spinner] do tipo [Double].
+     *
+     * @property spinner Spinner a ser configurado
+     * @property factory Gerador dos valores do Spinner
+     * @property deltaProperty Propriedade relacionada ao [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner.
+     */
+    protected data class SpinnerComponents(
+        val spinner         : Spinner<Double>,
+        val factory         : SpinnerValueFactory.DoubleSpinnerValueFactory,
+        val deltaProperty   : IntegerProperty = oneProperty()
+    )
 
     // @formatter:off
 
@@ -36,14 +50,25 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected       val logisticData            =   emptyList<T>().toProperty()
 
+    /**
+     * Array com as [Configurações][SpinnerComponents] dos [Spinner]s
+     */
+    protected abstract  val spinnerComponents   :   Array<SpinnerComponents>
+
     // @formatter:on
 
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
     fun generationStatusProperty() = generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
 
     override fun onBeforeShow() {
-        spnIterations.configureActions(iterationsValueFactory, ::loadData)
         initializeControls()
+        spnIterations.configureActions(iterationsValueFactory, ::loadData)
+        spinnerComponents.forEach { (spinner, factory, deltaProperty) ->
+            spinner.configureActions(
+                factory,
+                deltaProperty
+            ) { loadData() }
+        }
 
         chart.bind(logisticData)
         chart.generationStatusProperty.bindBidirectional(this.generationStatusProperty)

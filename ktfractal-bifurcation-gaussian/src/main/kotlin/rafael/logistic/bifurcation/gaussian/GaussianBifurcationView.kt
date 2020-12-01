@@ -19,11 +19,9 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val deltaX0Property         = oneProperty()
     private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnAlpha                : Spinner<Double>   by fxid()
-    private val deltaAlphaProperty      = oneProperty()
     private val alphaValueFactory       = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 5.0, 0.1)
 
     private val spnBetaMin              : Spinner<Double>   by fxid()
@@ -44,6 +42,11 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     private val deltaXLimitProperty     = oneProperty()
     private val deltaXStepProperty      = decimalProperty()
 
+    override val spinnerComponents      = arrayOf(
+        SpinnerComponents(spnX0     , x0ValueFactory   ),
+        SpinnerComponents(spnAlpha  , alphaValueFactory)
+    )
+
     // @formatter:on
 
     override fun getParametersName() = "gaussian-bifurcation" +
@@ -57,9 +60,6 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
-        spnAlpha.configureSpinner(alphaValueFactory, deltaAlphaProperty)
 
         configureXAxisSpinners(
             spnXMin,

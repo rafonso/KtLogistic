@@ -34,7 +34,6 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
 
     override fun initializeControls() {
         spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
-        initializeControlsDouble()
     }
 
     override fun initializeCharts() {
@@ -54,7 +53,5 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
 
 
     protected abstract fun getImageName1(): String
-
-    protected abstract fun initializeControlsDouble()
 
 }

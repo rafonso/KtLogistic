@@ -20,7 +20,6 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     // @formatter:off
 
     private val spnX0               : Spinner<Double> by fxid()
-    private val deltaX0Property     = oneProperty()
     private val x0ValueFactory      = doubleSpinnerValueFactory(X_MIN, X_MAX, 1.0, 0.1)
 
     private val spnGMin             : Spinner<Double>   by fxid()
@@ -41,6 +40,8 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     private val deltaXLimitProperty = oneProperty()
     private val deltaXStepProperty  = decimalProperty()
 
+    override val spinnerComponents  = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+
     // @formatter:on
 
     override fun getParametersName() = "hiperbolic-tangent-bifurcation" +
@@ -53,8 +54,6 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
 
         configureXAxisSpinners(
             spnXMin,

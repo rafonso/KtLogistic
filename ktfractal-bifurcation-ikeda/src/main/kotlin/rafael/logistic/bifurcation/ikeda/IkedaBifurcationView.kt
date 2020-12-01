@@ -1,12 +1,12 @@
 package rafael.logistic.bifurcation.ikeda
 
 import javafx.scene.control.Spinner
+import rafael.logistic.bifurcation.BifurcationView
+import rafael.logistic.bifurcation.RData
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.decimalProperty
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.bifurcation.BifurcationView
-import rafael.logistic.bifurcation.RData
 import tornadofx.App
 
 class IkedaBifurcationApp : App(IkedaBifurcationView::class, Styles::class)
@@ -19,11 +19,9 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                           : Spinner<Double>   by fxid()
-    private val deltaX0Property                 = oneProperty()
     private val x0ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnX1                           : Spinner<Double>   by fxid()
-    private val deltaX1Property                 = oneProperty()
     private val x1ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnUMin                         : Spinner<Double>   by fxid()
@@ -44,6 +42,11 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     private val deltaXLimitProperty             = oneProperty()
     private val deltaXStepProperty              = decimalProperty()
 
+        override val spinnerComponents              = arrayOf(
+            SpinnerComponents(spnX0     , x0ValueFactory),
+            SpinnerComponents(spnX1     , x1ValueFactory),
+        )
+
     // @formatter:on
 
     override fun getParametersName() = "lozi-bifurcation" +
@@ -57,9 +60,6 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
-        spnX1.configureSpinner(x1ValueFactory, deltaX1Property)
 
         configureXAxisSpinners(
             spnXMin,

@@ -8,6 +8,8 @@ class MandelbrotSetApp: App(MandelbrotSetView::class, Styles::class)
 
 class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetGenerator()) {
 
+    override val spinnerComponents = emptyArray<SpinnerComponents>()
+
     override fun getImageName(): String = "mandelbrot" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

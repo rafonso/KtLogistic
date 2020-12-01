@@ -3,7 +3,6 @@ package rafael.logistic.set.julia
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.set.SetView
 import tornadofx.App
 
@@ -14,12 +13,16 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
     // @formatter:off
 
     private     val spnCX               :   Spinner<Double>     by  fxid()
-    private     val deltaCXProperty     =   oneProperty()
     private     val cXValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
 
     private     val spnCY               :   Spinner<Double>     by  fxid()
-    private     val deltaCYProperty     =   oneProperty()
     private     val cYValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
+
+    override    val spinnerComponents   = arrayOf(
+        SpinnerComponents(spnCX, cXValueFactory),
+        SpinnerComponents(spnCY, cYValueFactory),
+    )
+
     // @formatter:on
 
     override fun getImageName(): String = "julia" +
@@ -35,10 +38,10 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
         super.initializeControls()
 
         super.cXProperty.bind(spnCX.valueProperty())
-        spnCX.configureSpinner(cXValueFactory, deltaCXProperty)
+//        spnCX.configureSpinner(cXValueFactory, deltaCXProperty)
 
         super.cYProperty.bind(spnCY.valueProperty())
-        spnCY.configureSpinner(cYValueFactory, deltaCYProperty)
+//        spnCY.configureSpinner(cYValueFactory, deltaCYProperty)
     }
 
 }

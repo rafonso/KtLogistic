@@ -19,7 +19,6 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val deltaX0Property         = oneProperty()
     private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
     private val spnMiMin                : Spinner<Double>   by fxid()
@@ -40,6 +39,8 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
     private val deltaXLimitProperty     = oneProperty()
     private val deltaXStepProperty      = decimalProperty()
 
+    override val spinnerComponents      = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+
     // @formatter:on
 
     override fun getParametersName() = "tent-bifurcation" +
@@ -52,8 +53,6 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 
     override fun initializeControls() {
         super.initializeControls()
-
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
 
         configureXAxisSpinners(
             spnXMin,
