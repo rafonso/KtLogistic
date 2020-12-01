@@ -52,10 +52,10 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
             ".X1=${spnX1.valueToString()}" +
             ".Beta=${spnBeta.valueToString()}" +
             ".Iterations_Alpha=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".AlphaMin=${alphaMinValueFactory.converter.toString(spnAlphaMin.value)}" +
-            ".AlphaMax=${alphaMaxValueFactory.converter.toString(spnAlphaMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".AlphaMin=${spnAlphaMin.valueToString()}" +
+            ".AlphaMax=${spnAlphaMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

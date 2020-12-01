@@ -1,12 +1,9 @@
 package rafael.logistic.bifurcation.gaussian
 
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class GaussianBifurcationApp : App(GaussianBifurcationView::class, Styles::class)
@@ -49,13 +46,13 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     // @formatter:on
 
     override fun getParametersName() = "gaussian-bifurcation" +
-            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
-            ".Alpha=${spnAlpha.valueFactory.converter.toString(spnAlpha.value)}" +
+            ".X0=${spnX0.valueToString()}" +
+            ".Alpha=${spnAlpha.valueToString()}" +
             ".Iterations_Beta=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".BetaMin=${betaMinValueFactory.converter.toString(spnBetaMin.value)}" +
-            ".BetaMax=${betaMaxValueFactory.converter.toString(spnBetaMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".BetaMin=${spnBetaMin.valueToString()}" +
+            ".BetaMax=${spnBetaMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

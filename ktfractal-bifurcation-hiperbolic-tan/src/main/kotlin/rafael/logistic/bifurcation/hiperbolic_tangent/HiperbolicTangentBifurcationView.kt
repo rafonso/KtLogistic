@@ -1,12 +1,9 @@
 package rafael.logistic.bifurcation.hiperbolic_tangent
 
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class HiperbolicTangentBifurcationApp : App(HiperbolicTangentBifurcationView::class, Styles::class)
@@ -44,12 +41,12 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     // @formatter:on
 
     override fun getParametersName() = "hiperbolic-tangent-bifurcation" +
-            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
+            ".X0=${spnX0.valueToString()}" +
             ".Iterations_G=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".GMin=${gMinValueFactory.converter.toString(spnGMin.value)}" +
-            ".GMax=${gMaxValueFactory.converter.toString(spnGMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".GMin=${spnGMin.valueToString()}" +
+            ".GMax=${spnGMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

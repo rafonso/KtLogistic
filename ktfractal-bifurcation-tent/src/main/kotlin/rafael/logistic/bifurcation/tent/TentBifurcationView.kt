@@ -42,10 +42,10 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
     override fun getParametersName() = "tent-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".Iterations_R=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".RMin=${miMinValueFactory.converter.toString(spnMiMin.value)}" +
-            ".RMax=${miMaxValueFactory.converter.toString(spnMiMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".RMin=${spnMiMin.valueToString()}" +
+            ".RMax=${spnMiMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

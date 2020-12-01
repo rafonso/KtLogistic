@@ -3,10 +3,7 @@ package rafael.logistic.bifurcation.ikeda
 import javafx.scene.control.Spinner
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class IkedaBifurcationApp : App(IkedaBifurcationView::class, Styles::class)
@@ -48,13 +45,13 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     // @formatter:on
 
     override fun getParametersName() = "lozi-bifurcation" +
-            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
-            ".X1=${spnX1.valueFactory.converter.toString(spnX1.value)}" +
+            ".X0=${spnX0.valueToString()}" +
+            ".X1=${spnX1.valueToString()}" +
             ".Iterations_U=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".UMin=${uMinValueFactory.converter.toString(spnUMin.value)}" +
-            ".UMax=${uMaxValueFactory.converter.toString(spnUMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".UMin=${spnUMin.valueToString()}" +
+            ".UMax=${spnUMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

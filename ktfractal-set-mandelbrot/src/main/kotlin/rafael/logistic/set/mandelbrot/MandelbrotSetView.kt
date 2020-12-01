@@ -1,6 +1,7 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.fx.Styles
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.set.SetView
 import tornadofx.App
 
@@ -11,10 +12,10 @@ class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotS
     override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 
     override fun getImageName(): String = "mandelbrot" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".YMin=${yMinValueFactory.converter.toString(spnYMin.value)}" +
-            ".YMax=${yMaxValueFactory.converter.toString(spnYMax.value)}" +
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".YMin=${spnYMin.valueToString()}" +
+            ".YMax=${spnYMax.valueToString()}" +
             ".Iterations_Dot=${spnIterations.value}"
 
 }

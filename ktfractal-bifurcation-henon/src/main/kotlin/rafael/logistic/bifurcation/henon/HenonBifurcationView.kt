@@ -50,12 +50,12 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
     override fun getParametersName() = "henon-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".X1=${spnX1.valueToString()}" +
-            ".Beta=${spnBeta.valueFactory.converter.toString(spnBeta.value)}" +
+            ".Beta=${spnBeta.valueToString()}" +
             ".Iterations_Alpha=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".AlphaMin=${alphaMinValueFactory.converter.toString(spnAlphaMin.value)}" +
-            ".AlphaMax=${alphaMaxValueFactory.converter.toString(spnAlphaMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".AlphaMin=${spnAlphaMin.valueToString()}" +
+            ".AlphaMax=${spnAlphaMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

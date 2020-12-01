@@ -43,10 +43,10 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
     override fun getParametersName() = "bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".Iterations_R=${spnIterations.value}" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".RMin=${rMinValueFactory.converter.toString(spnRMin.value)}" +
-            ".RMax=${rMaxValueFactory.converter.toString(spnRMax.value)}"
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".RMin=${spnRMin.valueToString()}" +
+            ".RMax=${spnRMax.valueToString()}"
 
     override fun initializeControls() {
         super.initializeControls()

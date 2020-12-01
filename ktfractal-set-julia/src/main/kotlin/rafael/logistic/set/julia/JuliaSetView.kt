@@ -24,10 +24,10 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
     // @formatter:on
 
     override fun getImageName(): String = "julia" +
-            ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
-            ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
-            ".YMin=${yMinValueFactory.converter.toString(spnYMin.value)}" +
-            ".YMax=${yMaxValueFactory.converter.toString(spnYMax.value)}" +
+            ".XMin=${spnXMin.valueToString()}" +
+            ".XMax=${spnXMax.valueToString()}" +
+            ".YMin=${spnYMin.valueToString()}" +
+            ".YMax=${spnYMax.valueToString()}" +
             ".CX=${spnCX.valueToString()}" +
             ".CY=${spnCY.valueToString()}" +
             ".Iterations_Dot=${spnIterations.value}"
