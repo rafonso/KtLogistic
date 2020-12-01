@@ -1,7 +1,6 @@
 package rafael.logistic.map.tent
 
 import javafx.scene.control.Spinner
-import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.map.fx.view.ViewDouble
@@ -13,9 +12,8 @@ class TentMapView : ViewDouble<TentMapGenerator, TentMapChart>("Tent Map", "Tent
 
     // @formatter:off
     private     val spnMi               :   Spinner<Double>   by fxid()
-    private     val miValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 2.0, 1.0, maxDelta)
 
-    override    val spinnerComponents   =   arrayOf(SpinnerComponents(spnMi, miValueFactory))
+    override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnMi, 0.0, 2.0, 1.0))
 
     // @formatter:on
 

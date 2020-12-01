@@ -9,7 +9,7 @@ class BakerMapApp: App(BakerMapView::class, Styles::class)
 
 class BakerMapView : ViewBi<BakerMapGenerator>("Baker Map", "BakerMap", BakerMapGenerator()) {
 
-    override val spinnerComponents = emptyArray<SpinnerComponents>()
+    override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 
     override fun refreshData(generator: BakerMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), iterations)

@@ -1,12 +1,9 @@
 package rafael.logistic.bifurcation.henon
 
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class HenonBifurcationApp : App(HenonBifurcationView::class, Styles::class)
@@ -19,13 +16,10 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnX1                   : Spinner<Double>   by fxid()
-    private val x1ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnBeta                 : Spinner<Double>   by fxid()
-    private val betaValueFactory        = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, 0.0, 0.1)
 
     private val spnAlphaMin             : Spinner<Double>   by fxid()
     private val alphaMinValueFactory    = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, ALPHA_MIN, 0.1)
@@ -46,17 +40,17 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
     private val deltaXStepProperty      = decimalProperty()
 
     override val spinnerComponents      = arrayOf(
-        SpinnerComponents(spnX0     , x0ValueFactory  ),
-        SpinnerComponents(spnX1     , x1ValueFactory  ),
-        SpinnerComponents(spnBeta   , betaValueFactory),
+        SpinnerConfigurations(spnX0     , X_MIN     , X_MAX     , 0.0),
+        SpinnerConfigurations(spnX1     , X_MIN     , X_MAX     , 0.0),
+        SpinnerConfigurations(spnBeta   , BETA_MIN  , BETA_MAX  , 0.0),
     )
 
     // @formatter:on
 
     override fun getParametersName() = "henon-bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
-            ".X1=${x1ValueFactory.converter.toString(spnX1.value)}" +
-            ".Beta=${betaValueFactory.converter.toString(spnBeta.value)}" +
+            ".X0=${spnX0.valueToString()}" +
+            ".X1=${spnX1.valueToString()}" +
+            ".Beta=${spnBeta.valueFactory.converter.toString(spnBeta.value)}" +
             ".Iterations_Alpha=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

@@ -20,7 +20,6 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     // @formatter:off
 
     private val spnX0               : Spinner<Double> by fxid()
-    private val x0ValueFactory      = doubleSpinnerValueFactory(X_MIN, X_MAX, 1.0, 0.1)
 
     private val spnGMin             : Spinner<Double>   by fxid()
     private val gMinValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MIN, 0.1)
@@ -40,12 +39,12 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     private val deltaXLimitProperty = oneProperty()
     private val deltaXStepProperty  = decimalProperty()
 
-    override val spinnerComponents  = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+    override val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
 
     // @formatter:on
 
     override fun getParametersName() = "hiperbolic-tangent-bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
+            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
             ".Iterations_G=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

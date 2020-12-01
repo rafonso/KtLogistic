@@ -19,10 +19,8 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                           : Spinner<Double>   by fxid()
-    private val x0ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnX1                           : Spinner<Double>   by fxid()
-    private val x1ValueFactory                  = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnUMin                         : Spinner<Double>   by fxid()
     private val uMinValueFactory                = doubleSpinnerValueFactory(U_MIN, U_MAX, U_MIN, 0.1)
@@ -43,15 +41,15 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     private val deltaXStepProperty              = decimalProperty()
 
         override val spinnerComponents              = arrayOf(
-            SpinnerComponents(spnX0     , x0ValueFactory),
-            SpinnerComponents(spnX1     , x1ValueFactory),
+            SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),
+            SpinnerConfigurations(spnX1     , X_MIN, X_MAX, 0.0),
         )
 
     // @formatter:on
 
     override fun getParametersName() = "lozi-bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
-            ".X1=${x1ValueFactory.converter.toString(spnX1.value)}" +
+            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
+            ".X1=${spnX1.valueFactory.converter.toString(spnX1.value)}" +
             ".Iterations_U=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

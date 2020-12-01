@@ -1,12 +1,9 @@
 package rafael.logistic.bifurcation.logistic
 
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class LogisticBifurcationApp : App(LogisticBifurcationView::class, Styles::class)
@@ -18,33 +15,33 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
 ) {
 
     // @formatter:off
-    private val spnX0               : Spinner<Double> by fxid()
-    private val x0ValueFactory      = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
-    private val spnRMin             : Spinner<Double> by fxid()
-    private val rMinValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
+    private     val spnX0               : Spinner<Double>   by fxid()
 
-    private val spnRMax             : Spinner<Double>   by fxid()
-    private val rMaxValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
+    private     val spnRMin             : Spinner<Double>   by fxid()
+    private     val rMinValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
 
-    private val deltaRLimitProperty = oneProperty()
-    private val deltaRStepProperty  = decimalProperty()
+    private     val spnRMax             : Spinner<Double>   by fxid()
+    private     val rMaxValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
 
-    private val spnXMin             : Spinner<Double>   by fxid()
-    private val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
+    private     val deltaRLimitProperty = oneProperty()
+    private     val deltaRStepProperty  = decimalProperty()
 
-    private val spnXMax             : Spinner<Double>   by fxid()
-    private val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
+    private     val spnXMin             : Spinner<Double>   by fxid()
+    private     val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
 
-    private val deltaXLimitProperty = oneProperty()
-    private val deltaXStepProperty  = decimalProperty()
+    private     val spnXMax             : Spinner<Double>   by fxid()
+    private     val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
 
-    override val spinnerComponents  = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+    private     val deltaXLimitProperty = oneProperty()
+    private     val deltaXStepProperty  = decimalProperty()
+
+    override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
 
     // @formatter:on
 
     override fun getParametersName() = "bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
+            ".X0=${spnX0.valueToString()}" +
             ".Iterations_R=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

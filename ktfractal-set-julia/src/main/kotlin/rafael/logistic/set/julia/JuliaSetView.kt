@@ -2,7 +2,7 @@ package rafael.logistic.set.julia
 
 import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
+import rafael.logistic.core.fx.valueToString
 import rafael.logistic.set.SetView
 import tornadofx.App
 
@@ -13,14 +13,12 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
     // @formatter:off
 
     private     val spnCX               :   Spinner<Double>     by  fxid()
-    private     val cXValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
 
     private     val spnCY               :   Spinner<Double>     by  fxid()
-    private     val cYValueFactory      =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT / 2, 0.1)
 
-    override    val spinnerComponents   = arrayOf(
-        SpinnerComponents(spnCX, cXValueFactory),
-        SpinnerComponents(spnCY, cYValueFactory),
+    override    val spinnerComponents   =   arrayOf(
+        SpinnerConfigurations(spnCX, -LIMIT, LIMIT, LIMIT / 2),
+        SpinnerConfigurations(spnCY, -LIMIT, LIMIT, LIMIT / 2),
     )
 
     // @formatter:on
@@ -30,8 +28,8 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +
             ".YMin=${yMinValueFactory.converter.toString(spnYMin.value)}" +
             ".YMax=${yMaxValueFactory.converter.toString(spnYMax.value)}" +
-            ".CX=${cXValueFactory.converter.toString(spnCX.value)}" +
-            ".CY=${cYValueFactory.converter.toString(spnCY.value)}" +
+            ".CX=${spnCX.valueToString()}" +
+            ".CY=${spnCY.valueToString()}" +
             ".Iterations_Dot=${spnIterations.value}"
 
     override fun initializeControls() {

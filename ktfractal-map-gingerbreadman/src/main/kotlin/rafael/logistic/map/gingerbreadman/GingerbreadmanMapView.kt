@@ -24,7 +24,7 @@ class GingerbreadmanMapView : ViewBi<GingerbreadmanMapGenerator>("Gingerbreadman
     override val minY0Spinner: Double
         get() = -maxY0Spinner
 
-    override val spinnerComponents = emptyArray<SpinnerComponents>()
+    override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 
     override fun refreshData(generator: GingerbreadmanMapGenerator, iterations: Int): List<BiDouble> =
             generator.generate(BiDouble(x0Property.value, y0Property.value), iterations)

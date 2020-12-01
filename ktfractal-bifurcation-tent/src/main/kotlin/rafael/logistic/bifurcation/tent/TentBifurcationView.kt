@@ -1,12 +1,9 @@
 package rafael.logistic.bifurcation.tent
 
 import javafx.scene.control.Spinner
-import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.decimalProperty
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
+import rafael.logistic.core.fx.*
 import tornadofx.App
 
 class TentBifurcationApp : App(TentBifurcationView::class, Styles::class)
@@ -19,7 +16,6 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 
     // @formatter:off
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.5, 0.1)
 
     private val spnMiMin                : Spinner<Double>   by fxid()
     private val miMinValueFactory       = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MIN, 0.1)
@@ -39,12 +35,12 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
     private val deltaXLimitProperty     = oneProperty()
     private val deltaXStepProperty      = decimalProperty()
 
-    override val spinnerComponents      = arrayOf(SpinnerComponents(spnX0, x0ValueFactory))
+    override val spinnerComponents      = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
 
     // @formatter:on
 
     override fun getParametersName() = "tent-bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
+            ".X0=${spnX0.valueToString()}" +
             ".Iterations_R=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

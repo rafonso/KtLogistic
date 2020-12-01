@@ -220,7 +220,7 @@ private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> 
     this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
 
 /**
- * @return Valor do Spinner formatado
+ * @return Valor do Spinner formatado de acordo com o [Converter][SpinnerValueFactory.converter] do mesmo.
  */
 fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toString(this.value)
 

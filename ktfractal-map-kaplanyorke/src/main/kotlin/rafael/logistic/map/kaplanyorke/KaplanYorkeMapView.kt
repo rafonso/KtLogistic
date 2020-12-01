@@ -1,7 +1,6 @@
 package rafael.logistic.map.kaplanyorke
 
 import javafx.scene.control.Spinner
-import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -16,10 +15,10 @@ class KaplanYorkeMapView : ViewBi<KaplanYorkeMapGenerator>("Kaplan-Yorke Map", "
         get() = 0.5
 
     // @formatter:off
-    private     val spnA                :   Spinner<Double>   by fxid()
-    private     val aValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.1, maxDelta)
 
-    override    val spinnerComponents   = arrayOf(SpinnerComponents(spnA, aValueFactory))
+    private     val spnA                :   Spinner<Double>   by fxid()
+
+    override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnA, 0.0, 1.0, 0.1))
 
     // @formatter:on
 

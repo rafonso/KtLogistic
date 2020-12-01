@@ -1,7 +1,6 @@
 package rafael.logistic.map.standard
 
 import javafx.scene.control.Spinner
-import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -14,9 +13,8 @@ class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMa
 
     // @formatter:off
     private     val spnK                :   Spinner<Double> by fxid()
-    private     val kValueFactory       =   SpinnerValueFactory.DoubleSpinnerValueFactory(MIN_K, MAX_K, 1.0, maxDelta)
 
-    override    val spinnerComponents   =   arrayOf(SpinnerComponents(spnK, kValueFactory))
+    override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnK, MIN_K, MAX_K, 1.0))
 
     // @formatter:on
 

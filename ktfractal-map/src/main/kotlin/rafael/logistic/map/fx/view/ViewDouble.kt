@@ -17,7 +17,7 @@ import rafael.logistic.map.fx.mapchart.MapChartDouble
 abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
         ViewBase<Double, G, C>(title, fxmlFile, generator) {
 
-    protected val maxDelta = 0.1
+    private val maxDelta = 0.1
 
     private val iniX0Spinner = 0.5
 

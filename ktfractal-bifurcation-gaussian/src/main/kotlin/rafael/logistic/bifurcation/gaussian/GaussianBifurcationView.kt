@@ -18,11 +18,10 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
 ) {
 
     // @formatter:off
+
     private val spnX0                   : Spinner<Double>   by fxid()
-    private val x0ValueFactory          = doubleSpinnerValueFactory(X_MIN, X_MAX, 0.0, 0.1)
 
     private val spnAlpha                : Spinner<Double>   by fxid()
-    private val alphaValueFactory       = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, 5.0, 0.1)
 
     private val spnBetaMin              : Spinner<Double>   by fxid()
     private val betaMinValueFactory     = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MIN, 0.1)
@@ -43,15 +42,15 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     private val deltaXStepProperty      = decimalProperty()
 
     override val spinnerComponents      = arrayOf(
-        SpinnerComponents(spnX0     , x0ValueFactory   ),
-        SpinnerComponents(spnAlpha  , alphaValueFactory)
+        SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),
+        SpinnerConfigurations(spnAlpha  , ALPHA_MIN, ALPHA_MAX, 5.0)
     )
 
     // @formatter:on
 
     override fun getParametersName() = "gaussian-bifurcation" +
-            ".X0=${x0ValueFactory.converter.toString(spnX0.value)}" +
-            ".Alpha=${alphaValueFactory.converter.toString(spnAlpha.value)}" +
+            ".X0=${spnX0.valueFactory.converter.toString(spnX0.value)}" +
+            ".Alpha=${spnAlpha.valueFactory.converter.toString(spnAlpha.value)}" +
             ".Iterations_Beta=${spnIterations.value}" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +
             ".XMax=${xMaxValueFactory.converter.toString(spnXMax.value)}" +

@@ -1,15 +1,13 @@
 package rafael.logistic.map.tinkerbell
 
 import javafx.scene.control.Spinner
-import javafx.scene.control.SpinnerValueFactory
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.App
-import tornadofx.toProperty
 
-class TinkerbellMapApp: App(TinkerbellMapView::class, Styles::class)
+class TinkerbellMapApp : App(TinkerbellMapView::class, Styles::class)
 
 class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "TinkerbellMap", TinkerbellMapGenerator()) {
 
@@ -32,29 +30,33 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
         get() = -maxY0Spinner
 
     // @formatter:off
-    private val spnA            :   Spinner<Double>   by fxid()
-    private val aValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.9, maxDelta)
 
-    private val spnB            :   Spinner<Double>   by fxid()
-    private val bValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-1.0, 1.0, -0.6013, maxDelta)
+    private     val spnA                :   Spinner<Double>   by fxid()
 
-    private val spnC            :   Spinner<Double>   by fxid()
-    private val cValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(-4.0, 4.0, 2.0, maxDelta)
+    private     val spnB                :   Spinner<Double>   by fxid()
 
-    private val spnD            :   Spinner<Double>   by fxid()
-    private val dValueFactory   =   SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, maxDelta)
+    private     val spnC                :   Spinner<Double>   by fxid()
+
+    private     val spnD                :   Spinner<Double>   by fxid()
 
     override    val spinnerComponents   =   arrayOf(
-        SpinnerComponents(spnA, aValueFactory),
-        SpinnerComponents(spnB, bValueFactory, 4.toProperty()),
-        SpinnerComponents(spnC, cValueFactory),
-        SpinnerComponents(spnD, dValueFactory),
+        SpinnerConfigurations(spnA,  0.0, 1.0,  0.9),
+        SpinnerConfigurations(spnB, -1.0, 1.0, -0.6013, 4),
+        SpinnerConfigurations(spnC, -4.0, 4.0,  2.0),
+        SpinnerConfigurations(spnD,  0.0, 1.0,  0.5),
     )
 
     // @formatter:on
 
     override fun refreshData(generator: TinkerbellMapGenerator, iterations: Int): List<BiDouble> =
-            generator.generate(BiDouble(x0Property.value, y0Property.value), spnA.value, spnB.value, spnC.value, spnD.value, iterations)
+        generator.generate(
+            BiDouble(x0Property.value, y0Property.value),
+            spnA.value,
+            spnB.value,
+            spnC.value,
+            spnD.value,
+            iterations
+        )
 
     override fun getImageName1(): String = "Tinkerbell" +
             ".a=${spnA.valueToString()}.b=${spnB.valueToString()}.c=${spnC.valueToString()}.d=${spnD.valueToString()}"
