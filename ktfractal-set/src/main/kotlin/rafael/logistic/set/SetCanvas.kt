@@ -8,7 +8,7 @@ import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import java.util.stream.Collectors
 
-class JuliaCanvas : CanvasChart<JuliaInfo>() {
+class SetCanvas : CanvasChart<SetInfo>() {
 
     // @formatter:off
 

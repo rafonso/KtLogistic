@@ -1,11 +1,11 @@
 package rafael.logistic.set.mandelbrot
 
-import rafael.logistic.set.JuliaGenerator
-import rafael.logistic.set.JuliaParameter
+import rafael.logistic.set.SetGenerator
+import rafael.logistic.set.SetParameter
 
-class MandelbrotSetGenerator : JuliaGenerator() {
+class MandelbrotSetGenerator : SetGenerator() {
 
-    override fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int? =
+    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int? =
             checkConvergence(0.0, 0.0, x, y, interactions)
 
 }

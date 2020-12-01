@@ -20,8 +20,8 @@ import tornadofx.runLater
 import kotlin.math.abs
 
 
-abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenerator) :
-    ViewBase<JuliaInfo, JuliaGenerator, JuliaCanvas>(title, fxmlFile, generator) {
+abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator) :
+    ViewBase<SetInfo, SetGenerator, SetCanvas>(title, fxmlFile, generator) {
 
     companion object {
         const val LIMIT = 2.0
@@ -38,8 +38,8 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
     protected   val spnXMax                     :   Spinner<Double>     by  fxid()
     protected   val xMaxValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
 
-    private val deltaXProperty                  =   oneProperty()
-    private val deltaXStepProperty              =   decimalProperty()
+    private     val deltaXProperty              =   oneProperty()
+    private     val deltaXStepProperty          =   decimalProperty()
 
     protected   val spnYMin                     :   Spinner<Double>     by  fxid()
     protected   val yMinValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
@@ -66,25 +66,20 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
 
     // @formatter:on
 
-    private fun recalculateDeltaXY() {
+    private fun reload() {
         deltaXYProperty.value = (spnXMax.value - spnXMin.value) - (spnYMax.value - spnYMin.value)
+        this.loadData()
     }
 
     override fun initializeControls() {
         configureMinMaxSpinners(
             spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
-            deltaXProperty, deltaXStepProperty
-        ) {
-            this.recalculateDeltaXY()
-            this.loadData()
-        }
+            deltaXProperty, deltaXStepProperty, this::reload
+        )
         configureMinMaxSpinners(
             spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
-            deltaYProperty, deltaYStepProperty
-        ) {
-            this.recalculateDeltaXY()
-            this.loadData()
-        }
+            deltaYProperty, deltaYStepProperty, this::reload
+        )
     }
 
     override fun initializeCharts() {
@@ -102,13 +97,12 @@ abstract class JuliaView(title: String, fxmlFile: String, generator: JuliaGenera
         chart.yMaxProperty.bind(spnYMax.valueProperty())
 
         chart.maxIterationsProperty.bind(super.spnIterations.valueProperty())
-
     }
 
-    override fun refreshData(generator: JuliaGenerator, iterations: Int): List<JuliaInfo> {
-        val parameter = JuliaParameter(
+    override fun refreshData(generator: SetGenerator, iterations: Int): List<SetInfo> {
+        val parameter = SetParameter(
             cXProperty.value, cYProperty.value,
-            spnXMin.value, spnXMax.value, chart. widthProperty().intValue(),
+            spnXMin.value, spnXMax.value, chart.widthProperty().intValue(),
             spnYMin.value, spnYMax.value, chart.heightProperty().intValue()
         )
 

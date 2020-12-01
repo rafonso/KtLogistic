@@ -1,12 +1,12 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.set.JuliaView
+import rafael.logistic.set.SetView
 import tornadofx.App
 
 class MandelbrotSetApp: App(MandelbrotSetView::class, Styles::class)
 
-class MandelbrotSetView : JuliaView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetGenerator()) {
+class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetGenerator()) {
 
     override fun getImageName(): String = "mandelbrot" +
             ".XMin=${xMinValueFactory.converter.toString(spnXMin.value)}" +

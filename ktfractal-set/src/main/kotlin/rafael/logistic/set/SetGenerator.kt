@@ -20,7 +20,7 @@ private const val MAX_VALUE_FOR_ARRAY = 5_000
  * @property height
  * @constructor Create empty Julia parameter
  */
-data class JuliaParameter(
+data class SetParameter(
     val cX: Double, val cY: Double,
     val xMin: Double, val xMax: Double, val width: Int,
     val yMin: Double, val yMax: Double, val height: Int
@@ -48,9 +48,9 @@ data class JuliaParameter(
  *
  * @constructor Create empty Julia generator
  */
-abstract class JuliaGenerator : IterationGenerator<BiDouble, JuliaInfo, JuliaParameter> {
+abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter> {
 
-    private fun generateParallel(parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
+    private fun generateParallel(parameter: SetParameter, interactions: Int): List<SetInfo> {
         return parameter.cols.parallelStream()
             .flatMap { col ->
                 val x = parameter.xValues[col]
@@ -59,21 +59,21 @@ abstract class JuliaGenerator : IterationGenerator<BiDouble, JuliaInfo, JuliaPar
                         val y = parameter.yValues[row]
                         val iterationsToDiverge = verify(x, y, parameter, interactions)
 
-                        JuliaInfo(col, row, x, y, iterationsToDiverge)
+                        SetInfo(col, row, x, y, iterationsToDiverge)
                     }
             }
             .filter { ji -> !ji.converges }
             .collect(Collectors.toList())
     }
 
-    private fun generateFromArray(parameter: JuliaParameter, interactions: Int): List<JuliaInfo> {
+    private fun generateFromArray(parameter: SetParameter, interactions: Int): List<SetInfo> {
         val result = Array(parameter.xValues.size * parameter.yValues.size) { emptyJuliaInfo }
         var i = 0
 
         parameter.xValues.forEachIndexed { col, x ->
             parameter.yValues.forEachIndexed { row, y ->
                 val iterationsToDiverge = verify(x, y, parameter, interactions)
-                result[i] = JuliaInfo(col, row, x, y, iterationsToDiverge)
+                result[i] = SetInfo(col, row, x, y, iterationsToDiverge)
                 i++
             }
         }
@@ -118,13 +118,13 @@ abstract class JuliaGenerator : IterationGenerator<BiDouble, JuliaInfo, JuliaPar
      * @param interactions Quantidade máxima de Iterações.
      * @return o número de iterações necessárias para que a série divirga ou `null` se ela não divergir ao se atingir [interactions]
      */
-    protected abstract fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int?
+    protected abstract fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int?
 
     override fun generate(
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") z0: BiDouble,
-        parameter: JuliaParameter,
+        parameter: SetParameter,
         interactions: Int
-    ): List<JuliaInfo> =
+    ): List<SetInfo> =
         if (parameter.valuesToBeProcessed <= MAX_VALUE_FOR_ARRAY) generateFromArray(parameter, interactions)
         else generateParallel(parameter, interactions)
 

@@ -7,23 +7,23 @@ const val CYCLES = 1000
 val values = arrayOf(1, 5, 10, 50, 100, 500, 1000)
 val widthsHights = values.flatMap { w -> values.map { h -> Pair(w, h) } }.sortedBy { it.first * it.second }
 
-object JuliaGeneratorStub : JuliaGenerator() {
-    override fun verify(x: Double, y: Double, parameter: JuliaParameter, interactions: Int): Int = 1
+object SetGeneratorStub : SetGenerator() {
+    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int = 1
 }
 
 fun heat(w: Int, h: Int) {
     println("Heating for $w x $h = ${w * h}")
-    val parameter = JuliaParameter(0.0, 0.0, 0.0, 100.0, w, 0.0, 100.0, h)
-    (1..100).forEach { _ -> JuliaGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
+    val parameter = SetParameter(0.0, 0.0, 0.0, 100.0, w, 0.0, 100.0, h)
+    (1..100).forEach { _ -> SetGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
 }
 
 fun execute(width: Int, height: Int) {
     print("%4d\t%4d\t%7d\t".format(width, height, width * height))
 
-    val parameter = JuliaParameter(0.0, 0.0, 0.0, 100.0, width, 0.0, 100.0, height)
+    val parameter = SetParameter(0.0, 0.0, 0.0, 100.0, width, 0.0, 100.0, height)
 
     val t0 = System.currentTimeMillis()
-    repeat(CYCLES) { JuliaGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
+    repeat(CYCLES) { SetGeneratorStub.generate(BiDouble.ZERO, parameter, 0) }
     val deltaT = System.currentTimeMillis() - t0
 
     println("%6d".format(deltaT))

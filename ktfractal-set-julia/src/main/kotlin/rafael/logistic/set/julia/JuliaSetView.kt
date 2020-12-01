@@ -4,12 +4,12 @@ import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.set.JuliaView
+import rafael.logistic.set.SetView
 import tornadofx.App
 
 class JuliaSetApp: App(JuliaSetView::class, Styles::class)
 
-class JuliaSetView : JuliaView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
+class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
 
     // @formatter:off
 

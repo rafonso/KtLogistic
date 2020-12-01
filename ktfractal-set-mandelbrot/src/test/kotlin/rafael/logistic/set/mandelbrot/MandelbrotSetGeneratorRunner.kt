@@ -1,7 +1,7 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.generation.BiDouble
-import rafael.logistic.set.JuliaParameter
+import rafael.logistic.set.SetParameter
 import java.time.Duration
 import java.time.LocalTime
 
@@ -15,10 +15,7 @@ fun main() {
 
     val times = 500
 
-//    data class JuliaParameter(val cX: Double, val cY: Double,
-//                              val xMin: Double, val xMax: Double, val width: Int,
-//                              val yMin: Double, val yMax: Double, val height: Int) : IterationParameter {
-    val parameter = JuliaParameter(Double.NaN, Double.NaN, xMin, xMax, width, yMin, yMax, width)
+    val parameter = SetParameter(Double.NaN, Double.NaN, xMin, xMax, width, yMin, yMax, width)
 
     val generator = MandelbrotSetGenerator()
 
