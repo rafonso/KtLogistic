@@ -150,7 +150,7 @@ private fun changeSpinnerTooltip(
             .append("Press CRTL + ${'\u2192'} or CTRL + RBM to change step from $strStep to $str01Step")
     }
     if (doubleSpinnerValueFactory.max > 0 && doubleSpinnerValueFactory.min < 0) {
-        sbTootip.append('\n').append("Double click with right button mouse to change signal")
+        sbTootip.append('\n').append("Press - or Double click with right button mouse to change signal")
     }
 
     spinner.tooltip.text = sbTootip.toString()
