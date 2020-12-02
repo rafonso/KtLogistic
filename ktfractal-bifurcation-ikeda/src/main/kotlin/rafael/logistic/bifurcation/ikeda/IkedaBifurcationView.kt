@@ -25,19 +25,13 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     private val spnUMax                         : Spinner<Double>   by fxid()
     private val uMaxValueFactory                = doubleSpinnerValueFactory(U_MIN, U_MAX, U_MAX, 0.1)
 
-    private val deltaULimitProperty             = oneProperty()
-    private val deltaUStepProperty              = decimalProperty()
-
     private val spnXMin                         : Spinner<Double>   by fxid()
     private val xMinValueFactory                = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
 
     private val spnXMax                         : Spinner<Double>   by fxid()
     private val xMaxValueFactory                = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
 
-    private val deltaXLimitProperty             = oneProperty()
-    private val deltaXStepProperty              = decimalProperty()
-
-        override val spinnerComponents              = arrayOf(
+    override val spinnerComponents              = arrayOf(
             SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),
             SpinnerConfigurations(spnX1     , X_MIN, X_MAX, 0.0),
         )
@@ -56,18 +50,8 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     override fun initializeControls() {
         super.initializeControls()
 
-        configureXAxisSpinners(
-            spnXMin,
-            xMinValueFactory,
-            spnXMax,
-            xMaxValueFactory,
-            deltaXLimitProperty,
-            deltaXStepProperty
-        )
-        configureYAxisSpinners(
-            spnUMin, uMinValueFactory, spnUMax, uMaxValueFactory,
-            deltaULimitProperty, deltaUStepProperty
-        )
+        configureXAxisSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory)
+        configureYAxisSpinners(spnUMin, uMinValueFactory, spnUMax, uMaxValueFactory)
     }
 
     override fun initializeCharts() {

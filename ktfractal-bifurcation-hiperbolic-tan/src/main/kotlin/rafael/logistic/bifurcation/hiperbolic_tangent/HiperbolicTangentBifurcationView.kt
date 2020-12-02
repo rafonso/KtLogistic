@@ -24,17 +24,11 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     private val spnGMax             : Spinner<Double>   by fxid()
     private val gMaxValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MAX, 0.1)
 
-    private val deltaGLimitProperty = oneProperty()
-    private val deltaGStepProperty  = decimalProperty()
-
     private val spnXMin             : Spinner<Double>   by fxid()
     private val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
 
     private val spnXMax             : Spinner<Double>   by fxid()
     private val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
-
-    private val deltaXLimitProperty = oneProperty()
-    private val deltaXStepProperty  = decimalProperty()
 
     override val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
 
@@ -51,17 +45,8 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     override fun initializeControls() {
         super.initializeControls()
 
-        configureXAxisSpinners(
-            spnXMin,
-            xMinValueFactory,
-            spnXMax,
-            xMaxValueFactory,
-            deltaXLimitProperty,
-            deltaXStepProperty
-        )
-        configureYAxisSpinners(
-            spnGMin, gMinValueFactory, spnGMax, gMaxValueFactory,
-            deltaGLimitProperty, deltaGStepProperty)
+        configureXAxisSpinners(            spnXMin,            xMinValueFactory,            spnXMax,            xMaxValueFactory)
+        configureYAxisSpinners(spnGMin, gMinValueFactory, spnGMax, gMaxValueFactory)
     }
 
     override fun initializeCharts() {

@@ -59,6 +59,9 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
         )
 
     override fun getImageName1(): String = "Tinkerbell" +
-            ".a=${spnA.valueToString()}.b=${spnB.valueToString()}.c=${spnC.valueToString()}.d=${spnD.valueToString()}"
+            ".a=${spnA.valueToString()}" +
+            ".b=${spnB.valueToString()}" +
+            ".c=${spnC.valueToString()}" +
+            ".d=${spnD.valueToString()}"
 
 }

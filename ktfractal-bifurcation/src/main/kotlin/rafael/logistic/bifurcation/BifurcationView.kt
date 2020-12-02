@@ -1,14 +1,14 @@
 package rafael.logistic.bifurcation
 
-import javafx.beans.property.DoubleProperty
-import javafx.beans.property.IntegerProperty
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.configureMinMaxSpinners
+import rafael.logistic.core.fx.decimalProperty
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
@@ -73,28 +73,26 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     protected fun configureXAxisSpinners(
         spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
+        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory
     ) = configureMinMaxSpinners(
         spnMin,
         minValueFactory,
         spnMax,
         maxValueFactory,
-        deltaLimitProperty,
-        deltaStepProperty
+        oneProperty(),
+        decimalProperty()
     ) {}
 
     protected fun configureYAxisSpinners(
         spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty
+        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory
     ) = configureMinMaxSpinners(
         spnMin,
         minValueFactory,
         spnMax,
         maxValueFactory,
-        deltaLimitProperty,
-        deltaStepProperty,
+        oneProperty(),
+        decimalProperty(),
         this::loadData
     )
 
