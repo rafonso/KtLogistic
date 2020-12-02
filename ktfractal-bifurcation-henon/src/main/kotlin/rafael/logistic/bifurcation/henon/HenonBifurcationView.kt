@@ -15,29 +15,22 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
 ) {
 
     // @formatter:off
+
     private val spnX0                   : Spinner<Double>   by fxid()
-
     private val spnX1                   : Spinner<Double>   by fxid()
-
     private val spnBeta                 : Spinner<Double>   by fxid()
-
     private val spnAlphaMin             : Spinner<Double>   by fxid()
-    private val alphaMinValueFactory    = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, ALPHA_MIN, 0.1)
-
     private val spnAlphaMax             : Spinner<Double>   by fxid()
-    private val alphaMaxValueFactory    = doubleSpinnerValueFactory(ALPHA_MIN, ALPHA_MAX, ALPHA_MAX, 0.1)
-
     private val spnXMin                 : Spinner<Double>   by fxid()
-    private val xMinValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
-
     private val spnXMax                 : Spinner<Double>   by fxid()
-    private val xMaxValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
 
     override val spinnerComponents      = arrayOf(
         SpinnerConfigurations(spnX0     , X_MIN     , X_MAX     , 0.0),
         SpinnerConfigurations(spnX1     , X_MIN     , X_MAX     , 0.0),
         SpinnerConfigurations(spnBeta   , BETA_MIN  , BETA_MAX  , 0.0),
     )
+    override val xAxisConfiguration     = LimitsSpinnersConfiguration(spnAlphaMin   , spnAlphaMax   , ALPHA_MIN , ALPHA_MAX )
+    override val yAxisConfiguration     = LimitsSpinnersConfiguration(spnXMin       , spnXMax       , X_MIN     , X_MAX     )
 
     // @formatter:on
 
@@ -51,12 +44,6 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
             ".AlphaMin=${spnAlphaMin.valueToString()}" +
             ".AlphaMax=${spnAlphaMax.valueToString()}"
 
-    override fun initializeControls() {
-        super.initializeControls()
-
-        configureXAxisSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory)
-        configureYAxisSpinners(spnAlphaMin, alphaMinValueFactory, spnAlphaMax, alphaMaxValueFactory)
-    }
 
     override fun initializeCharts() {
         super.initializeCharts(spnX0, spnAlphaMin, spnAlphaMax, spnXMin, spnXMax)

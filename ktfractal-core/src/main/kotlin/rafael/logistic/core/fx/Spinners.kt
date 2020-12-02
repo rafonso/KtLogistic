@@ -23,6 +23,8 @@ import kotlin.reflect.KFunction1
  * Configuração dos [Spinner]s
  */
 
+typealias DoubleSpinner = Spinner<Double>
+
 private const val MIN_STEP = 1
 private const val MAX_STEP = 10
 

@@ -4,11 +4,8 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.configureMinMaxSpinners
-import rafael.logistic.core.fx.decimalProperty
+import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
@@ -22,6 +19,22 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
     generator: G
 ) :
     ViewBase<RData, G, BifurcationCanvas>(title, fxmlFile, generator) {
+
+    /**
+     * Classe auxiliar para a configuração de [DoubleSpinner]s vinculados, onde um [Spinner] define um valor
+     * menor e um segundo o maior. A configuração é feita de forma que o valor do primeiro nunca é maior que o segundo.
+     *
+     * @property spnMin Spinner que define o valor menor
+     * @property spnMax Spinner que define o valor maior
+     * @property min Menor valor permitido
+     * @property max Maior valor permitido
+     */
+    protected data class LimitsSpinnersConfiguration(
+        val spnMin: DoubleSpinner,
+        val spnMax: DoubleSpinner,
+        val min: Double,
+        val max: Double
+    )
 
     // @formatter:off
 
@@ -40,6 +53,10 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     private val lblStatus                       : Label             by fxid()
 
+    protected abstract val xAxisConfiguration   : LimitsSpinnersConfiguration
+
+    protected abstract val yAxisConfiguration   : LimitsSpinnersConfiguration
+
     // @formatter:on
 
     protected abstract fun getParametersName(): String
@@ -50,6 +67,25 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     override fun initializeControls() {
         spnSkip.configureActions(skipValueFactory, this::loadData)
+
+        configureMinMaxSpinners(
+            xAxisConfiguration.spnMin,
+            doubleSpinnerValueFactory(xAxisConfiguration.min, xAxisConfiguration.max, xAxisConfiguration.min, 0.1),
+            xAxisConfiguration.spnMax,
+            doubleSpinnerValueFactory(xAxisConfiguration.min, xAxisConfiguration.max, xAxisConfiguration.max, 0.1),
+            oneProperty(),
+            decimalProperty(),
+            this::loadData
+        )
+        configureMinMaxSpinners(
+            yAxisConfiguration.spnMin,
+            doubleSpinnerValueFactory(yAxisConfiguration.min, yAxisConfiguration.max, yAxisConfiguration.min, 0.1),
+            yAxisConfiguration.spnMax,
+            doubleSpinnerValueFactory(yAxisConfiguration.min, yAxisConfiguration.max, yAxisConfiguration.max, 0.1),
+            oneProperty(),
+            decimalProperty(),
+            this::loadData
+        )
 
         pixelsSeparationValueFactory.value = 0
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
@@ -70,31 +106,6 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         }
         chart.refreshData()
     }
-
-    protected fun configureXAxisSpinners(
-        spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory
-    ) = configureMinMaxSpinners(
-        spnMin,
-        minValueFactory,
-        spnMax,
-        maxValueFactory,
-        oneProperty(),
-        decimalProperty()
-    ) {}
-
-    protected fun configureYAxisSpinners(
-        spnMin: Spinner<Double>, minValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        spnMax: Spinner<Double>, maxValueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory
-    ) = configureMinMaxSpinners(
-        spnMin,
-        minValueFactory,
-        spnMax,
-        maxValueFactory,
-        oneProperty(),
-        decimalProperty(),
-        this::loadData
-    )
 
     protected fun initializeCharts(
         spnX0: Spinner<Double>,

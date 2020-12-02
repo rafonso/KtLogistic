@@ -16,21 +16,15 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
 
     // @formatter:off
 
-    private val spnX0               : Spinner<Double> by fxid()
+    private     val spnX0               : Spinner<Double>   by fxid()
+    private     val spnGMin             : Spinner<Double>   by fxid()
+    private     val spnGMax             : Spinner<Double>   by fxid()
+    private     val spnXMin             : Spinner<Double>   by fxid()
+    private     val spnXMax             : Spinner<Double>   by fxid()
 
-    private val spnGMin             : Spinner<Double>   by fxid()
-    private val gMinValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MIN, 0.1)
-
-    private val spnGMax             : Spinner<Double>   by fxid()
-    private val gMaxValueFactory    = doubleSpinnerValueFactory(G_MIN, G_MAX, G_MAX, 0.1)
-
-    private val spnXMin             : Spinner<Double>   by fxid()
-    private val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
-
-    private val spnXMax             : Spinner<Double>   by fxid()
-    private val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
-
-    override val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
+    override    val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
+    override    val xAxisConfiguration = LimitsSpinnersConfiguration(spnGMin, spnGMax, G_MIN, G_MAX)
+    override    val yAxisConfiguration = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
     // @formatter:on
 
@@ -41,13 +35,6 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
             ".XMax=${spnXMax.valueToString()}" +
             ".GMin=${spnGMin.valueToString()}" +
             ".GMax=${spnGMax.valueToString()}"
-
-    override fun initializeControls() {
-        super.initializeControls()
-
-        configureXAxisSpinners(            spnXMin,            xMinValueFactory,            spnXMax,            xMaxValueFactory)
-        configureYAxisSpinners(spnGMin, gMinValueFactory, spnGMax, gMaxValueFactory)
-    }
 
     override fun initializeCharts() {
         super.initializeCharts(spnX0, spnGMin, spnGMax, spnXMin, spnXMax)

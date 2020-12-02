@@ -17,25 +17,18 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
     // @formatter:off
 
     private val spnX0                   : Spinner<Double>   by fxid()
-
     private val spnAlpha                : Spinner<Double>   by fxid()
-
     private val spnBetaMin              : Spinner<Double>   by fxid()
-    private val betaMinValueFactory     = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MIN, 0.1)
-
     private val spnBetaMax              : Spinner<Double>   by fxid()
-    private val betaMaxValueFactory     = doubleSpinnerValueFactory(BETA_MIN, BETA_MAX, BETA_MAX, 0.1)
-
     private val spnXMin                 : Spinner<Double>   by fxid()
-    private val xMinValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
-
     private val spnXMax                 : Spinner<Double>   by fxid()
-    private val xMaxValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
 
     override val spinnerComponents      = arrayOf(
-        SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),
-        SpinnerConfigurations(spnAlpha  , ALPHA_MIN, ALPHA_MAX, 5.0)
+        SpinnerConfigurations(spnX0     , X_MIN     , X_MAX     , 0.0),
+        SpinnerConfigurations(spnAlpha  , ALPHA_MIN , ALPHA_MAX , 5.0)
     )
+    override val xAxisConfiguration     = LimitsSpinnersConfiguration(spnBetaMin, spnBetaMax, BETA_MIN  , BETA_MAX  )
+    override val yAxisConfiguration     = LimitsSpinnersConfiguration(spnXMin   , spnXMax   , X_MIN     , X_MAX     )
 
     // @formatter:on
 
@@ -47,13 +40,6 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".BetaMin=${spnBetaMin.valueToString()}" +
             ".BetaMax=${spnBetaMax.valueToString()}"
-
-    override fun initializeControls() {
-        super.initializeControls()
-
-        configureXAxisSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory)
-        configureYAxisSpinners(spnBetaMin, betaMinValueFactory, spnBetaMax, betaMaxValueFactory)
-    }
 
     override fun initializeCharts() {
         super.initializeCharts(spnX0, spnBetaMin, spnBetaMax, spnXMin, spnXMax)

@@ -17,20 +17,14 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
     // @formatter:off
 
     private     val spnX0               : Spinner<Double>   by fxid()
-
     private     val spnRMin             : Spinner<Double>   by fxid()
-    private     val rMinValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MIN, 0.1)
-
     private     val spnRMax             : Spinner<Double>   by fxid()
-    private     val rMaxValueFactory    = doubleSpinnerValueFactory(R_MIN, R_MAX, R_MAX, 0.1)
-
     private     val spnXMin             : Spinner<Double>   by fxid()
-    private     val xMinValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
-
     private     val spnXMax             : Spinner<Double>   by fxid()
-    private     val xMaxValueFactory    = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
 
     override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
+    override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnRMin, spnRMax, R_MIN, R_MAX)
+    override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
     // @formatter:on
 
@@ -41,13 +35,6 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".RMin=${spnRMin.valueToString()}" +
             ".RMax=${spnRMax.valueToString()}"
-
-    override fun initializeControls() {
-        super.initializeControls()
-
-        configureXAxisSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory)
-        configureYAxisSpinners(spnRMin, rMinValueFactory, spnRMax, rMaxValueFactory)
-    }
 
     override fun initializeCharts() {
         super.initializeCharts(spnX0, spnRMin, spnRMax, spnXMin, spnXMax)

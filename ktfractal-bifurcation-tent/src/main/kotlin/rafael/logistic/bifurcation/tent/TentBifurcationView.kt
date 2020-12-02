@@ -15,21 +15,15 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 ) {
 
     // @formatter:off
-    private val spnX0                   : Spinner<Double>   by fxid()
+    private     val spnX0               : Spinner<Double>   by fxid()
+    private     val spnMiMin            : Spinner<Double>   by fxid()
+    private     val spnMiMax            : Spinner<Double>   by fxid()
+    private     val spnXMin             : Spinner<Double>   by fxid()
+    private     val spnXMax             : Spinner<Double>   by fxid()
 
-    private val spnMiMin                : Spinner<Double>   by fxid()
-    private val miMinValueFactory       = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MIN, 0.1)
-
-    private val spnMiMax                : Spinner<Double>   by fxid()
-    private val miMaxValueFactory       = doubleSpinnerValueFactory(MI_MIN, MI_MAX, MI_MAX, 0.1)
-
-    private val spnXMin                 : Spinner<Double>   by fxid()
-    private val xMinValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MIN, 0.1)
-
-    private val spnXMax                 : Spinner<Double>   by fxid()
-    private val xMaxValueFactory        = doubleSpinnerValueFactory(X_MIN, X_MAX, X_MAX, 0.1)
-
-    override val spinnerComponents      = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
+    override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
+    override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnMiMin  , spnMiMax  , MI_MIN    , MI_MAX  )
+    override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin   , spnXMax   , X_MIN     , X_MAX   )
 
     // @formatter:on
 
@@ -40,13 +34,6 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".RMin=${spnMiMin.valueToString()}" +
             ".RMax=${spnMiMax.valueToString()}"
-
-    override fun initializeControls() {
-        super.initializeControls()
-
-        configureXAxisSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory)
-        configureYAxisSpinners(spnMiMin, miMinValueFactory, spnMiMax, miMaxValueFactory)
-    }
 
     override fun initializeCharts() {
         super.initializeCharts(spnX0, spnMiMin, spnMiMax, spnXMin, spnXMax)
