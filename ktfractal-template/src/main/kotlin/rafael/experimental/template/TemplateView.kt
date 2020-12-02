@@ -20,22 +20,9 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
     private val txtMouseRealPos     :   MouseRealPosNode    by fxid()
 
     private val spnXMin             :   Spinner<Double>     by fxid()
-    private val xMinValueFactory    =   doubleSpinnerValueFactory(chart.xMin, chart.xMax, chart.xMin, 0.1)
-
     private val spnXMax             :   Spinner<Double>     by fxid()
-    private val xMaxValueFactory    =   doubleSpinnerValueFactory(chart.xMin, chart.xMax, chart.xMax, 0.1)
-
     private val spnYMin             :   Spinner<Double>     by fxid()
-    private val yMinValueFactory    =   doubleSpinnerValueFactory(chart.yMin, chart.yMax, chart.yMin, 0.1)
-
     private val spnYMax             :   Spinner<Double>     by fxid()
-    private val yMaxValueFactory    =   doubleSpinnerValueFactory(chart.yMin, chart.yMax, chart.yMax, 0.1)
-
-    private     val deltaXLimitProperty =   oneProperty()
-    private     val deltaXStepProperty  =   decimalProperty()
-
-    private     val deltaYLimitProperty =   oneProperty()
-    private     val deltaYStepProperty  =   decimalProperty()
 
     override    val spinnerComponents   = emptyArray<SpinnerConfigurations>()
 
@@ -51,11 +38,8 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
             }
         }
 
-        configureMinMaxSpinners(spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
-                deltaXLimitProperty, deltaXStepProperty, this::loadData)
-        configureMinMaxSpinners(spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
-                deltaYLimitProperty, deltaYStepProperty, this::loadData)
-
+        configureMinMaxSpinners(LimitsSpinnersConfiguration(spnXMin, spnXMax, chart.xMin, chart.xMax), this::loadData)
+        configureMinMaxSpinners(LimitsSpinnersConfiguration(spnYMin, spnYMax, chart.yMin, chart.yMax), this::loadData)
     }
 
     override fun initializeCharts() {

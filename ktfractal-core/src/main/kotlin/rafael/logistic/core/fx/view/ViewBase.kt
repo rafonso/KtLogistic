@@ -78,10 +78,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         initializeControls()
         spnIterations.configureActions(iterationsValueFactory, ::loadData)
         spinnerComponents.forEach { (spinner, factory, deltaProperty) ->
-            spinner.configureActions(
-                factory,
-                deltaProperty
-            ) { loadData() }
+            spinner.configureActions(factory, deltaProperty, ::loadData)
         }
 
         chart.bind(logisticData)
@@ -117,7 +114,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     protected fun Spinner<Double>.configureSpinner(
         valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         deltaProperty: IntegerProperty
-    ) = this.configureActions(valueFactory, deltaProperty) { loadData() }
+    ) = this.configureActions(valueFactory, deltaProperty, ::loadData)
 
     protected fun exportImage() {
         val prefs = Preferences.userRoot().node(this.javaClass.name)

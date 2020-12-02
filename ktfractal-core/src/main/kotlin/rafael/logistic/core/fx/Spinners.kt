@@ -265,42 +265,38 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
     this.bind(valueFactory, action)
 
 /**
- * Víncula os valores mínimos e máximos de  dois [Spinner]s.
+ * Víncula os valores mínimos e máximos de  dois [DoubleSpinner]s.
  *
- * @param spnMin [Spinner] que definirá o valor mínimo
- * @param minValueFactory [DoubleSpinnerValueFactory] relacionado a `spnMin`
- * @param spnMax [Spinner] que definirá o valor máxnimo
- * @param maxValueFactory [DoubleSpinnerValueFactory] relacionado a `spnMax`
- * @param deltaLimitProperty
- * @param deltaStepProperty
+ * @param configuration configuração dos [DoubleSpinner]s vinculados
  * @param action Ação a ser feita ao alterar os valores dos Spinners
- * @return [ChangeListener]s relacionados a [spnMin] e [spnMax] "embalando" [action]
- *
  */
-fun configureMinMaxSpinners(
-    spnMin: Spinner<Double>, minValueFactory: DoubleSpinnerValueFactory,
-    spnMax: Spinner<Double>, maxValueFactory: DoubleSpinnerValueFactory,
-    deltaLimitProperty: IntegerProperty, deltaStepProperty: DoubleProperty, action: () -> Unit
-): Pair<ChangeListener<*>, ChangeListener<*>> {
+fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: () -> Unit) {
+    val deltaLimitProperty = oneProperty()
+    val deltaStepProperty = decimalProperty()
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
     }
 
-    val listenerSpnMin = spnMin.configureActions(minValueFactory, deltaLimitProperty, action)
-    val listenerSpnMax = spnMax.configureActions(maxValueFactory, deltaLimitProperty, action)
+    configuration.spnMin.configureActions(
+        configuration.minValueFactory,
+        deltaLimitProperty, action
+    )
+    configuration.spnMax.configureActions(
+        configuration.maxValueFactory,
+        deltaLimitProperty, action
+    )
 
-    minValueFactory.maxProperty()
-        .bind(DoubleProperty.doubleProperty(maxValueFactory.valueProperty()) - deltaStepProperty)
-    minValueFactory.maxProperty().onChange {
-        changeSpinnerTooltip(spnMin, minValueFactory, deltaLimitProperty.value)
-    }
-    maxValueFactory.minProperty()
-        .bind(DoubleProperty.doubleProperty(minValueFactory.valueProperty()) + deltaStepProperty)
-    maxValueFactory.minProperty().onChange {
-        changeSpinnerTooltip(spnMax, maxValueFactory, deltaLimitProperty.value)
+    configuration.minValueFactory.maxProperty()
+        .bind(DoubleProperty.doubleProperty(configuration.maxValueFactory.valueProperty()) - deltaStepProperty)
+    configuration.minValueFactory.maxProperty().onChange {
+        changeSpinnerTooltip(configuration.spnMin, configuration.minValueFactory, deltaLimitProperty.value)
     }
 
-    return Pair(listenerSpnMin, listenerSpnMax)
+    configuration.maxValueFactory.minProperty()
+        .bind(DoubleProperty.doubleProperty(configuration.minValueFactory.valueProperty()) + deltaStepProperty)
+    configuration.maxValueFactory.minProperty().onChange {
+        changeSpinnerTooltip(configuration.spnMax, configuration.maxValueFactory, deltaLimitProperty.value)
+    }
 }
 
 /**
@@ -308,8 +304,8 @@ fun configureMinMaxSpinners(
  *
  * @param min Valor Mínimo [DoubleSpinnerValueFactory#min]
  * @param max Valor Máximo  [DoubleSpinnerValueFactory#max]
- * @param initialValue Valor Inicial  [DoubleSpinnerValueFactory#initialValue]
- * @param amountToStepBy valor do passso  [DoubleSpinnerValueFactory#amountToStepBy]
+ * @param initialValue [Valor Inicial][DoubleSpinnerValueFactory#initialValue]
+ * @param amountToStepBy valor inicial do [passso][DoubleSpinnerValueFactory#amountToStepBy]
  */
 fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
     DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)

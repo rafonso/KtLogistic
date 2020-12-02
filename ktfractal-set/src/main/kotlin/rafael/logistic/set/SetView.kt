@@ -1,7 +1,6 @@
 package rafael.logistic.set
 
 import javafx.beans.binding.Bindings
-import javafx.beans.binding.When
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
@@ -14,7 +13,6 @@ import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import tornadofx.asObservable
-import tornadofx.objectProperty
 import tornadofx.onChange
 import tornadofx.runLater
 import kotlin.math.abs
@@ -33,35 +31,17 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500, 1000).asObservable())
 
     protected   val spnXMin                     :   Spinner<Double>     by  fxid()
-    protected   val xMinValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
-
     protected   val spnXMax                     :   Spinner<Double>     by  fxid()
-    protected   val xMaxValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
-
-    private     val deltaXProperty              =   oneProperty()
-    private     val deltaXStepProperty          =   decimalProperty()
-
     protected   val spnYMin                     :   Spinner<Double>     by  fxid()
-    protected   val yMinValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, -LIMIT, 0.1)
-
     protected   val spnYMax                     :   Spinner<Double>     by  fxid()
-    protected   val yMaxValueFactory            =   doubleSpinnerValueFactory(-LIMIT, LIMIT, LIMIT, 0.1)
-
-    private     val deltaYProperty              =   oneProperty()
-    private     val deltaYStepProperty          =   decimalProperty()
 
     private     val lblPosMouse                 :   MouseRealPosNode    by  fxid()
-
     private     val lblStatus                   :   Label               by  fxid()
-
     private     val lblDeltaXY                  :   Label               by  fxid()
 
     private     val deltaXYProperty             =   zeroProperty()
 
-    private     val deltaXYConverterProperty    =   objectProperty(yMinValueFactory.converterProperty().value)
-
     protected   val cXProperty                  =   zeroProperty()
-
     protected   val cYProperty                  =   zeroProperty()
 
     // @formatter:on
@@ -72,14 +52,8 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     }
 
     override fun initializeControls() {
-        configureMinMaxSpinners(
-            spnXMin, xMinValueFactory, spnXMax, xMaxValueFactory,
-            deltaXProperty, deltaXStepProperty, this::reload
-        )
-        configureMinMaxSpinners(
-            spnYMin, yMinValueFactory, spnYMax, yMaxValueFactory,
-            deltaYProperty, deltaYStepProperty, this::reload
-        )
+        configureMinMaxSpinners(LimitsSpinnersConfiguration(spnXMin, spnXMax, -LIMIT, LIMIT), this::reload)
+        configureMinMaxSpinners(LimitsSpinnersConfiguration(spnYMin, spnYMax, -LIMIT, LIMIT), this::reload)
     }
 
     override fun initializeCharts() {
@@ -112,10 +86,6 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     override fun initializeAdditional() {
         spnIterations.valueFactory.value = 10
 
-        deltaXYConverterProperty.bind(
-            When(deltaXProperty.greaterThan(deltaYProperty)).then(xMinValueFactory.converterProperty())
-                .otherwise(yMinValueFactory.converterProperty())
-        )
         lblDeltaXY.textProperty()
             .bind(Bindings.concat("ΔX - ΔY = ", deltaXYProperty.asString("%+.10f")))
         deltaXYProperty.onChange { delta ->
