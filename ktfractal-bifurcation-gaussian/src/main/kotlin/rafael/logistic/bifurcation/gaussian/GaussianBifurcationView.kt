@@ -27,6 +27,7 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
         SpinnerConfigurations(spnX0     , X_MIN     , X_MAX     , 0.0),
         SpinnerConfigurations(spnAlpha  , ALPHA_MIN , ALPHA_MAX , 5.0)
     )
+    override val spnX0Axis              = spnX0
     override val xAxisConfiguration     = LimitsSpinnersConfiguration(spnBetaMin, spnBetaMax, BETA_MIN  , BETA_MAX  )
     override val yAxisConfiguration     = LimitsSpinnersConfiguration(spnXMin   , spnXMax   , X_MIN     , X_MAX     )
 
@@ -40,10 +41,6 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".BetaMin=${spnBetaMin.valueToString()}" +
             ".BetaMax=${spnBetaMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnBetaMin, spnBetaMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: GaussianBifurcationGenerator,

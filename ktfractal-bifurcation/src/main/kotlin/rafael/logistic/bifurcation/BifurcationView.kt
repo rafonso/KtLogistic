@@ -37,6 +37,8 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     private val lblStatus                       : Label             by fxid()
 
+    protected abstract val spnX0Axis            : DoubleSpinner
+
     protected abstract val xAxisConfiguration   : LimitsSpinnersConfiguration
 
     protected abstract val yAxisConfiguration   : LimitsSpinnersConfiguration
@@ -75,26 +77,20 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.refreshData()
     }
 
-    protected fun initializeCharts(
-        spnX0: Spinner<Double>,
-        spnXMin: Spinner<Double>,
-        spnXMax: Spinner<Double>,
-        spnYMin: Spinner<Double>,
-        spnYMax: Spinner<Double>
-    ) {
+    override fun initializeCharts() {
         val chartParent = chart.parent as Region
         chart.widthProperty().bind(chartParent.widthProperty())
         chart.widthProperty().onChange { loadData() }
         chart.heightProperty().bind(chartParent.heightProperty())
         chart.heightProperty().onChange { loadData() }
 
-        chart.x0Property.bind(spnX0.valueProperty())
+        chart.x0Property.bind(spnX0Axis.valueProperty())
+        chart.xMinProperty.bind(this.xAxisConfiguration.spnMin.valueProperty())
+        chart.xMaxProperty.bind(this.xAxisConfiguration.spnMax.valueProperty())
 
-        chart.xMinProperty.bind(spnXMin.valueProperty())
-        chart.xMaxProperty.bind(spnXMax.valueProperty())
-        chart.yMinProperty.bind(spnYMin.valueProperty())
+        chart.yMinProperty.bind(this.yAxisConfiguration.spnMin.valueProperty())
         chart.yMinProperty.onChange { chart.refreshData() }
-        chart.yMaxProperty.bind(spnYMax.valueProperty())
+        chart.yMaxProperty.bind(this.yAxisConfiguration.spnMax.valueProperty())
         chart.yMaxProperty.onChange { chart.refreshData() }
     }
 

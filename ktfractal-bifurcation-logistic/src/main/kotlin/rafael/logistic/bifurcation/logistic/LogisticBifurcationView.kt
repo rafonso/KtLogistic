@@ -23,6 +23,7 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
     private     val spnXMax             : Spinner<Double>   by fxid()
 
     override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
+    override    val spnX0Axis           = spnX0
     override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnRMin, spnRMax, R_MIN, R_MAX)
     override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
@@ -35,10 +36,6 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".RMin=${spnRMin.valueToString()}" +
             ".RMax=${spnRMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnRMin, spnRMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: LogisticBifurcationGenerator, iterations: Int,

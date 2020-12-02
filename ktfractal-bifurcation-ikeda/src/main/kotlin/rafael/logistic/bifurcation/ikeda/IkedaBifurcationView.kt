@@ -15,6 +15,7 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 ) {
 
     // @formatter:off
+
     private     val spnX0               : Spinner<Double>   by fxid()
     private     val spnX1               : Spinner<Double>   by fxid()
     private     val spnUMin             : Spinner<Double>   by fxid()
@@ -26,6 +27,7 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
             SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),
             SpinnerConfigurations(spnX1     , X_MIN, X_MAX, 0.0),
         )
+    override    val spnX0Axis           = spnX0
     override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnUMin, spnUMax, U_MIN, U_MAX)
     override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
@@ -39,10 +41,6 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".UMin=${spnUMin.valueToString()}" +
             ".UMax=${spnUMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnUMin, spnUMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: IkedaBifurcationGenerator, iterations: Int,

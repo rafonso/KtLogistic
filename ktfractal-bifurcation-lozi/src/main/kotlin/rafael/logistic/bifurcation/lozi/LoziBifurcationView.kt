@@ -15,6 +15,7 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
 ) {
 
     // @formatter:off
+
     private val spnX0                   : Spinner<Double>   by fxid()
     private val spnX1                   : Spinner<Double>   by fxid()
     private val spnBeta                 : Spinner<Double>   by fxid()
@@ -28,6 +29,7 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
         SpinnerConfigurations(spnX1     , X_MIN     , X_MAX     , 0.0),
         SpinnerConfigurations(spnBeta   , BETA_MIN  , BETA_MAX  , 0.0),
     )
+    override    val spnX0Axis           = spnX0
     override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnAlphaMin   , spnAlphaMax   , ALPHA_MIN, ALPHA_MAX  )
     override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin       , spnXMax       , X_MIN     , X_MAX     )
 
@@ -42,10 +44,6 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".AlphaMin=${spnAlphaMin.valueToString()}" +
             ".AlphaMax=${spnAlphaMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnAlphaMin, spnAlphaMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: LoziBifurcationGenerator, iterations: Int,

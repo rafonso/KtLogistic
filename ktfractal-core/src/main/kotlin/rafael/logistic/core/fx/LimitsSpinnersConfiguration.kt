@@ -1,7 +1,5 @@
 package rafael.logistic.core.fx
 
-import javafx.scene.control.SpinnerValueFactory
-
 /**
  * Classe auxiliar para a configuração de [DoubleSpinner]s vinculados, onde um [DoubleSpinner] define um valor
  * menor e um segundo o maior. A configuração é feita de forma que o valor do primeiro nunca é maior que o segundo.

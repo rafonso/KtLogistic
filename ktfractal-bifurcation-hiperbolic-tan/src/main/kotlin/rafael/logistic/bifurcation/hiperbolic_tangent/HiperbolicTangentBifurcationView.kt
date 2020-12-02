@@ -23,6 +23,7 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     private     val spnXMax             : Spinner<Double>   by fxid()
 
     override    val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
+    override    val spnX0Axis          = spnX0
     override    val xAxisConfiguration = LimitsSpinnersConfiguration(spnGMin, spnGMax, G_MIN, G_MAX)
     override    val yAxisConfiguration = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
@@ -35,10 +36,6 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
             ".XMax=${spnXMax.valueToString()}" +
             ".GMin=${spnGMin.valueToString()}" +
             ".GMax=${spnGMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnGMin, spnGMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: HiperbolicTangentBifurcationGenerator, iterations: Int,

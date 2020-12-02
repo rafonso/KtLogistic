@@ -15,6 +15,7 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
 ) {
 
     // @formatter:off
+
     private     val spnX0               : Spinner<Double>   by fxid()
     private     val spnMiMin            : Spinner<Double>   by fxid()
     private     val spnMiMax            : Spinner<Double>   by fxid()
@@ -22,6 +23,7 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
     private     val spnXMax             : Spinner<Double>   by fxid()
 
     override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
+    override    val spnX0Axis           = spnX0
     override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnMiMin  , spnMiMax  , MI_MIN    , MI_MAX  )
     override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin   , spnXMax   , X_MIN     , X_MAX   )
 
@@ -34,10 +36,6 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
             ".XMax=${spnXMax.valueToString()}" +
             ".RMin=${spnMiMin.valueToString()}" +
             ".RMax=${spnMiMax.valueToString()}"
-
-    override fun initializeCharts() {
-        super.initializeCharts(spnX0, spnMiMin, spnMiMax, spnXMin, spnXMax)
-    }
 
     override fun refreshData(
         generator: TentBifurcationGenerator, iterations: Int,
