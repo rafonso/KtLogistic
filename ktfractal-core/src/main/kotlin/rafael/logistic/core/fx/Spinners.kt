@@ -98,7 +98,7 @@ private fun Spinner<*>.addCopyCapacity() {
 private fun DoubleSpinner.stepChanged(step: Int) {
     runLater {
         with(this.valueFactory as DoubleSpinnerValueFactory) {
-            this.converter = SpinnerConverter(step)
+            this.converter = LogisticConverter(step)
             this.amountToStepBy = (0.1).pow(step)
             val strValue = DecimalFormat("#." + "#".repeat(step))
                 .apply { roundingMode = RoundingMode.DOWN }

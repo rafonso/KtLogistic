@@ -3,13 +3,13 @@ package rafael.logistic.core.fx
 import javafx.util.StringConverter
 
 /**
- * Spinner converter
+ * Conversor que converte um Double numa string com uma quantidade predeterminada de casas decimais.
  *
- * @constructor
+ * @constructor Cria uma nova instância do Conversor.
  *
- * @param size
+ * @param size Quantidade de casas decimais.
  */
-class SpinnerConverter(size: Int) : StringConverter<Double>() {
+class LogisticConverter(size: Int) : StringConverter<Double>() {
 
     private val format = "%.${size}f"
 
@@ -20,4 +20,4 @@ class SpinnerConverter(size: Int) : StringConverter<Double>() {
 }
 
 @Suppress("UNCHECKED_CAST")
-val CONVERTER_2 = SpinnerConverter(2) as StringConverter<Number>
+val CONVERTER_2 = LogisticConverter(2) as StringConverter<Number>

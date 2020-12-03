@@ -12,12 +12,12 @@ import javafx.scene.paint.Stop
 import javafx.scene.shape.PathElement
 import javafx.util.StringConverter
 import rafael.logistic.core.fx.CONVERTER_2
-import rafael.logistic.core.fx.SpinnerConverter
+import rafael.logistic.core.fx.LogisticConverter
 import rafael.logistic.core.fx.rainbow
 import tornadofx.*
 
 @Suppress("UNCHECKED_CAST")
-val CONVERTER_0 = SpinnerConverter(0) as StringConverter<Number>
+val CONVERTER_0 = LogisticConverter(0) as StringConverter<Number>
 
 abstract class IterationChartBase<T>(
         xAxis: Axis<Int>,
