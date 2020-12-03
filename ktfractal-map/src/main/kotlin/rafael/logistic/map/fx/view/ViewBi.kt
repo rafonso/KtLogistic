@@ -3,6 +3,7 @@
 package rafael.logistic.map.fx.view
 
 import javafx.beans.binding.Bindings
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.SpinnerValueFactory
@@ -44,6 +45,9 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     private         val deltaY0Property     =   oneProperty()
     private         val y0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minY0Spinner, maxY0Spinner, iniY0Spinner, maxDelta)
     protected       val y0Property          :   ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
+
+    override        val spinnersChartProperties =   emptyArray<Pair<DoubleSpinner, DoubleProperty>>()
+
     // @formatter:on
 
     override fun initializeControls() {

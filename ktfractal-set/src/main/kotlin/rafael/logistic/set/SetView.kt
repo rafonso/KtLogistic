@@ -29,22 +29,29 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
 
     // @formatter:off
 
-    override val iterationsValueFactory         :   SpinnerValueFactory<Int>
+    override    val iterationsValueFactory  :   SpinnerValueFactory<Int>
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500, 1000).asObservable())
 
-    protected   val spnXMin                     :   DoubleSpinner       by  fxid()
-    protected   val spnXMax                     :   DoubleSpinner       by  fxid()
-    protected   val spnYMin                     :   DoubleSpinner       by  fxid()
-    protected   val spnYMax                     :   DoubleSpinner       by  fxid()
+    protected   val spnXMin                 :   DoubleSpinner       by  fxid()
+    protected   val spnXMax                 :   DoubleSpinner       by  fxid()
+    protected   val spnYMin                 :   DoubleSpinner       by  fxid()
+    protected   val spnYMax                 :   DoubleSpinner       by  fxid()
 
-    private     val lblPosMouse                 :   MouseRealPosNode    by  fxid()
-    private     val lblStatus                   :   Label               by  fxid()
-    private     val lblDeltaXY                  :   Label               by  fxid()
+    private     val lblPosMouse             :   MouseRealPosNode    by  fxid()
+    private     val lblStatus               :   Label               by  fxid()
+    private     val lblDeltaXY              :   Label               by  fxid()
 
-    private     val deltaXYProperty             =   zeroProperty()
+    private     val deltaXYProperty         =   zeroProperty()
 
-    protected   val cXProperty                  =   zeroProperty()
-    protected   val cYProperty                  =   zeroProperty()
+    protected   val cXProperty              =   zeroProperty()
+    protected   val cYProperty              =   zeroProperty()
+
+    override    val spinnersChartProperties =   arrayOf(
+        Pair(spnXMin, chart.xMinProperty),
+        Pair(spnXMax, chart.xMaxProperty),
+        Pair(spnYMin, chart.yMinProperty),
+        Pair(spnYMax, chart.yMaxProperty),
+    )
 
     // @formatter:on
 
@@ -66,11 +73,6 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
         chart.widthProperty().bind(Bindings.min(chartParent.widthProperty(), chartParent.heightProperty()))
         chart.widthProperty().onChange { loadData() }
         chart.heightProperty().onChange { loadData() }
-
-        chart.xMinProperty.bind(spnXMin.valueProperty())
-        chart.xMaxProperty.bind(spnXMax.valueProperty())
-        chart.yMinProperty.bind(spnYMin.valueProperty())
-        chart.yMaxProperty.bind(spnYMax.valueProperty())
 
         chart.maxIterationsProperty.bind(super.spnIterations.valueProperty())
     }

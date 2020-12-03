@@ -4,7 +4,10 @@ import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.DoubleSpinner
+import rafael.logistic.core.fx.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.configureActions
+import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
@@ -42,6 +45,14 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
     protected abstract val xAxisConfiguration   : LimitsSpinnersConfiguration
 
     protected abstract val yAxisConfiguration   : LimitsSpinnersConfiguration
+
+    override            val spinnersChartProperties by lazy { arrayOf(
+        Pair(spnX0Axis                , chart.x0Property),
+        Pair(xAxisConfiguration.spnMin, chart.xMinProperty),
+        Pair(xAxisConfiguration.spnMax, chart.xMaxProperty),
+        Pair(yAxisConfiguration.spnMin, chart.yMinProperty),
+        Pair(yAxisConfiguration.spnMax, chart.yMaxProperty),
+    ) }
 
     // @formatter:on
 
@@ -84,13 +95,7 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.heightProperty().bind(chartParent.heightProperty())
         chart.heightProperty().onChange { loadData() }
 
-        chart.x0Property.bind(spnX0Axis.valueProperty())
-        chart.xMinProperty.bind(this.xAxisConfiguration.spnMin.valueProperty())
-        chart.xMaxProperty.bind(this.xAxisConfiguration.spnMax.valueProperty())
-
-        chart.yMinProperty.bind(this.yAxisConfiguration.spnMin.valueProperty())
         chart.yMinProperty.onChange { chart.refreshData() }
-        chart.yMaxProperty.bind(this.yAxisConfiguration.spnMax.valueProperty())
         chart.yMaxProperty.onChange { chart.refreshData() }
     }
 

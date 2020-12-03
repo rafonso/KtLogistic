@@ -9,7 +9,7 @@ import tornadofx.App
 import tornadofx.disableWhen
 import tornadofx.onChange
 
-class TemplateApp: App(TemplateView::class, Styles::class)
+class TemplateApp : App(TemplateView::class, Styles::class)
 
 class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateGenerator()) {
 
@@ -24,6 +24,13 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
     private val spnYMax             :   DoubleSpinner     by fxid()
 
     override    val spinnerComponents   = emptyArray<SpinnerConfigurations>()
+
+    override val spinnersChartProperties    =   arrayOf(
+        Pair(spnXMin, chart.xMinProperty),
+        Pair(spnXMax, chart.xMaxProperty),
+        Pair(spnYMin, chart.yMinProperty),
+        Pair(spnYMax, chart.yMaxProperty),
+    )
 
     // @formatter:on
 
@@ -45,16 +52,16 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
         super.initializeCharts()
 
         chart.xAxis.widthProperty().onChange { loadData() }
-        chart.xMinProperty.bind(spnXMin.valueProperty())
-        chart.xMaxProperty.bind(spnXMax.valueProperty())
-
         chart.yAxis.widthProperty().onChange { loadData() }
-        chart.yMinProperty.bind(spnYMin.valueProperty())
-        chart.yMaxProperty.bind(spnYMax.valueProperty())
     }
 
     override fun refreshData(generator: TemplateGenerator, iterations: Int): List<BiDouble> =
-            generator.generate(BiDouble(x0Property.value, y0Property.value), super.minX0Spinner, super.maxX0Spinner, iterations)
+        generator.generate(
+            BiDouble(x0Property.value, y0Property.value),
+            super.minX0Spinner,
+            super.maxX0Spinner,
+            iterations
+        )
 
     override fun initializeAdditional() {
         txtMouseRealPos.bind(chart)

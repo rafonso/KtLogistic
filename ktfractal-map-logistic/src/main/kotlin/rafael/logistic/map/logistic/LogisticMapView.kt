@@ -13,22 +13,18 @@ class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logi
 
     // @formatter:off
 
-    private     val spnR                :   DoubleSpinner       by fxid()
+    private     val spnR                    :   DoubleSpinner       by fxid()
 
-    private     val txtMouseRealPos     :   MouseRealPosNode    by fxid()
+    private     val txtMouseRealPos         :   MouseRealPosNode    by fxid()
 
-    override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnR, 0.0, 4.0, 1.0))
+    override    val spinnerComponents       =   arrayOf(SpinnerConfigurations(spnR, 0.0, 4.0, 1.0))
+
+    override    val spinnersChartProperties =   arrayOf(Pair(spnR, chart.rProperty))
 
     // @formatter:on
 
     override fun refreshData(generator: LogisticMapGenerator, iterations: Int): List<Double> =
             generator.generate(x0Property.value, spnR.value, iterations)
-
-    override fun initializeCharts() {
-        super.initializeCharts()
-
-        chart.rProperty.bind(spnR.valueProperty())
-    }
 
     override fun initializeAdditional() {
         txtMouseRealPos.showXSign = false

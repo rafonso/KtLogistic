@@ -1,5 +1,6 @@
 package rafael.logistic.core.fx.view
 
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.Node
@@ -70,6 +71,11 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
      */
     protected abstract  val spinnerComponents   :   Array<SpinnerConfigurations>
 
+    /**
+     * Array indicando os [DoubleSpinner]s e a respectiva propriedade do [chart] que eles ajustam.
+     */
+    protected abstract      val spinnersChartProperties: Array<Pair<DoubleSpinner, DoubleProperty>>
+
     // @formatter:on
 
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
@@ -89,6 +95,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
                 exportImage()
             }
         }
+        this.spinnersChartProperties.forEach { (spinner, property) -> property.bind(spinner.valueProperty()) }
         initializeCharts()
 
         initializeAdditional()

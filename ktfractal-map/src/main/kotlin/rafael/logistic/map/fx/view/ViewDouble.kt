@@ -1,6 +1,7 @@
 package rafael.logistic.map.fx.view
 
 import javafx.beans.binding.Bindings
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.SpinnerValueFactory
@@ -22,13 +23,16 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     private val iniX0Spinner = 0.5
 
     // @formatter:off
+
     private     val iterationsChart     :   IterationChartDouble by fxid()
 
     private     val spnX0               :   DoubleSpinner by fxid()
     private     val deltaX0Property     =   oneProperty()
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(
             (chart.xAxis as NumberAxis).lowerBound, (chart.xAxis as NumberAxis).upperBound, iniX0Spinner, maxDelta)
-    protected   val x0Property:ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
+    protected   val x0Property          :ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
+
+    override    val spinnersChartProperties =   emptyArray<Pair<DoubleSpinner, DoubleProperty>>()
 
     // @formatter:on
 
@@ -50,7 +54,6 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
 
     override fun getImageName(): String =
         "${getImageName1()}.X0=${spnX0.valueToString()}.Iterations=${spnIterations.value}"
-
 
     protected abstract fun getImageName1(): String
 
