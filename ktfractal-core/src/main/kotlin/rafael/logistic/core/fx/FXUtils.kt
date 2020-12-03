@@ -8,11 +8,6 @@ import tornadofx.toProperty
 fun oneProperty()       = 1    .toProperty()
 
 /**
- * @return [javafx.beans.property.DoubleProperty] com valor inicial `0.1`.
- */
-fun decimalProperty()   = (0.1).toProperty()
-
-/**
  * @return [javafx.beans.property.DoubleProperty] com valor inicial `0.0`.
  */
 fun zeroProperty()      = (0.0).toProperty()

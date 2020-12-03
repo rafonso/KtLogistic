@@ -275,7 +275,7 @@ fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action
  */
 fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: () -> Unit) {
     val deltaLimitProperty = oneProperty()
-    val deltaStepProperty = decimalProperty()
+    val deltaStepProperty = (0.1).toProperty()
     deltaLimitProperty.onChange {
         deltaStepProperty.value = (0.1).pow(it)
     }
