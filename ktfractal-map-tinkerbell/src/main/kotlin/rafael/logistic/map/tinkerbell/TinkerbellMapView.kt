@@ -32,11 +32,8 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
     // @formatter:off
 
     private     val spnA                :   DoubleSpinner   by fxid()
-
     private     val spnB                :   DoubleSpinner   by fxid()
-
     private     val spnC                :   DoubleSpinner   by fxid()
-
     private     val spnD                :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(

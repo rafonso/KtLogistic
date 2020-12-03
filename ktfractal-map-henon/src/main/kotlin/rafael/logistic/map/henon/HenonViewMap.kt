@@ -12,8 +12,8 @@ class HenonMapApp: App(HenonViewMap::class, Styles::class)
 class HenonViewMap : ViewBi<HenonMapGenerator>("Henon Map", "HenonMap", HenonMapGenerator()) {
 
     // @formatter:off
-    private val spnA                :   DoubleSpinner   by fxid()
 
+    private val spnA                :   DoubleSpinner   by fxid()
     private val spnB                :   DoubleSpinner   by fxid()
 
     override val spinnerComponents  = arrayOf(

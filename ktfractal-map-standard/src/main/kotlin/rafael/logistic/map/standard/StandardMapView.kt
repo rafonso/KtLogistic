@@ -12,6 +12,7 @@ class StandardMapApp : App(StandardMapView::class, Styles::class)
 class StandardMapView : ViewBi<StandardMapGenerator>("Standard Map", "StandardMap", StandardMapGenerator()) {
 
     // @formatter:off
+
     private     val spnK                :   DoubleSpinner by fxid()
 
     override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnK, MIN_K, MAX_K, 1.0))

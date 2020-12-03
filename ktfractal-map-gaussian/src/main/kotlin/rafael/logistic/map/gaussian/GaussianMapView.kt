@@ -11,8 +11,8 @@ class GaussianMapApp: App(GaussianMapView::class, Styles::class)
 class GaussianMapView : ViewDouble<GaussianMapGenerator, GaussianMapChart>("Gaussian Map", "GaussianMap", GaussianMapGenerator()) {
 
     // @formatter:off
-    private val spnAlpha            :   DoubleSpinner   by fxid()
 
+    private val spnAlpha            :   DoubleSpinner   by fxid()
     private val spnBeta             :   DoubleSpinner   by fxid()
 
     override val spinnerComponents  = arrayOf(

@@ -14,7 +14,6 @@ class LoziMapView : ViewBi<LoziMapGenerator>("Lozi Map", "LoziMap", LoziMapGener
     // @formatter:off
 
     private     val spnA                :   DoubleSpinner   by fxid()
-
     private     val spnB                :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(

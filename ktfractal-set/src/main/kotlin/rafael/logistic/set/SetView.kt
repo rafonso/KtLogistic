@@ -32,10 +32,10 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     override val iterationsValueFactory         :   SpinnerValueFactory<Int>
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500, 1000).asObservable())
 
-    protected   val spnXMin                     :   DoubleSpinner     by  fxid()
-    protected   val spnXMax                     :   DoubleSpinner     by  fxid()
-    protected   val spnYMin                     :   DoubleSpinner     by  fxid()
-    protected   val spnYMax                     :   DoubleSpinner     by  fxid()
+    protected   val spnXMin                     :   DoubleSpinner       by  fxid()
+    protected   val spnXMax                     :   DoubleSpinner       by  fxid()
+    protected   val spnYMin                     :   DoubleSpinner       by  fxid()
+    protected   val spnYMax                     :   DoubleSpinner       by  fxid()
 
     private     val lblPosMouse                 :   MouseRealPosNode    by  fxid()
     private     val lblStatus                   :   Label               by  fxid()

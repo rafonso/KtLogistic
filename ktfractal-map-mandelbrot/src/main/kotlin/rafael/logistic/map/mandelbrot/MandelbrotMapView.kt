@@ -14,7 +14,6 @@ class MandelbrotMapView : ViewBi<MandelbrotMapGenerator>("Mandelbrot Map", "Mand
     // @formatter:off
 
     private     val spnCX               :   DoubleSpinner   by fxid()
-
     private     val spnCY               :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(

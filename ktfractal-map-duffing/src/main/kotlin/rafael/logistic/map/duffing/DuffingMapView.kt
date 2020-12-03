@@ -15,8 +15,8 @@ class DuffingMapView : ViewBi<DuffingMapGenerator>("Duffing Map", "DuffingMap", 
         get() = 1.0
 
     // @formatter:off
-    private val spnA                :   DoubleSpinner   by fxid()
 
+    private val spnA                :   DoubleSpinner   by fxid()
     private val spnB                :   DoubleSpinner   by fxid()
 
     override val spinnerComponents  = arrayOf(

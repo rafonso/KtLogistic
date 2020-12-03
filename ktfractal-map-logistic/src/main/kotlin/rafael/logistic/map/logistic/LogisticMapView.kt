@@ -13,7 +13,7 @@ class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logi
 
     // @formatter:off
 
-    private     val spnR                :   DoubleSpinner     by fxid()
+    private     val spnR                :   DoubleSpinner       by fxid()
 
     private     val txtMouseRealPos     :   MouseRealPosNode    by fxid()
 
