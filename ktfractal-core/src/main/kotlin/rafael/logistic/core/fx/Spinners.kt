@@ -23,6 +23,9 @@ import kotlin.reflect.KFunction1
  * Configuração dos [Spinner]s
  */
 
+/**
+ * Representa um [Spinner] para valores [Double].
+ */
 typealias DoubleSpinner = Spinner<Double>
 
 private const val MIN_STEP = 1
@@ -92,7 +95,7 @@ private fun Spinner<*>.addCopyCapacity() {
  *
  * @param step Passo do Spinner.
  */
-private fun Spinner<Double>.stepChanged(step: Int) {
+private fun DoubleSpinner.stepChanged(step: Int) {
     runLater {
         with(this.valueFactory as DoubleSpinnerValueFactory) {
             this.converter = SpinnerConverter(step)
@@ -116,7 +119,7 @@ private fun Spinner<Double>.stepChanged(step: Int) {
  * @param step passo do Spinner
  */
 private fun changeSpinnerTooltip(
-    spinner: Spinner<Double>,
+    spinner: DoubleSpinner,
     doubleSpinnerValueFactory: DoubleSpinnerValueFactory,
     step: Int
 ) {
@@ -163,7 +166,7 @@ private fun changeSpinnerTooltip(
  *
  * @param valueFactory [SpinnerValueFactory.DoubleSpinnerValueFactory] do Spinner
  */
-private fun Spinner<Double>.configureInvertSignal(valueFactory: DoubleSpinnerValueFactory) {
+private fun DoubleSpinner.configureInvertSignal(valueFactory: DoubleSpinnerValueFactory) {
 
     fun hasSign() = (valueFactory.value.sign != 0.0)
 
@@ -224,7 +227,7 @@ private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> 
 /**
  * @return Valor do Spinner formatado de acordo com o [Converter][SpinnerValueFactory.converter] do mesmo.
  */
-fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toString(this.value)
+fun DoubleSpinner.valueToString(): String = this.valueFactory.converter.toString(this.value)
 
 /**
  * Configura um [Spinner] de [Double]s
@@ -233,7 +236,7 @@ fun Spinner<Double>.valueToString(): String = this.valueFactory.converter.toStri
  * @param valueFactory [DoubleSpinnerValueFactory] do Spinner
  * @param deltaProperty
  */
-fun Spinner<Double>.configureActions(
+fun DoubleSpinner.configureActions(
     valueFactory: DoubleSpinnerValueFactory,
     deltaProperty: IntegerProperty,
     action: () -> Unit

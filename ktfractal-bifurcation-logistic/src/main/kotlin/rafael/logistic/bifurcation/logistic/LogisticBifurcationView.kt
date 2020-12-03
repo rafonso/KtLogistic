@@ -1,9 +1,11 @@
 package rafael.logistic.bifurcation.logistic
 
-import javafx.scene.control.Spinner
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.DoubleSpinner
+import rafael.logistic.core.fx.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.Styles
+import rafael.logistic.core.fx.valueToString
 import tornadofx.App
 
 class LogisticBifurcationApp : App(LogisticBifurcationView::class, Styles::class)
@@ -16,11 +18,11 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
 
     // @formatter:off
 
-    private     val spnX0               : Spinner<Double>   by fxid()
-    private     val spnRMin             : Spinner<Double>   by fxid()
-    private     val spnRMax             : Spinner<Double>   by fxid()
-    private     val spnXMin             : Spinner<Double>   by fxid()
-    private     val spnXMax             : Spinner<Double>   by fxid()
+    private     val spnX0               : DoubleSpinner   by fxid()
+    private     val spnRMin             : DoubleSpinner   by fxid()
+    private     val spnRMax             : DoubleSpinner   by fxid()
+    private     val spnXMin             : DoubleSpinner   by fxid()
+    private     val spnXMax             : DoubleSpinner   by fxid()
 
     override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 0.5))
     override    val spnX0Axis           = spnX0

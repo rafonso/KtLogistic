@@ -5,23 +5,23 @@ package rafael.logistic.map.fx.view
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
-import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.map.fx.iterationchart.IterationChartBi
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.map.fx.iterationchart.IterationChartBi
 import rafael.logistic.map.fx.mapchart.MapChartBi
 
 abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
         ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
-    private         val spnX0               :   Spinner<Double>     by  fxid()
-    protected       val spnY0               :   Spinner<Double>     by  fxid()
+    private         val spnX0               :   DoubleSpinner     by  fxid()
+    protected       val spnY0               :   DoubleSpinner     by  fxid()
 
     private         val xIterationsChart    :   IterationChartBi    by  fxid()
     private         val yIterationsChart    :   IterationChartBi    by  fxid()

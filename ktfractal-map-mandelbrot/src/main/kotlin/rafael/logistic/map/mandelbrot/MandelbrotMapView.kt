@@ -1,6 +1,6 @@
 package rafael.logistic.map.mandelbrot
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -12,9 +12,10 @@ class MandelbrotMapApp: App(MandelbrotMapView::class, Styles::class)
 class MandelbrotMapView : ViewBi<MandelbrotMapGenerator>("Mandelbrot Map", "MandelbrotMap", MandelbrotMapGenerator()) {
 
     // @formatter:off
-    private     val spnCX               :   Spinner<Double>   by fxid()
 
-    private     val spnCY               :   Spinner<Double>   by fxid()
+    private     val spnCX               :   DoubleSpinner   by fxid()
+
+    private     val spnCY               :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(
         SpinnerConfigurations(spnCX, -2.0, 2.0, -0.5),

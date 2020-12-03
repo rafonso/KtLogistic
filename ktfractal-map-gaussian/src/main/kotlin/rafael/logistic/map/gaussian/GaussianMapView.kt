@@ -1,6 +1,6 @@
 package rafael.logistic.map.gaussian
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.map.fx.view.ViewDouble
@@ -11,9 +11,9 @@ class GaussianMapApp: App(GaussianMapView::class, Styles::class)
 class GaussianMapView : ViewDouble<GaussianMapGenerator, GaussianMapChart>("Gaussian Map", "GaussianMap", GaussianMapGenerator()) {
 
     // @formatter:off
-    private val spnAlpha            :   Spinner<Double>   by fxid()
+    private val spnAlpha            :   DoubleSpinner   by fxid()
 
-    private val spnBeta             :   Spinner<Double>   by fxid()
+    private val spnBeta             :   DoubleSpinner   by fxid()
 
     override val spinnerComponents  = arrayOf(
         SpinnerConfigurations(spnAlpha, 0.0, 10.0, 1.0),

@@ -1,9 +1,11 @@
 package rafael.logistic.bifurcation.hiperbolic_tangent
 
-import javafx.scene.control.Spinner
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.DoubleSpinner
+import rafael.logistic.core.fx.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.Styles
+import rafael.logistic.core.fx.valueToString
 import tornadofx.App
 
 class HiperbolicTangentBifurcationApp : App(HiperbolicTangentBifurcationView::class, Styles::class)
@@ -16,16 +18,16 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
 
     // @formatter:off
 
-    private     val spnX0               : Spinner<Double>   by fxid()
-    private     val spnGMin             : Spinner<Double>   by fxid()
-    private     val spnGMax             : Spinner<Double>   by fxid()
-    private     val spnXMin             : Spinner<Double>   by fxid()
-    private     val spnXMax             : Spinner<Double>   by fxid()
+    private     val spnX0               : DoubleSpinner   by fxid()
+    private     val spnGMin             : DoubleSpinner   by fxid()
+    private     val spnGMax             : DoubleSpinner   by fxid()
+    private     val spnXMin             : DoubleSpinner   by fxid()
+    private     val spnXMax             : DoubleSpinner   by fxid()
 
-    override    val spinnerComponents  = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
-    override    val spnX0Axis          = spnX0
-    override    val xAxisConfiguration = LimitsSpinnersConfiguration(spnGMin, spnGMax, G_MIN, G_MAX)
-    override    val yAxisConfiguration = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
+    override    val spinnerComponents   = arrayOf(SpinnerConfigurations(spnX0, X_MIN, X_MAX, 1.0))
+    override    val spnX0Axis           = spnX0
+    override    val xAxisConfiguration  = LimitsSpinnersConfiguration(spnGMin, spnGMax, G_MIN, G_MAX)
+    override    val yAxisConfiguration  = LimitsSpinnersConfiguration(spnXMin, spnXMax, X_MIN, X_MAX)
 
     // @formatter:on
 

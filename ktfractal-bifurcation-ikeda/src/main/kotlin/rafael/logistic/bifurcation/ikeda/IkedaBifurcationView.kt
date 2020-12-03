@@ -1,9 +1,11 @@
 package rafael.logistic.bifurcation.ikeda
 
-import javafx.scene.control.Spinner
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.DoubleSpinner
+import rafael.logistic.core.fx.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.Styles
+import rafael.logistic.core.fx.valueToString
 import tornadofx.App
 
 class IkedaBifurcationApp : App(IkedaBifurcationView::class, Styles::class)
@@ -16,12 +18,12 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 
     // @formatter:off
 
-    private     val spnX0               : Spinner<Double>   by fxid()
-    private     val spnX1               : Spinner<Double>   by fxid()
-    private     val spnUMin             : Spinner<Double>   by fxid()
-    private     val spnUMax             : Spinner<Double>   by fxid()
-    private     val spnXMin             : Spinner<Double>   by fxid()
-    private     val spnXMax             : Spinner<Double>   by fxid()
+    private     val spnX0               : DoubleSpinner   by fxid()
+    private     val spnX1               : DoubleSpinner   by fxid()
+    private     val spnUMin             : DoubleSpinner   by fxid()
+    private     val spnUMax             : DoubleSpinner   by fxid()
+    private     val spnXMin             : DoubleSpinner   by fxid()
+    private     val spnXMax             : DoubleSpinner   by fxid()
 
     override    val spinnerComponents   = arrayOf(
             SpinnerConfigurations(spnX0     , X_MIN, X_MAX, 0.0),

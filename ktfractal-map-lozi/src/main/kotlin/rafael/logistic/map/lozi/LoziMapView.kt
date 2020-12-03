@@ -1,6 +1,6 @@
 package rafael.logistic.map.lozi
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -13,9 +13,9 @@ class LoziMapView : ViewBi<LoziMapGenerator>("Lozi Map", "LoziMap", LoziMapGener
 
     // @formatter:off
 
-    private     val spnA                :   Spinner<Double>   by fxid()
+    private     val spnA                :   DoubleSpinner   by fxid()
 
-    private     val spnB                :   Spinner<Double>   by fxid()
+    private     val spnB                :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(
         SpinnerConfigurations(spnA, 0.0, 2.0, 1.4),

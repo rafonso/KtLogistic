@@ -1,6 +1,6 @@
 package rafael.logistic.map.ikeda
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -30,7 +30,7 @@ class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMap
 
     // @formatter:off
 
-    private     val spnU                :   Spinner<Double> by fxid()
+    private     val spnU                :   DoubleSpinner by fxid()
 
     override    val spinnerComponents   =   arrayOf(SpinnerConfigurations(spnU, U_MIN, U_MAX, (U_MIN + U_MAX) / 2))
 

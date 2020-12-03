@@ -2,13 +2,15 @@ package rafael.logistic.set
 
 import javafx.beans.binding.Bindings
 import javafx.scene.control.Label
-import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.DoubleSpinner
+import rafael.logistic.core.fx.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
+import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
@@ -30,10 +32,10 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     override val iterationsValueFactory         :   SpinnerValueFactory<Int>
             = SpinnerValueFactory.ListSpinnerValueFactory(listOf(5, 10, 20, 30, 50, 100, 200, 300, 500, 1000).asObservable())
 
-    protected   val spnXMin                     :   Spinner<Double>     by  fxid()
-    protected   val spnXMax                     :   Spinner<Double>     by  fxid()
-    protected   val spnYMin                     :   Spinner<Double>     by  fxid()
-    protected   val spnYMax                     :   Spinner<Double>     by  fxid()
+    protected   val spnXMin                     :   DoubleSpinner     by  fxid()
+    protected   val spnXMax                     :   DoubleSpinner     by  fxid()
+    protected   val spnYMin                     :   DoubleSpinner     by  fxid()
+    protected   val spnYMax                     :   DoubleSpinner     by  fxid()
 
     private     val lblPosMouse                 :   MouseRealPosNode    by  fxid()
     private     val lblStatus                   :   Label               by  fxid()

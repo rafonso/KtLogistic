@@ -3,15 +3,15 @@ package rafael.logistic.map.fx.view
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
-import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Region
-import rafael.logistic.map.fx.iterationchart.IterationChartDouble
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.IterationGenerator
+import rafael.logistic.map.fx.iterationchart.IterationChartDouble
 import rafael.logistic.map.fx.mapchart.MapChartDouble
 
 abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
@@ -24,7 +24,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     // @formatter:off
     private     val iterationsChart     :   IterationChartDouble by fxid()
 
-    private     val spnX0               :   Spinner<Double> by fxid()
+    private     val spnX0               :   DoubleSpinner by fxid()
     private     val deltaX0Property     =   oneProperty()
     private     val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(
             (chart.xAxis as NumberAxis).lowerBound, (chart.xAxis as NumberAxis).upperBound, iniX0Spinner, maxDelta)

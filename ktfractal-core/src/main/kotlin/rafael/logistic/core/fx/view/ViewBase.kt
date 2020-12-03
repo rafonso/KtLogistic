@@ -8,6 +8,7 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.BorderPane
 import javafx.stage.FileChooser
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.fx.configureActions
@@ -36,7 +37,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
      * [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy]
      */
     protected data class SpinnerConfigurations(
-        val spinner: Spinner<Double>,
+        val spinner: DoubleSpinner,
         val factory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         val deltaProperty: IntegerProperty = oneProperty()
     ) {
@@ -48,7 +49,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
          * @param initialValue Valor inicial do Spinner
          * @param delta valor inicial do [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner
          */
-        constructor(spinner: Spinner<Double>, min: Double, max: Double, initialValue: Double, delta: Int = 1) :
+        constructor(spinner: DoubleSpinner, min: Double, max: Double, initialValue: Double, delta: Int = 1) :
                 this(spinner, doubleSpinnerValueFactory(min, max, initialValue, 0.1), delta.toProperty())
     }
 
@@ -111,7 +112,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     protected open fun initializeAdditional() {
     }
 
-    protected fun Spinner<Double>.configureSpinner(
+    protected fun DoubleSpinner.configureSpinner(
         valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         deltaProperty: IntegerProperty
     ) = this.configureActions(valueFactory, deltaProperty, ::loadData)

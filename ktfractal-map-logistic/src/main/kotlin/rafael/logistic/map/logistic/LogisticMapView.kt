@@ -1,6 +1,6 @@
 package rafael.logistic.map.logistic
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.valueToString
@@ -13,7 +13,7 @@ class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logi
 
     // @formatter:off
 
-    private     val spnR                :   Spinner<Double>     by fxid()
+    private     val spnR                :   DoubleSpinner     by fxid()
 
     private     val txtMouseRealPos     :   MouseRealPosNode    by fxid()
 

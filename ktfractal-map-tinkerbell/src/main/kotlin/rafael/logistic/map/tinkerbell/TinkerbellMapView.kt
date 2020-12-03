@@ -1,6 +1,6 @@
 package rafael.logistic.map.tinkerbell
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.core.generation.BiDouble
@@ -31,13 +31,13 @@ class TinkerbellMapView : ViewBi<TinkerbellMapGenerator>("Tinkerbell Map", "Tink
 
     // @formatter:off
 
-    private     val spnA                :   Spinner<Double>   by fxid()
+    private     val spnA                :   DoubleSpinner   by fxid()
 
-    private     val spnB                :   Spinner<Double>   by fxid()
+    private     val spnB                :   DoubleSpinner   by fxid()
 
-    private     val spnC                :   Spinner<Double>   by fxid()
+    private     val spnC                :   DoubleSpinner   by fxid()
 
-    private     val spnD                :   Spinner<Double>   by fxid()
+    private     val spnD                :   DoubleSpinner   by fxid()
 
     override    val spinnerComponents   =   arrayOf(
         SpinnerConfigurations(spnA,  0.0, 1.0,  0.9),

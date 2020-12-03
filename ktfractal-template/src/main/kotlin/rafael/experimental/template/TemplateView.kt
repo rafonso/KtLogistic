@@ -1,7 +1,6 @@
 package rafael.experimental.template
 
 import javafx.scene.control.CheckBox
-import javafx.scene.control.Spinner
 import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.generation.BiDouble
@@ -19,10 +18,10 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
 
     private val txtMouseRealPos     :   MouseRealPosNode    by fxid()
 
-    private val spnXMin             :   Spinner<Double>     by fxid()
-    private val spnXMax             :   Spinner<Double>     by fxid()
-    private val spnYMin             :   Spinner<Double>     by fxid()
-    private val spnYMax             :   Spinner<Double>     by fxid()
+    private val spnXMin             :   DoubleSpinner     by fxid()
+    private val spnXMax             :   DoubleSpinner     by fxid()
+    private val spnYMin             :   DoubleSpinner     by fxid()
+    private val spnYMax             :   DoubleSpinner     by fxid()
 
     override    val spinnerComponents   = emptyArray<SpinnerConfigurations>()
 

@@ -1,6 +1,6 @@
 package rafael.logistic.set.julia
 
-import javafx.scene.control.Spinner
+import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
 import rafael.logistic.set.SetView
@@ -12,9 +12,9 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
 
     // @formatter:off
 
-    private     val spnCX               :   Spinner<Double>     by  fxid()
+    private     val spnCX               :   DoubleSpinner     by  fxid()
 
-    private     val spnCY               :   Spinner<Double>     by  fxid()
+    private     val spnCY               :   DoubleSpinner     by  fxid()
 
     override    val spinnerComponents   =   arrayOf(
         SpinnerConfigurations(spnCX, -LIMIT, LIMIT, LIMIT / 2),
