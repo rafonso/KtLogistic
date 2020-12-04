@@ -16,7 +16,7 @@
         <javafx.version>${jdk.version}</javafx.version>
         <maven.compiler.target>${jdk.version}</maven.compiler.target>
         <maven.compiler.source>${jdk.version}</maven.compiler.source>
-        <kotlin.version>1.4.20</kotlin.version>
+        <kotlin.version>1.4.10</kotlin.version>
         <tornadofx.version>1.7.20</tornadofx.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlin.code.style>official</kotlin.code.style>
