@@ -105,6 +105,7 @@
         <module>ktfractal-map-tent</module>
         <module>ktfractal-map-tinkerbell</module>
         <module>ktfractal-set</module>
+        <module>ktfractal-set-burning-ship</module>
         <module>ktfractal-set-julia</module>
         <module>ktfractal-set-mandelbrot</module>
         <module>ktfractal-template</module>

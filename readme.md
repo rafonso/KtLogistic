@@ -65,6 +65,7 @@ achando a Classe da view.
 | ktfractal-map-tent                    | `rafael.logistic.map.tent`                        | `TentMapApp`                      |                                              |
 | ktfractal-map-tinkerbell              | `rafael.logistic.map.tinkerbell`                  | `TinkerbellMapApp`                |                                              |
 | ktfractal-set                         |                                                   |                                   | Projeto base para `ktfractal-set`            |
+| ktfractal-set-burning-ship            | `rafael.logistic.set.burning_ship`                | `BurningShipSetApp`               |                                              |
 | ktfractal-set-julia                   | `rafael.logistic.set.julia`                       | `JuliaSetApp`                     |                                              |
 | ktfractal-set-mandelbrot              | `rafael.logistic.set.mandelbrot`                  | `MandelbrotSetApp`                |                                              |
 | ktfractal-template                    | `rafael.experimental.template`                    | `TemplateApp`                     |                                              |
