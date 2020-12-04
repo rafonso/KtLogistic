@@ -36,10 +36,7 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
         super.initializeControls()
 
         super.cXProperty.bind(spnCX.valueProperty())
-//        spnCX.configureSpinner(cXValueFactory, deltaCXProperty)
-
         super.cYProperty.bind(spnCY.valueProperty())
-//        spnCY.configureSpinner(cYValueFactory, deltaCYProperty)
     }
 
 }

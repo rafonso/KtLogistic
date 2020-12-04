@@ -102,12 +102,16 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
     ): Int? =
         if (iteration == convergenceSteps) null
         else {
-            val nextZX = zx * zx - zy * zy + cx
-            val nextZY = 2 * zx * zy + cy
+            val nextZX = nextX(zx, zy, cx, cy)
+            val nextZY = nextY(zx, zy, cx, cy)
 
             if ((nextZX * nextZX + nextZY * nextZY) > 4.0) iteration
             else checkConvergence(nextZX, nextZY, cx, cy, convergenceSteps, iteration + 1)
         }
+
+    protected abstract fun nextX(zx: Double, zy: Double, cx: Double, cy: Double): Double
+
+    protected abstract fun nextY(zx: Double, zy: Double, cx: Double, cy: Double): Double
 
     /**
      * Verifica quanta iterações são necessárias para a série divirga em um determinado ponto.
