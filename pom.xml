@@ -109,5 +109,6 @@
         <module>ktfractal-set-julia</module>
         <module>ktfractal-set-mandelbrot</module>
         <module>ktfractal-template</module>
+        <module>ktfractal-sandbox</module>
     </modules>
 </project>
