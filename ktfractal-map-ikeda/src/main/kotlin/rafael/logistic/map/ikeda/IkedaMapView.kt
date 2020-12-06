@@ -24,9 +24,9 @@ private enum class PlotBounds(
 
 }
 
-class IkedaMapApp : App(IkedaViewMap::class, Styles::class)
+class IkedaMapApp : App(IkedaMapView::class, Styles::class)
 
-class IkedaViewMap : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMapGenerator()) {
+class IkedaMapView : ViewBi<IkedaMapGenerator>("Ikeda Map", "IkedaMap", IkedaMapGenerator()) {
 
     // @formatter:off
 

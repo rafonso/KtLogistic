@@ -7,9 +7,9 @@ import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.App
 
-class HenonMapApp: App(HenonViewMap::class, Styles::class)
+class HenonMapApp: App(HenonMapView::class, Styles::class)
 
-class HenonViewMap : ViewBi<HenonMapGenerator>("Henon Map", "HenonMap", HenonMapGenerator()) {
+class HenonMapView : ViewBi<HenonMapGenerator>("Henon Map", "HenonMap", HenonMapGenerator()) {
 
     // @formatter:off
 
