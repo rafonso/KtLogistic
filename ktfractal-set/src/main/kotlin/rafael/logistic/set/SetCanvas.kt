@@ -18,12 +18,11 @@ class SetCanvas : CanvasChart<SetInfo>() {
     // @formatter:on
 
     override fun dataToElementsToPlot(): List<PixelInfo> {
+        val height = super.getHeight().toInt()
+
         return data.parallelStream().map { ji ->
-            Triple(
-                    ji.col,
-                    super.getHeight().toInt() - ji.row,
-                    getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
-            )
+            val color = getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
+            Triple(ji.col, height - ji.row, color)
         }.collect(Collectors.toList())
     }
 
