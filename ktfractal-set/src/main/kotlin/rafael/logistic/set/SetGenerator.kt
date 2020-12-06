@@ -67,7 +67,7 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
     }
 
     private fun generateFromArray(parameter: SetParameter, interactions: Int): List<SetInfo> {
-        val result = Array(parameter.xValues.size * parameter.yValues.size) { emptyJuliaInfo }
+        val result = Array(parameter.xValues.size * parameter.yValues.size) { emptySetInfo }
         var i = 0
 
         parameter.xValues.forEachIndexed { col, x ->
