@@ -6,7 +6,6 @@ import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
 import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
-import java.util.stream.Collectors
 
 class SetCanvas : CanvasChart<SetInfo>() {
 
@@ -17,13 +16,15 @@ class SetCanvas : CanvasChart<SetInfo>() {
 
     // @formatter:on
 
-    override fun dataToElementsToPlot(): List<PixelInfo> {
+    override fun dataToElementsToPlot(): Array<PixelInfo> {
         val height = super.getHeight().toInt()
 
-        return data.parallelStream().map { ji ->
-            val color = getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
-            Triple(ji.col, height - ji.row, color)
-        }.collect(Collectors.toList())
+        return data.parallelStream()
+            .map { ji ->
+                val color = getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
+                Triple(ji.col, height - ji.row, color)
+            }
+            .toArray(::arrayOfNulls)
     }
 
     override fun finalizePlotting() {

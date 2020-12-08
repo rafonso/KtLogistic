@@ -4,8 +4,7 @@ import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.mapchart.PixelInfo
-import tornadofx.toProperty
-import java.util.stream.Collectors
+import tornadofx.*
 
 class BifurcationCanvas : CanvasChart<RData>() {
 
@@ -33,7 +32,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
             }
     }
 
-    override fun dataToElementsToPlot(): List<PixelInfo> {
+    override fun dataToElementsToPlot(): Array<PixelInfo> {
         // Otimizações agressivas. Não precisa chamar os getters toda hora.
         val ym = yMin
         val deltaY = yMax - yMin
@@ -42,8 +41,9 @@ class BifurcationCanvas : CanvasChart<RData>() {
         val pixSep = pixelsSeparationProperty.value
         val colorCache = mutableMapOf<Int, Color>()
 
-        return data.parallelStream().flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache).stream() }
-            .collect(Collectors.toList())
+        return data.parallelStream()
+            .flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache).stream() }
+            .toArray(::arrayOfNulls)
     }
 
 }

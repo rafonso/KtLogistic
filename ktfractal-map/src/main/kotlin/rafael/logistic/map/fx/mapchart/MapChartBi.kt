@@ -2,13 +2,12 @@ package rafael.logistic.map.fx.mapchart
 
 import javafx.beans.NamedArg
 import javafx.collections.ObservableList
-import rafael.logistic.core.generation.BiDouble
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
 import rafael.logistic.core.fx.getRainbowColor
+import rafael.logistic.core.generation.BiDouble
 import tornadofx.*
-import java.util.stream.Collectors
 
 private const val MAX_RADIUS = 1.0
 private const val MIN_RADIUS = 0.4
@@ -46,16 +45,16 @@ class MapChartBi(
         highlightP0(data.first().x, data.first().y)
     }
 
-    override fun dataToElementsToPlot(): List<Node> = data
+    override fun dataToElementsToPlot(): Array<Node> = data
         .filter(this::insideBounds)
         .mapIndexed(this::biDoubleToCoords)
         .parallelStream()
         .map { (centerX, centerY, pos) ->
             coordsToCircle(centerX, centerY, pos)
         }
-        .collect(Collectors.toList())
+        .toArray(::arrayOfNulls)
 
-    override fun plotData(elements: List<Node>) {
+    override fun plotData(elements: Array<Node>) {
         background.getChildList()?.addAll(elements)
     }
 

@@ -8,7 +8,6 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Line
 import rafael.logistic.core.fx.getRainbowColor
 import tornadofx.*
-import java.util.stream.Collectors
 
 private const val MAX_WIDTH = 1.0
 private const val MIN_WIDTH = 0.4
@@ -35,13 +34,12 @@ abstract class MapChartDouble(
         background.getChildList()?.addAll(elements)
     }
 
-    private fun coordinatesToLines(coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit): List<Line> =
+    private fun coordinatesToLines(coords: List<Pair<Double, Double>>, handler: (Line, Int) -> Unit): Array<Node> =
         (1 until coords.size)
             .toList()
             .parallelStream()
             .map { indexToLine(it, coords, handler) }
-            .collect(Collectors.toList())
-
+            .toArray { length -> arrayOfNulls(length) }
 
     protected abstract fun recalculateBounds()
 
@@ -62,7 +60,7 @@ abstract class MapChartDouble(
         highlightP0(data.first(), 0.0)
     }
 
-    override fun dataToElementsToPlot(): List<Node> {
+    override fun dataToElementsToPlot(): Array<Node> {
         val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
             .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
             .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
@@ -74,7 +72,7 @@ abstract class MapChartDouble(
         }
     }
 
-    override fun plotData(elements: List<Node>) {
+    override fun plotData(elements: Array<Node>) {
         background.getChildList()?.addAll(elements)
     }
 

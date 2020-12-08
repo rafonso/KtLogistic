@@ -15,7 +15,10 @@ import java.io.File
 import javax.imageio.ImageIO
 
 /**
+ * Interface básica dos gráficos.
  *
+ * @param T Tipo do dado original
+ * @param E Tipo da classe que será usada ao plotar o gráfico
  */
 interface MapChart<T, E> {
 
@@ -48,9 +51,9 @@ interface MapChart<T, E> {
 
     fun prepareBackground()
 
-    fun dataToElementsToPlot(): List<E>
+    fun dataToElementsToPlot(): Array<E>
 
-    fun plotData(elements: List<E>)
+    fun plotData(elements: Array<E>)
 
     fun exportImageTo(file: File): Boolean
 
@@ -76,6 +79,15 @@ interface MapChart<T, E> {
 
 }
 
+/**
+ * Exporta o conteúdo de um [MapChart] para um arquivo tipo PNG.
+ *
+ * @param file Arquivo PNG onde a imagem será armazenada.
+ * @param width Largura da imagem
+ * @param height Altura da imagem
+ * @param snapshotGenerator Ação a ser feita depois da imagem ser gerada.
+ * @return Se a imagem foi gerada.
+ */
 fun exportImageTo(file: File, width: Int, height: Int, snapshotGenerator: (WritableImage) -> WritableImage): Boolean {
     val image = WritableImage(width, height)
     val writableImage = snapshotGenerator(image)

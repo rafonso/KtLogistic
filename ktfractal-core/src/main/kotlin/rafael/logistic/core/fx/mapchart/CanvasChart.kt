@@ -50,6 +50,8 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     protected           val gc                          :   GraphicsContext = super.getGraphicsContext2D()
 
+    private             val pixelWriter                 =   gc.pixelWriter
+
     protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
 
     private     fun Double.canvasToRealX() = (xMax - xMin) * this / super.getWidth() + xMin
@@ -80,8 +82,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         gc.fillRect(0.0, 0.0, width, height)
     }
 
-    override fun plotData(elements: List<PixelInfo>) {
-        val pixelWriter = gc.pixelWriter
+    override fun plotData(elements: Array<PixelInfo>) {
         elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
     }
 
