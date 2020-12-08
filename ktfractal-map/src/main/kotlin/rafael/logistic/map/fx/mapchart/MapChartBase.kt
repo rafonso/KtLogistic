@@ -140,8 +140,6 @@ abstract class MapChartBase<T>(
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
     override fun exportImageTo(file: File): Boolean =
-        exportImageTo(file, super.getWidth().toInt(), super.getHeight().toInt()) {
-            super.snapshot(null, it)
-        }
+        exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)
 
 }

@@ -94,8 +94,6 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
     }
 
     override fun exportImageTo(file: File): Boolean =
-        exportImageTo(file, super.getWidth().toInt(), super.getHeight().toInt()) {
-            super.snapshot(null, it)
-        }
+        exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)
 
 }

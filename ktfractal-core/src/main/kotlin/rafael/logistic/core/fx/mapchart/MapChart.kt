@@ -8,6 +8,7 @@ import javafx.embed.swing.SwingFXUtils
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.event.EventType
+import javafx.scene.Node
 import javafx.scene.image.WritableImage
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
@@ -82,15 +83,15 @@ interface MapChart<T, E> {
 /**
  * Exporta o conteúdo de um [MapChart] para um arquivo tipo PNG.
  *
- * @param file Arquivo PNG onde a imagem será armazenada.
+ * @param node [Node] de origem da imagem, correspondendo ao [MapChart]
  * @param width Largura da imagem
  * @param height Altura da imagem
- * @param snapshotGenerator Ação a ser feita depois da imagem ser gerada.
+ * @param file Arquivo PNG onde a imagem será armazenada.
  * @return Se a imagem foi gerada.
  */
-fun exportImageTo(file: File, width: Int, height: Int, snapshotGenerator: (WritableImage) -> WritableImage): Boolean {
+fun exportImageTo(node: Node, width: Int, height: Int, file: File): Boolean {
     val image = WritableImage(width, height)
-    val writableImage = snapshotGenerator(image)
+    val writableImage = node.snapshot(null, image)
     val renderedImage = SwingFXUtils.fromFXImage(writableImage, null)
     return ImageIO.write(renderedImage, "png", file)
 }
