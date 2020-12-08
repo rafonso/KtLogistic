@@ -23,22 +23,26 @@ import javax.imageio.ImageIO
  */
 interface MapChart<T, E> {
 
-    val xMinProperty: DoubleProperty
-    val xMin: Double
+    // @formatter:off
 
-    val xMaxProperty: DoubleProperty
-    val xMax: Double
+    val xMinProperty                : DoubleProperty
+    val xMin                        : Double
 
-    val yMinProperty: DoubleProperty
-    val yMin: Double
+    val xMaxProperty                : DoubleProperty
+    val xMax                        : Double
 
-    val yMaxProperty: DoubleProperty
-    val yMax: Double
+    val yMinProperty                : DoubleProperty
+    val yMin                        : Double
 
-    val deltaXByPixelProperty: ReadOnlyDoubleProperty
-    val deltaYByPixelProperty: ReadOnlyDoubleProperty
+    val yMaxProperty                : DoubleProperty
+    val yMax                        : Double
 
-    val generationStatusProperty: ObjectProperty<GenerationStatus>
+    val deltaXByPixelProperty       : ReadOnlyDoubleProperty
+    val deltaYByPixelProperty       : ReadOnlyDoubleProperty
+
+    val generationStatusProperty    : ObjectProperty<GenerationStatus>
+
+    // @formatter:on
 
     fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
 
@@ -50,18 +54,47 @@ interface MapChart<T, E> {
         addEventHandler(eventType, EventHandler(eventHandler))
     }
 
+    /**
+     * Prepara o gráfico antes de ser plotado com os dados atuais.
+     * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_PREPARING].
+     */
     fun prepareBackground()
 
+    /**
+     * Converte os dados atuais nas entidades a serem usadas na plotagem.
+     * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_CONVERT].
+     *
+     * @return [Array] das entidades a serem usadas na plotagem.
+     */
     fun dataToElementsToPlot(): Array<E>
 
+    /**
+     * Executa a Plotagem.
+     * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_DRAW].
+     *
+     * @param elements [Array] das entidades a serem usadas na plotagem.
+     */
     fun plotData(elements: Array<E>)
 
-    fun exportImageTo(file: File): Boolean
-
+    /**
+     * Finaliza gráfico, adicionando eventuais detalhes finais.
+     * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_FINALIZING].
+     */
     fun finalizePlotting() {
 
     }
 
+    /**
+     * Exporta conteúdo do gráfico para um arquivo do tipo PNG.
+     *
+     * @param file Arquivo PNG onde a imagem será armazenada.
+     * @return Se a imagem foi gerada.
+     */
+    fun exportImageTo(file: File): Boolean
+
+    /**
+     * Atualiza um gráfico quando os dados são atualizados.
+     */
     fun refreshData() {
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_PREPARING
         prepareBackground()
