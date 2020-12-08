@@ -11,10 +11,7 @@ import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
-import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import tornadofx.observableListOf
-import tornadofx.onChange
-import tornadofx.runLater
+import tornadofx.*
 
 abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructor(
     title: String,
@@ -77,7 +74,6 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     override fun initializeAdditional() {
         lblPosMouse.bind(chart)
-        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 it?.let { status ->

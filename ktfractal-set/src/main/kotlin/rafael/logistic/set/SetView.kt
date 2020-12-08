@@ -13,10 +13,7 @@ import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
-import rafael.logistic.core.generation.GenerationStatusChronometerListener
-import tornadofx.asObservable
-import tornadofx.onChange
-import tornadofx.runLater
+import tornadofx.*
 import kotlin.math.abs
 
 
@@ -102,7 +99,6 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
         }
 
         lblPosMouse.bind(chart)
-        GenerationStatusChronometerListener.bind(super.generationStatusProperty())
         super.generationStatusProperty().onChange {
             runLater {
                 it?.let { status ->

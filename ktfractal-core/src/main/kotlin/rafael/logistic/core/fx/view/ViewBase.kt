@@ -16,6 +16,7 @@ import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.oneProperty
+import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import tornadofx.*
 import java.io.File
 import java.util.prefs.Preferences
@@ -98,6 +99,9 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         this.spinnersChartProperties.forEach { (spinner, property) -> property.bind(spinner.valueProperty()) }
         initializeCharts()
 
+        // Adiciona um listener para verificar o tempo gasto em cada um dos GenerationStatus.
+        // Entretanto, ele estará ativo apenas se a propriedade do sistema "timer" for passada.
+        GenerationStatusChronometerListener.bind(generationStatusProperty())
         initializeAdditional()
 
         loadData()
