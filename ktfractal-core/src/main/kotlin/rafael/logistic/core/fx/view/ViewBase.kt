@@ -10,16 +10,17 @@ import javafx.scene.input.KeyCode
 import javafx.scene.layout.BorderPane
 import javafx.stage.FileChooser
 import rafael.logistic.core.fx.DoubleSpinner
-import rafael.logistic.core.generation.GenerationStatus
-import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.fx.configureActions
 import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.oneProperty
+import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
+import rafael.logistic.core.generation.IterationGenerator
 import tornadofx.*
 import java.io.File
 import java.util.prefs.Preferences
+import kotlin.time.ExperimentalTime
 
 
 abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
@@ -82,6 +83,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
     fun generationStatusProperty() = generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
 
+    @ExperimentalTime
     override fun onBeforeShow() {
         initializeControls()
         spnIterations.configureActions(iterationsValueFactory, ::loadData)
