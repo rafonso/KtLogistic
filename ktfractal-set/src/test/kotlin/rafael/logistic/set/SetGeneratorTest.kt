@@ -4,7 +4,8 @@ import rafael.logistic.core.generation.BiDouble
 
 const val CYCLES = 1000
 
-val values = arrayOf(1, 5, 10, 50, 100, 500, 1000)
+val values =arrayOf(100, 200, 300, 400, 500, 550, 600)
+//    arrayOf(1, 5, 10, 50, 100, 500, 1000)
 val widthsHights = values.flatMap { w -> values.map { h -> Pair(w, h) } }.sortedBy { it.first * it.second }
 
 object SetGeneratorStub : SetGenerator() {

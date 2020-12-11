@@ -5,7 +5,7 @@ import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.core.generation.IterationParameter
 import java.util.stream.Collectors
 
-private const val MAX_VALUE_FOR_ARRAY = 5_000
+// private const val MAX_VALUE_FOR_ARRAY = 5_000
 
 /**
  * Julia parameter
@@ -40,7 +40,7 @@ data class SetParameter(
     //    internal val yValuesArray by lazy { yValues.toDoubleArray() }
     val rows = yValues.indices.toList()
 
-    val valuesToBeProcessed = xValues.size * yValues.size
+//    val valuesToBeProcessed = xValues.size * yValues.size
 }
 
 /**
@@ -64,21 +64,6 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
             }
             .filter { ji -> !ji.converges }
             .collect(Collectors.toList())
-    }
-
-    private fun generateFromArray(parameter: SetParameter, interactions: Int): List<SetInfo> {
-        val result = Array(parameter.xValues.size * parameter.yValues.size) { emptySetInfo }
-        var i = 0
-
-        parameter.xValues.forEachIndexed { col, x ->
-            parameter.yValues.forEachIndexed { row, y ->
-                val iterationsToDiverge = verify(x, y, parameter, interactions)
-                result[i] = SetInfo(col, row, x, y, iterationsToDiverge)
-                i++
-            }
-        }
-
-        return result.filter { ji -> !ji.converges }
     }
 
     /**
@@ -128,8 +113,25 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") z0: BiDouble,
         parameter: SetParameter,
         interactions: Int
-    ): List<SetInfo> =
-        if (parameter.valuesToBeProcessed <= MAX_VALUE_FOR_ARRAY) generateFromArray(parameter, interactions)
-        else generateParallel(parameter, interactions)
+    ): List<SetInfo> = generateParallel(parameter, interactions)
 
 }
+
+/*
+    private fun generateFromArray(parameter: SetParameter, interactions: Int): List<SetInfo> {
+        val result = Array(parameter.xValues.size * parameter.yValues.size) { emptySetInfo }
+        var i = 0
+
+        parameter.xValues.forEachIndexed { col, x ->
+            parameter.yValues.forEachIndexed { row, y ->
+                val iterationsToDiverge = verify(x, y, parameter, interactions)
+                result[i] = SetInfo(col, row, x, y, iterationsToDiverge)
+                i++
+            }
+        }
+
+        return result.filter { ji -> !ji.converges }
+    }
+
+
+ */
