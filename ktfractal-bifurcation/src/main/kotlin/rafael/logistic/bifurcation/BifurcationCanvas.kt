@@ -19,17 +19,22 @@ class BifurcationCanvas : CanvasChart<RData>() {
         pixSep: Int,
         yToCanvas: (Double) -> Int,
         colorCache: MutableMap<Int, Color>
-    ): List<PixelInfo> {
+    ): Collection<PixelInfo> {
         val size = rSequence.values.size
         val rPos = rSequence.col * pixSep
 
-        return rSequence.values
+        val result = mutableSetOf<PixelInfo>()
+
+        rSequence.values.reversed()
             .mapIndexed { i, v ->
-                Triple(
+                PixelInfo(
                     rPos,
                     yToCanvas(v),
-                    colorCache.getOrPut(i) { getRainbowColor(i.toDouble() / size) })
+                    colorCache.getOrPut(size - i) { getRainbowColor((size - i).toDouble() / size) })
             }
+            .forEach(result::add)
+
+        return result
     }
 
     override fun dataToElementsToPlot(): Array<PixelInfo> {

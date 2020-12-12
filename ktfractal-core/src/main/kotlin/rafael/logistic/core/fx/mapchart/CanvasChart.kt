@@ -12,8 +12,6 @@ import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
 
-typealias PixelInfo = Triple<Int, Int, Color>
-
 abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     // @formatter:off
@@ -83,7 +81,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
     }
 
     override fun plotData(elements: Array<PixelInfo>) {
-        elements.forEach { (x, y, c) -> pixelWriter.setColor(x, y, c) }
+        elements.forEach { pi -> pixelWriter.setColor(pi.xChart, pi.yChart, pi.color) }
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>

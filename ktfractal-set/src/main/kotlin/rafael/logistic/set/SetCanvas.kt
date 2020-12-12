@@ -20,9 +20,9 @@ class SetCanvas : CanvasChart<SetInfo>() {
         val height = super.getHeight().toInt()
 
         return data.parallelStream()
-            .map { ji ->
-                val color = getRainbowColor(ji.iterationsToDiverge!!.toDouble() / maxIterations)
-                Triple(ji.col, height - ji.row, color)
+            .map { si ->
+                val color = getRainbowColor(si.iterationsToDiverge!!.toDouble() / maxIterations)
+                PixelInfo(si.col, height - si.row, color)
             }
             .toArray(::arrayOfNulls)
     }
