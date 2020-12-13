@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
+import javafx.scene.image.PixelWriter
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
@@ -12,7 +13,7 @@ import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
 
-abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
+abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
 
     // @formatter:off
 
@@ -48,7 +49,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
 
     protected           val gc                          :   GraphicsContext = super.getGraphicsContext2D()
 
-    private             val pixelWriter                 =   gc.pixelWriter
+    protected           val pixelWriter                 :   PixelWriter = gc.pixelWriter
 
     protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
 
@@ -78,10 +79,6 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, PixelInfo> {
         // Paint background
         gc.fill = backgroundProperty.value
         gc.fillRect(0.0, 0.0, width, height)
-    }
-
-    override fun plotData(elements: Array<PixelInfo>) {
-        elements.forEach { pi -> pixelWriter.setColor(pi.xChart, pi.yChart, pi.color) }
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>

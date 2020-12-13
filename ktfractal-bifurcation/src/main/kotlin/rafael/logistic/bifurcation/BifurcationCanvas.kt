@@ -3,10 +3,9 @@ package rafael.logistic.bifurcation
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
-import rafael.logistic.core.fx.mapchart.PixelInfo
 import tornadofx.*
 
-class BifurcationCanvas : CanvasChart<RData>() {
+class BifurcationCanvas : CanvasChart<RData, PixelInfo>() {
 
     // @formatter:off
 
@@ -35,6 +34,10 @@ class BifurcationCanvas : CanvasChart<RData>() {
             .forEach(result::add)
 
         return result
+    }
+
+    override fun plotData(elements: Array<PixelInfo>) {
+        elements.forEach { pi -> pixelWriter.setColor(pi.xChart, pi.yChart, pi.color) }
     }
 
     override fun dataToElementsToPlot(): Array<PixelInfo> {

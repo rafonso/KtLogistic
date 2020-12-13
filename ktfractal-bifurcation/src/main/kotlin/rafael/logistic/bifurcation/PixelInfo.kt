@@ -1,9 +1,9 @@
-package rafael.logistic.core.fx.mapchart
+package rafael.logistic.bifurcation
 
 import javafx.scene.paint.Color
 
 /**
- * Contém as informações dos pixels a serem usadas em [CanvasChart].
+ * Contém as informações dos pixels a serem usadas em [BifurcationCanvas].
  *
  * @property xChart Posição no eixo X (da esquerda para a direita)
  * @property yChart Posição no eixo Y (de cima para baixo)

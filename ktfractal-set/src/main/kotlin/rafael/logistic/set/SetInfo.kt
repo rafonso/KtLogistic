@@ -17,9 +17,3 @@ data class SetInfo(val col: Int, val row: Int, val x: Double, val y: Double, val
     val converges = (iterationsToDiverge == null)
 
 }
-
-/**
- * Valor default, onde a posição no [Canvas][javafx.scene.canvas.Canvas] equivale a [Int.MIN_VALUE], a posição real
- * a [Double.NaN] e [iterationsToDiverge][SetInfo.iterationsToDiverge] também equivale a [Int.MIN_VALUE].
- */
-val emptySetInfo = SetInfo(Int.MIN_VALUE, Int.MIN_VALUE, Double.NaN, Double.NaN, Int.MIN_VALUE)

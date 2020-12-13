@@ -3,11 +3,10 @@ package rafael.logistic.set
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
-import rafael.logistic.core.fx.mapchart.PixelInfo
 import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 
-class SetCanvas : CanvasChart<SetInfo>() {
+class SetCanvas : CanvasChart<SetInfo, PixelInfo>() {
 
     // @formatter:off
 
@@ -25,6 +24,10 @@ class SetCanvas : CanvasChart<SetInfo>() {
                 PixelInfo(si.col, height - si.row, color)
             }
             .toArray(::arrayOfNulls)
+    }
+
+    override fun plotData(elements: Array<PixelInfo>) {
+        elements.forEach { pi -> pixelWriter.setColor(pi.xChart, pi.yChart, pi.color) }
     }
 
     override fun finalizePlotting() {
