@@ -30,12 +30,12 @@ data class SetParameter(
 
     private val deltaY = (yMax - yMin) / height
 
-    val xValues = (0..width).map { it * deltaX + xMin }.toDoubleArray()
+    val xValues = (0 until width).map { it * deltaX + xMin }.toDoubleArray()
 
     //    internal val xValuesArray by lazy { xValues.toDoubleArray() }
     val cols = xValues.indices.toList()
 
-    val yValues = (0..height).map { it * deltaY + yMin }.toDoubleArray()
+    val yValues = (0 until height).map { it * deltaY + yMin }.toDoubleArray()
 
     //    internal val yValuesArray by lazy { yValues.toDoubleArray() }
     val rows = yValues.indices.toList()
@@ -50,21 +50,19 @@ data class SetParameter(
  */
 abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter> {
 
-    private fun generateParallel(parameter: SetParameter, interactions: Int): List<SetInfo> {
-        return parameter.cols.parallelStream()
-            .flatMap { col ->
-                val x = parameter.xValues[col]
-                parameter.rows.parallelStream()
-                    .map { row ->
-                        val y = parameter.yValues[row]
+    private fun generateParallel(parameter: SetParameter, interactions: Int): List<SetInfo> =
+        parameter.rows.parallelStream()
+            .flatMap { row ->
+                val y = parameter.yValues[parameter.rows.size - row - 1]
+                parameter.cols.parallelStream()
+                    .map { col ->
+                        val x = parameter.xValues[col]
                         val iterationsToDiverge = verify(x, y, parameter, interactions)
 
                         SetInfo(col, row, x, y, iterationsToDiverge)
                     }
             }
-            .filter { ji -> !ji.converges }
             .collect(Collectors.toList())
-    }
 
     /**
      * Check convergence
@@ -75,7 +73,7 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
      * @param cy valor da coordenada `y` da constante.
      * @param convergenceSteps Número máximo de iterações
      * @param iteration Iteração corrente (será incrementado a cada passo)
-     * @return Número de Iterações para a série divergir ou `null` se ela não o fez até atingir [convergenceSteps].
+     * @return Número de Iterações para a série divergir ou `0` se ela não o fez até atingir [convergenceSteps].
      */
     protected tailrec fun checkConvergence(
         zx: Double,
@@ -84,8 +82,8 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
         cy: Double,
         convergenceSteps: Int,
         iteration: Int = 1
-    ): Int? =
-        if (iteration == convergenceSteps) null
+    ): Int =
+        if (iteration == convergenceSteps) 0
         else {
             val nextZX = nextX(zx, zy, cx, cy)
             val nextZY = nextY(zx, zy, cx, cy)
@@ -107,7 +105,7 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
      * @param interactions Quantidade máxima de Iterações.
      * @return o número de iterações necessárias para que a série divirga ou `null` se ela não divergir ao se atingir [interactions]
      */
-    protected abstract fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int?
+    protected abstract fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int
 
     override fun generate(
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") z0: BiDouble,

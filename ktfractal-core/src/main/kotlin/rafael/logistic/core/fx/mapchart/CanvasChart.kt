@@ -62,6 +62,10 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
     // @formatter:on
 
     init {
+        initialize()
+    }
+
+    protected fun initialize() {
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / super.heightProperty())
 

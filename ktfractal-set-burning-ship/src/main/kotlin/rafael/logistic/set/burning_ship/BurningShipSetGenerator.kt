@@ -19,7 +19,7 @@ class BurningShipSetGenerator : SetGenerator() {
     override inline fun nextY(zx: Double, zy: Double, cx: Double, cy: Double) =
         2 * abs(zx * zy) - cy
 
-    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int? =
+    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int =
         checkConvergence(0.0, 0.0, x, y, interactions)
 
 }

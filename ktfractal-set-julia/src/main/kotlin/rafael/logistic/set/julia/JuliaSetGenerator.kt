@@ -11,7 +11,7 @@ class JuliaSetGenerator : SetGenerator() {
     @Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
     override inline fun nextY(zx: Double, zy: Double, cx: Double, cy: Double) = 2 * zx * zy + cy
 
-    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int? =
+    override fun verify(x: Double, y: Double, parameter: SetParameter, interactions: Int): Int =
             checkConvergence(x, y, parameter.cX, parameter.cY, interactions)
 
 }
