@@ -1,15 +1,13 @@
 package rafael.logistic.bifurcation
 
-import javafx.scene.paint.Color
-
 /**
  * Contém as informações dos pixels a serem usadas em [BifurcationCanvas].
  *
  * @property xChart Posição no eixo X (da esquerda para a direita)
  * @property yChart Posição no eixo Y (de cima para baixo)
- * @property color Cor na posição em questão.
+ * @property colorBuffer Buffer representando a Cor na posição em questão.
  */
-class PixelInfo(val xChart: Int, val yChart: Int, val color: Color) {
+internal class PixelInfo(val xChart: Int, val yChart: Int, val colorBuffer: ByteArray) {
 
     /**
      * Compara com outro [PixelInfo] usando [xChart] e [yChart].
@@ -41,7 +39,7 @@ class PixelInfo(val xChart: Int, val yChart: Int, val color: Color) {
     }
 
     override fun toString(): String {
-        return "[$xChart, $yChart, $color]"
+        return "[$xChart, $yChart, ${colorBuffer.asList()}]"
     }
 
 }

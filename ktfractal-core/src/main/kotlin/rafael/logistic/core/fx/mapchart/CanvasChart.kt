@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.image.PixelWriter
 import javafx.scene.paint.Color
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
@@ -51,6 +52,12 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
 
     protected           val pixelWriter                 :   PixelWriter = gc.pixelWriter
 
+    private             val hProperty                   =   oneProperty()
+    protected           val h                           by  hProperty
+
+    private             val wProperty                   =   oneProperty()
+    protected           val w                           by  wProperty
+
     protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
 
     private     fun Double.canvasToRealX() = (xMax - xMin) * this / super.getWidth() + xMin
@@ -66,6 +73,9 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
     }
 
     protected fun initialize() {
+        hProperty.bind(super.heightProperty())
+        wProperty.bind(super.widthProperty())
+
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / super.heightProperty())
 
@@ -93,6 +103,6 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
     }
 
     override fun exportImageTo(file: File): Boolean =
-        exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)
+        exportImageTo(this, w, h, file)
 
 }

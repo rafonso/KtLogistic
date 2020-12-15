@@ -31,3 +31,23 @@ fun getRainbowColor(x: Double): Color {
     return Color(r, g, b, o)
 }
 
+/**
+ * [Array de 3 bytes][ByteArray] representando a [Cor][Color] [Preta][Color.BLACK].
+ */
+val blackBuffer = Color.BLACK.toBytes()
+
+/**
+ * Converte uma [Cor][Color] num [array de 3 bytes][ByteArray] representando os componentes dela.
+ *
+ * @return Array de 3 bytes representando a cor.
+ */
+fun Color.toBytes() = ByteArray(3) {
+    // TODO Adicionar transparencia, Tem que retornar IntArray
+    (when (it) {
+        0 -> this.red
+        1 -> this.green
+        2 -> this.blue
+        else -> error("it: $it, Cor: $this")
+    } * 255).toInt().toByte()
+}
+

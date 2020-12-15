@@ -2,21 +2,9 @@ package rafael.logistic.set
 
 import javafx.scene.image.PixelFormat
 import javafx.scene.paint.Color
-import rafael.logistic.core.fx.getRainbowColor
+import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.CanvasChart
-import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
-
-val blackBuffer = arrayOf(0.toByte(), 0.toByte(), 0.toByte()).toByteArray()
-
-private fun colorToBytes(c: Color) = ByteArray(3) {
-    (when (it) {
-        0 -> c.red
-        1 -> c.green
-        2 -> c.blue
-        else -> kotlin.error("it: $it, Cor: $c")
-    } * 255).toInt().toByte()
-}
 
 class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
 
@@ -36,10 +24,10 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
         super.initialize()
 
         maxIterationsProperty.onChange { maxIt ->
-            cacheIteration = cacheByMaxIteratrions.computeIfAbsent(maxIt) {
+            cacheIteration = cacheByMaxIteratrions.getOrPut(maxIt) {
                 Array(maxIt + 1) {
                     if (it == 0) blackBuffer
-                    else colorToBytes(getRainbowColor(it.toDouble() / maxIt))
+                    else getRainbowColor(it.toDouble() / maxIt).toBytes()
                 }
             }
         }
@@ -62,16 +50,7 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
     }
 
     override fun plotData(elements: Array<ByteArray>) {
-        pixelWriter.setPixels(
-            0,
-            0,
-            super.getWidth().toInt(),
-            super.getHeight().toInt(),
-            pixelFormat,
-            elements[0],
-            0,
-            super.getWidth().toInt() * 3
-        )
+        pixelWriter.setPixels(0, 0, super.w, super.h, pixelFormat, elements[0], 0, super.w * 3)
     }
 
     override fun finalizePlotting() {
@@ -89,4 +68,5 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
             plotAxis(0.0, super.yMax, 0.0, super.yMin)
         }
     }
+
 }

@@ -1,57 +1,77 @@
 package rafael.logistic.bifurcation
 
-import javafx.scene.paint.Color
+import javafx.scene.image.PixelFormat
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
+import rafael.logistic.core.fx.toBytes
 import tornadofx.*
 
-class BifurcationCanvas : CanvasChart<RData, PixelInfo>() {
+const val WHITE_BYTE = 0xFF.toByte()
+
+class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
 
     // @formatter:off
 
     val pixelsSeparationProperty    =   1.toProperty()
 
+    private val pixelFormat = PixelFormat.getByteRgbInstance()
+
+    private val colorCache              =   mutableMapOf<Double, ByteArray>()
+
     // @formatter:on
+
+    private fun fillBuffer(buffer: ByteArray, i: Int, bc: ByteArray) {
+        buffer[i * 3 + 0] = bc[0]
+        buffer[i * 3 + 1] = bc[1]
+        buffer[i * 3 + 2] = bc[2]
+    }
 
     private fun rSequenceToCoordinates(
         rSequence: RData,
         pixSep: Int,
-        yToCanvas: (Double) -> Int,
-        colorCache: MutableMap<Int, Color>
+        yToCanvas: (Double) -> Int
     ): Collection<PixelInfo> {
         val size = rSequence.values.size
         val rPos = rSequence.col * pixSep
 
-        val result = mutableSetOf<PixelInfo>()
-
-        rSequence.values.reversed()
+        return rSequence.values.reversed()
             .mapIndexed { i, v ->
-                PixelInfo(
-                    rPos,
-                    yToCanvas(v),
-                    colorCache.getOrPut(size - i) { getRainbowColor((size - i).toDouble() / size) })
+                val dblColor = (size - i).toDouble() / size
+                val buffColor = colorCache.getOrPut(dblColor) {
+                    getRainbowColor(dblColor).toBytes()
+                }
+
+                PixelInfo(rPos, yToCanvas(v), buffColor)
             }
-            .forEach(result::add)
-
-        return result
+            .toSet()
     }
 
-    override fun plotData(elements: Array<PixelInfo>) {
-        elements.forEach { pi -> pixelWriter.setColor(pi.xChart, pi.yChart, pi.color) }
+    override fun dataToElementsToPlot(): Array<ByteArray> {
+        val buffer = ByteArray(super.w * (super.h) * 4) { WHITE_BYTE }
+
+        if (buffer.isNotEmpty()) {
+            // Otimizações agressivas. Não precisa chamar os getters toda hora.
+            val ym = yMin
+            val deltaY = yMax - yMin
+            val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * super.h).toInt() }
+            val pixSep = pixelsSeparationProperty.value
+
+            data.parallelStream()
+                .flatMap { rSequenceToCoordinates(it, pixSep, yToCanvas).stream() }
+                .filter { pi -> (0..super.h).contains(pi.yChart) }
+                .forEach { pi ->
+                    val pos = pi.xChart + pi.yChart * super.w
+
+                    fillBuffer(buffer, pos, pi.colorBuffer)
+                }
+        }
+
+        return arrayOf(buffer)
     }
 
-    override fun dataToElementsToPlot(): Array<PixelInfo> {
-        // Otimizações agressivas. Não precisa chamar os getters toda hora.
-        val ym = yMin
-        val deltaY = yMax - yMin
-        val h = super.getHeight()
-        val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
-        val pixSep = pixelsSeparationProperty.value
-        val colorCache = mutableMapOf<Int, Color>()
 
-        return data.parallelStream()
-            .flatMap { this.rSequenceToCoordinates(it, pixSep, yToCanvas, colorCache).stream() }
-            .toArray(::arrayOfNulls)
+    override fun plotData(elements: Array<ByteArray>) {
+        pixelWriter.setPixels(0, 0, super.w, super.h, pixelFormat, elements[0], 0, super.w * 3)
     }
 
 }
