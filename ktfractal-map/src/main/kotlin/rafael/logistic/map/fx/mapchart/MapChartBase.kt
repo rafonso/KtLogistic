@@ -25,7 +25,7 @@ abstract class MapChartBase<T>(
     xAxis: Axis<Double>,
     yAxis: Axis<Double>,
     data: ObservableList<Series<Double, Double>>
-) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Node> {
+) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Array<Node>> {
 
     protected val background: Node = super.lookup(".chart-plot-background")
 

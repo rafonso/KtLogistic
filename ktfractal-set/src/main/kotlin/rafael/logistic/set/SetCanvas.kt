@@ -1,18 +1,15 @@
 package rafael.logistic.set
 
-import javafx.scene.image.PixelFormat
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import tornadofx.*
 
-class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
+class SetCanvas : CanvasChart<SetInfo>() {
 
     // @formatter:off
 
             val maxIterationsProperty   =   oneProperty()
-
-    private val pixelFormat             =   PixelFormat.getByteRgbInstance()
 
     private val cacheByMaxIteratrions   =   mutableMapOf<Int, Array<ByteArray>>()
 
@@ -33,18 +30,14 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
         }
     }
 
-    override fun dataToElementsToPlot(): Array<ByteArray> {
+    override fun dataToElementsToPlot(): ByteArray {
         val buffer = ByteArray(data.size * 3)
 
         data
             .map(SetInfo::iterationsToDiverge)
             .forEachIndexed { i, iterations -> buffer.addBuffer(i, cacheIteration[iterations]) }
 
-        return arrayOf(buffer)
-    }
-
-    override fun plotData(elements: Array<ByteArray>) {
-        pixelWriter.setPixels(0, 0, super.w, super.h, pixelFormat, elements[0], 0, super.w * 3)
+        return buffer
     }
 
     override fun finalizePlotting() {

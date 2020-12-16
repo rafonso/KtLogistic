@@ -64,17 +64,17 @@ interface MapChart<T, E> {
      * Converte os dados atuais nas entidades a serem usadas na plotagem.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_CONVERT].
      *
-     * @return [Array] das entidades a serem usadas na plotagem.
+     * @return Entidade a ser usada na plotagem.
      */
-    fun dataToElementsToPlot(): Array<E>
+    fun dataToElementsToPlot(): E
 
     /**
      * Executa a Plotagem.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_DRAW].
      *
-     * @param elements [Array] das entidades a serem usadas na plotagem.
+     * @param element Entidades a serem usadas na plotagem.
      */
-    fun plotData(elements: Array<E>)
+    fun plotData(element: E)
 
     /**
      * Finaliza gráfico, adicionando eventuais detalhes finais.
@@ -100,10 +100,10 @@ interface MapChart<T, E> {
         prepareBackground()
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_CONVERT
-        val elementsToPlot = dataToElementsToPlot()
+        val elementToPlot = dataToElementsToPlot()
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_DRAW
-        plotData(elementsToPlot)
+        plotData(elementToPlot)
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_FINALIZING
         finalizePlotting()

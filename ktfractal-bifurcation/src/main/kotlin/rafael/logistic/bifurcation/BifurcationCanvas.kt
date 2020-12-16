@@ -1,6 +1,5 @@
 package rafael.logistic.bifurcation
 
-import javafx.scene.image.PixelFormat
 import rafael.logistic.core.fx.addBuffer
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
@@ -9,15 +8,13 @@ import tornadofx.*
 
 const val WHITE_BYTE = 0xFF.toByte()
 
-class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
+class BifurcationCanvas : CanvasChart<RData>() {
 
     // @formatter:off
 
-    val pixelsSeparationProperty    =   1.toProperty()
+            val pixelsSeparationProperty    =   1.toProperty()
 
-    private val pixelFormat         =   PixelFormat.getByteRgbInstance()
-
-    private val colorCache          =   mutableMapOf<Double, ByteArray>()
+    private val colorCache                  =   mutableMapOf<Double, ByteArray>()
 
     // @formatter:on
 
@@ -41,7 +38,7 @@ class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
             .toSet()
     }
 
-    override fun dataToElementsToPlot(): Array<ByteArray> {
+    override fun dataToElementsToPlot(): ByteArray {
         val buffer = ByteArray(super.w * (super.h) * 4) { WHITE_BYTE }
 
         if (buffer.isNotEmpty()) {
@@ -61,11 +58,7 @@ class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
                 }
         }
 
-        return arrayOf(buffer)
-    }
-
-    override fun plotData(elements: Array<ByteArray>) {
-        pixelWriter.setPixels(0, 0, super.w, super.h, pixelFormat, elements[0], 0, super.w * 3)
+        return buffer
     }
 
 }

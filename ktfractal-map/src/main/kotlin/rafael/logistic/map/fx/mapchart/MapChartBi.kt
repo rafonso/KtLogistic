@@ -54,8 +54,8 @@ class MapChartBi(
         }
         .toArray(::arrayOfNulls)
 
-    override fun plotData(elements: Array<Node>) {
-        background.getChildList()?.addAll(elements)
+    override fun plotData(element: Array<Node>) {
+        background.getChildList()?.addAll(element)
     }
 
 }

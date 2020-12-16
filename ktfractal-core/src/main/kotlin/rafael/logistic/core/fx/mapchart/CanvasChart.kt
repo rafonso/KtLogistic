@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
+import javafx.scene.image.PixelFormat
 import javafx.scene.image.PixelWriter
 import javafx.scene.paint.Color
 import rafael.logistic.core.fx.oneProperty
@@ -14,7 +15,7 @@ import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
 
-abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
+abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     // @formatter:off
 
@@ -50,13 +51,15 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
 
     protected           val gc                          :   GraphicsContext = super.getGraphicsContext2D()
 
-    protected           val pixelWriter                 :   PixelWriter = gc.pixelWriter
+    private             val pixelWriter                 :   PixelWriter = gc.pixelWriter
 
     private             val hProperty                   =   oneProperty()
     protected           val h                           by  hProperty
 
     private             val wProperty                   =   oneProperty()
     protected           val w                           by  wProperty
+
+    private             val pixelFormat                 =   PixelFormat.getByteRgbInstance()
 
     protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
 
@@ -95,6 +98,10 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
         gc.fillRect(0.0, 0.0, width, height)
     }
 
+    override fun plotData(element: ByteArray) {
+        pixelWriter.setPixels(0, 0, this.w, this.h, pixelFormat, element, 0, this.w * 3)
+    }
+
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
     override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit) {
@@ -103,6 +110,6 @@ abstract class CanvasChart<T, E> : Canvas(), MapChart<T, E> {
     }
 
     override fun exportImageTo(file: File): Boolean =
-        exportImageTo(this, w, h, file)
+        exportImageTo(this, this.w, this.h, file)
 
 }
