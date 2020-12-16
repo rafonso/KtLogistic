@@ -93,6 +93,8 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
         chart.yMinProperty.onChange { chart.refreshData() }
         chart.yMaxProperty.onChange { chart.refreshData() }
+
+        chart.iterationsProperty.bind(spnIterations.valueProperty())
     }
 
     protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>

@@ -3,6 +3,7 @@ package rafael.logistic.bifurcation
 import rafael.logistic.core.fx.addBuffer
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.toBytes
 import tornadofx.*
 
@@ -14,28 +15,46 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
             val pixelsSeparationProperty    =   1.toProperty()
 
+            val iterationsProperty          =   oneProperty()
+
+    private val cachePosByIterations        =   mutableMapOf<Int, DoubleArray>()
+
+    private var cachePos                    :   DoubleArray = DoubleArray(0)
+
     private val colorCache                  =   mutableMapOf<Double, ByteArray>()
 
     // @formatter:on
+
+    init {
+        super.initialize()
+
+        iterationsProperty.onChange { iterations ->
+            cachePos = cachePosByIterations.getOrPut(iterations) {
+                (0..iterations).map { it.toDouble() / iterations }.toDoubleArray()
+            }
+        }
+    }
+
+    private fun pixelInfo(i: Int, v: Double, rPos: Int, yToCanvas: (Double) -> Int): PixelInfo {
+        val dblColor = cachePos[i]
+        val buffColor = colorCache.getOrPut(dblColor) {
+            getRainbowColor(dblColor).toBytes()
+        }
+
+        return PixelInfo(rPos, yToCanvas(v), buffColor)
+    }
 
     private fun rSequenceToCoordinates(
         rSequence: RData,
         pixSep: Int,
         yToCanvas: (Double) -> Int
     ): Collection<PixelInfo> {
-        val size = rSequence.values.size
         val rPos = rSequence.col * pixSep
 
-        return rSequence.values.reversed()
+        return rSequence.values
             .mapIndexed { i, v ->
-                val dblColor = (size - i).toDouble() / size
-                val buffColor = colorCache.getOrPut(dblColor) {
-                    getRainbowColor(dblColor).toBytes()
-                }
-
-                PixelInfo(rPos, yToCanvas(v), buffColor)
+                pixelInfo(i, v, rPos, yToCanvas)
             }
-            .toSet()
     }
 
     override fun dataToElementsToPlot(): ByteArray {
@@ -50,7 +69,8 @@ class BifurcationCanvas : CanvasChart<RData>() {
             val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
             val pixSep = pixelsSeparationProperty.value
 
-            data.parallelStream()
+            data
+                .parallelStream()
                 .flatMap { rSequenceToCoordinates(it, pixSep, yToCanvas).stream() }
                 .filter { pi -> (0..h).contains(pi.yChart) }
                 .forEach { pi ->
