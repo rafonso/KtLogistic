@@ -1,6 +1,7 @@
 package rafael.logistic.bifurcation
 
 import javafx.scene.image.PixelFormat
+import rafael.logistic.core.fx.addBuffer
 import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.toBytes
@@ -14,17 +15,11 @@ class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
 
     val pixelsSeparationProperty    =   1.toProperty()
 
-    private val pixelFormat = PixelFormat.getByteRgbInstance()
+    private val pixelFormat         =   PixelFormat.getByteRgbInstance()
 
-    private val colorCache              =   mutableMapOf<Double, ByteArray>()
+    private val colorCache          =   mutableMapOf<Double, ByteArray>()
 
     // @formatter:on
-
-    private fun fillBuffer(buffer: ByteArray, i: Int, bc: ByteArray) {
-        buffer[i * 3 + 0] = bc[0]
-        buffer[i * 3 + 1] = bc[1]
-        buffer[i * 3 + 2] = bc[2]
-    }
 
     private fun rSequenceToCoordinates(
         rSequence: RData,
@@ -62,13 +57,12 @@ class BifurcationCanvas : CanvasChart<RData, ByteArray>() {
                 .forEach { pi ->
                     val pos = pi.xChart + pi.yChart * super.w
 
-                    fillBuffer(buffer, pos, pi.colorBuffer)
+                    buffer.addBuffer(pos, pi.colorBuffer)
                 }
         }
 
         return arrayOf(buffer)
     }
-
 
     override fun plotData(elements: Array<ByteArray>) {
         pixelWriter.setPixels(0, 0, super.w, super.h, pixelFormat, elements[0], 0, super.w * 3)

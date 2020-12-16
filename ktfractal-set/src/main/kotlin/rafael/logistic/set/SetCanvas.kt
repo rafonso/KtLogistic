@@ -38,15 +38,9 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
 
         data
             .map(SetInfo::iterationsToDiverge)
-            .forEachIndexed { i, iterations -> fillBuffer(buffer, i, cacheIteration[iterations]) }
+            .forEachIndexed { i, iterations -> buffer.addBuffer(i, cacheIteration[iterations]) }
 
         return arrayOf(buffer)
-    }
-
-    private fun fillBuffer(buffer: ByteArray, i: Int, bc: ByteArray) {
-        buffer[i * 3 + 0] = bc[0]
-        buffer[i * 3 + 1] = bc[1]
-        buffer[i * 3 + 2] = bc[2]
     }
 
     override fun plotData(elements: Array<ByteArray>) {
@@ -58,14 +52,16 @@ class SetCanvas : CanvasChart<SetInfo, ByteArray>() {
         fun plotAxis(x1: Double, y1: Double, x2: Double, y2: Double) {
             gc.stroke = Color.GREY
             gc.lineWidth = 1.0
-            gc.strokeLine(x1.realToCanvasX(), y1.realToCanvasY(), x2.realToCanvasX(), y2.realToCanvasY())
+            gc.strokeLine(x1, y1, x2, y2)
         }
 
         if (0.0 in super.xMin..super.xMax) {
-            plotAxis(super.xMin, 0.0, super.xMax, 0.0)
+            val x0Canvas = 0.0.realToCanvasX()
+            plotAxis( x0Canvas, 0.0, x0Canvas, super.getHeight())
         }
         if (0.0 in super.yMin..super.yMax) {
-            plotAxis(0.0, super.yMax, 0.0, super.yMin)
+            val y0Canvas = 0.0.realToCanvasY()
+            plotAxis(0.0, y0Canvas, super.getWidth(), y0Canvas)
         }
     }
 
