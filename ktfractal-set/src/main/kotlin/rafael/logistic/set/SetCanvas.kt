@@ -1,6 +1,5 @@
 package rafael.logistic.set
 
-import javafx.scene.paint.Color
 import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import tornadofx.*
@@ -30,32 +29,11 @@ class SetCanvas : CanvasChart<SetInfo>() {
         }
     }
 
-    override fun dataToElementsToPlot(): ByteArray {
-        val buffer = ByteArray(data.size * 3)
-
+    override fun dataToElementsToPlot(): ByteArray =
         data
             .map(SetInfo::iterationsToDiverge)
-            .forEachIndexed { i, iterations -> buffer.addBuffer(i, cacheIteration[iterations]) }
-
-        return buffer
-    }
-
-    override fun finalizePlotting() {
-
-        fun plotAxis(x1: Double, y1: Double, x2: Double, y2: Double) {
-            gc.stroke = Color.GREY
-            gc.lineWidth = 1.0
-            gc.strokeLine(x1, y1, x2, y2)
-        }
-
-        if (0.0 in super.xMin..super.xMax) {
-            val x0Canvas = 0.0.realToCanvasX()
-            plotAxis( x0Canvas, 0.0, x0Canvas, super.getHeight())
-        }
-        if (0.0 in super.yMin..super.yMax) {
-            val y0Canvas = 0.0.realToCanvasY()
-            plotAxis(0.0, y0Canvas, super.getWidth(), y0Canvas)
-        }
-    }
+            .foldRightIndexed(ByteArray(data.size * 3)) { i, iterations, buffer ->
+                buffer.addBuffer(i, cacheIteration[iterations])
+            }
 
 }

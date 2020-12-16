@@ -49,7 +49,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
                         val backgroundProperty          =   Color.WHITE.toProperty()
 
-    protected           val gc                          :   GraphicsContext = super.getGraphicsContext2D()
+    private             val gc                          :   GraphicsContext = super.getGraphicsContext2D()
 
     private             val pixelWriter                 :   PixelWriter = gc.pixelWriter
 
@@ -61,13 +61,13 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     private             val pixelFormat                 =   PixelFormat.getByteRgbInstance()
 
-    protected   fun Double.realToCanvasX() = (this - xMin) / (xMax - xMin) * super.getWidth()
+    private             fun Double.realToCanvasX()      = (this - xMin) / (xMax - xMin) * super.getWidth()
 
-    private     fun Double.canvasToRealX() = (xMax - xMin) * this / super.getWidth() + xMin
+    private             fun Double.canvasToRealX()      = (xMax - xMin) * this / super.getWidth() + xMin
 
-    protected   fun Double.realToCanvasY() = (1 - (this - yMin) / (yMax - yMin)) * super.getHeight()
+    private             fun Double.realToCanvasY()      = (1 - (this - yMin) / (yMax - yMin)) * super.getHeight()
 
-    private     fun Double.canvasToRealY() = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
+    private             fun Double.canvasToRealY()      = (yMax - yMin) * (super.getHeight() - this) / super.getHeight() + yMin
 
     // @formatter:on
 
@@ -100,6 +100,26 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     override fun plotData(element: ByteArray) {
         pixelWriter.setPixels(0, 0, this.w, this.h, pixelFormat, element, 0, this.w * 3)
+    }
+
+    override fun finalizePlotting() {
+
+        fun plotAxis(x1: Double, y1: Double, x2: Double, y2: Double) {
+            gc.stroke = Color.GREY
+            gc.lineWidth = 1.0
+            gc.strokeLine(x1, y1, x2, y2)
+        }
+
+        fun plotHorizontalAxis(xCanvas: Double) = plotAxis(xCanvas, 0.0, xCanvas, super.getHeight())
+
+        fun plotVerticalAxis(yCanvas: Double) = plotAxis(0.0, yCanvas, super.getWidth(), yCanvas)
+
+        if (0.0 in this.xMin..this.xMax) {
+            plotHorizontalAxis(0.0.realToCanvasX())
+        }
+        if (0.0 in this.yMin..this.yMax) {
+            plotVerticalAxis(0.0.realToCanvasY())
+        }
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>

@@ -54,8 +54,10 @@ fun Color.toBytes() = ByteArray(3) {
 /**
  *
  */
-fun ByteArray.addBuffer(i: Int, bc: ByteArray) {
+fun ByteArray.addBuffer(i: Int, bc: ByteArray): ByteArray {
     this[i * 3 + 0] = bc[0]
     this[i * 3 + 1] = bc[1]
     this[i * 3 + 2] = bc[2]
+
+    return this
 }
