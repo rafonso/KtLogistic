@@ -35,23 +35,31 @@ import kotlin.time.ExperimentalTime
  *  ```
  *  Esse formato permite copiar esse valores e colar numa planilha.
  */
-class GenerationStatusChronometerListener private constructor(private val processor: (Instant, Instant?, GenerationStatus) -> Unit) :
+class GenerationStatusChronometerListener private constructor(private val processor: (Instant, Instant?, GenerationStatus, GenerationStatus) -> Unit) :
     ChangeListener<GenerationStatus> {
 
     companion object {
 
         @ExperimentalTime
-        private fun printComplete(now: Instant, prior: Instant?, status: GenerationStatus) {
-            if (status == GenerationStatus.IDLE) {
-                print("%-30s".format(now.toLocalDateTime(TimeZone.currentSystemDefault())))
+        private fun printComplete(now: Instant, prior: Instant?, priorStatus: GenerationStatus, newStatus: GenerationStatus) {
+            if (priorStatus == GenerationStatus.IDLE) {
+                val localNow = now.toLocalDateTime(TimeZone.currentSystemDefault())
+                print("%02d:%02d:%02d.%03d".format(localNow.hour, localNow.minute, localNow.second, (localNow.nanosecond / 1_000_000)))
+                if(newStatus == GenerationStatus.PLOTTING_PREPARING) {
+                    print("\t  :     ") // Deveria ser o CA
+                }
             } else if (prior != null) {
-                print("\t%s: %4.0f".format(status.code, (now - prior).inMilliseconds))
+                print("\t%s: %4.0f".format(priorStatus.code, (now - prior).inMilliseconds))
             }
         }
 
         @ExperimentalTime
-        private fun printSintetic(now: Instant, prior: Instant?, status: GenerationStatus) {
-            if (status != GenerationStatus.IDLE && prior != null) {
+        private fun printSintetic(now: Instant, prior: Instant?, priorStatus: GenerationStatus, newStatus: GenerationStatus) {
+            if (priorStatus == GenerationStatus.IDLE) {
+                if(newStatus == GenerationStatus.PLOTTING_PREPARING) {
+                    print("    \t") // Deveria ser o CA
+                }
+            } else if (prior != null) {
                 print("%4.0f\t".format((now - prior).inMilliseconds))
             }
         }
@@ -81,10 +89,11 @@ class GenerationStatusChronometerListener private constructor(private val proces
     ) {
         val now = Clock.System.now()
 
-        processor(now, priorTime, oldValue!!)
+        processor(now, priorTime, oldValue!!, newValue!!)
         if (newValue == GenerationStatus.IDLE) {
             println()
         }
+//        Throwable("${LocalTime.now()}: ${oldValue.code${newValue!!.code}").printStackTrace()
 
         priorTime = if (newValue == GenerationStatus.IDLE) null else now
     }
