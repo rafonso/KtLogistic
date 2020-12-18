@@ -3,7 +3,6 @@
 package rafael.logistic.map.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
-import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
 import javafx.scene.Node
@@ -135,7 +134,7 @@ abstract class MapChartBase<T>(
         this.dataGenerator = dataGenerator
     }
 
-    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
+    override fun mousePositionRealProperty() = mousePositionRealProperty
 
     override fun exportImageTo(file: File): Boolean =
         exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)

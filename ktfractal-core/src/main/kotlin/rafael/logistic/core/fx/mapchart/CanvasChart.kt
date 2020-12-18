@@ -1,7 +1,6 @@
 package rafael.logistic.core.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
-import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.event.EventHandler
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
@@ -122,7 +121,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
         }
     }
 
-    override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
+    override fun mousePositionRealProperty() = mousePositionRealProperty
 
     override fun bind(dataGenerator: () -> List<T>) {
         this.dataGenerator = dataGenerator
