@@ -58,25 +58,26 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     // @formatter:off
 
-    override        val root                    :   BorderPane      by fxml("/$fxmlFile.fxml")
+    override        val root                        :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected       val spnIterations           :   Spinner<Int>    by fxid()
-    protected open  val iterationsValueFactory  :   SpinnerValueFactory<Int>
+    protected       val spnIterations               :   Spinner<Int>    by fxid()
+    protected open  val iterationsValueFactory      :   SpinnerValueFactory<Int>
             =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 2000, 100, 100)
 
-    protected       val chart                   :   C               by fxid()
+    protected       val chart                       :   C               by fxid()
 
-    protected       val logisticData            =   emptyList<T>().toProperty()
+    @Deprecated("Definir MapChart.recalculateData()")
+    protected       val logisticData                =   emptyList<T>().toProperty()
 
     /**
      * Array com as [Configurações][SpinnerConfigurations] dos [Spinner]s
      */
-    protected abstract  val spinnerComponents   :   Array<SpinnerConfigurations>
+    protected abstract  val spinnerComponents       :   Array<SpinnerConfigurations>
 
     /**
      * Array indicando os [DoubleSpinner]s e a respectiva propriedade do [chart] que eles ajustam.
      */
-    protected abstract      val spinnersChartProperties: Array<Pair<DoubleSpinner, DoubleProperty>>
+    protected abstract  val spinnersChartProperties : Array<Pair<DoubleSpinner, DoubleProperty>>
 
     // @formatter:on
 
@@ -107,11 +108,6 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         initializeAdditional()
 
         loadData()
-    }
-
-    private fun reloadData(): List<T> {
-        this.generationStatusProperty.value = GenerationStatus.CALCULATING
-        return refreshData(generator, spnIterations.value)
     }
 
     protected abstract fun initializeControls()
@@ -154,7 +150,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     }
 
     protected fun loadData() {
-        this.logisticData.value = reloadData()
+        this.generationStatusProperty.value = GenerationStatus.CALCULATING
+        this.logisticData.value = refreshData(generator, spnIterations.value)
     }
 
 }

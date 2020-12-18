@@ -39,13 +39,13 @@ class MapChartBi(
         super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
     }
 
-    override fun prepareBackground() {
+    override fun prepareBackground(data0: List<BiDouble>) {
         background.getChildList()?.clear()
         // Destaca o x0 e y0
-        highlightP0(data.first().x, data.first().y)
+        highlightP0(data0.first().x, data0.first().y)
     }
 
-    override fun dataToElementsToPlot(): Array<Node> = data
+    override fun dataToElementsToPlot(data0: List<BiDouble>): Array<Node> = data0
         .filter(this::insideBounds)
         .mapIndexed(this::biDoubleToCoords)
         .parallelStream()

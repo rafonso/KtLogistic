@@ -42,6 +42,8 @@ interface MapChart<T, E> {
 
     val generationStatusProperty    : ObjectProperty<GenerationStatus>
 
+    val data0Property               : ReadOnlyObjectProperty<List<T>>
+
     // @formatter:on
 
     fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
@@ -58,7 +60,7 @@ interface MapChart<T, E> {
      * Prepara o gráfico antes de ser plotado com os dados atuais.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_PREPARING].
      */
-    fun prepareBackground()
+    fun prepareBackground(data0: List<T>)
 
     /**
      * Converte os dados atuais nas entidades a serem usadas na plotagem.
@@ -66,7 +68,7 @@ interface MapChart<T, E> {
      *
      * @return Entidade a ser usada na plotagem.
      */
-    fun dataToElementsToPlot(): E
+    fun dataToElementsToPlot(data0: List<T>): E
 
     /**
      * Executa a Plotagem.
@@ -97,10 +99,10 @@ interface MapChart<T, E> {
      */
     fun refreshData() {
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_PREPARING
-        prepareBackground()
+        prepareBackground(this.data0Property.value)
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_CONVERT
-        val elementToPlot = dataToElementsToPlot()
+        val elementToPlot = dataToElementsToPlot(this.data0Property.value)
 
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_DRAW
         plotData(elementToPlot)

@@ -57,7 +57,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
             }
     }
 
-    override fun dataToElementsToPlot(): ByteArray {
+    override fun dataToElementsToPlot(data0: List<RData>): ByteArray {
         val h = super.h
         val w = super.w
         val buffer = ByteArray(w * h * 4) { WHITE_BYTE }
@@ -69,7 +69,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
             val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
             val pixSep = pixelsSeparationProperty.value
 
-            data
+            data0
                 .parallelStream()
                 .flatMap { rSequenceToCoordinates(it, pixSep, yToCanvas).stream() }
                 .filter { pi -> (0..h).contains(pi.yChart) }

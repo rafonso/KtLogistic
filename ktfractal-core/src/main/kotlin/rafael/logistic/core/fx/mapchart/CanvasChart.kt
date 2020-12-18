@@ -43,7 +43,8 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
             override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
     private             val dataProperty                =   emptyList<T>().toProperty()
-    protected           var data                        :   List<T> by dataProperty
+    protected           var data                        :   List<T>     by dataProperty
+            override    val data0Property               =   dataProperty
 
     private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
 
@@ -90,7 +91,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
         this.onMouseExited = EventHandler { mousePositionRealProperty.value = null }
     }
 
-    override fun prepareBackground() {
+    override fun prepareBackground(data0: List<T>) {
         gc.clearRect(0.0, 0.0, width, height)
 
         // Paint background

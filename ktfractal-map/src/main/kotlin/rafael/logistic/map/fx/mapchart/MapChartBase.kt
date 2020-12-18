@@ -27,38 +27,41 @@ abstract class MapChartBase<T>(
     data: ObservableList<Series<Double, Double>>
 ) : LineChart<Double, Double>(xAxis, yAxis, data), MapChart<T, Array<Node>> {
 
-    protected val background: Node = super.lookup(".chart-plot-background")
+    // @formatter:off
 
-    private val dataProperty = emptyList<T>().toProperty()
-    protected var data: List<T> by dataProperty
+    protected           val background                  :   Node = super.lookup(".chart-plot-background")
 
-    protected val myXAxis = (xAxis as NumberAxis)
+    private             val dataProperty                =   emptyList<T>().toProperty()
+    protected           var data                        :   List<T>     by dataProperty
+    override            val data0Property               =   dataProperty
 
-    protected val myYAxis = (yAxis as NumberAxis)
+    protected           val myXAxis                     =   (xAxis as NumberAxis)
 
-    private val square = Point0()
+    protected           val myYAxis                     =   (yAxis as NumberAxis)
 
-    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
+    private             val square                      =   Point0()
 
-    final override val xMinProperty = zeroProperty()
-    override val xMin by xMinProperty
+    private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
 
-    final override val xMaxProperty = zeroProperty()
-    override val xMax by xMaxProperty
+    final   override    val xMinProperty                =   zeroProperty()
+            override    val xMin                        by  xMinProperty
 
-    final override val yMinProperty = zeroProperty()
-    override val yMin by yMinProperty
+    final   override    val xMaxProperty                =   zeroProperty()
+            override    val xMax                        by  xMaxProperty
 
-    final override val yMaxProperty = zeroProperty()
-    override val yMax by yMaxProperty
+    final   override    val yMinProperty                =   zeroProperty()
+            override    val yMin                        by  yMinProperty
 
-    private val deltaXByPixelProp = zeroProperty()
-    override val deltaXByPixelProperty = deltaXByPixelProp as ReadOnlyDoubleProperty
+    final   override    val yMaxProperty                =   zeroProperty()
+            override    val yMax                        by  yMaxProperty
 
-    private val deltaYByPixelProp = zeroProperty()
-    override val deltaYByPixelProperty = deltaYByPixelProp as ReadOnlyDoubleProperty
+    private             val deltaXByPixelProp           =   zeroProperty()
+            override    val deltaXByPixelProperty       =   deltaXByPixelProp as ReadOnlyDoubleProperty
 
-    override val generationStatusProperty = GenerationStatus.IDLE.toProperty()
+    private             val deltaYByPixelProp           =   zeroProperty()
+            override    val deltaYByPixelProperty       =   deltaYByPixelProp as ReadOnlyDoubleProperty
+
+            override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
     // @formatter:on
 
@@ -81,7 +84,6 @@ abstract class MapChartBase<T>(
             mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
         }
         background.onMouseExited = EventHandler { event ->
-            // TODO: Veficar se o mouse está dentro dos limites do backgound
             mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
         }
 

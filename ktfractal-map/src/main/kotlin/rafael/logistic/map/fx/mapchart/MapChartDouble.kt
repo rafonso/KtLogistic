@@ -51,18 +51,18 @@ abstract class MapChartDouble(
         super.prefWidthProperty().bindBidirectional(super.prefHeightProperty())
     }
 
-    override fun prepareBackground() {
+    override fun prepareBackground(data0: List<Double>) {
         background.getChildList()?.clear()
         recalculateBounds()
         refreshXY()
         refreshAsymptote()
         // Destaca o x0 e y0
-        highlightP0(data.first(), 0.0)
+        highlightP0(data0.first(), 0.0)
     }
 
-    override fun dataToElementsToPlot(): Array<Node> {
-        val coords = (listOf(Pair(data[0], 0.0)) + (1 until data.size)
-            .flatMap { i -> listOf(Pair(data[i - 1], data[i]), Pair(data[i], data[i])) })
+    override fun dataToElementsToPlot(data0: List<Double>): Array<Node> {
+        val coords = (listOf(Pair(data0[0], 0.0)) + (1 until data0.size)
+            .flatMap { i -> listOf(Pair(data0[i - 1], data0[i]), Pair(data0[i], data0[i])) })
             .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
 
         return coordinatesToLines(coords) { l, i ->

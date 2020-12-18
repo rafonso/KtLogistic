@@ -29,10 +29,10 @@ class SetCanvas : CanvasChart<SetInfo>() {
         }
     }
 
-    override fun dataToElementsToPlot(): ByteArray =
-        data
+    override fun dataToElementsToPlot(data0: List<SetInfo>): ByteArray =
+        data0
             .map(SetInfo::iterationsToDiverge)
-            .foldRightIndexed(ByteArray(data.size * 3)) { i, iterations, buffer ->
+            .foldRightIndexed(ByteArray(data0.size * 3)) { i, iterations, buffer ->
                 buffer.addBuffer(i, cacheIteration[iterations])
             }
 
