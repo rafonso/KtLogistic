@@ -40,14 +40,28 @@ interface MapChart<T, E> {
     val deltaXByPixelProperty       : ReadOnlyDoubleProperty
     val deltaYByPixelProperty       : ReadOnlyDoubleProperty
 
+    /**
+     * Status da geração do gráfico.
+     */
     val generationStatusProperty    : ObjectProperty<GenerationStatus>
 
+    /**
+     * Dados brutos que serão usado para plotar o gráfico.
+     */
     val data0Property               : ReadOnlyObjectProperty<List<T>>
 
     // @formatter:on
 
+    /**
+     * retorna a posição do maouse correspondente aos dados reais.
+     */
     fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
 
+    /**
+     * Seta a função que gera os dados brutos e que será usada por [reloadData].
+     *
+     * @param dataGenerator função que gera os dados brutos
+     */
     fun bind(dataGenerator: () -> List<T>)
 
     fun <E : Event> addEventHandler(eventType: EventType<E>, eventHandler: EventHandler<in E>)
@@ -56,11 +70,17 @@ interface MapChart<T, E> {
         addEventHandler(eventType, EventHandler(eventHandler))
     }
 
+    /**
+     * Recarrega os [dados brutos][data0Property].
+     * Corresponde ao [Status][GenerationStatus] [GenerationStatus.CALCULATING].
+     */
     fun reloadData()
 
     /**
      * Prepara o gráfico antes de ser plotado com os dados atuais.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_PREPARING].
+     *
+     * @param data0 Dados brutos.
      */
     fun prepareBackground(data0: List<T>)
 
@@ -68,6 +88,7 @@ interface MapChart<T, E> {
      * Converte os dados atuais nas entidades a serem usadas na plotagem.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_CONVERT].
      *
+     * @param data0 Dados brutos.
      * @return Entidade a ser usada na plotagem.
      */
     fun dataToElementsToPlot(data0: List<T>): E
@@ -76,12 +97,12 @@ interface MapChart<T, E> {
      * Executa a Plotagem.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_DRAW].
      *
-     * @param element Entidades a serem usadas na plotagem.
+     * @param element Entidade a serem usadas na plotagem.
      */
     fun plotData(element: E)
 
     /**
-     * Finaliza gráfico, adicionando eventuais detalhes finais.
+     * Finaliza gráfico, adicionando eventuais detalhes finais. Sua versão `default` faz nada.
      * Corresponde ao [Status][GenerationStatus] [GenerationStatus.PLOTTING_FINALIZING].
      */
     fun finalizePlotting() {
@@ -98,6 +119,8 @@ interface MapChart<T, E> {
 
     /**
      * Atualiza um gráfico quando os dados são atualizados.
+     *
+     * @param recalculate Se o dados brutos, indicados por [data0Property], devem ser atualizados.
      */
     fun refreshData(recalculate: Boolean = true) {
         if (recalculate) {
