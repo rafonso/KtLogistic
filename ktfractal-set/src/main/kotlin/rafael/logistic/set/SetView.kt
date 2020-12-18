@@ -86,8 +86,6 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     }
 
     override fun initializeAdditional() {
-//        spnIterations.valueFactory.value = 10
-
         lblDeltaXY.textProperty()
             .bind(Bindings.concat("ΔX - ΔY = ", deltaXYProperty.asString("%+.10f")))
         deltaXYProperty.onChange { delta ->
@@ -95,7 +93,7 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
                 if (delta > 0) Color.color(0.0, deltaXYProperty.value / 4, 0.0)
                 else Color.color(-deltaXYProperty.value / 4, 0.0, 0.0)
 
-            val isZero = abs(delta) < 0.000000001
+            val isZero = abs(delta) < 0.000_000_000_1
             lblDeltaXY.style = "-fx-background-color: ${if (isZero) "green" else "transparent"};"
         }
 
