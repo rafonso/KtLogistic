@@ -32,7 +32,6 @@ abstract class MapChartBase<T>(
     protected           val background                  :   Node = super.lookup(".chart-plot-background")
 
     private             val dataProperty                =   emptyList<T>().toProperty()
-    protected           var data                        :   List<T>     by dataProperty
     override            val data0Property               =   dataProperty
 
     protected           val myXAxis                     =   (xAxis as NumberAxis)
@@ -63,7 +62,7 @@ abstract class MapChartBase<T>(
 
             override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
-    private             var dataGenerator: (() -> List<T>)? = null
+    private lateinit    var dataGenerator               :   (() -> List<T>)
 
     // @formatter:on
 
@@ -77,10 +76,6 @@ abstract class MapChartBase<T>(
         yMaxProperty.bindBidirectional(myYAxis.upperBoundProperty())
         myYAxis.tickLabelFormatter = CONVERTER_2
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / myYAxis.heightProperty())
-
-        dataProperty.onChange {
-            layoutPlotChildren()
-        }
 
         background.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
@@ -146,7 +141,7 @@ abstract class MapChartBase<T>(
         exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)
 
     override fun reloadData() {
-        this.dataProperty.value = this.dataGenerator?.let { it() }
+        this.dataProperty.value = this.dataGenerator()
     }
 
 }

@@ -29,7 +29,7 @@ class MapChartBi(
         }
 
     private fun biDoubleToCoords(i: Int, p: BiDouble) =
-        Triple(p.x.realToChartX(), p.y.realToChartY(), i.toDouble() / data.size)
+        Triple(p.x.realToChartX(), p.y.realToChartY(), i.toDouble() / data0Property.value.size)
 
     private fun insideBounds(p: BiDouble) =
         (p.x >= myXAxis.lowerBound) && (p.x <= myXAxis.upperBound) &&

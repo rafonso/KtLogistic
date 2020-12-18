@@ -43,7 +43,6 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
             override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
     private             val dataProperty                =   emptyList<T>().toProperty()
-    protected           var data                        :   List<T>     by dataProperty
             override    val data0Property               =   dataProperty
 
     private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
@@ -62,7 +61,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     private             val pixelFormat                 =   PixelFormat.getByteRgbInstance()
 
-    private             var dataGenerator               :   (() -> List<T>)? = null
+    private lateinit    var dataGenerator               :   (() -> List<T>)
 
     private             fun Double.realToCanvasX()      = (this - xMin) / (xMax - xMin) * super.getWidth()
 
@@ -130,7 +129,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
     }
 
     override fun reloadData() {
-        this.dataProperty.value = this.dataGenerator?.let { it() }
+        this.dataProperty.value = this.dataGenerator()
     }
 
     override fun exportImageTo(file: File): Boolean =
