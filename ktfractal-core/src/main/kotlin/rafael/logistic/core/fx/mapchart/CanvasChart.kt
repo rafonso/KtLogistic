@@ -62,6 +62,8 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     private             val pixelFormat                 =   PixelFormat.getByteRgbInstance()
 
+    private             var dataGenerator               :   (() -> List<T>)? = null
+
     private             fun Double.realToCanvasX()      = (this - xMin) / (xMax - xMin) * super.getWidth()
 
     private             fun Double.canvasToRealX()      = (xMax - xMin) * this / super.getWidth() + xMin
@@ -82,8 +84,6 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / super.heightProperty())
-
-        dataProperty.onChange { refreshData() }
 
         this.onMouseMoved = EventHandler { event ->
             mousePositionRealProperty.value = BiDouble(event.x.canvasToRealX(), event.y.canvasToRealY())
@@ -125,9 +125,12 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
-    override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit) {
-        this.dataProperty.bind(dataProperty)
-        handler(this)
+    override fun bind(dataGenerator: () -> List<T>) {
+        this.dataGenerator = dataGenerator
+    }
+
+    override fun reloadData() {
+        this.dataProperty.value = this.dataGenerator?.let { it() }
     }
 
     override fun exportImageTo(file: File): Boolean =

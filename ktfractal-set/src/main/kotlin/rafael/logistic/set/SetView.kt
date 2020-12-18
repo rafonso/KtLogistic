@@ -107,7 +107,6 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
                 }
             }
         }
-        chart.refreshData()
     }
 
 }

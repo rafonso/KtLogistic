@@ -48,13 +48,15 @@ interface MapChart<T, E> {
 
     fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
 
-    fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit = {})
+    fun bind(dataGenerator: () -> List<T>)
 
     fun <E : Event> addEventHandler(eventType: EventType<E>, eventHandler: EventHandler<in E>)
 
     fun <E : Event> addEventHandler(eventType: EventType<E>, eventHandler: (E) -> Unit) {
         addEventHandler(eventType, EventHandler(eventHandler))
     }
+
+    fun reloadData()
 
     /**
      * Prepara o gráfico antes de ser plotado com os dados atuais.
@@ -97,7 +99,12 @@ interface MapChart<T, E> {
     /**
      * Atualiza um gráfico quando os dados são atualizados.
      */
-    fun refreshData() {
+    fun refreshData(recalculate: Boolean = true) {
+        if (recalculate) {
+            this.generationStatusProperty.value = GenerationStatus.CALCULATING
+            reloadData()
+        }
+
         this.generationStatusProperty.value = GenerationStatus.PLOTTING_PREPARING
         prepareBackground(this.data0Property.value)
 

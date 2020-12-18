@@ -64,7 +64,7 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         spnSkip.configureActions(skipValueFactory, this::loadData)
 
         configureMinMaxSpinners(xAxisConfiguration, this::loadData)
-        configureMinMaxSpinners(yAxisConfiguration, this::loadData)
+        configureMinMaxSpinners(yAxisConfiguration) { this.loadData(false) }
 
         pixelsSeparationValueFactory.value = 0
         spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
@@ -82,7 +82,6 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
                 }
             }
         }
-        chart.refreshData()
     }
 
     override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
@@ -91,9 +90,6 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.widthProperty().onChange { loadData() }
         chart.heightProperty().bind(chartParent.heightProperty())
         chart.heightProperty().onChange { loadData() }
-
-        chart.yMinProperty.onChange { chart.refreshData() }
-        chart.yMaxProperty.onChange { chart.refreshData() }
 
         chart.iterationsProperty.bind(iterationsProperty)
     }

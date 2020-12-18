@@ -67,9 +67,6 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected       val chart                       :   C               by fxid()
 
-    @Deprecated("Definir MapChart.recalculateData()")
-    protected       val logisticData                =   emptyList<T>().toProperty()
-
     /**
      * Array com as [Configurações][SpinnerConfigurations] dos [Spinner]s
      */
@@ -93,7 +90,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
             spinner.configureActions(factory, deltaProperty, ::loadData)
         }
 
-        chart.bind(logisticData)
+        chart.bind { refreshData(generator, iterationsProperty.value) }
         chart.generationStatusProperty.bindBidirectional(this.generationStatusProperty)
         root.setOnKeyPressed { event ->
             if (event.isControlDown && event.code == KeyCode.S) {
@@ -154,9 +151,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         }
     }
 
-    protected fun loadData() {
-        this.generationStatusProperty.value = GenerationStatus.CALCULATING
-        this.logisticData.value = refreshData(generator, iterationsProperty.value)
+    protected fun loadData(recalculate: Boolean = true) {
+        chart.refreshData(recalculate)
     }
 
 }

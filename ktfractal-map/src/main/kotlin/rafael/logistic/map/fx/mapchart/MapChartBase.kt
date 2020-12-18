@@ -63,6 +63,8 @@ abstract class MapChartBase<T>(
 
             override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
+    private             var dataGenerator: (() -> List<T>)? = null
+
     // @formatter:on
 
     init {
@@ -131,17 +133,20 @@ abstract class MapChartBase<T>(
     }
 
     override fun layoutPlotChildren() {
-        refreshData()
+        refreshData(false)
     }
 
-    override fun bind(dataProperty: ReadOnlyObjectProperty<List<T>>, handler: (MapChart<T, *>) -> Unit) {
-        this.dataProperty.bind(dataProperty)
-        handler(this)
+    override fun bind(dataGenerator: () -> List<T>) {
+        this.dataGenerator = dataGenerator
     }
 
     override fun mousePositionRealProperty() = mousePositionRealProperty as ReadOnlyObjectProperty<BiDouble>
 
     override fun exportImageTo(file: File): Boolean =
         exportImageTo(this, super.getWidth().toInt(), super.getHeight().toInt(), file)
+
+    override fun reloadData() {
+        this.dataProperty.value = this.dataGenerator?.let { it() }
+    }
 
 }
