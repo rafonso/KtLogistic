@@ -60,9 +60,10 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     override        val root                        :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    protected       val spnIterations               :   Spinner<Int>    by fxid()
+    private         val spnIterations               :   Spinner<Int>    by fxid()
     protected open  val iterationsValueFactory      :   SpinnerValueFactory<Int>
             =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 2000, 100, 100)
+    private         val iterationsProperty          :   ReadOnlyObjectProperty<Int> =   spnIterations.valueProperty()
 
     protected       val chart                       :   C               by fxid()
 
@@ -100,7 +101,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
             }
         }
         this.spinnersChartProperties.forEach { (spinner, property) -> property.bind(spinner.valueProperty()) }
-        initializeCharts()
+        initializeCharts(iterationsProperty)
 
         // Adiciona um listener para verificar o tempo gasto em cada um dos GenerationStatus.
         // Entretanto, ele estará ativo apenas se a propriedade do sistema "timer" for passada.
@@ -112,11 +113,15 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected abstract fun initializeControls()
 
-    protected abstract fun initializeCharts()
+    protected abstract fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>)
 
     protected abstract fun refreshData(generator: G, iterations: Int): List<T>
 
-    protected abstract fun getImageName(): String
+    /**
+     * @param iterations O número de Irterações
+     * @return Nome da imagem
+     */
+    protected abstract fun getImageName(iterations: Int): String
 
     protected open fun initializeAdditional() {
     }
@@ -129,7 +134,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     protected fun exportImage() {
         val prefs = Preferences.userRoot().node(this.javaClass.name)
         val imageDir = prefs.get("imageDir", System.getProperty("user.home"))
-        val imageName = getImageName() + ".png"
+        val imageName = getImageName(iterationsProperty.value) + ".png"
 
         chooseFile(
             "Export Image",
@@ -151,7 +156,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected fun loadData() {
         this.generationStatusProperty.value = GenerationStatus.CALCULATING
-        this.logisticData.value = refreshData(generator, spnIterations.value)
+        this.logisticData.value = refreshData(generator, iterationsProperty.value)
     }
 
 }

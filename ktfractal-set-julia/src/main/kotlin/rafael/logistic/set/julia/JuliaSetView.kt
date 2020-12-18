@@ -23,14 +23,14 @@ class JuliaSetView : SetView("Julia Set", "JuliaSet", JuliaSetGenerator()) {
 
     // @formatter:on
 
-    override fun getImageName(): String = "julia" +
+    override fun getImageName(iterations: Int): String = "julia" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".YMin=${spnYMin.valueToString()}" +
             ".YMax=${spnYMax.valueToString()}" +
             ".CX=${spnCX.valueToString()}" +
             ".CY=${spnCY.valueToString()}" +
-            ".Iterations_Dot=${spnIterations.value}"
+            ".Iterations_Dot=${iterations}"
 
     override fun initializeControls() {
         super.initializeControls()

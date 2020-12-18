@@ -37,11 +37,11 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
 
     // @formatter:on
 
-    override fun getParametersName() = "lozi-bifurcation" +
+    override fun getParametersName(iterations: Int) = "lozi-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".X1=${spnX1.valueToString()}" +
             ".Beta=${spnBeta.valueToString()}" +
-            ".Iterations_Alpha=${spnIterations.value}" +
+            ".Iterations_Alpha=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".AlphaMin=${spnAlphaMin.valueToString()}" +

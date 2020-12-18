@@ -18,7 +18,7 @@ import rafael.logistic.map.fx.iterationchart.IterationChartBi
 import rafael.logistic.map.fx.mapchart.MapChartBi
 
 abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxmlFile: String, generator: G) :
-        ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
+    ViewBase<BiDouble, G, MapChartBi>(title, fxmlFile, generator) {
 
     // @formatter:off
     private         val spnX0               :   DoubleSpinner     by  fxid()
@@ -56,19 +56,19 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
         initializeControlsBi()
     }
 
-    override fun initializeCharts() {
+    override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         val chartParent = chart.parent as Region
         chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
-        xIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorX)
-        yIterationsChart.bind(spnIterations.valueProperty(), logisticData, IterationChartBi.extractorY)
+        xIterationsChart.bind(iterationsProperty, chart.data0Property, IterationChartBi.extractorX)
+        yIterationsChart.bind(iterationsProperty, chart.data0Property, IterationChartBi.extractorY)
     }
 
     protected open fun initializeControlsBi() {
 
     }
 
-    override fun getImageName(): String =
-        "${getImageName1()}.X0=${spnX0.valueToString()}.Y0=${spnX0.valueToString()}.Iterations=${spnIterations.value}"
+    override fun getImageName(iterations: Int): String =
+        "${getImageName1()}.X0=${spnX0.valueToString()}.Y0=${spnX0.valueToString()}.Iterations=${iterations}"
 
     protected abstract fun getImageName1(): String
 

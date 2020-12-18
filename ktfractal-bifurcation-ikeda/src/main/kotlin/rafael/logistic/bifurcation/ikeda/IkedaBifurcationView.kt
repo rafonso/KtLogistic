@@ -35,10 +35,10 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
 
     // @formatter:on
 
-    override fun getParametersName() = "lozi-bifurcation" +
+    override fun getParametersName(iterations: Int) = "lozi-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".X1=${spnX1.valueToString()}" +
-            ".Iterations_U=${spnIterations.value}" +
+            ".Iterations_U=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".UMin=${spnUMin.valueToString()}" +

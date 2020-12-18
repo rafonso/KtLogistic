@@ -31,9 +31,9 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
 
     // @formatter:on
 
-    override fun getParametersName() = "hiperbolic-tangent-bifurcation" +
+    override fun getParametersName(iterations: Int) = "hiperbolic-tangent-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
-            ".Iterations_G=${spnIterations.value}" +
+            ".Iterations_G=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".GMin=${spnGMin.valueToString()}" +

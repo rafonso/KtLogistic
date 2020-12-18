@@ -1,6 +1,7 @@
 package rafael.logistic.set
 
 import javafx.beans.binding.Bindings
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Label
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
@@ -62,7 +63,7 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
         configureMinMaxSpinners(LimitsSpinnersConfiguration(spnYMin, spnYMax, -LIMIT, LIMIT), this::reload)
     }
 
-    override fun initializeCharts() {
+    override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         chart.backgroundProperty.value = Color.BLACK
 
         chart.heightProperty().bind(chart.widthProperty())
@@ -71,7 +72,7 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
         chart.widthProperty().onChange { loadData() }
         chart.heightProperty().onChange { loadData() }
 
-        chart.maxIterationsProperty.bind(super.spnIterations.valueProperty())
+        chart.maxIterationsProperty.bind(iterationsProperty)
     }
 
     override fun refreshData(generator: SetGenerator, iterations: Int): List<SetInfo> {
@@ -85,7 +86,7 @@ abstract class SetView(title: String, fxmlFile: String, generator: SetGenerator)
     }
 
     override fun initializeAdditional() {
-        spnIterations.valueFactory.value = 10
+//        spnIterations.valueFactory.value = 10
 
         lblDeltaXY.textProperty()
             .bind(Bindings.concat("ΔX - ΔY = ", deltaXYProperty.asString("%+.10f")))

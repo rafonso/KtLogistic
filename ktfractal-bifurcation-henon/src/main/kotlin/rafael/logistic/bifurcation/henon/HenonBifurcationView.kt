@@ -37,11 +37,11 @@ class HenonBifurcationView : BifurcationView<HenonBifurcationGenerator>(
 
     // @formatter:on
 
-    override fun getParametersName() = "henon-bifurcation" +
+    override fun getParametersName(iterations: Int) = "henon-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".X1=${spnX1.valueToString()}" +
             ".Beta=${spnBeta.valueToString()}" +
-            ".Iterations_Alpha=${spnIterations.value}" +
+            ".Iterations_Alpha=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".AlphaMin=${spnAlphaMin.valueToString()}" +

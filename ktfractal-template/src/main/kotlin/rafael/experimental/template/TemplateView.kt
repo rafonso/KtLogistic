@@ -1,5 +1,6 @@
 package rafael.experimental.template
 
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.CheckBox
 import rafael.logistic.core.fx.*
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
@@ -48,8 +49,8 @@ class TemplateView : ViewBi<TemplateGenerator>("Template", "Template", TemplateG
         configureMinMaxSpinners(LimitsSpinnersConfiguration(spnYMin, spnYMax, chart.yMin, chart.yMax), this::loadData)
     }
 
-    override fun initializeCharts() {
-        super.initializeCharts()
+    override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
+        super.initializeCharts(iterationsProperty)
 
         chart.xAxis.widthProperty().onChange { loadData() }
         chart.yAxis.widthProperty().onChange { loadData() }

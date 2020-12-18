@@ -15,8 +15,12 @@ import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.map.fx.iterationchart.IterationChartDouble
 import rafael.logistic.map.fx.mapchart.MapChartDouble
 
-abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(title: String, fxmlFile: String, generator: G) :
-        ViewBase<Double, G, C>(title, fxmlFile, generator) {
+abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDouble>(
+    title: String,
+    fxmlFile: String,
+    generator: G
+) :
+    ViewBase<Double, G, C>(title, fxmlFile, generator) {
 
     private val maxDelta = 0.1
 
@@ -40,10 +44,10 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
         spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
     }
 
-    override fun initializeCharts() {
+    override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         val chartParent = chart.parent as Region
         chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
-        iterationsChart.bind(spnIterations.valueProperty(), logisticData)
+        iterationsChart.bind(iterationsProperty, chart.data0Property)
 //        chart.square.xProperty.asObject().bindBidirectional(x0ValueFactory.valueProperty()) // as Property<Number>)
         super.root.setOnKeyPressed { event ->
             if (event.isControlDown && event.code == KeyCode.S) {
@@ -52,8 +56,8 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
         }
     }
 
-    override fun getImageName(): String =
-        "${getImageName1()}.X0=${spnX0.valueToString()}.Iterations=${spnIterations.value}"
+    override fun getImageName(iterations: Int): String =
+        "${getImageName1()}.X0=${spnX0.valueToString()}.Iterations=${iterations}"
 
     protected abstract fun getImageName1(): String
 

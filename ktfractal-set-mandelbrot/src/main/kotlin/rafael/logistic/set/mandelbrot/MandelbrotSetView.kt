@@ -11,11 +11,11 @@ class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotS
 
     override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 
-    override fun getImageName(): String = "mandelbrot" +
+    override fun getImageName(iterations: Int): String = "mandelbrot" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".YMin=${spnYMin.valueToString()}" +
             ".YMax=${spnYMax.valueToString()}" +
-            ".Iterations_Dot=${spnIterations.value}"
+            ".Iterations_Dot=${iterations}"
 
 }

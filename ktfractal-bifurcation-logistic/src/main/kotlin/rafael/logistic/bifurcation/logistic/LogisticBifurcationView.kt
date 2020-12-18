@@ -31,9 +31,9 @@ class LogisticBifurcationView : BifurcationView<LogisticBifurcationGenerator>(
 
     // @formatter:on
 
-    override fun getParametersName() = "bifurcation" +
+    override fun getParametersName(iterations: Int) = "bifurcation" +
             ".X0=${spnX0.valueToString()}" +
-            ".Iterations_R=${spnIterations.value}" +
+            ".Iterations_R=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".RMin=${spnRMin.valueToString()}" +

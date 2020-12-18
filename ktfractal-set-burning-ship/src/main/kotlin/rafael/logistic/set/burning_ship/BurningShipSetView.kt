@@ -11,11 +11,11 @@ class BurningShipSetView : SetView("Burning Ship Set", "BurningShipSet", Burning
 
     override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 
-    override fun getImageName(): String = "burning-ship" +
+    override fun getImageName(iterations: Int): String = "burning-ship" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".YMin=${spnYMin.valueToString()}" +
             ".YMax=${spnYMax.valueToString()}" +
-            ".Iterations_Dot=${spnIterations.value}"
+            ".Iterations_Dot=${iterations}"
 
 }

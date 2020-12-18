@@ -35,10 +35,10 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
 
     // @formatter:on
 
-    override fun getParametersName() = "gaussian-bifurcation" +
+    override fun getParametersName(iterations: Int) = "gaussian-bifurcation" +
             ".X0=${spnX0.valueToString()}" +
             ".Alpha=${spnAlpha.valueToString()}" +
-            ".Iterations_Beta=${spnIterations.value}" +
+            ".Iterations_Beta=${iterations}" +
             ".XMin=${spnXMin.valueToString()}" +
             ".XMax=${spnXMax.valueToString()}" +
             ".BetaMin=${spnBetaMin.valueToString()}" +

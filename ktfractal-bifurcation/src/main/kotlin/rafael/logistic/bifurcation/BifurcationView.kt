@@ -1,5 +1,6 @@
 package rafael.logistic.bifurcation
 
+import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
@@ -53,9 +54,9 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     // @formatter:on
 
-    protected abstract fun getParametersName(): String
+    protected abstract fun getParametersName(iterations: Int): String
 
-    override fun getImageName() = getParametersName() +
+    override fun getImageName(iterations: Int) = getParametersName(iterations) +
             (if (skip > 0) ".Skip=${skip}pct" else "") +
             (if (pixelsSeparation > 0) ".PxnSep=${pixelsSeparation}" else "")
 
@@ -84,7 +85,7 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.refreshData()
     }
 
-    override fun initializeCharts() {
+    override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         val chartParent = chart.parent as Region
         chart.widthProperty().bind(chartParent.widthProperty())
         chart.widthProperty().onChange { loadData() }
@@ -94,7 +95,7 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.yMinProperty.onChange { chart.refreshData() }
         chart.yMaxProperty.onChange { chart.refreshData() }
 
-        chart.iterationsProperty.bind(spnIterations.valueProperty())
+        chart.iterationsProperty.bind(iterationsProperty)
     }
 
     protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>
