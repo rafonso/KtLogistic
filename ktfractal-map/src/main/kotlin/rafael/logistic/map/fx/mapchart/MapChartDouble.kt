@@ -6,7 +6,6 @@ import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.paint.Color
 import javafx.scene.shape.Line
-import rafael.logistic.core.fx.getRainbowColor
 import tornadofx.*
 
 private const val MAX_WIDTH = 1.0
@@ -66,7 +65,7 @@ abstract class MapChartDouble(
             .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
 
         return coordinatesToLines(coords) { l, i ->
-            l.stroke = getRainbowColor(i.toDouble() / coords.size)
+            l.stroke = colorCache.getColor(i, coords.size)
             l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
             l.opacity = 0.5
         }

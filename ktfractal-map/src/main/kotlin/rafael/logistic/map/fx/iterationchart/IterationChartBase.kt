@@ -13,7 +13,7 @@ import javafx.scene.shape.PathElement
 import javafx.util.StringConverter
 import rafael.logistic.core.fx.CONVERTER_2
 import rafael.logistic.core.fx.LogisticConverter
-import rafael.logistic.core.fx.rainbow
+import rafael.logistic.core.fx.rainbowColors
 import tornadofx.*
 
 @Suppress("UNCHECKED_CAST")
@@ -35,7 +35,7 @@ abstract class IterationChartBase<T>(
     protected val valueYAxis = (yAxis as NumberAxis)
 
     private val gradient = LinearGradient(0.0, 0.0, 1.0, 0.0, true, CycleMethod.NO_CYCLE,
-            rainbow.mapIndexed { i, color -> Stop(i / 6.0, color) })
+            rainbowColors.mapIndexed { i, color -> Stop(i / 6.0, color) })
 
     init {
         valueXAxis.tickLabelFormatter = CONVERTER_0

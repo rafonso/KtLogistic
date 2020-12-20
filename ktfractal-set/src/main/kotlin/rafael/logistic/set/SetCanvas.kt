@@ -1,7 +1,10 @@
 package rafael.logistic.set
 
-import rafael.logistic.core.fx.*
+import rafael.logistic.core.fx.ColorBytesCache
+import rafael.logistic.core.fx.addBuffer
 import rafael.logistic.core.fx.mapchart.CanvasChart
+import rafael.logistic.core.fx.oneProperty
+import rafael.logistic.core.fx.rainbowColors
 import tornadofx.*
 
 class SetCanvas : CanvasChart<SetInfo>() {
@@ -14,6 +17,8 @@ class SetCanvas : CanvasChart<SetInfo>() {
 
     private var cacheIteration          :   Array<ByteArray> = emptyArray()
 
+    private val colorBytesCache         =   ColorBytesCache(rainbowColors)
+
     // @formatter:on
 
     init {
@@ -22,8 +27,8 @@ class SetCanvas : CanvasChart<SetInfo>() {
         maxIterationsProperty.onChange { maxIt ->
             cacheIteration = cacheByMaxIteratrions.getOrPut(maxIt) {
                 Array(maxIt + 1) {
-                    if (it == 0) blackBuffer
-                    else getRainbowColor(it.toDouble() / maxIt).toBytes()
+                    if (it == 0) ColorBytesCache.blackBuffer
+                    else colorBytesCache.getBytes(it, maxIt)
                 }
             }
         }

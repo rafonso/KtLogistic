@@ -5,7 +5,6 @@ import javafx.collections.ObservableList
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.shape.Circle
-import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.generation.BiDouble
 import tornadofx.*
 
@@ -24,7 +23,7 @@ class MapChartBi(
 
     private fun coordsToCircle(centerX: Double, centerY: Double, pos: Double) =
         Circle(centerX, centerY, (DELTA_RADIUS * pos + MIN_RADIUS)).apply {
-            stroke = getRainbowColor(pos)
+            stroke = colorCache.getColor(pos)
             fill = stroke
         }
 

@@ -1,10 +1,10 @@
 package rafael.logistic.bifurcation
 
+import rafael.logistic.core.fx.ColorBytesCache
 import rafael.logistic.core.fx.addBuffer
-import rafael.logistic.core.fx.getRainbowColor
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.core.fx.toBytes
+import rafael.logistic.core.fx.rainbowColors
 import tornadofx.*
 
 const val WHITE_BYTE = 0xFF.toByte()
@@ -13,7 +13,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     // @formatter:off
 
-            val pixelsSeparationProperty    =   1.toProperty()
+            val pixelsSeparationProperty    =   oneProperty()
 
             val iterationsProperty          =   oneProperty()
 
@@ -21,7 +21,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private var cachePos                    :   DoubleArray = DoubleArray(0)
 
-    private val colorCache                  =   mutableMapOf<Double, ByteArray>()
+    private val colorBytesCache             =   ColorBytesCache(rainbowColors)
 
     // @formatter:on
 
@@ -37,9 +37,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private fun pixelInfo(i: Int, v: Double, rPos: Int, yToCanvas: (Double) -> Int): PixelInfo {
         val dblColor = cachePos[i]
-        val buffColor = colorCache.getOrPut(dblColor) {
-            getRainbowColor(dblColor).toBytes()
-        }
+        val buffColor = colorBytesCache.getBytes(dblColor)
 
         return PixelInfo(rPos, yToCanvas(v), buffColor)
     }

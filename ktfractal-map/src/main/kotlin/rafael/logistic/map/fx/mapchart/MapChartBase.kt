@@ -10,8 +10,10 @@ import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import rafael.logistic.core.fx.CONVERTER_2
+import rafael.logistic.core.fx.ColorCache
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.mapchart.exportImageTo
+import rafael.logistic.core.fx.rainbowColors
 import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
@@ -62,6 +64,8 @@ abstract class MapChartBase<T>(
             override    val generationStatusProperty    =   GenerationStatus.IDLE.toProperty()
 
     private lateinit    var dataGenerator               :   (() -> List<T>)
+
+    protected           val colorCache                  =   ColorCache(rainbowColors)
 
     // @formatter:on
 
