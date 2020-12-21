@@ -88,9 +88,11 @@ abstract class SetGenerator : IterationGenerator<BiDouble, SetInfo, SetParameter
             val nextZX = nextX(zx, zy, cx, cy)
             val nextZY = nextY(zx, zy, cx, cy)
 
-            if ((nextZX * nextZX + nextZY * nextZY) > 4.0) iteration
+            if (diverges(nextZX, nextZY)) iteration
             else checkConvergence(nextZX, nextZY, cx, cy, convergenceSteps, iteration + 1)
         }
+
+    private fun diverges(nextZX: Double, nextZY: Double) = (nextZX * nextZX + nextZY * nextZY) > 4.0
 
     protected abstract fun nextX(zx: Double, zy: Double, cx: Double, cy: Double): Double
 
