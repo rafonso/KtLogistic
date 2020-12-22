@@ -19,7 +19,7 @@ data class GaussianBifurcationParameter(
     override val stepsForR: Int,
     override val rMin: Double,
     override val rMax: Double,
-    override val percentToSkip: Int,
+    override val firstIteration: Int,
              val alpha: Double
 ) : IBifurcationParameter
 
@@ -39,13 +39,13 @@ class GaussianBifurcationGenerator : BifurcationGenerator<GaussianBifurcationPar
         rMin: Double,
         rMax: Double,
         stepsForR: Int,
-        percentToSkip: Int,
+        firstIteration: Int,
         iterationsPerR: Int,
         alpha: Double
     ): List<RData> =
         super.generate(
             x0,
-            GaussianBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, alpha),
+            GaussianBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, firstIteration, alpha),
             iterationsPerR
         )
 

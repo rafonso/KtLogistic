@@ -42,11 +42,11 @@ class TentBifurcationView : BifurcationView<TentBifurcationGenerator>(
     override fun refreshData(
         generator: TentBifurcationGenerator, iterations: Int,
         stepsForR: Int,
-        skip: Int
+        firstIteration: Int
     ): List<RData> =
         generator.generate(
             spnX0.value, super.chart.xMin, super.chart.xMax,
-            stepsForR, skip, iterations
+            stepsForR, firstIteration, iterations
         )
 
 }

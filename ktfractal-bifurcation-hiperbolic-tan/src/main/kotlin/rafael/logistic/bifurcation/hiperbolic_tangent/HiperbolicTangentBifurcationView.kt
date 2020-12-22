@@ -42,12 +42,12 @@ class HiperbolicTangentBifurcationView : BifurcationView<HiperbolicTangentBifurc
     override fun refreshData(
         generator: HiperbolicTangentBifurcationGenerator, iterations: Int,
         stepsForR: Int,
-        skip: Int
+        firstIteration: Int
     ): List<RData> =
         generator.generate(
             spnX0.value, super.chart.xMin, super.chart.xMax,
             stepsForR,
-            skip, iterations
+            firstIteration, iterations
         )
 
 }

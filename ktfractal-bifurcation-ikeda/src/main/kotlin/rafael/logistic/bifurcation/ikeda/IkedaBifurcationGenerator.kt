@@ -18,9 +18,9 @@ data class IkedaBifurcationParameter(
     override val stepsForR: Int,
     override val rMin: Double,
     override val rMax: Double,
-    override val percentToSkip: Int,
+    override val firstIteration: Int,
     override val xMinus1: Double
-) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1)
+) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, firstIteration, xMinus1)
 
 // https://en.wikipedia.org/wiki/Ikeda_map
 class IkedaBifurcationGenerator : BifurcationGeneratorWithPrior<IkedaBifurcationParameter>() {
@@ -41,13 +41,13 @@ class IkedaBifurcationGenerator : BifurcationGeneratorWithPrior<IkedaBifurcation
         rMin: Double,
         rMax: Double,
         stepsForR: Int,
-        percentToSkip: Int,
+        firstIteration: Int,
         iterationsPerR: Int,
         xMinus1: Double
     ): List<RData> =
         super.generate(
             x0,
-            IkedaBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1),
+            IkedaBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, firstIteration, xMinus1),
             iterationsPerR
         )
 

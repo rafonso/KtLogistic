@@ -1,5 +1,6 @@
 package rafael.logistic.bifurcation
 
+import javafx.beans.property.ReadOnlyIntegerProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Label
 import javafx.scene.control.Spinner
@@ -25,8 +26,6 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     private val spnSkip                         : Spinner<Int>      by fxid()
     private val skipValueFactory                = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
-    protected val skip                          : Int
-        get() = spnSkip.value
 
     private val spnPixelsSeparation             : Spinner<Int>      by fxid()
     private val pixelsSeparationValueFactory    =
@@ -52,12 +51,16 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         Pair(yAxisConfiguration.spnMax, chart.yMaxProperty),
     ) }
 
+    private             val firstIterationProperty  =
+            ReadOnlyIntegerProperty.readOnlyIntegerProperty(super.iterationsProperty) *
+            ReadOnlyIntegerProperty.readOnlyIntegerProperty(spnSkip.valueProperty()) / 100
+
     // @formatter:on
 
     protected abstract fun getParametersName(iterations: Int): String
 
     override fun getImageName(iterations: Int) = getParametersName(iterations) +
-            (if (skip > 0) ".Skip=${skip}pct" else "") +
+            (if (spnSkip.value > 0) ".Skip=${spnSkip.value}pct" else "") +
             (if (pixelsSeparation > 0) ".PxnSep=${pixelsSeparation}" else "")
 
     override fun initializeControls() {
@@ -92,17 +95,17 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.heightProperty().onChange { loadData() }
 
         chart.iterationsProperty.bind(iterationsProperty)
-        chart.skipInitialIterationsProperty.bind(spnSkip.valueProperty())
+        chart.firstIterationProperty.bind(firstIterationProperty)
     }
 
-    protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>
+    protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, firstIteration: Int): List<RData>
 
     override fun refreshData(generator: G, iterations: Int): List<RData> =
         if (chart.width > 0) refreshData(
             generator,
             iterations,
             super.chart.widthProperty().value.toInt() / (pixelsSeparation + 1),
-            skip
+            firstIterationProperty.value
         )
         else emptyList()
 

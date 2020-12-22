@@ -9,7 +9,7 @@ interface IBifurcationParameter : IterationParameter {
     val stepsForR: Int
     val rMin: Double
     val rMax: Double
-    val percentToSkip: Int
+    val firstIteration: Int
 
     val rStep
         get() = (rMax - rMin) / stepsForR
@@ -20,7 +20,7 @@ data class BifurcationParameter(
     override val stepsForR: Int,
     override val rMin: Double,
     override val rMax: Double,
-    override val percentToSkip: Int
+    override val firstIteration: Int
 ) : IBifurcationParameter
 
 abstract class BifurcationGenerator<P : IBifurcationParameter> : IterationGenerator<Double, RData, P> {
@@ -73,8 +73,9 @@ abstract class BifurcationGenerator<P : IBifurcationParameter> : IterationGenera
         parameter: P,
         interactions: Int
     ): List<RData> {
-        val sequenceSkipper: (DoubleArray) -> DoubleArray = if (parameter.percentToSkip == 0) { s -> s }
-        else { s -> s.copyOfRange((s.size * parameter.percentToSkip.toDouble() / 100).toInt(), s.size) }
+        val sequenceSkipper: (DoubleArray) -> DoubleArray =
+            if (parameter.firstIteration == 0) { s -> s }
+            else { s -> s.copyOfRange(parameter.firstIteration, s.size) }
 
         return (0..parameter.stepsForR)
             .toList().parallelStream()
@@ -84,7 +85,7 @@ abstract class BifurcationGenerator<P : IBifurcationParameter> : IterationGenera
 
 }
 
-interface IBifurcationParameterWithPrior: IBifurcationParameter {
+interface IBifurcationParameterWithPrior : IBifurcationParameter {
     val xMinus1: Double
 
     var xPrior: Double
@@ -95,7 +96,7 @@ open class BifurcationParameterWithPrior(
     override val stepsForR: Int,
     override val rMin: Double,
     override val rMax: Double,
-    override val percentToSkip: Int,
+    override val firstIteration: Int,
     override val xMinus1: Double
 ) : IBifurcationParameterWithPrior {
     @Suppress("LeakingThis")

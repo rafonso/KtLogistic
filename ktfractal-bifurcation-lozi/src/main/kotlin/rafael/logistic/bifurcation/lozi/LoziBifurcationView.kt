@@ -50,13 +50,13 @@ class LoziBifurcationView : BifurcationView<LoziBifurcationGenerator>(
     override fun refreshData(
         generator: LoziBifurcationGenerator, iterations: Int,
         stepsForR: Int,
-        skip: Int
+        firstIteration: Int
     ): List<RData> =
         generator.generate(
             spnX1.value,
             super.chart.xMin, super.chart.xMax,
-            stepsForR, skip, iterations,
-            spnX0.value, spnBeta.value
+            stepsForR, firstIteration, iterations, spnX0.value,
+            spnBeta.value
         )
 
 }

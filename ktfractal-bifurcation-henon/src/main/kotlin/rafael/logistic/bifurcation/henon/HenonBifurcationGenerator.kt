@@ -18,10 +18,10 @@ data class HenonBifurcationParameter(
     override val stepsForR: Int,
     override val rMin: Double,
     override val rMax: Double,
-    override val percentToSkip: Int,
+    override val firstIteration: Int,
     override val xMinus1: Double,
     val beta: Double
-) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1)
+) : BifurcationParameterWithPrior(iterationsPerR, stepsForR, rMin, rMax, firstIteration, xMinus1)
 
 // https://en.wikipedia.org/wiki/H%C3%A9non_map#One_Dimensional_Decomposition
 class HenonBifurcationGenerator : BifurcationGeneratorWithPrior<HenonBifurcationParameter>() {
@@ -38,12 +38,13 @@ class HenonBifurcationGenerator : BifurcationGeneratorWithPrior<HenonBifurcation
         rMin: Double,
         rMax: Double,
         stepsForR: Int,
-        percentToSkip: Int,
+        firstIteration: Int,
         iterationsPerR: Int,
-        xMinus1: Double, beta: Double
+        xMinus1: Double,
+        beta: Double
     ): List<RData> = super.generate(
         x0,
-        HenonBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip, xMinus1, beta),
+        HenonBifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, firstIteration, xMinus1, beta),
         iterationsPerR
     )
 

@@ -25,12 +25,12 @@ class TentBifurcationGenerator : BifurcationGenerator<BifurcationParameter>() {
         rMin: Double,
         rMax: Double,
         stepsForR: Int,
-        percentToSkip: Int,
+        firstIteration: Int,
         iterationsPerR: Int
     ): List<RData> =
         super.generate(
             x0,
-            BifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, percentToSkip),
+            BifurcationParameter(iterationsPerR, stepsForR, rMin, rMax, firstIteration),
             iterationsPerR
         )
 

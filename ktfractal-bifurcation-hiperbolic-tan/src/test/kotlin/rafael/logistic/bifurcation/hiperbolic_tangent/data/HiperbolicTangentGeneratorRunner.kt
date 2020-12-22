@@ -12,6 +12,7 @@ fun main() {
     val stepsForR = 1000
     val percentToSkip = 0
     val iterationsPerR = 1000
+    val firstIteration = (iterationsPerR * percentToSkip.toDouble() / 100).toInt()
 
     val x0Steps = 300
     val deltaX0 = (x0Max - x0Min) / x0Steps
@@ -19,7 +20,7 @@ fun main() {
     val generator = HiperbolicTangentBifurcationGenerator()
 
     // Heating
-    repeat(10) { generator.generate(x0Min, rMin, rMax, stepsForR, percentToSkip, iterationsPerR) }
+    repeat(10) { generator.generate(x0Min, rMin, rMax, stepsForR, firstIteration, iterationsPerR) }
 
     val t0 = LocalTime.now()
 
@@ -28,7 +29,7 @@ fun main() {
         print("%.3f".format(x0))
 
         val t0i = LocalTime.now()
-        generator.generate(x0, rMin, rMax, stepsForR, percentToSkip, iterationsPerR)
+        generator.generate(x0, rMin, rMax, stepsForR, firstIteration, iterationsPerR)
         val t1i = LocalTime.now()
 
         println("\t${Duration.between(t0i, t1i).toMillis()}")

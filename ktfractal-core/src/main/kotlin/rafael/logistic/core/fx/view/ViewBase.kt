@@ -63,7 +63,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     private         val spnIterations               :   Spinner<Int>    by fxid()
     protected open  val iterationsValueFactory      :   SpinnerValueFactory<Int>
             =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 2000, 100, 100)
-    private         val iterationsProperty          :   ReadOnlyObjectProperty<Int> =   spnIterations.valueProperty()
+    protected       val iterationsProperty          :   ReadOnlyObjectProperty<Int> =   spnIterations.valueProperty()
 
     protected       val chart                       :   C               by fxid()
 

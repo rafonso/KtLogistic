@@ -47,14 +47,13 @@ class IkedaBifurcationView : BifurcationView<IkedaBifurcationGenerator>(
     override fun refreshData(
         generator: IkedaBifurcationGenerator, iterations: Int,
         stepsForR: Int,
-        skip: Int
+        firstIteration: Int
     ): List<RData> =
         generator.generate(
             spnX1.value,
             super.chart.xMin, super.chart.xMax,
             stepsForR,
-            skip, iterations,
-            spnX0.value
+            firstIteration, iterations, spnX0.value
         )
 
 }

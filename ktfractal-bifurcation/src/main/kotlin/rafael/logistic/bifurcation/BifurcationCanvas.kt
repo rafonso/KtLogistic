@@ -17,9 +17,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
             val iterationsProperty          =   oneProperty()
 
-            val skipInitialIterationsProperty   =   oneProperty()
-
-    private val firstIterationProperty      =   (iterationsProperty * skipInitialIterationsProperty) / 100
+            val firstIterationProperty      =   oneProperty()
 
     private val cachePosByIterations        =   mutableMapOf<Int, DoubleArray>()
 

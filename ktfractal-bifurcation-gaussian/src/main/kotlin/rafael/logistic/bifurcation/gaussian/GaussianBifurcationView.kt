@@ -6,7 +6,7 @@ import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.LimitsSpinnersConfiguration
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.valueToString
-import tornadofx.App
+import tornadofx.*
 
 class GaussianBifurcationApp : App(GaussianBifurcationView::class, Styles::class)
 
@@ -48,14 +48,13 @@ class GaussianBifurcationView : BifurcationView<GaussianBifurcationGenerator>(
         generator: GaussianBifurcationGenerator,
         iterations: Int,
         stepsForR: Int,
-        skip: Int
+        firstIteration: Int
     ): List<RData> =
         generator.generate(
             spnX0.value,
             super.chart.xMin, super.chart.xMax,
             stepsForR,
-            skip, iterations,
-            spnAlpha.value
+            firstIteration, iterations, spnAlpha.value
         )
 
 }
