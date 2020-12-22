@@ -92,6 +92,7 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
         chart.heightProperty().onChange { loadData() }
 
         chart.iterationsProperty.bind(iterationsProperty)
+        chart.skipInitialIterationsProperty.bind(spnSkip.valueProperty())
     }
 
     protected abstract fun refreshData(generator: G, iterations: Int, stepsForR: Int, skip: Int): List<RData>

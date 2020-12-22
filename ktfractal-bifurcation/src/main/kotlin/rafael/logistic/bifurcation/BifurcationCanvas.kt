@@ -17,6 +17,10 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
             val iterationsProperty          =   oneProperty()
 
+            val skipInitialIterationsProperty   =   oneProperty()
+
+    private val firstIterationProperty      =   (iterationsProperty * skipInitialIterationsProperty) / 100
+
     private val cachePosByIterations        =   mutableMapOf<Int, DoubleArray>()
 
     private var cachePos                    :   DoubleArray = DoubleArray(0)
@@ -44,6 +48,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private fun rSequenceToCoordinates(
         rSequence: RData,
+        firstIteration: Int,
         pixSep: Int,
         yToCanvas: (Double) -> Int
     ): Collection<PixelInfo> {
@@ -51,7 +56,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
         return rSequence.values
             .mapIndexed { i, v ->
-                pixelInfo(i, v, rPos, yToCanvas)
+                pixelInfo(i + firstIteration, v, rPos, yToCanvas)
             }
     }
 
@@ -66,10 +71,11 @@ class BifurcationCanvas : CanvasChart<RData>() {
             val deltaY = yMax - yMin
             val yToCanvas: (Double) -> Int = { y -> ((1 - (y - ym) / (deltaY)) * h).toInt() }
             val pixSep = pixelsSeparationProperty.value
+            val firstIteration = firstIterationProperty.value
 
             data0
                 .parallelStream()
-                .flatMap { rSequenceToCoordinates(it, pixSep, yToCanvas).stream() }
+                .flatMap { rSequenceToCoordinates(it, firstIteration, pixSep, yToCanvas).stream() }
                 .filter { pi -> (0..h).contains(pi.yChart) }
                 .forEach { pi ->
                     val pos = pi.xChart + pi.yChart * w
