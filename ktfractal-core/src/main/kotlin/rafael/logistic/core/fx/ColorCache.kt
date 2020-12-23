@@ -2,6 +2,7 @@ package rafael.logistic.core.fx
 
 import javafx.scene.paint.Color
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.round
 
 private const val MIN_OPACITY = 0.5
 
@@ -71,24 +72,20 @@ class ColorCache(colors: Array<out Color>) : BaseColorCache(colors) {
 }
 
 /**
- * Representa um cache de [cores][Color], onde um número da `0.0` a `1.0` é usado para determinar um [ByteArray]
- * equivalente a cor dentro de um [Array]
+ * Representa um cache de [cores][Color], onde cada uma é mapeada a um [Inteiro][Int].
+ * A fórmula de mapeamento pode ser encontrada em [https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/PixelFormat.html#getByteBgraInstance--]
  *
  * @constructor
  * @param colors [Array] de [cores][Color]
  */
-class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
+class ColorIntCache(colors: Array<out Color>) : BaseColorCache(colors) {
 
-    companion object {
+    /**
+     * [Int] representando a [Cor][Color] [Preta][Color.BLACK].
+     */
+    val blackBuffer = colorToInt(Color.BLACK)
 
-//        fun toCache(vararg colors: Color) = ColorBytesCache(colors)
-
-        /**
-         * [Array de 3 bytes][ByteArray] representando a [Cor][Color] [Preta][Color.BLACK].
-         */
-        val blackBuffer = byteArrayOf(0, 0, 0)
-
-    }
+    val whiteBuffer = colorToInt(Color.WHITE)
 
     /*
      * Usando ConcurrentHashMap no lugar de HashMap para evitar problema de ClassCastException:
@@ -96,16 +93,15 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
      *
      * Ver https://stackoverflow.com/questions/29967401/strange-hashmap-exception-hashmapnode-cannot-be-cast-to-hashmaptreenode/29971168
      */
-    private val bytesCache = ConcurrentHashMap<Double, ByteArray>()
+    private val bytesCache = ConcurrentHashMap<Double, Int>()
 
-    private fun toBytes(c: Color) = ByteArray(3) {
-        // TODO Adicionar transparencia, Tem que retornar IntArray
-        (when (it) {
-            0 -> c.red
-            1 -> c.green
-            2 -> c.blue
-            else -> error("it: $it, Cor: $this")
-        } * 255).toInt().toByte()
+    private fun colorToInt(c: Color): Int {
+        val a = round(c.opacity * 255).toInt()
+        val r = round(c.red * 255).toInt()
+        val g = round(c.green * 255).toInt()
+        val b = round(c.blue * 255).toInt()
+
+        return (a shl 24) or (r shl 16) or (g shl 8) or b
     }
 
     /**
@@ -114,10 +110,10 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
      * @param x valor de `0.0` a `1.0`
      * @return [ByteArray] da cor equivalente
      */
-    fun getBytes(x: Double): ByteArray = try {
-        bytesCache.getOrPut(x) { toBytes(calculateColor(x)) }
+    fun getInts(x: Double): Int = try {
+        bytesCache.getOrPut(x) { colorToInt(calculateColor(x)) }
     } catch (e: Exception) {
-        throw Exception("getBytes($x)", e)
+        throw Exception("getBytes($x): ${e.message}", e)
     }
 
     /**
@@ -127,17 +123,6 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
      * @param max Denominador
      * @return [ByteArray] da cor equivalente a `i / max`
      */
-    fun getBytes(i: Int, max: Int): ByteArray = getBytes(i.toDouble() / max)
+    fun getInts(i: Int, max: Int): Int = getInts(i.toDouble() / max)
 
-}
-
-/**
- *
- */
-fun ByteArray.addBuffer(i: Int, bc: ByteArray): ByteArray {
-    this[i * 3 + 0] = bc[0]
-    this[i * 3 + 1] = bc[1]
-    this[i * 3 + 2] = bc[2]
-
-    return this
 }

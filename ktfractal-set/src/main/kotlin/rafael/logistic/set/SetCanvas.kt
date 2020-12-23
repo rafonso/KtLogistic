@@ -1,7 +1,6 @@
 package rafael.logistic.set
 
-import rafael.logistic.core.fx.ColorBytesCache
-import rafael.logistic.core.fx.addBuffer
+import rafael.logistic.core.fx.ColorIntCache
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.rainbowColors
@@ -13,11 +12,11 @@ class SetCanvas : CanvasChart<SetInfo>() {
 
             val maxIterationsProperty   =   oneProperty()
 
-    private val cacheByMaxIteratrions   =   mutableMapOf<Int, Array<ByteArray>>()
+    private val cacheByMaxIteratrions   =   mutableMapOf<Int, IntArray>()
 
-    private var cacheIteration          :   Array<ByteArray> = emptyArray()
+    private var cacheIteration          :   IntArray = intArrayOf()
 
-    private val colorBytesCache         =   ColorBytesCache(rainbowColors)
+    private val colorBytesCache         =   ColorIntCache(rainbowColors)
 
     // @formatter:on
 
@@ -26,19 +25,18 @@ class SetCanvas : CanvasChart<SetInfo>() {
 
         maxIterationsProperty.onChange { maxIt ->
             cacheIteration = cacheByMaxIteratrions.getOrPut(maxIt) {
-                Array(maxIt + 1) {
-                    if (it == 0) ColorBytesCache.blackBuffer
-                    else colorBytesCache.getBytes(it, maxIt)
+                IntArray(maxIt + 1) {
+                    if (it == 0) colorBytesCache.blackBuffer
+                    else colorBytesCache.getInts(it, maxIt)
                 }
             }
         }
     }
 
-    override fun dataToElementsToPlot(data0: List<SetInfo>): ByteArray =
+    override fun dataToElementsToPlot(data0: List<SetInfo>): IntArray =
         data0
             .map(SetInfo::iterationsToDiverge)
-            .foldRightIndexed(ByteArray(data0.size * 3)) { i, iterations, buffer ->
-                buffer.addBuffer(i, cacheIteration[iterations])
-            }
+            .map(cacheIteration::get)
+            .toIntArray()
 
 }

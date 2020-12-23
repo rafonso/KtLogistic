@@ -14,7 +14,7 @@ import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
 
-abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
+abstract class CanvasChart<T> : Canvas(), MapChart<T, IntArray> {
 
     // @formatter:off
 
@@ -58,7 +58,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
     private             val wProperty                   =   oneProperty()
     protected           val w                           by  wProperty
 
-    private             val pixelFormat                 =   PixelFormat.getByteRgbInstance()
+    private             val pixelFormat                 =   PixelFormat.getIntArgbInstance()
 
     private lateinit    var dataGenerator               :   (() -> List<T>)
 
@@ -97,8 +97,8 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, ByteArray> {
         gc.fillRect(0.0, 0.0, width, height)
     }
 
-    override fun plotData(element: ByteArray) {
-        pixelWriter.setPixels(0, 0, this.w, this.h, pixelFormat, element, 0, this.w * 3)
+    override fun plotData(element: IntArray) {
+        pixelWriter.setPixels(0, 0, this.w, this.h, pixelFormat, element, 0, this.w)
     }
 
     override fun finalizePlotting() {

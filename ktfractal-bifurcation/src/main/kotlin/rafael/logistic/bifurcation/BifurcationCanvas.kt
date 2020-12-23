@@ -1,13 +1,10 @@
 package rafael.logistic.bifurcation
 
-import rafael.logistic.core.fx.ColorBytesCache
-import rafael.logistic.core.fx.addBuffer
+import rafael.logistic.core.fx.ColorIntCache
 import rafael.logistic.core.fx.mapchart.CanvasChart
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.rainbowColors
 import tornadofx.*
-
-const val WHITE_BYTE = 0xFF.toByte()
 
 class BifurcationCanvas : CanvasChart<RData>() {
 
@@ -23,7 +20,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private var cachePos                    :   DoubleArray = DoubleArray(0)
 
-    private val colorBytesCache             =   ColorBytesCache(rainbowColors)
+    private val colorBytesCache             =   ColorIntCache(rainbowColors)
 
     // @formatter:on
 
@@ -39,7 +36,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private fun pixelInfo(i: Int, v: Double, rPos: Int, yToCanvas: (Double) -> Int): PixelInfo {
         val dblColor = cachePos[i]
-        val buffColor = colorBytesCache.getBytes(dblColor)
+        val buffColor = colorBytesCache.getInts(dblColor)
 
         return PixelInfo(rPos, yToCanvas(v), buffColor)
     }
@@ -58,10 +55,10 @@ class BifurcationCanvas : CanvasChart<RData>() {
             }
     }
 
-    override fun dataToElementsToPlot(data0: List<RData>): ByteArray {
+    override fun dataToElementsToPlot(data0: List<RData>): IntArray {
         val h = super.h
         val w = super.w
-        val buffer = ByteArray(w * h * 4) { WHITE_BYTE }
+        val buffer = IntArray((w + 1) * (h + 1)) { colorBytesCache.whiteBuffer }
 
         if (buffer.isNotEmpty()) {
             // Otimizações agressivas. Não precisa chamar os getters toda hora.
@@ -78,7 +75,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
                 .forEach { pi ->
                     val pos = pi.xChart + pi.yChart * w
 
-                    buffer.addBuffer(pos, pi.colorBuffer)
+                    buffer[pos] = pi.colorBuffer
                 }
         }
 
