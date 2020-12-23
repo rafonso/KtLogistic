@@ -1,6 +1,7 @@
 package rafael.logistic.core.fx
 
 import javafx.scene.paint.Color
+import java.util.concurrent.ConcurrentHashMap
 
 private const val MIN_OPACITY = 0.5
 
@@ -89,7 +90,13 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
 
     }
 
-    private val bytesCache = hashMapOf<Double, ByteArray>()
+    /*
+     * Usando ConcurrentHashMap no lugar de HashMap para evitar problema de ClassCastException:
+     * java.util.HashMap$Node cannot be cast to java.util.HashMap$TreeNode
+     *
+     * Ver https://stackoverflow.com/questions/29967401/strange-hashmap-exception-hashmapnode-cannot-be-cast-to-hashmaptreenode/29971168
+     */
+    private val bytesCache = ConcurrentHashMap<Double, ByteArray>()
 
     private fun toBytes(c: Color) = ByteArray(3) {
         // TODO Adicionar transparencia, Tem que retornar IntArray
@@ -107,7 +114,7 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
      * @param x valor de `0.0` a `1.0`
      * @return [ByteArray] da cor equivalente
      */
-    fun getBytes(x: Double) = try {
+    fun getBytes(x: Double): ByteArray = try {
         bytesCache.getOrPut(x) { toBytes(calculateColor(x)) }
     } catch (e: Exception) {
         throw Exception("getBytes($x)", e)
@@ -120,7 +127,7 @@ class ColorBytesCache(colors: Array<out Color>) : BaseColorCache(colors) {
      * @param max Denominador
      * @return [ByteArray] da cor equivalente a `i / max`
      */
-    fun getBytes(i: Int, max: Int) = getBytes(i.toDouble() / max)
+    fun getBytes(i: Int, max: Int): ByteArray = getBytes(i.toDouble() / max)
 
 }
 
