@@ -22,6 +22,8 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private val colorBytesCache             =   ColorIntCache(rainbowColors)
 
+    private val pixelInfoCache              =   mutableMapOf<Int, MutableMap<Int, PixelInfo>>()
+
     // @formatter:on
 
     init {
@@ -36,9 +38,13 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private fun pixelInfo(i: Int, v: Double, rPos: Int, yToCanvas: (Double) -> Int): PixelInfo {
         val dblColor = cachePos[i]
-        val buffColor = colorBytesCache.getInts(dblColor)
+        val intColor = colorBytesCache.getInts(dblColor)
+        val yChart = yToCanvas(v)
 
-        return PixelInfo(rPos, yToCanvas(v), buffColor)
+        return pixelInfoCache
+            .getOrPut(rPos) { mutableMapOf() } // busca por linha
+            .getOrPut(yChart) { PixelInfo(rPos, yChart) } // busca por coluna
+            .also { it.value = intColor }
     }
 
     private fun rSequenceToCoordinates(
@@ -75,7 +81,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
                 .forEach { pi ->
                     val pos = pi.xChart + pi.yChart * w
 
-                    buffer[pos] = pi.colorBuffer
+                    buffer[pos] = pi.value
                 }
         }
 

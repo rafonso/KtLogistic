@@ -5,9 +5,9 @@ package rafael.logistic.bifurcation
  *
  * @property xChart Posição no eixo X (da esquerda para a direita)
  * @property yChart Posição no eixo Y (de cima para baixo)
- * @property colorBuffer Buffer representando a Cor na posição em questão.
+ * @property value Valor representando a Cor na posição em questão.
  */
-internal class PixelInfo(val xChart: Int, val yChart: Int, val colorBuffer: Int) {
+internal class PixelInfo(val xChart: Int, val yChart: Int, var value: Int = -1) {
 
     /**
      * Compara com outro [PixelInfo] usando [xChart] e [yChart].
@@ -39,7 +39,7 @@ internal class PixelInfo(val xChart: Int, val yChart: Int, val colorBuffer: Int)
     }
 
     override fun toString(): String {
-        return "[$xChart, $yChart, ${colorBuffer}]"
+        return "[$xChart, $yChart, ${value}]"
     }
 
 }
