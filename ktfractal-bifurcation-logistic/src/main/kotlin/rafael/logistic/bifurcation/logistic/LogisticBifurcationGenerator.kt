@@ -4,10 +4,10 @@ import rafael.logistic.bifurcation.BifurcationGenerator
 import rafael.logistic.bifurcation.BifurcationParameter
 import rafael.logistic.bifurcation.RData
 
-const val R_MIN = 0.0
-const val R_MAX = 4.0
-const val X_MIN = 0.0
-const val X_MAX = 1.0
+const val R_MIN = -2.0
+const val R_MAX = +4.0
+const val X_MIN = -0.5
+const val X_MAX = +1.5
 
 class LogisticBifurcationGenerator : BifurcationGenerator<BifurcationParameter>() {
 
