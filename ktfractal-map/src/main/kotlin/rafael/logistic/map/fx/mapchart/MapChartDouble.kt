@@ -65,7 +65,7 @@ abstract class MapChartDouble(
             .map { (x, y) -> Pair(x.realToChartX(), y.realToChartY()) }
 
         return coordinatesToLines(coords) { l, i ->
-            l.stroke = colorCache.getColor(i, coords.size)
+            l.stroke = colorCache.get(i, coords.size)
             l.strokeWidth = (DELTA_WIDTH * i / coords.size + MIN_WIDTH)
             l.opacity = 0.5
         }

@@ -23,7 +23,7 @@ class MapChartBi(
 
     private fun coordsToCircle(centerX: Double, centerY: Double, pos: Double) =
         Circle(centerX, centerY, (DELTA_RADIUS * pos + MIN_RADIUS)).apply {
-            stroke = colorCache.getColor(pos)
+            stroke = colorCache[pos]
             fill = stroke
         }
 

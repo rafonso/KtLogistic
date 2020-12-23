@@ -13,7 +13,7 @@ private const val MIN_OPACITY = 0.5
 val rainbowColors =
     arrayOf(Color.VIOLET, Color.INDIGO, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED)
 
-sealed class BaseColorCache constructor(private val colors: Array<out Color>) {
+sealed class BaseColorCache<T> constructor(private val colors: Array<out Color>) {
 
     private val delta = 1.0 / colors.lastIndex
 
@@ -35,6 +35,22 @@ sealed class BaseColorCache constructor(private val colors: Array<out Color>) {
         return Color(r, g, b, o)
     }
 
+    /**
+     * Retorna o equivalente da cor equivalente a um valor.
+     *
+     * @param x valor de `0.0` a `1.0`
+     * @return Equivalente da cor ao valor passado.
+     */
+    abstract operator fun get(x: Double): T
+
+    /**
+     * Retorna o equivalente da cor equivalente a um valor.
+     *
+     * @param i Numerador
+     * @param max Denominador
+     * @return Equivalente da cor a divisão `i / max`
+     */
+    fun get(i: Int, max: Int): T = get(i.toDouble() / max)
 }
 
 /**
@@ -44,30 +60,11 @@ sealed class BaseColorCache constructor(private val colors: Array<out Color>) {
  * @constructor
  * @param colors [Array] de [cores][Color]
  */
-class ColorCache(colors: Array<out Color>) : BaseColorCache(colors) {
-
-    companion object {
-//        fun toCache(vararg colors: Color) = ColorCache(colors)
-    }
+class ColorCache(colors: Array<out Color>) : BaseColorCache<Color>(colors) {
 
     private val colorCache = mutableMapOf<Double, Color>()
 
-    /**
-     * Retorna a cor equivalente de um valor.
-     *
-     * @param x valor de `0.0` a `1.0`
-     * @return cor equivalente
-     */
-    fun getColor(x: Double) = colorCache.getOrPut(x) { calculateColor(x) }
-
-    /**
-     * Retorna a cor equivalente de um valor.
-     *
-     * @param i Numerador
-     * @param max Denominador
-     * @return cor equivalente a `i / max`
-     */
-    fun getColor(i: Int, max: Int) = getColor(i.toDouble() / max)
+    override operator fun get(x: Double) = colorCache.getOrPut(x) { calculateColor(x) }
 
 }
 
@@ -78,14 +75,30 @@ class ColorCache(colors: Array<out Color>) : BaseColorCache(colors) {
  * @constructor
  * @param colors [Array] de [cores][Color]
  */
-class ColorIntCache(colors: Array<out Color>) : BaseColorCache(colors) {
+class ColorIntCache(colors: Array<out Color>) : BaseColorCache<Int>(colors) {
 
-    /**
-     * [Int] representando a [Cor][Color] [Preta][Color.BLACK].
-     */
-    val blackBuffer = colorToInt(Color.BLACK)
+    companion object {
 
-    val whiteBuffer = colorToInt(Color.WHITE)
+        private fun colorToInt(c: Color): Int {
+            val a = round(255 * c.opacity).toInt()
+            val r = round(255 * c.red).toInt()
+            val g = round(255 * c.green).toInt()
+            val b = round(255 * c.blue).toInt()
+
+            return (a shl 24) or (r shl 16) or (g shl 8) or b
+        }
+
+        /**
+         * [Int] representando a [Cor][Color] [Preta][Color.BLACK].
+         */
+        val black = colorToInt(Color.BLACK)
+
+        /**
+         * [Int] representando a [Cor][Color] [Branca][Color.WHITE].
+         */
+        val white = colorToInt(Color.WHITE)
+
+    }
 
     /*
      * Usando ConcurrentHashMap no lugar de HashMap para evitar problema de ClassCastException:
@@ -93,36 +106,12 @@ class ColorIntCache(colors: Array<out Color>) : BaseColorCache(colors) {
      *
      * Ver https://stackoverflow.com/questions/29967401/strange-hashmap-exception-hashmapnode-cannot-be-cast-to-hashmaptreenode/29971168
      */
-    private val bytesCache = ConcurrentHashMap<Double, Int>()
+    private val intsCache = ConcurrentHashMap<Double, Int>()
 
-    private fun colorToInt(c: Color): Int {
-        val a = round(c.opacity * 255).toInt()
-        val r = round(c.red * 255).toInt()
-        val g = round(c.green * 255).toInt()
-        val b = round(c.blue * 255).toInt()
-
-        return (a shl 24) or (r shl 16) or (g shl 8) or b
-    }
-
-    /**
-     * Retorna o [ByteArray] da cor equivalente de um valor.
-     *
-     * @param x valor de `0.0` a `1.0`
-     * @return [ByteArray] da cor equivalente
-     */
-    fun getInts(x: Double): Int = try {
-        bytesCache.getOrPut(x) { colorToInt(calculateColor(x)) }
+    override operator fun get(x: Double): Int = try {
+        intsCache.getOrPut(x) { colorToInt(calculateColor(x)) }
     } catch (e: Exception) {
-        throw Exception("getBytes($x): ${e.message}", e)
+        throw Exception("get($x): ${e.message}", e)
     }
-
-    /**
-     * Retorna o [ByteArray] da cor equivalente de um valor.
-     *
-     * @param i Numerador
-     * @param max Denominador
-     * @return [ByteArray] da cor equivalente a `i / max`
-     */
-    fun getInts(i: Int, max: Int): Int = getInts(i.toDouble() / max)
 
 }

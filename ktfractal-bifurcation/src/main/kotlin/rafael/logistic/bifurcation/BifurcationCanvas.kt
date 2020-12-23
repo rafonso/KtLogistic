@@ -38,7 +38,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
     private fun pixelInfo(i: Int, v: Double, rPos: Int, yToCanvas: (Double) -> Int): PixelInfo {
         val dblColor = cachePos[i]
-        val intColor = colorBytesCache.getInts(dblColor)
+        val intColor = colorBytesCache[dblColor]
         val yChart = yToCanvas(v)
 
         return pixelInfoCache
@@ -64,7 +64,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
     override fun dataToElementsToPlot(data0: List<RData>): IntArray {
         val h = super.h
         val w = super.w
-        val buffer = IntArray((w + 1) * (h + 1)) { colorBytesCache.whiteBuffer }
+        val buffer = IntArray((w + 1) * (h + 1)) { ColorIntCache.white }
 
         if (buffer.isNotEmpty()) {
             // Otimizações agressivas. Não precisa chamar os getters toda hora.

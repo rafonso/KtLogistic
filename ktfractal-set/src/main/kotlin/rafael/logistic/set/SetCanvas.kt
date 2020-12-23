@@ -26,8 +26,8 @@ class SetCanvas : CanvasChart<SetInfo>() {
         maxIterationsProperty.onChange { maxIt ->
             cacheIteration = cacheByMaxIteratrions.getOrPut(maxIt) {
                 IntArray(maxIt + 1) {
-                    if (it == 0) colorBytesCache.blackBuffer
-                    else colorBytesCache.getInts(it, maxIt)
+                    if (it == 0) ColorIntCache.black
+                    else colorBytesCache.get(it, maxIt)
                 }
             }
         }
