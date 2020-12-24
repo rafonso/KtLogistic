@@ -62,9 +62,9 @@ sealed class BaseColorCache<T> constructor(private val colors: Array<out Color>)
  */
 class ColorCache(colors: Array<out Color>) : BaseColorCache<Color>(colors) {
 
-    private val colorCache = mutableMapOf<Double, Color>()
+    private val colorCache = ConcurrentHashMap<Double, Color>()
 
-    override operator fun get(x: Double) = colorCache.getOrPut(x) { calculateColor(x) }
+    override operator fun get(x: Double): Color = colorCache.getOrPut(x) { calculateColor(x) }
 
 }
 
