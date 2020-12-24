@@ -53,11 +53,11 @@ class IterationChartBi(
 
         return positions.indices
             .map { index ->
-                Triple(
-                    index == 0 || positions[index].first - positions[index - 1].first > 1,
-                    positions[index].first.toIterationsXPos(),
-                    positions[index].second.toIterationsYPos()
-                )
+                val moveCursor = (index == 0) || (positions[index].first - positions[index - 1].first > 1)
+                val xPos = positions[index].first.toIterationsXPos()
+                val yPos = positions[index].second.toIterationsYPos()
+
+                Triple(moveCursor, xPos, yPos)
             }
             .map { t -> if (t.first) MoveTo(t.second, t.third) else LineTo(t.second, t.third) }
             .toTypedArray()

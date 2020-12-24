@@ -9,9 +9,10 @@ import javafx.scene.shape.PathElement
 import tornadofx.*
 
 class IterationChartDouble(
-        @NamedArg("xAxis") xAxis: Axis<Int>,
-        @NamedArg("yAxis") yAxis: Axis<Double>,
-        @NamedArg("data") data: ObservableList<Series<Int, Double>>) : IterationChartBase<Double>(xAxis, yAxis, data) {
+    @NamedArg("xAxis") xAxis: Axis<Int>,
+    @NamedArg("yAxis") yAxis: Axis<Double>,
+    @NamedArg("data") data: ObservableList<Series<Int, Double>>
+) : IterationChartBase<Double>(xAxis, yAxis, data) {
 
     @Suppress("unused")
     constructor(@NamedArg("xAxis") xAxis: Axis<Int>, @NamedArg("yAxis") yAxis: Axis<Double>) :
@@ -19,13 +20,13 @@ class IterationChartDouble(
 
     override fun loadPath(iterationData: List<Double>): Array<PathElement> {
         val positions: List<Pair<Double, Double>> = iterationData
-                .mapIndexed { i, d -> Pair(i.toIterationsXPos(), d.toIterationsYPos()) }
+            .mapIndexed { i, d -> Pair(i.toIterationsXPos(), d.toIterationsYPos()) }
 
-        return (
-                listOf(MoveTo(positions.first().first, positions.first().second)) +
-                        positions.subList(1, positions.size).map { LineTo(it.first, it.second) }
-                )
-                .toTypedArray()
+        val first = positions.first()
+        val path = listOf(MoveTo(first.first, first.second)) +
+                positions.subList(1, positions.size).map { LineTo(it.first, it.second) }
+
+        return path.toTypedArray()
     }
 
 }
