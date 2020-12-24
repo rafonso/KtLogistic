@@ -47,8 +47,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         val chartParent = chart.parent as Region
         chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
-        iterationsChart.bind(iterationsProperty, chart.data0Property)
-//        chart.square.xProperty.asObject().bindBidirectional(x0ValueFactory.valueProperty()) // as Property<Number>)
+        iterationsChart.bind(chart.generationStatusProperty, iterationsProperty, chart.data0Property)
         super.root.setOnKeyPressed { event ->
             if (event.isControlDown && event.code == KeyCode.S) {
                 exportImage()

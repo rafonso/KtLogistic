@@ -59,8 +59,19 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {
         val chartParent = chart.parent as Region
         chart.prefWidthProperty().bind(Bindings.min(chartParent.heightProperty(), chartParent.widthProperty()))
-        xIterationsChart.bind(iterationsProperty, chart.data0Property, IterationChartBi.extractorX)
-        yIterationsChart.bind(iterationsProperty, chart.data0Property, IterationChartBi.extractorY)
+
+        xIterationsChart.bind(
+            chart.generationStatusProperty,
+            iterationsProperty,
+            chart.data0Property,
+            IterationChartBi.extractorX
+        )
+        yIterationsChart.bind(
+            chart.generationStatusProperty,
+            iterationsProperty,
+            chart.data0Property,
+            IterationChartBi.extractorY
+        )
     }
 
     protected open fun initializeControlsBi() {
