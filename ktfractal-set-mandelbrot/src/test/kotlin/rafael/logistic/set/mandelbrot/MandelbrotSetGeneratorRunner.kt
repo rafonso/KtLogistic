@@ -15,7 +15,16 @@ fun main() {
 
     val times = 500
 
-    val parameter = SetParameter(Double.NaN, Double.NaN, xMin, xMax, width, yMin, yMax, width)
+    val parameter = SetParameter(
+        Double.NaN,
+        Double.NaN,
+        xMin,
+        xMax,
+        width,
+        yMin,
+        yMax,
+        width
+    )
 
     val generator = MandelbrotSetGenerator()
 
