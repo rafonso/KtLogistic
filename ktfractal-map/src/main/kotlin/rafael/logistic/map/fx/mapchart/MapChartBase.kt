@@ -4,18 +4,19 @@ package rafael.logistic.map.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
 import javafx.collections.ObservableList
-import javafx.event.EventHandler
 import javafx.scene.Node
 import javafx.scene.chart.Axis
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
+import javafx.scene.input.MouseEvent
 import rafael.logistic.core.fx.CONVERTER_2
 import rafael.logistic.core.fx.ColorCache
 import rafael.logistic.core.fx.mapchart.MapChart
+import rafael.logistic.core.fx.mapchart.MouseRealPos
+import rafael.logistic.core.fx.mapchart.MouseRealPos.Companion.isInside
 import rafael.logistic.core.fx.mapchart.exportImageTo
 import rafael.logistic.core.fx.rainbowColors
 import rafael.logistic.core.fx.zeroProperty
-import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
@@ -41,7 +42,7 @@ abstract class MapChartBase<T>(
 
     private             val square                      =   Point0()
 
-    private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
+    private             val mousePositionRealProperty   =   MouseRealPos.noMouseRealPos.toProperty()
 
     final   override    val xMinProperty                =   zeroProperty()
             override    val xMin                        by  xMinProperty
@@ -80,11 +81,12 @@ abstract class MapChartBase<T>(
         myYAxis.tickLabelFormatter = CONVERTER_2
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / myYAxis.heightProperty())
 
-        background.onMouseMoved = EventHandler { event ->
-            mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
-        }
-        background.onMouseExited = EventHandler { event ->
-            mousePositionRealProperty.value = BiDouble(event.x.chartToRealX(), event.y.chartToRealY())
+        background.addEventHandler(MouseEvent.ANY) { event ->
+            mousePositionRealProperty.value =
+                if (event.isInside(this.width, this.height))
+                    MouseRealPos(event.x.chartToRealX(), event.y.chartToRealY(), event)
+                else
+                    MouseRealPos.noMouseRealPos
         }
 
         initialize()

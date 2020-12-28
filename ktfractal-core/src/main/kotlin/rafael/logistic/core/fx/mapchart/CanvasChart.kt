@@ -1,15 +1,15 @@
 package rafael.logistic.core.fx.mapchart
 
 import javafx.beans.property.ReadOnlyDoubleProperty
-import javafx.event.EventHandler
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.image.PixelFormat
 import javafx.scene.image.PixelWriter
+import javafx.scene.input.MouseEvent
 import javafx.scene.paint.Color
+import rafael.logistic.core.fx.mapchart.MouseRealPos.Companion.isInside
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.zeroProperty
-import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
 import java.io.File
@@ -44,7 +44,7 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, IntArray> {
     private             val dataProperty                =   emptyList<T>().toProperty()
             override    val data0Property               =   dataProperty
 
-    private             val mousePositionRealProperty   =   BiDouble(0.0, 0.0).toProperty()
+    private             val mousePositionRealProperty   =   MouseRealPos.noMouseRealPos.toProperty()
 
                         val backgroundProperty          =   Color.WHITE.toProperty()
 
@@ -83,10 +83,13 @@ abstract class CanvasChart<T> : Canvas(), MapChart<T, IntArray> {
         deltaXByPixelProp.bind((xMaxProperty - xMinProperty) / super.widthProperty())
         deltaYByPixelProp.bind((yMaxProperty - yMinProperty) / super.heightProperty())
 
-        this.onMouseMoved = EventHandler { event ->
-            mousePositionRealProperty.value = BiDouble(event.x.canvasToRealX(), event.y.canvasToRealY())
+        this.addEventHandler(MouseEvent.ANY) { event ->
+            mousePositionRealProperty.value =
+                if (event.isInside(this.width, this.height))
+                    MouseRealPos(event.x.canvasToRealX(), event.y.canvasToRealY(), event)
+                else
+                    MouseRealPos.noMouseRealPos
         }
-        this.onMouseExited = EventHandler { mousePositionRealProperty.value = null }
     }
 
     override fun prepareBackground(data0: List<T>) {

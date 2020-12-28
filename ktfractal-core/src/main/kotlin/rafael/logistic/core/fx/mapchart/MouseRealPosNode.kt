@@ -8,45 +8,48 @@ import javafx.scene.input.Clipboard
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.FlowPane
+import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.zeroProperty
-import rafael.logistic.core.generation.BiDouble
 import tornadofx.*
 
 class MouseRealPosNode : FlowPane() {
 
-    private val txtPos = TextField("(+0.123456789, -0.98654321)").also { txf ->
+    // @formatter:off
+
+    private val txtPos                      = TextField("(+0.123456789, -0.98654321)").also { txf ->
         txf.isEditable = false
         txf.prefWidth = 300.0
     }
 
-    private val mousePositionRealProperty = BiDouble(0.0, 0.0).toProperty()
+    private val mousePositionRealProperty   =   MouseRealPos.noMouseRealPos.toProperty()
 
-    private val deltaXByPixelProperty = zeroProperty()
+    private val deltaXByPixelProperty       =   zeroProperty()
 
-    private val deltaYByPixelProperty = zeroProperty()
+    private val deltaYByPixelProperty       =   zeroProperty()
 
-    private val xDigitsProperty = 1.toProperty()
+    private val xDigitsProperty             =   oneProperty()
 
-    private val yDigitsProperty = 1.toProperty()
+    private val yDigitsProperty             =   oneProperty()
 
-    private val xSignProperty = "+".toProperty()
+    private val xSignProperty               =   "+".toProperty()
 
-    private val ySignProperty = "+".toProperty()
+    private val ySignProperty               =   "+".toProperty()
 
-    private val formatProperty = Bindings.concat(
-            "(%", xSignProperty, ".", xDigitsProperty.asString(), "f," +
-            " %", ySignProperty, ".", yDigitsProperty.asString(), "f)"
+    private val formatProperty              =   Bindings.concat(
+        "(%", xSignProperty, ".", xDigitsProperty.asString(), "f," +
+                " %", ySignProperty, ".", yDigitsProperty.asString(), "f)"
     )
 
-    private val showXSignProperty = SimpleBooleanProperty(this, "showXSign", true)
-    var showXSign by showXSignProperty
+    private val showXSignProperty           =   SimpleBooleanProperty(this, "showXSign", true)
+            var showXSign                   by  showXSignProperty
 
-    private val showYSignProperty = SimpleBooleanProperty(this, "showYSign", true)
-    var showYSign by showYSignProperty
+    private val showYSignProperty           =   SimpleBooleanProperty(this, "showYSign", true)
+            var showYSign                   by  showYSignProperty
+
+    // @formatter:on
 
     init {
         super.getChildren().add(txtPos)
-//        txtPos.minWidth = 300.0
 
         deltaXByPixelProperty.onChange { xDigitsProperty.value = posFirstDigit(it) }
         deltaYByPixelProperty.onChange { yDigitsProperty.value = posFirstDigit(it) }
@@ -67,8 +70,10 @@ class MouseRealPosNode : FlowPane() {
 
     private fun writePos() {
         txtPos.text =
-                if (mousePositionRealProperty.value == null) ""
-                else formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y)
+            if (mousePositionRealProperty.value.isValid)
+                formatProperty.value.format(mousePositionRealProperty.value.x, mousePositionRealProperty.value.y)
+            else
+                ""
     }
 
     fun bind(chart: MapChart<*, *>) {

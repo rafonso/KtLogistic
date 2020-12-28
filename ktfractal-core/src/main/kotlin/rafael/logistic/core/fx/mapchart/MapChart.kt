@@ -10,7 +10,6 @@ import javafx.event.EventHandler
 import javafx.event.EventType
 import javafx.scene.Node
 import javafx.scene.image.WritableImage
-import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.GenerationStatus
 import java.io.File
 import javax.imageio.ImageIO
@@ -22,6 +21,7 @@ import javax.imageio.ImageIO
  * @param E Tipo da classe que será usada ao plotar o gráfico
  */
 interface MapChart<T, E> {
+
 
     // @formatter:off
 
@@ -55,7 +55,7 @@ interface MapChart<T, E> {
     /**
      * retorna a posição do maouse correspondente aos dados reais.
      */
-    fun mousePositionRealProperty(): ReadOnlyObjectProperty<BiDouble>
+    fun mousePositionRealProperty(): ReadOnlyObjectProperty<MouseRealPos>
 
     /**
      * Seta a função que gera os dados brutos e que será usada por [reloadData].
