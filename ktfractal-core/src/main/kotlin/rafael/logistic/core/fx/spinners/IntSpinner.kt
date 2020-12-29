@@ -1,10 +1,8 @@
 package rafael.logistic.core.fx.spinners
 
 import javafx.beans.NamedArg
-import javafx.beans.value.ChangeListener
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import tornadofx.*
 
 class IntSpinner(
     @NamedArg("min") min: Int,
@@ -21,9 +19,9 @@ class IntSpinner(
      *
      * @param valueFactory [SpinnerValueFactory] a ser usado
      * @param action ação a ser feita ao mudar o valor.
-     * @return [ChangeListener] "embalando" `action`
      */
-    fun configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> =
+    fun initialize(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit) {
         this.bind(valueFactory, action)
+    }
 
 }

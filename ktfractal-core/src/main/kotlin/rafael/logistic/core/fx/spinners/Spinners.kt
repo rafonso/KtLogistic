@@ -8,13 +8,15 @@ import javafx.event.Event
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
-import javafx.scene.input.*
+import javafx.scene.input.Clipboard
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
+import javafx.scene.input.ScrollEvent
 import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
-import kotlin.reflect.KFunction1
 
 /*
  * Configuração dos [Spinner]s
@@ -22,23 +24,6 @@ import kotlin.reflect.KFunction1
 
 internal const val MIN_STEP = 1
 internal const val MAX_STEP = 10
-
-private fun IntegerProperty.incrementConditional() {
-    this.value = min(MAX_STEP, this.value + 1)
-}
-
-private fun IntegerProperty.decrementConditional() {
-    this.value = max(MIN_STEP, this.value - 1)
-}
-
-private val incrementAction: Map<Enum<*>, KFunction1<IntegerProperty, Unit>> = mapOf(
-    // @formatter:off
-    Pair(KeyCode    .RIGHT      , IntegerProperty::incrementConditional),
-    Pair(KeyCode    .LEFT       , IntegerProperty::decrementConditional),
-    Pair(MouseButton.PRIMARY    , IntegerProperty::decrementConditional),
-    Pair(MouseButton.SECONDARY  , IntegerProperty::incrementConditional)
-    // @formatter:on
-)
 
 private fun Spinner<*>.incrementValue(event: Event) {
     // @formatter:off
@@ -61,12 +46,6 @@ private fun Spinner<*>.incrementValue(event: Event) {
     // @formatter:on
 }
 
-internal fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: IntegerProperty) {
-    if (isControl) {
-        incrementAction[enum]?.let { it(stepProperty) }
-    }
-}
-
 /**
  * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
  *
@@ -80,36 +59,33 @@ private fun Spinner<*>.addCopyCapacity() {
     }
 }
 
-/**
- * Configura o [SpinnerValueFactory] do [Spinner], ...
- *
- * @param valueFactory SpinnerValueFactory a ser cinculado ao Spinner
- * @param listener Ação a ser feita ao mudar o valor
- * @return [ChangeListener] chamando `action`.
- */
-private fun Spinner<*>.bind(
-    valueFactory: SpinnerValueFactory<*>,
-    listener: ChangeListener<in Any>
-): ChangeListener<out Any> {
-    this.valueFactory = valueFactory
-    this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
-    this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
-    this.addCopyCapacity()
+internal fun IntegerProperty.incrementConditional() {
+    this.value = min(MAX_STEP, this.value + 1)
+}
 
-    this.valueProperty().addListener(listener)
-
-    return listener
+internal fun IntegerProperty.decrementConditional() {
+    this.value = max(MIN_STEP, this.value - 1)
 }
 
 /**
  * Configura o [SpinnerValueFactory] do [Spinner], ...
  *
+ * @receiver [Spinner]
  * @param valueFactory SpinnerValueFactory a ser cinculado ao Spinner
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-internal fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
-    this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
+internal fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): (ObservableValue<out Any>?, Any, Any) -> Unit {
+    this.valueFactory = valueFactory
+
+    this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
+    this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
+    this.addCopyCapacity()
+
+    val listener = { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
+    this.valueProperty().addListener(listener)
+    return listener
+}
 
 /**
  * Víncula os valores mínimos e máximos de  dois [DoubleSpinner]s.
@@ -124,11 +100,11 @@ fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: 
         deltaStepProperty.value = (0.1).pow(it)
     }
 
-    configuration.spnMin.configureActions(
+    configuration.spnMin.initialize(
         configuration.minValueFactory,
         deltaLimitProperty, action
     )
-    configuration.spnMax.configureActions(
+    configuration.spnMax.initialize(
         configuration.maxValueFactory,
         deltaLimitProperty, action
     )

@@ -63,13 +63,13 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
             (if (pixelsSeparation > 0) ".PxnSep=${pixelsSeparation}" else "")
 
     override fun initializeControls() {
-        spnSkip.configureActions(skipValueFactory, this::loadData)
+        spnSkip.initialize(skipValueFactory, this::loadData)
 
         configureMinMaxSpinners(xAxisConfiguration, this::loadData)
         configureMinMaxSpinners(yAxisConfiguration) { this.loadData(false) }
 
         pixelsSeparationValueFactory.value = 0
-        spnPixelsSeparation.configureActions(pixelsSeparationValueFactory) {
+        spnPixelsSeparation.initialize(pixelsSeparationValueFactory) {
             chart.pixelsSeparationProperty.value = spnPixelsSeparation.value + 1
             this.loadData()
         }

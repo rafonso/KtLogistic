@@ -85,9 +85,9 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     @ExperimentalTime
     override fun onBeforeShow() {
         initializeControls()
-        spnIterations.configureActions(iterationsValueFactory, ::loadData)
+        spnIterations.initialize(iterationsValueFactory, ::loadData)
         spinnerComponents.forEach { (spinner, factory, deltaProperty) ->
-            spinner.configureActions(factory, deltaProperty, ::loadData)
+            spinner.initialize(factory, deltaProperty, ::loadData)
         }
 
         chart.bind { refreshData(generator, iterationsProperty.value) }
@@ -126,7 +126,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     protected fun DoubleSpinner.configureSpinner(
         valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
         deltaProperty: IntegerProperty
-    ) = this.configureActions(valueFactory, deltaProperty, ::loadData)
+    ) = this.initialize(valueFactory, deltaProperty, ::loadData)
 
     protected fun exportImage() {
         val prefs = Preferences.userRoot().node(this.javaClass.name)
