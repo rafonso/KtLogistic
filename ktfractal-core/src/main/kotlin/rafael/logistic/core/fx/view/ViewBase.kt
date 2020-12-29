@@ -9,11 +9,12 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.BorderPane
 import javafx.stage.FileChooser
-import rafael.logistic.core.fx.DoubleSpinner
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.doubleSpinnerValueFactory
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.oneProperty
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.IntSpinner
+import rafael.logistic.core.fx.spinners.configureActions
+import rafael.logistic.core.fx.spinners.doubleSpinnerValueFactory
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.generation.IterationGenerator
@@ -60,7 +61,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     override        val root                        :   BorderPane      by fxml("/$fxmlFile.fxml")
 
-    private         val spnIterations               :   Spinner<Int>    by fxid()
+    private         val spnIterations               :   IntSpinner    by fxid()
     protected open  val iterationsValueFactory      :   SpinnerValueFactory<Int>
             =   SpinnerValueFactory.IntegerSpinnerValueFactory(100, 2000, 100, 100)
     protected       val iterationsProperty          :   ReadOnlyObjectProperty<Int> =   spnIterations.valueProperty()

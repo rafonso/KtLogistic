@@ -2,11 +2,11 @@ package rafael.logistic.bifurcation.henon
 
 import rafael.logistic.bifurcation.BifurcationView
 import rafael.logistic.bifurcation.RData
-import rafael.logistic.core.fx.DoubleSpinner
-import rafael.logistic.core.fx.LimitsSpinnersConfiguration
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.valueToString
-import tornadofx.App
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.spinners.valueToString
+import tornadofx.*
 
 class HenonBifurcationApp : App(HenonBifurcationView::class, Styles::class)
 

@@ -1,10 +1,10 @@
 package rafael.logistic.map.tent
 
-import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.map.fx.view.ViewDouble
-import tornadofx.App
+import tornadofx.*
 
 class TentMapApp: App(TentMapView::class, Styles::class)
 

@@ -6,10 +6,10 @@ import javafx.scene.control.Label
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
 import javafx.scene.paint.Color
-import rafael.logistic.core.fx.DoubleSpinner
-import rafael.logistic.core.fx.LimitsSpinnersConfiguration
-import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.spinners.configureMinMaxSpinners
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.fx.zeroProperty
 import rafael.logistic.core.generation.BiDouble

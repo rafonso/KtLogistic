@@ -1,4 +1,4 @@
-package rafael.logistic.core.fx
+package rafael.logistic.core.fx.spinners
 
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
@@ -10,6 +10,8 @@ import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
 import javafx.scene.control.Tooltip
 import javafx.scene.input.*
+import rafael.logistic.core.fx.LogisticConverter
+import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -221,7 +223,7 @@ private fun Spinner<*>.bind(
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-private fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
+internal fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): ChangeListener<out Any> =
     this.bind(valueFactory) { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
 
 /**
@@ -254,18 +256,6 @@ fun DoubleSpinner.configureActions(
 
     return listener
 }
-
-/**
- * Confuigura os [Spinner]s do tipo [Int]. Configurando a ação a ser feita ao mudar o valor e alinhado o texto do
- * mesmo à direita.
- *
- * @receiver [Spinner] do tipo [Int]
- * @param valueFactory [SpinnerValueFactory] a ser usado
- * @param action ação a ser feita ao mudar o valor.
- * @return [ChangeListener] "embalando" `action`
- */
-fun Spinner<Int>.configureActions(valueFactory: SpinnerValueFactory<Int>, action: () -> Unit): ChangeListener<*> =
-    this.bind(valueFactory, action)
 
 /**
  * Víncula os valores mínimos e máximos de  dois [DoubleSpinner]s.

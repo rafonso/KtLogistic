@@ -3,6 +3,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartBi?>
 <?import rafael.logistic.map.fx.mapchart.MapChartBi?>
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/11.0.1"
@@ -27,7 +28,7 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="4">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
-                <Spinner fx:id="spnIterations" styleClass="spnIterations" />
+                <IntSpinner fx:id="spnIterations" styleClass="spnIterations" />
             </FlowPane>
         </GridPane>
     </top>

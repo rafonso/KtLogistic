@@ -1,11 +1,11 @@
 package rafael.logistic.map.ikeda
 
-import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.map.fx.view.ViewBi
-import tornadofx.App
+import tornadofx.*
 
 private const val U_CHANGE_SCALE_VALUE = 0.9
 

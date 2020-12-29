@@ -1,4 +1,4 @@
-package rafael.logistic.core.fx
+package rafael.logistic.core.fx.spinners
 
 /**
  * Classe auxiliar para a configuração de [DoubleSpinner]s vinculados, onde um [DoubleSpinner] define um valor

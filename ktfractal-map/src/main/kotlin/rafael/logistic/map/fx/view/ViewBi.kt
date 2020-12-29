@@ -8,9 +8,9 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.oneProperty
-import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.core.generation.IterationGenerator

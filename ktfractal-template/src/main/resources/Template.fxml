@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
+<?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartBi?>
 <?import rafael.logistic.map.fx.mapchart.MapChartBi?>
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/11.0.1"
@@ -30,7 +31,7 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
-                <Spinner fx:id="spnIterations" styleClass="spnIterations"/>
+                <IntSpinner fx:id="spnIterations" styleClass="spnIterations"/>
             </FlowPane>
             <CheckBox fx:id="chbPinY" mnemonicParsing="false" prefWidth="200.0" text="Pin Y"
                       GridPane.columnIndex="3"/>

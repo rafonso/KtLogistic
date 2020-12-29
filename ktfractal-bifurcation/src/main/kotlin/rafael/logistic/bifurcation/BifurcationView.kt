@@ -3,14 +3,13 @@ package rafael.logistic.bifurcation
 import javafx.beans.property.ReadOnlyIntegerProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.control.Label
-import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.DoubleSpinner
-import rafael.logistic.core.fx.LimitsSpinnersConfiguration
-import rafael.logistic.core.fx.configureActions
-import rafael.logistic.core.fx.configureMinMaxSpinners
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.IntSpinner
+import rafael.logistic.core.fx.spinners.LimitsSpinnersConfiguration
+import rafael.logistic.core.fx.spinners.configureMinMaxSpinners
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.GenerationStatus
 import tornadofx.*
@@ -24,10 +23,10 @@ abstract class BifurcationView<G : BifurcationGenerator<*>> protected constructo
 
     // @formatter:off
 
-    private val spnSkip                         : Spinner<Int>      by fxid()
+    private val spnSkip                         : IntSpinner        by fxid()
     private val skipValueFactory                = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 1)
 
-    private val spnPixelsSeparation             : Spinner<Int>      by fxid()
+    private val spnPixelsSeparation             : IntSpinner        by fxid()
     private val pixelsSeparationValueFactory    =
         SpinnerValueFactory.ListSpinnerValueFactory(observableListOf(0, 1, 2, 4, 10, 50, 100))
     private val pixelsSeparation                : Int

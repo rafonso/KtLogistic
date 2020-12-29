@@ -1,10 +1,10 @@
 package rafael.logistic.set.julia
 
-import rafael.logistic.core.fx.DoubleSpinner
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.spinners.DoubleSpinner
+import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.set.SetView
-import tornadofx.App
+import tornadofx.*
 
 class JuliaSetApp: App(JuliaSetView::class, Styles::class)
 

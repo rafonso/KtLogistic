@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.bifurcation.BifurcationCanvas?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
+<?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <BorderPane prefHeight="589.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
@@ -30,15 +31,15 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations / u ="/>
-                <Spinner fx:id="spnIterations" styleClass="spnIterations"/>
+                <IntSpinner fx:id="spnIterations" styleClass="spnIterations"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                 <Label fx:id="lblSkip" styleClass="title" text="Skip First ="/>
-                <Spinner fx:id="spnSkip" styleClass="spnInteger"/>
+                <IntSpinner fx:id="spnSkip" styleClass="spnInteger"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="4">
                 <Label fx:id="lblPixelsSeparation" styleClass="title" text="Pixels Separation ="/>
-                <Spinner fx:id="spnPixelsSeparation" styleClass="spnInteger"/>
+                <IntSpinner fx:id="spnPixelsSeparation" styleClass="spnInteger"/>
             </FlowPane>
 
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">

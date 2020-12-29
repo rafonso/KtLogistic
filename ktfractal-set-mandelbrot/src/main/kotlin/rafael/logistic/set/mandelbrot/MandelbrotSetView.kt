@@ -1,9 +1,9 @@
 package rafael.logistic.set.mandelbrot
 
 import rafael.logistic.core.fx.Styles
-import rafael.logistic.core.fx.valueToString
+import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.set.SetView
-import tornadofx.App
+import tornadofx.*
 
 class MandelbrotSetApp: App(MandelbrotSetView::class, Styles::class)
 
