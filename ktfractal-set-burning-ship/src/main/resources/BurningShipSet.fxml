@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
-<?import rafael.logistic.core.fx.spinners.IntSpinner?>
+<?import rafael.logistic.core.fx.spinners.*?>
 <?import rafael.logistic.set.SetCanvas?>
 <BorderPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
@@ -23,19 +23,19 @@
 
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                 <Label fx:id="lblXMin" styleClass="title" text="X Min ="/>
-                <Spinner fx:id="spnXMin" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnXMin" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblXMax" styleClass="title" text="X Max ="/>
-                <Spinner fx:id="spnXMax" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnXMax" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblYMin" styleClass="title" text="Y Min ="/>
-                <Spinner fx:id="spnYMin" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnYMin" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                 <Label fx:id="lblYMax" styleClass="title" text="Y Max ="/>
-                <Spinner fx:id="spnYMax" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnYMax" styleClass="spnDouble"/>
             </FlowPane>
 
             <FlowPane alignment="TOP_CENTER" GridPane.columnSpan="4" GridPane.rowIndex="1">

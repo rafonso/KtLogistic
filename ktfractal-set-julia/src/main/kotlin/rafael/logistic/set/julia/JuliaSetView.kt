@@ -2,7 +2,6 @@ package rafael.logistic.set.julia
 
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.spinners.DoubleSpinner
-import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.set.SetView
 import tornadofx.*
 

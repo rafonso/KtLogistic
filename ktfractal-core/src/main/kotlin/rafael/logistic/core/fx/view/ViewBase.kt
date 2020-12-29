@@ -13,7 +13,6 @@ import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.IntSpinner
-import rafael.logistic.core.fx.spinners.configureActions
 import rafael.logistic.core.fx.spinners.doubleSpinnerValueFactory
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener

@@ -7,7 +7,6 @@ import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.LimitsSpinnersConfiguration
 import rafael.logistic.core.fx.spinners.configureMinMaxSpinners
-import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.core.generation.BiDouble
 import rafael.logistic.map.fx.view.ViewBi
 import tornadofx.*

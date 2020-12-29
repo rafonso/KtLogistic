@@ -7,6 +7,7 @@
 <?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartDouble?>
 <?import rafael.logistic.map.logistic.LogisticMapChart?>
+<?import rafael.logistic.core.fx.spinners.DoubleSpinner?>
 <BorderPane prefHeight="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
         <GridPane vgap="5.0" styleClass="defaultInsets" BorderPane.alignment="CENTER">
@@ -20,11 +21,11 @@
             </rowConstraints>
             <FlowPane alignment="TOP_CENTER" GridPane.halignment="RIGHT">
                 <Label fx:id="lblR" styleClass="title" text="R ="/>
-                <Spinner fx:id="spnR" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnR" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-                <Spinner fx:id="spnX0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnX0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>

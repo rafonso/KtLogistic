@@ -5,7 +5,6 @@ import rafael.logistic.bifurcation.RData
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.LimitsSpinnersConfiguration
-import rafael.logistic.core.fx.spinners.valueToString
 import tornadofx.*
 
 class HenonBifurcationApp : App(HenonBifurcationView::class, Styles::class)

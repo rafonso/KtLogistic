@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import rafael.logistic.core.fx.spinners.DoubleSpinner?>
 <?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartBi?>
 <?import rafael.logistic.map.fx.mapchart.MapChartBi?>
@@ -21,15 +22,15 @@
             </rowConstraints>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                 <Label fx:id="lblK" styleClass="title" text="K ="/>
-                <Spinner fx:id="spnK" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnK" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-                <Spinner fx:id="spnX0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnX0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblY0" styleClass="title" text="y₀ ="/>
-                <Spinner fx:id="spnY0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnY0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>

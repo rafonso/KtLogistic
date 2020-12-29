@@ -3,7 +3,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import rafael.logistic.core.fx.spinners.IntSpinner?>
+<?import rafael.logistic.core.fx.spinners.*?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartBi?>
 <?import rafael.logistic.map.fx.mapchart.MapChartBi?>
 <BorderPane prefHeight="589.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/11.0.1"
@@ -23,22 +23,22 @@
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="300.0" rowValignment="BASELINE"
                       GridPane.columnIndex="0">
                 <Label fx:id="lblA" styleClass="title" text="α ="/>
-                <Spinner fx:id="spnA" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnA" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="300.0" rowValignment="BASELINE"
                       GridPane.columnIndex="1">
                 <Label fx:id="lblB" styleClass="title" text="β ="/>
-                <Spinner fx:id="spnB" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnB" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="300.0" rowValignment="BASELINE"
                       GridPane.columnIndex="2">
                 <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-                <Spinner fx:id="spnX0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnX0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="300.0" rowValignment="BASELINE"
                       GridPane.columnIndex="3">
                 <Label fx:id="lblY0" styleClass="title" text="y₀ ="/>
-                <Spinner fx:id="spnY0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnY0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="300.0" rowValignment="BASELINE"
                       GridPane.columnIndex="4">

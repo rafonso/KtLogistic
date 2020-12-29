@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import rafael.logistic.bifurcation.BifurcationCanvas?>
 <?import rafael.logistic.core.fx.mapchart.MouseRealPosNode?>
-<?import rafael.logistic.core.fx.spinners.IntSpinner?>
+<?import rafael.logistic.core.fx.spinners.*?>
 <BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" styleClass="defaultInsets">
     <top>
@@ -23,11 +23,11 @@
             </rowConstraints>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                 <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-                <Spinner fx:id="spnX0" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnX0" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblAlpha" styleClass="title" text="α ="/>
-                <Spinner fx:id="spnAlpha" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnAlpha" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>
@@ -43,19 +43,19 @@
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <Label fx:id="lblBetaMin" styleClass="title" text="β Min ="/>
-                <Spinner fx:id="spnBetaMin" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnBetaMin" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <Label fx:id="lblBetaMax" styleClass="title" text="β Max ="/>
-                <Spinner fx:id="spnBetaMax" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnBetaMax" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <Label fx:id="lblXMin" styleClass="title" text="X Min ="/>
-                <Spinner fx:id="spnXMin" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnXMin" styleClass="spnDouble"/>
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <Label fx:id="lblXMax" styleClass="title" text="X Max ="/>
-                <Spinner fx:id="spnXMax" styleClass="spnDouble"/>
+                <DoubleSpinner fx:id="spnXMax" styleClass="spnDouble"/>
             </FlowPane>
         </GridPane>
     </top>

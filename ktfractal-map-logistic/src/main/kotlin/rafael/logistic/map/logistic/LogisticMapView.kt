@@ -1,9 +1,9 @@
 package rafael.logistic.map.logistic
 
+import javafx.beans.property.DoubleProperty
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.mapchart.MouseRealPosNode
 import rafael.logistic.core.fx.spinners.DoubleSpinner
-import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.map.fx.view.ViewDouble
 import tornadofx.*
 
@@ -19,7 +19,7 @@ class LogisticMapView : ViewDouble<LogisticMapGenerator, LogisticMapChart>("Logi
 
     override    val spinnerComponents       =   arrayOf(SpinnerConfigurations(spnR, 0.0, 4.0, 1.0))
 
-    override    val spinnersChartProperties =   arrayOf(Pair(spnR, chart.rProperty))
+    override    val spinnersChartProperties:Array<Pair<DoubleSpinner, DoubleProperty>> =   arrayOf(Pair(spnR, chart.rProperty))
 
     // @formatter:on
 

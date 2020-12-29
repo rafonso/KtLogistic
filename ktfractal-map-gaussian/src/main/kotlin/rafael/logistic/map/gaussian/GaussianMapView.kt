@@ -2,7 +2,6 @@ package rafael.logistic.map.gaussian
 
 import rafael.logistic.core.fx.Styles
 import rafael.logistic.core.fx.spinners.DoubleSpinner
-import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.map.fx.view.ViewDouble
 import tornadofx.*
 

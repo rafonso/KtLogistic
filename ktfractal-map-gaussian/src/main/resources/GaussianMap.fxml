@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import rafael.logistic.core.fx.spinners.DoubleSpinner?>
 <?import rafael.logistic.core.fx.spinners.IntSpinner?>
 <?import rafael.logistic.map.fx.iterationchart.IterationChartDouble?>
 <?import rafael.logistic.map.gaussian.GaussianMapChart?>
@@ -21,15 +22,15 @@
             </rowConstraints>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="0">
                 <Label fx:id="lblAlpha" styleClass="title" text="Alpha ="/>
-                <Spinner fx:id="spnAlpha" styleClass="spnDouble" />
+                <DoubleSpinner fx:id="spnAlpha" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="1">
                 <Label fx:id="lblBeta" styleClass="title" text="Beta ="/>
-                <Spinner fx:id="spnBeta" styleClass="spnDouble" />
+                <DoubleSpinner fx:id="spnBeta" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="2">
                 <Label fx:id="lblX0" styleClass="title" text="x₀ ="/>
-                <Spinner fx:id="spnX0" styleClass="spnDouble" />
+                <DoubleSpinner fx:id="spnX0" styleClass="spnDouble" />
             </FlowPane>
             <FlowPane alignment="TOP_CENTER" GridPane.columnIndex="3">
                 <Label fx:id="lblIterations" styleClass="title" text="Iterations ="/>

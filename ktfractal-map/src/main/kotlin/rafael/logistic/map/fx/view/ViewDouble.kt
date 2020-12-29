@@ -9,7 +9,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.layout.Region
 import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.spinners.DoubleSpinner
-import rafael.logistic.core.fx.spinners.valueToString
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.IterationGenerator
 import rafael.logistic.map.fx.iterationchart.IterationChartDouble
