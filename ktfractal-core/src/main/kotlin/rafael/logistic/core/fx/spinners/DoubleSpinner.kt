@@ -1,6 +1,7 @@
 package rafael.logistic.core.fx.spinners
 
 import javafx.beans.NamedArg
+import javafx.beans.binding.Bindings
 import javafx.beans.property.IntegerProperty
 import javafx.event.Event
 import javafx.scene.control.Spinner
@@ -9,6 +10,7 @@ import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
 import javafx.scene.control.Tooltip
 import javafx.scene.input.*
 import rafael.logistic.core.fx.LogisticConverter
+import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -34,12 +36,15 @@ class DoubleSpinner(
 
     constructor() : this(0.0, 0.0, 0.0, 0.0)
 
+    private val decimalPlacesProperty = oneProperty()
+    private var decimalPlaces by decimalPlacesProperty
+
     private val doubleFactory: DoubleSpinnerValueFactory
         get() = super.getValueFactory() as DoubleSpinnerValueFactory
 
-    private fun handleIncrement(isControl: Boolean, enum: Enum<*>, stepProperty: IntegerProperty) {
+    private fun handleIncrement(isControl: Boolean, enum: Enum<*>) {
         if (isControl) {
-            incrementAction[enum]?.let { it(stepProperty) }
+            incrementAction[enum]?.let { it(decimalPlacesProperty) }
         }
     }
 
@@ -66,7 +71,7 @@ class DoubleSpinner(
         }
 
         this.addEventFilter(MouseEvent.MOUSE_CLICKED) { event ->
-            invertSignal((event.button == MouseButton.SECONDARY) && (event.clickCount == 2))
+            invertSignal(!event.isControlDown && (event.button == MouseButton.SECONDARY) && (event.clickCount == 2))
         }
         this.addEventHandler(KeyEvent.KEY_TYPED) { event ->
             invertSignal(event.character == "-")
@@ -77,29 +82,23 @@ class DoubleSpinner(
      * Altera o "passo" do Spinner. O argumento definirá quantos algarismos aparecerão depois da vírgula e o
      * valor de [Spinner#amountToStepBy] será igual a 10 ^ (- step). Por exemplo se `step` for 4 então o valor de
      * [Spinner#amountToStepBy] será 0,0001 e o valor será representado por "0,1234".
-     *
-     * @param step Passo do Spinner.
      */
-    private fun stepChanged(step: Int) {
+    private fun stepChanged() {
         runLater {
-            doubleFactory.converter = LogisticConverter(step)
-            doubleFactory.amountToStepBy = (0.1).pow(step)
-            val strValue = DecimalFormat("#." + "#".repeat(step))
+            val strValue = DecimalFormat("#." + "#".repeat(decimalPlaces))
                 .apply { roundingMode = RoundingMode.DOWN }
                 .format(doubleFactory.value).replace(",", ".")
             doubleFactory.value = doubleFactory.converter.fromString(strValue)
             editor.text = doubleFactory.converter.toString(doubleFactory.value)
 
-            changeSpinnerTooltip(step)
+            changeSpinnerTooltip()
         }
     }
 
     /**
      * Configura o [Tooltip] do [Spinner] conforme os passos são alterados
-     *
-     * @param step passo do Spinner
      */
-    internal fun changeSpinnerTooltip(step: Int) {
+    internal fun changeSpinnerTooltip() {
         // @formatter:off
         val converter   = doubleFactory.converter
         val strStep     = converter.toString(doubleFactory.amountToStepBy       )
@@ -118,11 +117,11 @@ class DoubleSpinner(
             Press CRTL + ${'\u2193'} to decrement $str10Step)
             """.trimIndent()
         )
-        if (step > MIN_STEP) {
+        if (decimalPlaces > MIN_STEP) {
             sbTootip.append('\n')
                 .append("Press CRTL + ${'\u2190'} or CTRL + LBM to change step from $strStep to $str10Step")
         }
-        if (step < MAX_STEP) {
+        if (decimalPlaces < MAX_STEP) {
             val temp01Step = strStep.toMutableList()
             temp01Step[temp01Step.lastIndex] = '0'
             temp01Step.add('1')
@@ -142,23 +141,30 @@ class DoubleSpinner(
      * Configura um [Spinner] de [Double]s
      *
      * @param valueFactory [DoubleSpinnerValueFactory] do Spinner
-     * @param deltaProperty
      */
     fun initialize(
         valueFactory: DoubleSpinnerValueFactory,
-        deltaProperty: IntegerProperty,
+        initialDecimalPlaces: Int,
         action: () -> Unit
     ) {
         this.bind(valueFactory, action)
 
+        doubleFactory.amountToStepByProperty()
+            .bind(Bindings.createDoubleBinding({ (0.1).pow(decimalPlaces) }, decimalPlacesProperty))
+        doubleFactory.converterProperty()
+            .bind(Bindings.createObjectBinding({ LogisticConverter(decimalPlaces) }, decimalPlacesProperty))
+
         // Desabilita o Context Menu. Fonte: https://stackoverflow.com/questions/43124577/how-to-disable-context-menu-in-javafx
         this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume)
-        this.addEventFilter(MouseEvent.MOUSE_CLICKED) { handleIncrement(it.isControlDown, it.button, deltaProperty) }
-        this.addEventHandler(KeyEvent.KEY_PRESSED) { handleIncrement(it.isControlDown, it.code, deltaProperty) }
+        this.addEventFilter(MouseEvent.MOUSE_CLICKED) { handleIncrement(it.isControlDown, it.button) }
+        this.addEventHandler(KeyEvent.KEY_PRESSED) { handleIncrement(it.isControlDown, it.code) }
         this.configureInvertSignal()
-        deltaProperty.addListener { _, _, newStep -> this.stepChanged(newStep.toInt()) }
+
+        decimalPlaces = initialDecimalPlaces
+
+        decimalPlacesProperty.addListener { _, _, _ -> this.stepChanged() }
         this.tooltip = Tooltip()
-        stepChanged(deltaProperty.value)
+        stepChanged()
     }
 
     /**

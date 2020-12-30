@@ -40,7 +40,7 @@ abstract class ViewDouble<G : IterationGenerator<*, Double, *>, C : MapChartDoub
     // @formatter:on
 
     override fun initializeControls() {
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
+        spnX0.configureSpinner(x0ValueFactory)
     }
 
     override fun initializeCharts(iterationsProperty: ReadOnlyObjectProperty<Int>) {

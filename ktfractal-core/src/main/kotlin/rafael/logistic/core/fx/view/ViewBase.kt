@@ -1,7 +1,6 @@
 package rafael.logistic.core.fx.view
 
 import javafx.beans.property.DoubleProperty
-import javafx.beans.property.IntegerProperty
 import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.Node
 import javafx.scene.control.Spinner
@@ -10,7 +9,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.layout.BorderPane
 import javafx.stage.FileChooser
 import rafael.logistic.core.fx.mapchart.MapChart
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.IntSpinner
 import rafael.logistic.core.fx.spinners.doubleSpinnerValueFactory
@@ -35,14 +33,14 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
      *
      * @property spinner [Spinner] a ser configurado
      * @property factory O [gerador][SpinnerValueFactory.DoubleSpinnerValueFactory] dos valores do Spinner
-     * @property deltaProperty Propriedade relacionada ao [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner.
+     * @property decimalPlaces Propriedade relacionada ao [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner.
      * @constructor Dados de configuração com o Spinner, [gerador][SpinnerValueFactory.DoubleSpinnerValueFactory] e o
      * [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy]
      */
     protected data class SpinnerConfigurations(
         val spinner: DoubleSpinner,
         val factory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        val deltaProperty: IntegerProperty = oneProperty()
+        val decimalPlaces: Int = 1
     ) {
 
         /**
@@ -50,10 +48,10 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
          * @param min Valor mínimo do Spinner
          * @param max Valor máximo do Spinner
          * @param initialValue Valor inicial do Spinner
-         * @param delta valor inicial do [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner
+         * @param decimalPlaces valor inicial do [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner
          */
-        constructor(spinner: DoubleSpinner, min: Double, max: Double, initialValue: Double, delta: Int = 1) :
-                this(spinner, doubleSpinnerValueFactory(min, max, initialValue, 0.1), delta.toProperty())
+        constructor(spinner: DoubleSpinner, min: Double, max: Double, initialValue: Double, decimalPlaces: Int = 1) :
+                this(spinner, doubleSpinnerValueFactory(min, max, initialValue, 0.1), decimalPlaces)
     }
 
     // @formatter:off
@@ -125,8 +123,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected fun DoubleSpinner.configureSpinner(
         valueFactory: SpinnerValueFactory.DoubleSpinnerValueFactory,
-        deltaProperty: IntegerProperty
-    ) = this.initialize(valueFactory, deltaProperty, ::loadData)
+        delta: Int = 1
+    ) = this.initialize(valueFactory, delta, ::loadData)
 
     protected fun exportImage() {
         val prefs = Preferences.userRoot().node(this.javaClass.name)

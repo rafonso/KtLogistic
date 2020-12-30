@@ -8,7 +8,6 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.chart.NumberAxis
 import javafx.scene.control.SpinnerValueFactory
 import javafx.scene.layout.Region
-import rafael.logistic.core.fx.oneProperty
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.view.ViewBase
 import rafael.logistic.core.generation.BiDouble
@@ -37,11 +36,9 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     protected open  val minY0Spinner        =   (chart.yAxis as NumberAxis).lowerBound
     protected open  val maxY0Spinner        =   (chart.yAxis as NumberAxis).upperBound
 
-    private         val deltaX0Property     =   oneProperty()
     private         val x0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minX0Spinner, maxX0Spinner, iniX0Spinner, maxDelta)
     protected       val x0Property          :   ReadOnlyObjectProperty<Double>   =   spnX0.valueProperty()
 
-    private         val deltaY0Property     =   oneProperty()
     private         val y0ValueFactory      =   SpinnerValueFactory.DoubleSpinnerValueFactory(minY0Spinner, maxY0Spinner, iniY0Spinner, maxDelta)
     protected       val y0Property          :   ReadOnlyObjectProperty<Double>   =   spnY0.valueProperty()
 
@@ -50,8 +47,8 @@ abstract class ViewBi<G : IterationGenerator<*, BiDouble, *>>(title: String, fxm
     // @formatter:on
 
     override fun initializeControls() {
-        spnX0.configureSpinner(x0ValueFactory, deltaX0Property)
-        spnY0.configureSpinner(y0ValueFactory, deltaY0Property)
+        spnX0.configureSpinner(x0ValueFactory)
+        spnY0.configureSpinner(y0ValueFactory)
         initializeControlsBi()
     }
 

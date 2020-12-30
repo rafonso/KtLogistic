@@ -102,23 +102,23 @@ fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: 
 
     configuration.spnMin.initialize(
         configuration.minValueFactory,
-        deltaLimitProperty, action
+        deltaLimitProperty.value, action
     )
     configuration.spnMax.initialize(
         configuration.maxValueFactory,
-        deltaLimitProperty, action
+        deltaLimitProperty.value, action
     )
 
     configuration.minValueFactory.maxProperty()
         .bind(DoubleProperty.doubleProperty(configuration.maxValueFactory.valueProperty()) - deltaStepProperty)
     configuration.minValueFactory.maxProperty().onChange {
-        configuration.spnMin.changeSpinnerTooltip(deltaLimitProperty.value)
+        configuration.spnMin.changeSpinnerTooltip()
     }
 
     configuration.maxValueFactory.minProperty()
         .bind(DoubleProperty.doubleProperty(configuration.minValueFactory.valueProperty()) + deltaStepProperty)
     configuration.maxValueFactory.minProperty().onChange {
-        configuration.spnMax.changeSpinnerTooltip(deltaLimitProperty.value)
+        configuration.spnMax.changeSpinnerTooltip()
     }
 }
 
