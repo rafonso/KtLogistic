@@ -11,7 +11,6 @@ import javafx.stage.FileChooser
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.IntSpinner
-import rafael.logistic.core.fx.spinners.doubleSpinnerValueFactory
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.generation.IterationGenerator
@@ -51,7 +50,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
          * @param decimalPlaces valor inicial do [passo][SpinnerValueFactory.DoubleSpinnerValueFactory.amountToStepBy] do Spinner
          */
         constructor(spinner: DoubleSpinner, min: Double, max: Double, initialValue: Double, decimalPlaces: Int = 1) :
-                this(spinner, doubleSpinnerValueFactory(min, max, initialValue, 0.1), decimalPlaces)
+                this(spinner, SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initialValue, 0.1), decimalPlaces)
     }
 
     // @formatter:off
@@ -149,6 +148,11 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         }
     }
 
+    /**
+     * Notifica [chart] para se atualizar.
+     *
+     * @param recalculate Se os dados brutos deven ser recalculados ou não.
+     */
     protected fun loadData(recalculate: Boolean = true) {
         chart.refreshData(recalculate)
     }

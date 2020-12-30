@@ -1,22 +1,18 @@
 package rafael.logistic.core.fx.spinners
 
-import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.Event
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory
 import javafx.scene.input.Clipboard
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.ScrollEvent
-import rafael.logistic.core.fx.oneProperty
 import tornadofx.*
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.pow
 
 /*
  * Configuração dos [Spinner]s
@@ -86,50 +82,3 @@ internal fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () ->
     this.valueProperty().addListener(listener)
     return listener
 }
-
-/**
- * Víncula os valores mínimos e máximos de  dois [DoubleSpinner]s.
- *
- * @param configuration configuração dos [DoubleSpinner]s vinculados
- * @param action Ação a ser feita ao alterar os valores dos Spinners
- */
-fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: () -> Unit) {
-    val deltaLimitProperty = oneProperty()
-    val deltaStepProperty = (0.1).toProperty()
-    deltaLimitProperty.onChange {
-        deltaStepProperty.value = (0.1).pow(it)
-    }
-
-    configuration.spnMin.initialize(
-        configuration.minValueFactory,
-        deltaLimitProperty.value, action
-    )
-    configuration.spnMax.initialize(
-        configuration.maxValueFactory,
-        deltaLimitProperty.value, action
-    )
-
-    configuration.minValueFactory.maxProperty()
-        .bind(DoubleProperty.doubleProperty(configuration.maxValueFactory.valueProperty()) - deltaStepProperty)
-    configuration.minValueFactory.maxProperty().onChange {
-        configuration.spnMin.changeSpinnerTooltip()
-    }
-
-    configuration.maxValueFactory.minProperty()
-        .bind(DoubleProperty.doubleProperty(configuration.minValueFactory.valueProperty()) + deltaStepProperty)
-    configuration.maxValueFactory.minProperty().onChange {
-        configuration.spnMax.changeSpinnerTooltip()
-    }
-}
-
-/**
- * Cria uma nova instância de [DoubleSpinnerValueFactory].
- *
- * @param min Valor Mínimo [DoubleSpinnerValueFactory#min]
- * @param max Valor Máximo  [DoubleSpinnerValueFactory#max]
- * @param initialValue [Valor Inicial][DoubleSpinnerValueFactory#initialValue]
- * @param amountToStepBy valor inicial do [passso][DoubleSpinnerValueFactory#amountToStepBy]
- */
-fun doubleSpinnerValueFactory(min: Double, max: Double, initialValue: Double, amountToStepBy: Double) =
-    DoubleSpinnerValueFactory(min, max, initialValue, amountToStepBy)
-

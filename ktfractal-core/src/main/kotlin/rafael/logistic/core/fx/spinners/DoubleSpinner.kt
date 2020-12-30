@@ -2,6 +2,7 @@ package rafael.logistic.core.fx.spinners
 
 import javafx.beans.NamedArg
 import javafx.beans.binding.Bindings
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.IntegerProperty
 import javafx.event.Event
 import javafx.scene.control.Spinner
@@ -36,11 +37,15 @@ class DoubleSpinner(
 
     constructor() : this(0.0, 0.0, 0.0, 0.0)
 
-    private val decimalPlacesProperty = oneProperty()
-    private var decimalPlaces by decimalPlacesProperty
+    // @formatter:off
 
-    private val doubleFactory: DoubleSpinnerValueFactory
-        get() = super.getValueFactory() as DoubleSpinnerValueFactory
+    internal    val decimalPlacesProperty   =   oneProperty()
+    private     var decimalPlaces           by  decimalPlacesProperty
+
+    private     val doubleFactory           :   DoubleSpinnerValueFactory
+        get() = super.getValueFactory()     as  DoubleSpinnerValueFactory
+
+    // @formatter:on
 
     private fun handleIncrement(isControl: Boolean, enum: Enum<*>) {
         if (isControl) {
@@ -172,4 +177,25 @@ class DoubleSpinner(
      */
     fun valueToString(): String = this.valueFactory.converter.toString(this.value)
 
+}
+
+/**
+ * Víncula os valores mínimos e máximos de  dois [DoubleSpinner]s.
+ *
+ * @param configuration configuração dos [DoubleSpinner]s vinculados
+ * @param action Ação a ser feita ao alterar os valores dos Spinners
+ */
+fun configureMinMaxSpinners(configuration: LimitsSpinnersConfiguration, action: () -> Unit) {
+    configuration.spnMin.initialize(configuration.minValueFactory, configuration.initialDecimalPlaces, action)
+    configuration.spnMax.initialize(configuration.maxValueFactory, configuration.initialDecimalPlaces, action)
+
+    configuration.spnMin.decimalPlacesProperty.bindBidirectional(configuration.spnMax.decimalPlacesProperty)
+
+    configuration.minValueFactory.maxProperty()
+        .bind(DoubleProperty.doubleProperty(configuration.maxValueFactory.valueProperty()) - configuration.minValueFactory.amountToStepByProperty())
+    configuration.minValueFactory.maxProperty().onChange { configuration.spnMin.changeSpinnerTooltip() }
+
+    configuration.maxValueFactory.minProperty()
+        .bind(DoubleProperty.doubleProperty(configuration.minValueFactory.valueProperty()) + configuration.maxValueFactory.amountToStepByProperty())
+    configuration.maxValueFactory.minProperty().onChange { configuration.spnMax.changeSpinnerTooltip() }
 }
