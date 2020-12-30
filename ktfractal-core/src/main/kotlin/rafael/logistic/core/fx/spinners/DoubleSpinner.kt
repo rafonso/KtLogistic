@@ -17,6 +17,7 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.math.pow
 import kotlin.math.sign
+import kotlin.properties.Delegates
 import kotlin.reflect.KFunction1
 
 private val incrementAction: Map<Enum<*>, KFunction1<IntegerProperty, Unit>> = mapOf(
@@ -33,7 +34,7 @@ class DoubleSpinner(
     @NamedArg("max") max: Double,
     @NamedArg("initialValue") initialValue: Double,
     @NamedArg("amountToStepBy") amountToStepBy: Double
-) : Spinner<Double>(min, max, initialValue, amountToStepBy) {
+) : Spinner<Double>(min, max, initialValue, amountToStepBy), Resetable {
 
     constructor() : this(0.0, 0.0, 0.0, 0.0)
 
@@ -44,6 +45,10 @@ class DoubleSpinner(
 
     private     val doubleFactory           :   DoubleSpinnerValueFactory
         get() = super.getValueFactory()     as  DoubleSpinnerValueFactory
+
+    private     var initialValue            by  Delegates.notNull<Double>()
+
+    private     var initialDecimalPlaces    by  Delegates.notNull<Int>()
 
     // @formatter:on
 
@@ -110,6 +115,7 @@ class DoubleSpinner(
         val str10Step   = converter.toString(doubleFactory.amountToStepBy * 10  )
         val strMax      = converter.toString(doubleFactory.max                  )
         val strMin      = converter.toString(doubleFactory.min                  )
+        val strInitial  = converter.toString(initialValue                       )
         // @formatter:on
 
         val sbTootip = StringBuilder(
@@ -120,6 +126,7 @@ class DoubleSpinner(
             Press ${'\u2193'} to decrement $strStep
             Press CRTL + ${'\u2191'} to increment $str10Step
             Press CRTL + ${'\u2193'} to decrement $str10Step)
+            Press HOME to return to its initial value ($strInitial)
             """.trimIndent()
         )
         if (decimalPlaces > MIN_STEP) {
@@ -142,6 +149,11 @@ class DoubleSpinner(
         this.tooltip.text = sbTootip.toString()
     }
 
+    override fun resetValue() {
+        this.doubleFactory.value = this.initialValue
+        this.decimalPlaces = this.initialDecimalPlaces
+    }
+
     /**
      * Configura um [Spinner] de [Double]s
      *
@@ -152,7 +164,8 @@ class DoubleSpinner(
         initialDecimalPlaces: Int,
         action: () -> Unit
     ) {
-        this.bind(valueFactory, action)
+        this.configure(valueFactory, action)
+        this.initialValue = super.getValue()
 
         doubleFactory.amountToStepByProperty()
             .bind(Bindings.createDoubleBinding({ (0.1).pow(decimalPlaces) }, decimalPlacesProperty))
@@ -166,8 +179,9 @@ class DoubleSpinner(
         this.configureInvertSignal()
 
         decimalPlaces = initialDecimalPlaces
+        this.initialDecimalPlaces = initialDecimalPlaces
 
-        decimalPlacesProperty.addListener { _, _, _ -> this.stepChanged() }
+            decimalPlacesProperty.addListener { _, _, _ -> this.stepChanged() }
         this.tooltip = Tooltip()
         stepChanged()
     }

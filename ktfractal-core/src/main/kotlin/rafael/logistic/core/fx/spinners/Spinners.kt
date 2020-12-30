@@ -42,6 +42,12 @@ private fun Spinner<*>.incrementValue(event: Event) {
     // @formatter:on
 }
 
+private fun Spinner<*>.handleReset(keyEvent: KeyEvent) {
+    if ((keyEvent.code == KeyCode.HOME) && (this is Resetable)) {
+        this.resetValue()
+    }
+}
+
 /**
  * Copia o valor do [Spinner] para a [Clipboard área de transferência] teclando Ctrc + C ou Ctrl + Ins.
  *
@@ -71,14 +77,19 @@ internal fun IntegerProperty.decrementConditional() {
  * @param action Ação a ser feita ao mudar o valor
  * @return [ChangeListener] chamando `action`.
  */
-internal fun Spinner<*>.bind(valueFactory: SpinnerValueFactory<*>, action: () -> Unit): (ObservableValue<out Any>?, Any, Any) -> Unit {
+internal fun Spinner<*>.configure(
+    valueFactory: SpinnerValueFactory<*>,
+    action: () -> Unit
+): (ObservableValue<out Any>?, Any, Any) -> Unit {
     this.valueFactory = valueFactory
 
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
+    this.addEventHandler(KeyEvent.KEY_PRESSED, this::handleReset)
     this.addCopyCapacity()
 
     val listener = { _: ObservableValue<out Any>?, _: Any, _: Any -> action() }
     this.valueProperty().addListener(listener)
     return listener
 }
+
