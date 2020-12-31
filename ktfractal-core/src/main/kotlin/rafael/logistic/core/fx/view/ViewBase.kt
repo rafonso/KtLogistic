@@ -11,6 +11,7 @@ import javafx.stage.FileChooser
 import rafael.logistic.core.fx.mapchart.MapChart
 import rafael.logistic.core.fx.spinners.DoubleSpinner
 import rafael.logistic.core.fx.spinners.IntSpinner
+import rafael.logistic.core.fx.spinners.Resetable
 import rafael.logistic.core.generation.GenerationStatus
 import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.generation.IterationGenerator
@@ -64,6 +65,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     protected       val chart                       :   C               by fxid()
 
+    private         var isReseting                  =   false
+
     /**
      * Array com as [Configurações][SpinnerConfigurations] dos [Spinner]s
      */
@@ -90,8 +93,13 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         chart.bind { refreshData(generator, iterationsProperty.value) }
         chart.generationStatusProperty.bindBidirectional(this.generationStatusProperty)
         root.setOnKeyPressed { event ->
-            if (event.isControlDown && event.code == KeyCode.S) {
-                exportImage()
+            if (event.isControlDown) {
+                when (event.code) {
+                    KeyCode.S -> exportImage()
+                    KeyCode.HOME -> resetControls()
+                    else -> {
+                    }
+                }
             }
         }
         this.spinnersChartProperties.forEach { (spinner, property) -> property.bind(spinner.valueProperty()) }
@@ -102,6 +110,22 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
         GenerationStatusChronometerListener.bind(generationStatusProperty())
         initializeAdditional()
 
+        loadData()
+    }
+
+    /**
+     * Reinicia os controles marcados como [Resetable] a seus respectivos valores iniciais.
+     */
+    private fun resetControls() {
+        // Evita que [MapChart.refreshData] seja chamado a cada componente resetado.
+        isReseting = true
+
+        root.top
+            .lookupAll(".resetable")
+            .map { it as Resetable }
+            .forEach(Resetable::resetValue)
+
+        isReseting = false
         loadData()
     }
 
@@ -154,7 +178,9 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
      * @param recalculate Se os dados brutos deven ser recalculados ou não.
      */
     protected fun loadData(recalculate: Boolean = true) {
-        chart.refreshData(recalculate)
+        if (!isReseting) {
+            chart.refreshData(recalculate)
+        }
     }
 
 }

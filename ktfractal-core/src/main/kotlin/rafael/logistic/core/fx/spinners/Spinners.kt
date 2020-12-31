@@ -43,9 +43,17 @@ private fun Spinner<*>.incrementValue(event: Event) {
 }
 
 private fun Spinner<*>.handleReset(keyEvent: KeyEvent) {
-    if ((keyEvent.code == KeyCode.HOME) && (this is Resetable)) {
-        this.resetValue()
+    if (this !is Resetable) {
+        return
     }
+    if (keyEvent.code != KeyCode.HOME) {
+        return
+    }
+    if (keyEvent.isControlDown) {
+        return
+    }
+
+    this.resetValue()
 }
 
 /**
@@ -85,6 +93,7 @@ internal fun Spinner<*>.configure(
 
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::incrementValue)
+    this.styleClass.add("resetable")
     this.addEventHandler(KeyEvent.KEY_PRESSED, this::handleReset)
     this.addCopyCapacity()
 
