@@ -5,7 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.scene.Node
 import javafx.scene.control.Spinner
 import javafx.scene.control.SpinnerValueFactory
-import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
 import javafx.stage.FileChooser
 import rafael.logistic.core.fx.mapchart.MapChart
@@ -17,7 +17,7 @@ import rafael.logistic.core.generation.GenerationStatusChronometerListener
 import rafael.logistic.core.generation.IterationGenerator
 import tornadofx.*
 import java.io.File
-import java.util.prefs.Preferences
+import java.util.logging.LogManager
 import kotlin.time.ExperimentalTime
 
 
@@ -84,6 +84,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
     @ExperimentalTime
     override fun onBeforeShow() {
+        LogManager.getLogManager().readConfiguration(this.javaClass.classLoader.getResourceAsStream("logging.properties"))
         initializeControls()
         spnIterations.initialize(iterationsValueFactory, ::loadData)
         spinnerComponents.forEach { (spinner, factory, deltaProperty) ->
@@ -92,16 +93,8 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
 
         chart.bind { refreshData(generator, iterationsProperty.value) }
         chart.generationStatusProperty.bindBidirectional(this.generationStatusProperty)
-        root.setOnKeyPressed { event ->
-            if (event.isControlDown) {
-                when (event.code) {
-                    KeyCode.S -> exportImage()
-                    KeyCode.HOME -> resetControls()
-                    else -> {
-                    }
-                }
-            }
-        }
+        shortcut(KeyCombination.valueOf("Ctrl+S")) { exportImage() }
+        shortcut(KeyCombination.valueOf("Ctrl+Home")) { resetControls() }
         this.spinnersChartProperties.forEach { (spinner, property) -> property.bind(spinner.valueProperty()) }
         initializeCharts(iterationsProperty)
 
@@ -150,25 +143,27 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     ) = this.initialize(valueFactory, delta, ::loadData)
 
     protected fun exportImage() {
-        val prefs = Preferences.userRoot().node(this.javaClass.name)
-        val imageDir = prefs.get("imageDir", System.getProperty("user.home"))
-        val imageName = getImageName(iterationsProperty.value) + ".png"
+        preferences(this.javaClass.name) {
+            val imageDir = get("imageDir", System.getProperty("user.home"))
+            val imageName = getImageName(iterationsProperty.value) + ".png"
 
-        chooseFile(
-            "Export Image",
-            arrayOf(FileChooser.ExtensionFilter("PNG File", listOf("*.png"))),
-            File(imageDir),
-            FileChooserMode.Save,
-            super.currentWindow
-        ) {
-            this.initialFileName = imageName
-        }.firstOrNull()?.let { imageFile ->
-            if (chart.exportImageTo(imageFile)) {
-                println("Arquivo salvo em $imageFile")
-                if (imageFile.parent != imageDir) {
-                    prefs.put("imageDir", imageFile.parent)
+            val filter = arrayOf(FileChooser.ExtensionFilter("PNG File", listOf("*.png")))
+            chooseFile(
+                "Export Image",
+                filter,
+                File(imageDir),
+                FileChooserMode.Save,
+                super.currentWindow
+            ) { this.initialFileName = imageName }
+                .firstOrNull()
+                ?.let { imageFile ->
+                    if (chart.exportImageTo(imageFile)) {
+                        log.info("Arquivo salvo em $imageFile")
+                        if (imageFile.parent != imageDir) {
+                            put("imageDir", imageFile.parent)
+                        }
+                    }
                 }
-            }
         }
     }
 

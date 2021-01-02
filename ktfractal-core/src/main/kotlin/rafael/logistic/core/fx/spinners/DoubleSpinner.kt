@@ -146,7 +146,7 @@ class DoubleSpinner(
             sbTootip.append('\n').append("Press - or Double click with right button mouse to change signal")
         }
 
-        this.tooltip.text = sbTootip.toString()
+        tooltip(sbTootip.toString())
     }
 
     override fun resetValue() {
