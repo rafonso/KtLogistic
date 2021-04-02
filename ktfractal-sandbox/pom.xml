@@ -3,18 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>ktfractal</artifactId>
         <groupId>rafael.ktfractal</groupId>
+        <artifactId>ktfractal</artifactId>
         <version>0.5</version>
     </parent>
-
 
     <artifactId>ktfractal-sandbox</artifactId>
     <packaging>jar</packaging>
     <name>KTFractal - Sandbox and experiments</name>
-
-    <properties>
-    </properties>
 
     <dependencies>
         <dependency>

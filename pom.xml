@@ -1,38 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>rafael.ktfractal</groupId>
     <artifactId>ktfractal</artifactId>
     <version>0.5</version>
     <packaging>pom</packaging>
+
     <name>KTFractal</name>
+    <url>https://github.com/rafonso/KtLogistic</url>
+    <inceptionYear>2020</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>rafonso</id>
+            <name>Rafael Afonso</name>
+            <email>rafael DOT afonso AT gmail DOT com</email>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <timezone>Europe/Lisbon</timezone>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>ktfractal-core</module>
+        <module>ktfractal-bifurcation</module>
+        <module>ktfractal-bifurcation-gaussian</module>
+        <module>ktfractal-bifurcation-henon</module>
+        <module>ktfractal-bifurcation-hiperbolic-tan</module>
+        <module>ktfractal-bifurcation-ikeda</module>
+        <module>ktfractal-bifurcation-logistic</module>
+        <module>ktfractal-bifurcation-lozi</module>
+        <module>ktfractal-bifurcation-tent</module>
+        <module>ktfractal-map</module>
+        <module>ktfractal-map-baker</module>
+        <module>ktfractal-map-duffing</module>
+        <module>ktfractal-map-gaussian</module>
+        <module>ktfractal-map-gingerbreadman</module>
+        <module>ktfractal-map-henon</module>
+        <module>ktfractal-map-ikeda</module>
+        <module>ktfractal-map-kaplanyorke</module>
+        <module>ktfractal-map-logistic</module>
+        <module>ktfractal-map-lozi</module>
+        <module>ktfractal-map-mandelbrot</module>
+        <module>ktfractal-map-standard</module>
+        <module>ktfractal-map-tent</module>
+        <module>ktfractal-map-tinkerbell</module>
+        <module>ktfractal-set</module>
+        <module>ktfractal-set-burning-ship</module>
+        <module>ktfractal-set-julia</module>
+        <module>ktfractal-set-mandelbrot</module>
+        <module>ktfractal-template</module>
+        <module>ktfractal-sandbox</module>
+    </modules>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>11</jdk.version>
         <javafx.version>${jdk.version}</javafx.version>
-        <maven.compiler.target>${jdk.version}</maven.compiler.target>
-        <maven.compiler.source>${jdk.version}</maven.compiler.source>
-        <kotlin.version>1.4.21</kotlin.version>
-        <tornadofx.version>1.7.20</tornadofx.version>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <jdk.version>11</jdk.version>
         <kotlin.code.style>official</kotlin.code.style>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <kotlin.version>1.4.21</kotlin.version>
+        <maven.compiler.source>${jdk.version}</maven.compiler.source>
+        <maven.compiler.target>${jdk.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <tornadofx.version>1.7.20</tornadofx.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
         <dependency>
             <groupId>no.tornado</groupId>
             <artifactId>tornadofx</artifactId>
@@ -42,6 +77,16 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect -->
         <dependency>
@@ -77,38 +122,29 @@
                     <jvmTarget>${jdk.version}</jvmTarget>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <version>2.11.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <lineSeparator>\n</lineSeparator>
+                    <sortProperties>true</sortProperties>
+                    <keepBlankLines>true</keepBlankLines>
+                    <sortDependencies>scope,groupId,artifactId</sortDependencies>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                    <expandEmptyElements>false</expandEmptyElements>
+                    <verifyFail>stop</verifyFail>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
-    <modules>
-        <module>ktfractal-core</module>
-        <module>ktfractal-bifurcation</module>
-        <module>ktfractal-bifurcation-gaussian</module>
-        <module>ktfractal-bifurcation-henon</module>
-        <module>ktfractal-bifurcation-hiperbolic-tan</module>
-        <module>ktfractal-bifurcation-ikeda</module>
-        <module>ktfractal-bifurcation-logistic</module>
-        <module>ktfractal-bifurcation-lozi</module>
-        <module>ktfractal-bifurcation-tent</module>
-        <module>ktfractal-map</module>
-        <module>ktfractal-map-baker</module>
-        <module>ktfractal-map-duffing</module>
-        <module>ktfractal-map-gaussian</module>
-        <module>ktfractal-map-gingerbreadman</module>
-        <module>ktfractal-map-henon</module>
-        <module>ktfractal-map-ikeda</module>
-        <module>ktfractal-map-kaplanyorke</module>
-        <module>ktfractal-map-logistic</module>
-        <module>ktfractal-map-lozi</module>
-        <module>ktfractal-map-mandelbrot</module>
-        <module>ktfractal-map-standard</module>
-        <module>ktfractal-map-tent</module>
-        <module>ktfractal-map-tinkerbell</module>
-        <module>ktfractal-set</module>
-        <module>ktfractal-set-burning-ship</module>
-        <module>ktfractal-set-julia</module>
-        <module>ktfractal-set-mandelbrot</module>
-        <module>ktfractal-template</module>
-        <module>ktfractal-sandbox</module>
-    </modules>
 </project>
