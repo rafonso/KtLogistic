@@ -82,7 +82,7 @@ abstract class ViewBase<T, G : IterationGenerator<*, T, *>, C>(
     private val generationStatusProperty = GenerationStatus.IDLE.toProperty()
     fun generationStatusProperty() = generationStatusProperty as ReadOnlyObjectProperty<GenerationStatus>
 
-    @ExperimentalTime
+    @OptIn(ExperimentalTime::class)
     override fun onBeforeShow() {
         LogManager.getLogManager().readConfiguration(this.javaClass.classLoader.getResourceAsStream("logging.properties"))
         initializeControls()
