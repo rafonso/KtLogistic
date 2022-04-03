@@ -6,7 +6,7 @@ import tornadofx.*
 
 class MandelbrotSetApp: App(MandelbrotSetView::class, Styles::class)
 
-class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetGenerator()) {
+class MandelbrotSetView : SetView("Mandelbrot Set", "MandelbrotSet", MandelbrotSetSwitchGenerator()) {
 
     override val spinnerComponents = emptyArray<SpinnerConfigurations>()
 

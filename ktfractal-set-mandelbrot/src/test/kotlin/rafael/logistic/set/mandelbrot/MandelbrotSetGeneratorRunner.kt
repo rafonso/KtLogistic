@@ -13,7 +13,7 @@ fun main() {
     val yMax = - 0.65
     val iterationsPerDot = 500
 
-    val times = 500
+    val times = 1000
 
     val parameter = SetParameter(
         Double.NaN,
@@ -38,7 +38,7 @@ fun main() {
         generator.generate(BiDouble.NAN, parameter, iterationsPerDot)
         val t1i = LocalTime.now()
 
-        Duration.between(t0i, t1i).toMillis().also { deltaT -> println("%4d".format(deltaT)) }
+        Duration.between(t0i, t1i).toMillis() //.also { deltaT -> println("%4d".format(deltaT)) }
     }.toLongArray()
 
 
