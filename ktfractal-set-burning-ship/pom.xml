@@ -5,7 +5,7 @@
     <parent>
         <groupId>rafael.ktfractal</groupId>
         <artifactId>ktfractal</artifactId>
-        <version>0.5</version>
+        <version>0.5.1</version>
     </parent>
 
     <artifactId>ktfractal-set-burning-ship</artifactId>
