@@ -8,9 +8,7 @@ data class RData(val col: Int, val r: Double, val values: DoubleArray) {
 
         if (col != other.col) return false
         if (r != other.r) return false
-        if (!values.contentEquals(other.values)) return false
-
-        return true
+        return values.contentEquals(other.values)
     }
 
     override fun hashCode(): Int {

@@ -7,6 +7,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 
 /**
@@ -49,7 +50,7 @@ class GenerationStatusChronometerListener private constructor(private val proces
                     print("\t  :     ") // Deveria ser o CA
                 }
             } else if (prior != null) {
-                print("\t%s: %4.0f".format(priorStatus.code, (now - prior).inMilliseconds))
+                print("\t%s: %4.0f".format(priorStatus.code, (now - prior).toDouble(DurationUnit.MILLISECONDS)))
             }
         }
 
@@ -60,7 +61,7 @@ class GenerationStatusChronometerListener private constructor(private val proces
                     print("    \t") // Deveria ser o CA
                 }
             } else if (prior != null) {
-                print("%4.0f\t".format((now - prior).inMilliseconds))
+                print("%4.0f\t".format((now - prior).toDouble(DurationUnit.MILLISECONDS)))
             }
         }
 

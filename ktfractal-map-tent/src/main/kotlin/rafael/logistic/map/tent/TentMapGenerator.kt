@@ -10,7 +10,7 @@ class TentMapGenerator : IterationGeneratorDouble<TentMapParameter>() {
 
     override fun calculate(
         parameter: TentMapParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") x: Double
+        x: Double
     ): Double = if (x <= 0.5) parameter.mi * x else parameter.mi * (1 - x)
 
     fun generate(x0: Double, mi: Double, iterations: Int): List<Double> =

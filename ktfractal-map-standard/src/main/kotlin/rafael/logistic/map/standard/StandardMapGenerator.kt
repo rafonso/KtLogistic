@@ -17,7 +17,7 @@ class StandardMapGenerator : IterationGeneratorBi<StandardMapParameter>() {
 
     override fun calculate(
         parameter: StandardMapParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble {
         val y = point.y + parameter.k * sin(point.x) / (2 * PI)
         return BiDouble((point.x + y), y)

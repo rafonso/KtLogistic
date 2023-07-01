@@ -89,6 +89,7 @@ internal fun Spinner<*>.configure(
     valueFactory: SpinnerValueFactory<*>,
     action: () -> Unit
 ): (ObservableValue<out Any>?, Any, Any) -> Unit {
+    @Suppress("SYNTHETIC_SETTER_PROJECTED_OUT")
     this.valueFactory = valueFactory
 
     this.addEventHandler(ScrollEvent.SCROLL, this::incrementValue)

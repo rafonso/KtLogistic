@@ -28,7 +28,7 @@ data class LoziBifurcationParameter(
 class LoziBifurcationGenerator : BifurcationGeneratorWithPrior<LoziBifurcationParameter>() {
 
     override fun getNextXWithPrior(
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") alpha: Double,
+        alpha: Double,
         x: Double, xPrior: Double,
         parameter: LoziBifurcationParameter
     ): Double =

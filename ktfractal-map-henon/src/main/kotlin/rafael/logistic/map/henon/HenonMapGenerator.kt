@@ -10,7 +10,7 @@ class HenonMapGenerator : IterationGeneratorBi<HenonParameter>() {
 
     override fun calculate(
         parameter: HenonParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble =
         BiDouble(1.0 - parameter.alpha * point.x * point.x + point.y, parameter.beta * point.x)
 

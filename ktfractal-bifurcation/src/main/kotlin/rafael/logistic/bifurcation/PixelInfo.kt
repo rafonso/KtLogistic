@@ -22,9 +22,7 @@ internal class PixelInfo(val xChart: Int, val yChart: Int, var value: Int = -1) 
         other as PixelInfo
 
         if (xChart != other.xChart) return false
-        if (yChart != other.yChart) return false
-
-        return true
+        return yChart == other.yChart
     }
 
     /**

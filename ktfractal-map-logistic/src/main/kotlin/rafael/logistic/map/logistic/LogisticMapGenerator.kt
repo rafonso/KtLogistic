@@ -9,7 +9,7 @@ class LogisticMapGenerator : IterationGeneratorDouble<LogisticParameter>() {
 
     override fun calculate(
         parameter: LogisticParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") x: Double
+        x: Double
     ): Double = x * parameter.r * (1.0 - x)
 
     fun generate(x0: Double, r: Double, iterations: Int): List<Double> =

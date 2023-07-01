@@ -17,7 +17,7 @@ class BakerMapGenerator : IterationGeneratorBi<NoParameter>() {
 
     override fun calculate(
         parameter: NoParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble =
         calc(point)
 

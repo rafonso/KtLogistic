@@ -9,7 +9,7 @@ class GingerbreadmanMapGenerator : IterationGeneratorBi<NoParameter>() {
 
     override fun calculate(
         parameter: NoParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble =
         BiDouble(1.0 - point.y + point.x.absoluteValue, point.x)
 

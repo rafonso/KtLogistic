@@ -34,16 +34,16 @@ class IterationChartBi(
      * @param statusProperty properiedade do status do gráfico principal
      * @param iterationsProperty Propriedade relacionada a quantidade de iterações
      * @param dataProperty Propriedade relacionada aos dados brutos.
-     * @param _extractor Função responsável por extrair o valor apropriado de [BiDouble].
+     * @param function Função responsável por extrair o valor apropriado de [BiDouble].
      */
     fun bind(
         statusProperty: ObservableValue<GenerationStatus>,
         iterationsProperty: ObservableValue<Int>,
         dataProperty: ObservableValue<List<BiDouble>>,
-        _extractor: (BiDouble) -> Double
+        function: (BiDouble) -> Double
     ) {
         super.bind(statusProperty, iterationsProperty, dataProperty)
-        this.extractor = _extractor
+        this.extractor = function
     }
 
     override fun loadPath(iterationData: List<BiDouble>): Array<PathElement> {

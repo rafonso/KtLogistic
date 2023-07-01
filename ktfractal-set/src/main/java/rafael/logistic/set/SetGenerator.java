@@ -34,12 +34,10 @@ public abstract class SetGenerator implements IterationGenerator<BiDouble, SetIn
     protected final int checkConvergence(final double zx, final double zy, final double cx, final double cy, final int convergenceSteps) {
         double zzx = zx;
         double zzy = zy;
-        double nextZX;
-        double nextZY;
 
         for (int iteration = 1; iteration < convergenceSteps; iteration++) {
-            nextZX = this.nextX(zzx, zzy, cx, cy);
-            nextZY = this.nextY(zzx, zzy, cx, cy);
+            double nextZX = this.nextX(zzx, zzy, cx, cy);
+            double nextZY = this.nextY(zzx, zzy, cx, cy);
 
             if (this.diverges(nextZX, nextZY)) {
                 return iteration;
@@ -67,6 +65,7 @@ public abstract class SetGenerator implements IterationGenerator<BiDouble, SetIn
 
     protected abstract double nextY(double zx, double zy, double cx, double cy);
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public List<SetInfo> generate(BiDouble z0, final SetParameter parameter, final int interactions) {
         if (parameter.width * parameter.height != setInfos.length) {

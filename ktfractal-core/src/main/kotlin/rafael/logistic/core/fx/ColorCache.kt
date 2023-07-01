@@ -13,7 +13,7 @@ private const val MIN_OPACITY = 0.5
 val rainbowColors =
     arrayOf(Color.VIOLET, Color.INDIGO, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED)
 
-sealed class BaseColorCache<T> constructor(private val colors: Array<out Color>) {
+sealed class BaseColorCache<T>(private val colors: Array<out Color>) {
 
     private val delta = 1.0 / colors.lastIndex
 

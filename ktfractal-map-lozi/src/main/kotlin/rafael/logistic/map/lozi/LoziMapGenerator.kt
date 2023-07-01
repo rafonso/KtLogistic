@@ -12,7 +12,7 @@ class LoziMapGenerator : IterationGeneratorBi<LoziMapParameter>() {
 
     override fun calculate(
         parameter: LoziMapParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble =
         BiDouble(1.0 - parameter.alpha * point.x.absoluteValue + point.y, parameter.beta * point.x)
 

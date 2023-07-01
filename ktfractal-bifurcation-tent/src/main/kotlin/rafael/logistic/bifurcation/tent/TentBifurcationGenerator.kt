@@ -14,7 +14,7 @@ const val X_MAX = 1.0
 class TentBifurcationGenerator : BifurcationGenerator<BifurcationParameter>() {
 
     override fun getNextX(
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") mi: Double,
+        mi: Double,
         x: Double,
         parameter: BifurcationParameter
     ): Double =

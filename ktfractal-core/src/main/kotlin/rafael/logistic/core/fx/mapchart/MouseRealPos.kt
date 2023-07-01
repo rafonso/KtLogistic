@@ -60,7 +60,7 @@ data class MouseRealPos(val x: Double, val y: Double, val mouseEvent: MouseEvent
      * Indica se o mouse se encontra dentro do gráfico.
      *
      */
-    val isValid = !(mouseEvent === noMouseEvent)
+    val isValid = mouseEvent !== noMouseEvent
 
     val biDouble: BiDouble by lazy { BiDouble(x, y) }
 

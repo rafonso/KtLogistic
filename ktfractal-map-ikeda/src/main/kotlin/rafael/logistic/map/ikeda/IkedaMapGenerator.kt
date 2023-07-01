@@ -17,7 +17,7 @@ class IkedaMapGenerator : IterationGeneratorBi<IkedaParameter>() {
 
     override fun calculate(
         parameter: IkedaParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble {
         val t = 0.4 - 6.0 / (1 + point.x.pow(2) +  point.y.pow(2))
 

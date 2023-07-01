@@ -9,7 +9,7 @@ data class TemplateParameter(val min: Double, val max: Double) : IterationParame
 
 class TemplateGenerator : IterationGeneratorBi<TemplateParameter>() {
 
-    override fun calculate(parameter: TemplateParameter, @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble): BiDouble {
+    override fun calculate(parameter: TemplateParameter, point: BiDouble): BiDouble {
         val value = (parameter.max - parameter.min) * Random.nextDouble() + parameter.min
         val signalX = if (Random.nextBoolean()) +1 else -1
         val signalY = if (Random.nextBoolean()) +1 else -1

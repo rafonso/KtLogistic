@@ -13,7 +13,7 @@ class KaplanYorkeMapGenerator : IterationGeneratorBi<KaplanYorkeParameter>() {
 
     override fun calculate(
         parameter: KaplanYorkeParameter,
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") point: BiDouble
+        point: BiDouble
     ): BiDouble =
         BiDouble(2 * point.x % 0.99995, parameter.alpha * point.y + cos(4 * PI * point.x))
 

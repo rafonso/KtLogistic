@@ -26,7 +26,7 @@ data class IkedaBifurcationParameter(
 class IkedaBifurcationGenerator : BifurcationGeneratorWithPrior<IkedaBifurcationParameter>() {
 
     override fun getNextXWithPrior(
-        @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE") u: Double,
+        u: Double,
         x: Double, xPrior: Double,
         parameter: IkedaBifurcationParameter
     ): Double {

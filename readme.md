@@ -40,32 +40,32 @@ achando a Classe da view.
 `
 
 #### Relação de projetos e de suas Views
-| Projeto                               | Pacote                                            | Classe                            | Observação |
-| -------------                         |:-------------                                     |:-----                             | -----|
-| ktfractal-core                        |                                                   |                                   | Projeto Pai de todos                         |
-| ktfractal-bifurcation                 |                                                   |                                   | Projeto base para os `ktfractal-bifurcation` |
-| ktfractal-bifurcation-gaussian        | `rafael.logistic.bifurcation.gaussian`            | `GaussianBifurcationApp`          |                                              |
-| ktfractal-bifurcation-henon           | `rafael.logistic.bifurcation.henon`               | `HenonBifurcationApp`             |                                              |
-| ktfractal-bifurcation-hiperbolic-tan  | `rafael.logistic.bifurcation.hiperbolic_tangent`  | `HiperbolicTangentBifurcationApp` |                                              |
-| ktfractal-bifurcation-ikeda           | `rafael.logistic.bifurcation.ikeda`               | `IkedaBifurcationApp`             |                                              |
-| ktfractal-bifurcation-logistic        | `rafael.logistic.bifurcation.logistic`            | `LogisticBifurcationApp`          |                                              |
-| ktfractal-bifurcation-lozi            | `rafael.logistic.bifurcation.lozi`                | `LoziBifurcationApp`              |                                              |
-| ktfractal-bifurcation-tent            | `rafael.logistic.bifurcation.tent`                | `TentBifurcationApp`              |                                              |
-| ktfractal-map-baker                   | `rafael.logistic.map.baker`                       | `BakerMapApp`                     |                                              |
-| ktfractal-map-duffing                 | `rafael.logistic.map.duffing`                     | `DuffingMapApp`                   |                                              |
-| ktfractal-map-gaussian                | `rafael.logistic.map.gaussian`                    | `GaussianMapApp`                  |                                              |
-| ktfractal-map-gingerbreadman          | `rafael.logistic.map.gingerbreadman`              | `GingerbreadmanMapApp`            |                                              |
-| ktfractal-map-henon                   | `rafael.logistic.map.henon`                       | `HenonMapApp`                     |                                              |
-| ktfractal-map-ikeda                   | `rafael.logistic.map.ikeda`                       | `IkedaMapApp`                     |                                              |
-| ktfractal-map-kaplanyorke             | `rafael.logistic.map.kaplanyorke`                 | `KaplanYorkeMapApp`               |                                              |
-| ktfractal-map-logistic                | `rafael.logistic.map.logistic`                    | `LogisticMapApp`                  |                                              |
-| ktfractal-map-lozi                    | `rafael.logistic.map.lozi`                        | `LoziMapApp`                      |                                              |
-| ktfractal-map-mandelbrot              | `rafael.logistic.map.mandelbrot`                  | `MandelbrotMapApp`                |                                              |
-| ktfractal-map-standard                | `rafael.logistic.map.standard`                    | `StandardMapApp`                  |                                              |
-| ktfractal-map-tent                    | `rafael.logistic.map.tent`                        | `TentMapApp`                      |                                              |
-| ktfractal-map-tinkerbell              | `rafael.logistic.map.tinkerbell`                  | `TinkerbellMapApp`                |                                              |
-| ktfractal-set                         |                                                   |                                   | Projeto base para `ktfractal-set`            |
-| ktfractal-set-burning-ship            | `rafael.logistic.set.burning_ship`                | `BurningShipSetApp`               |                                              |
-| ktfractal-set-julia                   | `rafael.logistic.set.julia`                       | `JuliaSetApp`                     |                                              |
-| ktfractal-set-mandelbrot              | `rafael.logistic.set.mandelbrot`                  | `MandelbrotSetApp`                |                                              |
-| ktfractal-template                    | `rafael.experimental.template`                    | `TemplateApp`                     |                                              |
+| Projeto                              | Pacote                                           | Classe                            | Observação                                   |
+|--------------------------------------|:-------------------------------------------------|:----------------------------------|----------------------------------------------|
+| ktfractal-core                       |                                                  |                                   | Projeto Pai de todos                         |
+| ktfractal-bifurcation                |                                                  |                                   | Projeto base para os `ktfractal-bifurcation` |
+| ktfractal-bifurcation-gaussian       | `rafael.logistic.bifurcation.gaussian`           | `GaussianBifurcationApp`          |                                              |
+| ktfractal-bifurcation-henon          | `rafael.logistic.bifurcation.henon`              | `HenonBifurcationApp`             |                                              |
+| ktfractal-bifurcation-hiperbolic-tan | `rafael.logistic.bifurcation.hiperbolic_tangent` | `HiperbolicTangentBifurcationApp` |                                              |
+| ktfractal-bifurcation-ikeda          | `rafael.logistic.bifurcation.ikeda`              | `IkedaBifurcationApp`             |                                              |
+| ktfractal-bifurcation-logistic       | `rafael.logistic.bifurcation.logistic`           | `LogisticBifurcationApp`          |                                              |
+| ktfractal-bifurcation-lozi           | `rafael.logistic.bifurcation.lozi`               | `LoziBifurcationApp`              |                                              |
+| ktfractal-bifurcation-tent           | `rafael.logistic.bifurcation.tent`               | `TentBifurcationApp`              |                                              |
+| ktfractal-map-baker                  | `rafael.logistic.map.baker`                      | `BakerMapApp`                     |                                              |
+| ktfractal-map-duffing                | `rafael.logistic.map.duffing`                    | `DuffingMapApp`                   |                                              |
+| ktfractal-map-gaussian               | `rafael.logistic.map.gaussian`                   | `GaussianMapApp`                  |                                              |
+| ktfractal-map-gingerbreadman         | `rafael.logistic.map.gingerbreadman`             | `GingerbreadmanMapApp`            |                                              |
+| ktfractal-map-henon                  | `rafael.logistic.map.henon`                      | `HenonMapApp`                     |                                              |
+| ktfractal-map-ikeda                  | `rafael.logistic.map.ikeda`                      | `IkedaMapApp`                     |                                              |
+| ktfractal-map-kaplanyorke            | `rafael.logistic.map.kaplanyorke`                | `KaplanYorkeMapApp`               |                                              |
+| ktfractal-map-logistic               | `rafael.logistic.map.logistic`                   | `LogisticMapApp`                  |                                              |
+| ktfractal-map-lozi                   | `rafael.logistic.map.lozi`                       | `LoziMapApp`                      |                                              |
+| ktfractal-map-mandelbrot             | `rafael.logistic.map.mandelbrot`                 | `MandelbrotMapApp`                |                                              |
+| ktfractal-map-standard               | `rafael.logistic.map.standard`                   | `StandardMapApp`                  |                                              |
+| ktfractal-map-tent                   | `rafael.logistic.map.tent`                       | `TentMapApp`                      |                                              |
+| ktfractal-map-tinkerbell             | `rafael.logistic.map.tinkerbell`                 | `TinkerbellMapApp`                |                                              |
+| ktfractal-set                        |                                                  |                                   | Projeto base para `ktfractal-set`            |
+| ktfractal-set-burning-ship           | `rafael.logistic.set.burning_ship`               | `BurningShipSetApp`               |                                              |
+| ktfractal-set-julia                  | `rafael.logistic.set.julia`                      | `JuliaSetApp`                     |                                              |
+| ktfractal-set-mandelbrot             | `rafael.logistic.set.mandelbrot`                 | `MandelbrotSetApp`                |                                              |
+| ktfractal-template                   | `rafael.experimental.template`                   | `TemplateApp`                     |                                              |
