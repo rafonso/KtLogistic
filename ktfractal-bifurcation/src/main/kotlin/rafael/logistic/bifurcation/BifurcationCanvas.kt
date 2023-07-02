@@ -16,13 +16,13 @@ class BifurcationCanvas : CanvasChart<RData>() {
 
             val firstIterationProperty      =   oneProperty()
 
-    private val cachePosByIterations        =   mutableMapOf<Int, DoubleArray>()
+    private val cachePosByIterations        =   HashMap<Int, DoubleArray>()
 
     private var cachePos                    :   DoubleArray = DoubleArray(0)
 
     private val colorBytesCache             =   ColorIntCache(rainbowColors)
 
-    private val pixelInfoCache              =   mutableMapOf<Int, MutableMap<Int, PixelInfo>>()
+    private val pixelInfoCache              =   HashMap<Int, MutableMap<Int, PixelInfo>>()
 
     // @formatter:on
 
@@ -42,7 +42,7 @@ class BifurcationCanvas : CanvasChart<RData>() {
         val yChart = yToCanvas(v)
 
         return pixelInfoCache
-            .getOrPut(rPos) { mutableMapOf() } // busca por linha
+            .getOrPut(rPos) { HashMap() } // busca por linha
             .getOrPut(yChart) { PixelInfo(rPos, yChart) } // busca por coluna
             .also { it.value = intColor }
     }
