@@ -18,6 +18,8 @@ class MapChartBi(
     @NamedArg("data") data: ObservableList<Series<Double, Double>>
 ) : MapChartBase<BiDouble>(xAxis, yAxis, data) {
 
+    private val baseCircle: Circle = this.coordsToCircle(0.0, 0.0, 0.0)
+
     constructor(@NamedArg("xAxis") xAxis: Axis<Double>, @NamedArg("yAxis") yAxis: Axis<Double>) :
             this(xAxis, yAxis, mutableListOf<Series<Double, Double>>().asObservable<Series<Double, Double>>())
 
@@ -51,7 +53,7 @@ class MapChartBi(
         .map { (centerX, centerY, pos) ->
             coordsToCircle(centerX, centerY, pos)
         }
-        .toArray(::arrayOfNulls)
+        .toArray { Array<Node>(it) {baseCircle} }
 
     override fun plotData(element: Array<Node>) {
         background.getChildList()?.addAll(element)
